@@ -22,6 +22,7 @@ public class Scenario {
 	private List<WeatherForecast> forecast;
 	private Map<Location, Stock> supplies;
 	private GeoMap map;
+	private Market market;
 
 	public Scenario(int mapRows, int mapColumns){
 		super();
@@ -139,6 +140,14 @@ public class Scenario {
 
 	public void setMap(GeoMap map) {
 		this.map = map;
+	}
+
+	public Market getMarket() {
+		return market;
+	}
+
+	public void setMarket(Market market) {
+		this.market = market;
 	}
 
 }

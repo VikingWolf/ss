@@ -12,6 +12,7 @@ public class Position extends ActivableImpl {
 	private Country country;
 	private List<Formation> battleOrder;
 	private List<Fortification> defenses;
+	private int prestige;
 
 	public Position(){
 		super();
@@ -71,4 +72,12 @@ public class Position extends ActivableImpl {
 		this.defenses = defenses;
 	}
 
+	public int getPrestige() {
+		return prestige;
+	}
+
+	public void setPrestige(int prestige) {
+		this.prestige = prestige;
+	}
+	
 }

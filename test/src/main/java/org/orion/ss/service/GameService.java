@@ -3,14 +3,20 @@ package org.orion.ss.service;
 import java.util.List;
 
 import org.orion.ss.model.impl.Company;
-import org.orion.ss.model.impl.Formation;
 import org.orion.ss.model.impl.Game;
 import org.orion.ss.model.impl.Player;
+import org.orion.ss.utils.Maths;
 
 public class GameService extends Service {
 		
+	private final static double INITIATIVE_UNITARY_DEVIATION = 0.2d;
+	
 	public GameService(Game game){
 		super(game);
+	}
+	
+	public void managementPhase(List<Player> players){
+		//TODO
 	}
 	
 	public void endTurn(){
@@ -29,7 +35,7 @@ public class GameService extends Service {
 		double max = Double.MIN_VALUE;
 		Player result = null;
 		for (Player player : getGame().getPlayers()){
-			double initiative = computeInitiative(player);
+			double initiative = Maths.gaussianRandomize(computeInitiative(player), INITIATIVE_UNITARY_DEVIATION);
 			if (initiative > max){
 				max = initiative;
 				result = player;

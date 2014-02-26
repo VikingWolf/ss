@@ -1,6 +1,7 @@
 package org.orion.ss.model.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,11 +14,13 @@ public class Game {
 	private String id;
 	private int turn = 0;
 	private Player currentPlayer;
+	private Market market;
 	
-	public Game(String id, GameSettings settings){
+	public Game(String id, GameSettings settings, Market market){
 		super();
 		this.id = id;
 		this.settings = settings;
+		this.market = market;
 		attacker = new HashMap<Player, Position>();
 		defender = new HashMap<Player, Position>();
 	}
@@ -44,6 +47,12 @@ public class Game {
 	
 	public void addDefender(Player player, Position position){
 		defender.put(player, position);
+	}
+	
+	public Date getDate(){
+		long time = this.getSettings().getInitialTime().getTime();
+		time += this.getTurn() * this.getSettings().getTurnDuration() * GameSettings.HOUR_MILLIS;
+		return new Date(time);
 	}
 	
 	/* getters & setters */
@@ -103,4 +112,12 @@ public class Game {
 		this.currentPlayer = currentPlayer;
 	}
 
+	public Market getMarket() {
+		return market;
+	}
+
+	public void setMarket(Market market) {
+		this.market = market;
+	}
+	
 }

@@ -6,6 +6,8 @@ import java.util.List;
 
 public class GameSettings {
 
+	public final static long HOUR_MILLIS = 1000L * 60L * 60L;
+	
 	private int turnDuration; /* in hours */
 	private Date initialTime;
 	private int timeLimit; /* in turns */

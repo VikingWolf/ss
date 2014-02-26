@@ -15,8 +15,6 @@ public class Player {
 		this.played = false;
 	}
 	
-	/* getters & setters */
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -41,6 +39,14 @@ public class Player {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Player [email=" + email + ", played=" + played + "]";
+	}
+
+	/* getters & setters */
+
 
 	public String getEmail() {
 		return email;

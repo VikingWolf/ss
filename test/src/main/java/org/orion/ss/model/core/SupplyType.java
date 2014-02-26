@@ -1,6 +1,6 @@
 package org.orion.ss.model.core;
 
-public enum Supply {
+public enum SupplyType {
 
 	AMMO, FUEL;
 

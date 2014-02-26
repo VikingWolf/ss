@@ -2,9 +2,9 @@ package org.orion.ss.model.impl;
 
 import java.util.HashMap;
 
-import org.orion.ss.model.core.Supply;
+import org.orion.ss.model.core.SupplyType;
 
 /* in metric tons */
-public class Stock extends HashMap<Supply, Double> {
+public class Stock extends HashMap<SupplyType, Double> {
 
 }
