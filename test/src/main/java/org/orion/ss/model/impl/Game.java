@@ -5,9 +5,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 
-public class Game {
-		
+import org.orion.ss.model.core.GamePhase;
+
+public class Game extends Observable {
+
 	private Map<Player, Position> attacker;
 	private Map<Player, Position> defender;
 	private GameSettings settings;
@@ -15,49 +18,67 @@ public class Game {
 	private int turn = 0;
 	private Player currentPlayer;
 	private Market market;
-	
-	public Game(String id, GameSettings settings, Market market){
+	private GameLog log;
+	private GamePhase phase = GamePhase.MANAGEMENT;
+
+	public Game(String id, GameSettings settings, Market market) {
 		super();
 		this.id = id;
 		this.settings = settings;
 		this.market = market;
 		attacker = new HashMap<Player, Position>();
 		defender = new HashMap<Player, Position>();
+		log = new GameLog();
+		log.addEntry("Game " + getId() + " created at " + new Date());
+		log.addEntry("turn=" + getTurn());
+		log.addEntry("date=" + getDate());
+		log.addDisplay(settings);
+		log.addDisplay(market);
+		log.addSeparator();
 	}
-	
-	public void advanceTurn(){
-		turn++;
+
+	public void advanceTurn() {
+		if (turn == 0) {
+			if (this.getPhase().equals(GamePhase.MANAGEMENT)) {
+				this.setPhase(GamePhase.DEPLOYMENT);
+			} else if (this.getPhase().equals(GamePhase.DEPLOYMENT)) {
+				this.setPhase(GamePhase.TURN);
+				turn++;
+			}
+		} else {
+			turn++;
+		}
 	}
-	
-	public Position getPositionFor(Player player){
+
+	public Position getPositionFor(Player player) {
 		Position result = null;
 		if (attacker.containsKey(player)) {
 			result = attacker.get(player);
-		} else if (defender.containsKey(player)){
+		} else if (defender.containsKey(player)) {
 			result = defender.get(player);
 		}
 		return result;
 	}
-	
+
 	/* adders */
-	
-	public void addAttacker(Player player, Position position){
+
+	public void addAttacker(Player player, Position position) {
 		attacker.put(player, position);
 	}
-	
-	public void addDefender(Player player, Position position){
+
+	public void addDefender(Player player, Position position) {
 		defender.put(player, position);
 	}
-	
-	public Date getDate(){
+
+	public Date getDate() {
 		long time = this.getSettings().getInitialTime().getTime();
 		time += this.getTurn() * this.getSettings().getTurnDuration() * GameSettings.HOUR_MILLIS;
 		return new Date(time);
 	}
-	
+
 	/* getters & setters */
-	
-	public List<Player> getPlayers(){
+
+	public List<Player> getPlayers() {
 		ArrayList<Player> result = new ArrayList<Player>();
 		result.addAll(attacker.keySet());
 		result.addAll(defender.keySet());
@@ -110,6 +131,14 @@ public class Game {
 
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
+		if (turn == 0) {
+			getLog().addEntry(currentPlayer.getEmail() + " plays his " + getPhase() + " phase.");
+		} else {
+			getLog().addEntry(currentPlayer.getEmail() + " plays his turn " + getTurn());
+		}
+		System.out.println("current player changed");
+		setChanged();
+		this.notifyObservers(currentPlayer);
 	}
 
 	public Market getMarket() {
@@ -119,5 +148,21 @@ public class Game {
 	public void setMarket(Market market) {
 		this.market = market;
 	}
-	
+
+	public GameLog getLog() {
+		return log;
+	}
+
+	public void setLog(GameLog log) {
+		this.log = log;
+	}
+
+	public GamePhase getPhase() {
+		return phase;
+	}
+
+	public void setPhase(GamePhase phase) {
+		this.phase = phase;
+	}
+
 }

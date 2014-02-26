@@ -3,18 +3,17 @@ package org.orion.ss.model.impl;
 public class Player {
 
 	private String email;
-	private boolean played;
-	
-	public Player(String email){
+	private boolean played = false;
+
+	public Player(String email) {
 		super();
 		this.email = email;
+	}
+
+	public void reset() {
 		this.played = false;
 	}
-	
-	public void reset(){
-		this.played = false;
-	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -47,7 +46,6 @@ public class Player {
 
 	/* getters & setters */
 
-
 	public String getEmail() {
 		return email;
 	}
@@ -63,5 +61,5 @@ public class Player {
 	public void setPlayed(boolean played) {
 		this.played = played;
 	}
-	
+
 }
