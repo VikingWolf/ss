@@ -1,5 +1,5 @@
 package org.orion.ss.model.impl;
 
-public class Game extends Scenario {
+public class Road {
 
 }

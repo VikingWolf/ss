@@ -1,10 +1,10 @@
 package org.orion.ss.model.impl;
 
-import org.springframework.beans.factory.parsing.Location;
+import java.util.Map;
 
 public class GeoMap {
 
 	private Hex[][] body;
-	Map<Location, River> rivers;
+	private Map<SideLocation, River> rivers;
 
 }
