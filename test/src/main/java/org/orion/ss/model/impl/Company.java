@@ -6,13 +6,25 @@ import org.orion.ss.model.core.AttackType;
 
 public class Company extends ActivableImpl implements Mobile {
 
-	private int id;
+	private final static double INITIATIVE_EXPERIENCE_EXPONENT = 0.5d;
+	private final static double INITIATIVE_ORGANIZATION_EXPONENT = 0.5d;
+	
 	private CompanyModel model;
+	private Location location;
 	private double strength;
-	private byte experience;
+	private double experience;
 	private double organization;
 	private Stock supplies;
-	private Location location;
+	
+	public Company(CompanyModel model, Location location, double strength, double experience, double organization) {
+		super();
+		supplies = new Stock();
+		this.model = model;
+		this.location = location;
+		this.strength = strength;
+		this.experience = experience;
+		this.organization = organization;
+	}
 
 	public boolean isAttackCapable(AttackType type) {
 		boolean result = false;
@@ -31,16 +43,15 @@ public class Company extends ActivableImpl implements Mobile {
 		result.add(this.getModel().getMobility());
 		return result;
 	}
+	
+	public double computeInitiative(){
+		return 
+				this.getModel().getInitiative() 
+				* Math.pow(this.getExperience(), INITIATIVE_EXPERIENCE_EXPONENT)
+				* Math.pow(this.getOrganization(), INITIATIVE_ORGANIZATION_EXPONENT);
+	}
 
 	/* getters & setters */
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public CompanyModel getModel() {
 		return model;
@@ -58,11 +69,11 @@ public class Company extends ActivableImpl implements Mobile {
 		this.strength = strength;
 	}
 
-	public byte getExperience() {
+	public double getExperience() {
 		return experience;
 	}
 
-	public void setExperience(byte experience) {
+	public void setExperience(double experience) {
 		this.experience = experience;
 	}
 

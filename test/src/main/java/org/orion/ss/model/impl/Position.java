@@ -1,5 +1,6 @@
 package org.orion.ss.model.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.orion.ss.model.ActivableImpl;
@@ -12,9 +13,28 @@ public class Position extends ActivableImpl {
 	private List<Formation> battleOrder;
 	private List<Fortification> defenses;
 
+	public Position(){
+		super();
+		battleOrder = new ArrayList<Formation>();
+		defenses = new ArrayList<Fortification>();
+	}
+	
 	@Override
 	public boolean isActivable() {
 		return true;
+	}
+	
+	public List<Company> getAllCompanies(){
+		List<Company> result = new ArrayList<Company>();
+		for (Formation formation : this.getBattleOrder()){
+			result.addAll(formation.getAllCompanies());
+		}
+		return result;
+	}
+
+	/* adders */
+	public void addFormation(Formation formation){
+		battleOrder.add(formation);
 	}
 
 	/* getters & setters */

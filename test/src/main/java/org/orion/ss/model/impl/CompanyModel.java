@@ -17,6 +17,7 @@ public class CompanyModel extends CombatUnitModel implements Upgradable {
 	private double speed;
 	private List<CompanyTrait> traits;
 	private List<CompanyModel> upgrades;
+	private int initiative;
 
 	public CompanyModel() {
 		super();
@@ -79,6 +80,14 @@ public class CompanyModel extends CombatUnitModel implements Upgradable {
 
 	public void setSpeed(double speed) {
 		this.speed = speed;
+	}
+
+	public int getInitiative() {
+		return initiative;
+	}
+
+	public void setInitiative(int initiative) {
+		this.initiative = initiative;
 	}
 
 }

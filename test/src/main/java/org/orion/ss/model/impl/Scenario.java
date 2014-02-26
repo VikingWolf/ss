@@ -1,21 +1,17 @@
 package org.orion.ss.model.impl;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import org.orion.ss.model.core.Terrain;
+import org.orion.ss.model.core.Vegetation;
 
 public class Scenario {
 
 	private String name;
 	private List<Position> attacker;
 	private List<Position> defender;
-	private byte turnDuration; /* in hours */
-	private Date initialTime;
-	private short timeLimit; /* in turns */
-	private short timeMargin; /* in turns */
-	private double hexSide; /* in km */
-	private short stackLimit; /* in companies */
-	private List<Objective> objectives;
+	private GameSettings settings;
 	private Map<Location, Road> roads;
 	private Map<Location, Railway> railroads;
 	private List<UrbanCenter> urbanCenters;
@@ -25,7 +21,12 @@ public class Scenario {
 	private List<Location> supplyArea;
 	private List<WeatherForecast> forecast;
 	private Map<Location, Stock> supplies;
+	private GeoMap map;
 
+	public Scenario(int mapRows, int mapColumns){
+		super();
+		map = new GeoMap(mapRows, mapColumns, Terrain.PLAIN, Vegetation.NONE);
+	}
 	/* getters & setters */
 
 	public String getName() {
@@ -52,60 +53,12 @@ public class Scenario {
 		this.defender = defender;
 	}
 
-	public byte getTurnDuration() {
-		return turnDuration;
+	public GameSettings getSettings() {
+		return settings;
 	}
 
-	public void setTurnDuration(byte turnDuration) {
-		this.turnDuration = turnDuration;
-	}
-
-	public Date getInitialTime() {
-		return initialTime;
-	}
-
-	public void setInitialTime(Date initialTime) {
-		this.initialTime = initialTime;
-	}
-
-	public short getTimeLimit() {
-		return timeLimit;
-	}
-
-	public void setTimeLimit(short timeLimit) {
-		this.timeLimit = timeLimit;
-	}
-
-	public short getTimeMargin() {
-		return timeMargin;
-	}
-
-	public void setTimeMargin(short timeMargin) {
-		this.timeMargin = timeMargin;
-	}
-
-	public double getHexSide() {
-		return hexSide;
-	}
-
-	public void setHexSide(double hexSide) {
-		this.hexSide = hexSide;
-	}
-
-	public short getStackLimit() {
-		return stackLimit;
-	}
-
-	public void setStackLimit(short stackLimit) {
-		this.stackLimit = stackLimit;
-	}
-
-	public List<Objective> getObjectives() {
-		return objectives;
-	}
-
-	public void setObjectives(List<Objective> objectives) {
-		this.objectives = objectives;
+	public void setSettings(GameSettings settings) {
+		this.settings = settings;
 	}
 
 	public Map<Location, Road> getRoads() {
@@ -178,6 +131,14 @@ public class Scenario {
 
 	public void setSupplies(Map<Location, Stock> supplies) {
 		this.supplies = supplies;
+	}
+
+	public GeoMap getMap() {
+		return map;
+	}
+
+	public void setMap(GeoMap map) {
+		this.map = map;
 	}
 
 }

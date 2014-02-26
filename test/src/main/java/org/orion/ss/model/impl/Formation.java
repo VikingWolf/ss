@@ -1,5 +1,6 @@
 package org.orion.ss.model.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.orion.ss.model.ActivableImpl;
@@ -14,6 +15,16 @@ public class Formation extends ActivableImpl implements Mobile {
 	private List<AirSquadron> airSquadrons;
 	private List<Ship> ships;
 
+	public Formation(String name){
+		super();
+		this.name = name;
+		subordinates = new ArrayList<Formation>();
+		companies = new ArrayList<Company>();
+		airSquadrons = new ArrayList<AirSquadron>();
+		ships = new ArrayList<Ship>();
+		
+	}
+	
 	@Override
 	public MobilitySet getMobilities() {
 		MobilitySet result = new MobilitySet();
@@ -23,6 +34,15 @@ public class Formation extends ActivableImpl implements Mobile {
 		return result;
 	}
 
+	public List<Company> getAllCompanies(){
+		List<Company> result = new ArrayList<Company>();
+		result.addAll(this.getCompanies());
+		for (Formation formation : this.getSubordinates()){
+			result.addAll(formation.getAllCompanies());
+		}
+		return result;
+	}
+	
 	protected CompanyStack getCompanyStackAtLocation(boolean onlyActivables) {
 		return getCompanyStackAtLocation(this.getLocation(), false);
 	}
@@ -43,8 +63,27 @@ public class Formation extends ActivableImpl implements Mobile {
 		}
 		return result;
 	}
-
+	
+	/* adders */
+	
+	public void addCompany(Company company){
+		this.companies.add(company);
+	}
+	
+	public void addSubordinate(Formation formation){
+		this.subordinates.add(formation);
+	}
+	
+	public void addAirSquadron(AirSquadron airSquadron){
+		this.airSquadrons.add(airSquadron);
+	}
+	
+	public void addShip(Ship ship){
+		this.ships.add(ship);
+	}
+	
 	/* getters & setters */
+	
 	public String getName() {
 		return name;
 	}

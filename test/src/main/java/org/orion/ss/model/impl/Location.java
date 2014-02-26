@@ -2,8 +2,14 @@ package org.orion.ss.model.impl;
 
 public class Location {
 
-	private short x;
-	private short y;
+	private int x;
+	private int y;
+	
+	public Location(int x, int y){
+		super();
+		this.x = x;
+		this.y = y;
+	}
 
 	@Override
 	public int hashCode() {
@@ -27,19 +33,19 @@ public class Location {
 
 	/* getters & setters */
 
-	public short getX() {
+	public int getX() {
 		return x;
 	}
 
-	public void setX(short x) {
+	public void setX(int x) {
 		this.x = x;
 	}
 
-	public short getY() {
+	public int getY() {
 		return y;
 	}
 
-	public void setY(short y) {
+	public void setY(int y) {
 		this.y = y;
 	}
 

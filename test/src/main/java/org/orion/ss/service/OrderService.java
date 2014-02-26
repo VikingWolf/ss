@@ -6,18 +6,23 @@ import java.util.List;
 import org.orion.ss.model.Activable;
 import org.orion.ss.model.Mobile;
 import org.orion.ss.model.impl.Game;
+import org.orion.ss.model.impl.Player;
 import org.orion.ss.orders.Move;
 import org.orion.ss.orders.Order;
 
-public class OrderService {
+public class OrderService extends Service {
 
-	private Game game;
 
 	public OrderService(Game game) {
-		this.game = game;
+		super(game);
+	}
+	
+	protected List<Activable> loadActivables(Player player){
+		//TODO
+		return null;
 	}
 
-	public List<Order> buildOrders(Activable target) {
+	protected List<Order> buildOrders(Activable target) {
 		List<Order> result = new ArrayList<Order>();
 		if (target instanceof Mobile) {
 			result.add(new Move());
@@ -25,14 +30,6 @@ public class OrderService {
 		return result;
 	}
 
-	/* getters & setters */
-
-	public Game getGame() {
-		return game;
-	}
-
-	public void setGame(Game game) {
-		this.game = game;
-	}
+	
 
 }
