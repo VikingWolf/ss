@@ -1,13 +1,15 @@
 package org.orion.ss.model.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.orion.ss.model.CombatUnitModel;
+import org.orion.ss.model.Upgradable;
 import org.orion.ss.model.core.CompanyTrait;
 import org.orion.ss.model.core.CompanyType;
 import org.orion.ss.model.core.Mobility;
 
-public class CompanyModel extends CombatUnitModel {
+public class CompanyModel extends CombatUnitModel implements Upgradable {
 
 	private String code;
 	private CompanyType type;
@@ -15,12 +17,24 @@ public class CompanyModel extends CombatUnitModel {
 	private List<CompanyTrait> traits;
 	private List<CompanyModel> upgrades;
 
+	public CompanyModel() {
+		super();
+		traits = new ArrayList<CompanyTrait>();
+		upgrades = new ArrayList<CompanyModel>();
+	}
+
+	@Override
+	public int getValue() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	/* getters & setters */
+
 	@Override
 	public Mobility getMobility() {
 		return mobility;
 	}
-
-	/* getters & setters */
 
 	public String getCode() {
 		return code;

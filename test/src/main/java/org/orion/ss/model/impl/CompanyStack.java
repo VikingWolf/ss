@@ -11,7 +11,6 @@ public class CompanyStack extends ArrayList<Company> implements Activable, Mobil
 
 	private Location location;
 
-	private transient boolean isActive = false;
 	private transient boolean hasBeenActivated = false;
 
 	public CompanyStack(Location location) {
@@ -22,11 +21,6 @@ public class CompanyStack extends ArrayList<Company> implements Activable, Mobil
 	@Override
 	public boolean isActivable() {
 		return !hasBeenActivated;
-	}
-
-	@Override
-	public boolean isActive() {
-		return isActive;
 	}
 
 	@Override

@@ -10,15 +10,11 @@ public class Position extends ActivableImpl {
 	private String code;
 	private Country country;
 	private List<Formation> battleOrder;
+	private List<Fortification> defenses;
 
 	@Override
 	public boolean isActivable() {
 		return true;
-	}
-
-	@Override
-	public boolean isActive() {
-		return false;
 	}
 
 	/* getters & setters */
@@ -45,6 +41,14 @@ public class Position extends ActivableImpl {
 
 	public void setBattleOrder(List<Formation> battleOrder) {
 		this.battleOrder = battleOrder;
+	}
+
+	public List<Fortification> getDefenses() {
+		return defenses;
+	}
+
+	public void setDefenses(List<Fortification> defenses) {
+		this.defenses = defenses;
 	}
 
 }

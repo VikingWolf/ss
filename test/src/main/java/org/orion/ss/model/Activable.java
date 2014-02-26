@@ -4,6 +4,4 @@ public interface Activable {
 
 	public boolean isActivable();
 
-	public boolean isActive();
-
 }

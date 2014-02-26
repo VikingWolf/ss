@@ -17,25 +17,29 @@ public class Formation extends ActivableImpl implements Mobile {
 	@Override
 	public MobilitySet getMobilities() {
 		MobilitySet result = new MobilitySet();
-		for (Company company : getCompaniesAtLocation()) {
+		for (Company company : getCompanyStackAtLocation(true)) {
 			result.addAll(company.getMobilities());
 		}
 		return result;
 	}
 
-	protected CompanyStack getCompaniesAtLocation() {
-		return getCompaniesAtLocation(this.getLocation());
+	protected CompanyStack getCompanyStackAtLocation(boolean onlyActivables) {
+		return getCompanyStackAtLocation(this.getLocation(), false);
 	}
 
-	protected CompanyStack getCompaniesAtLocation(Location location) {
+	protected CompanyStack getCompanyStackAtLocation(Location location, boolean onlyActivables) {
 		CompanyStack result = new CompanyStack(location);
 		for (Company company : getCompanies()) {
 			if (company.getLocation().equals(location)) {
-				result.add(company);
+				if (onlyActivables && company.isActivable()) {
+					result.add(company);
+				} else {
+					result.add(company);
+				}
 			}
 		}
 		for (Formation formation : getSubordinates()) {
-			result.addAll(formation.getCompaniesAtLocation(location));
+			result.addAll(formation.getCompanyStackAtLocation(location, onlyActivables));
 		}
 		return result;
 	}

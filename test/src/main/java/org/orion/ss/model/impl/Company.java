@@ -2,6 +2,7 @@ package org.orion.ss.model.impl;
 
 import org.orion.ss.model.ActivableImpl;
 import org.orion.ss.model.Mobile;
+import org.orion.ss.model.core.AttackType;
 
 public class Company extends ActivableImpl implements Mobile {
 
@@ -12,6 +13,17 @@ public class Company extends ActivableImpl implements Mobile {
 	private double organization;
 	private Stock supplies;
 	private Location location;
+
+	public boolean isAttackCapable(AttackType type) {
+		boolean result = false;
+		for (Attack attack : model.getAttacks()) {
+			if (attack.getType().equals(type)) {
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
 
 	@Override
 	public MobilitySet getMobilities() {

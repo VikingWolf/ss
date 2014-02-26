@@ -6,7 +6,14 @@ public class Attack {
 
 	private AttackType type;
 	private double range;
-	private short strength;
+	private int strength;
+
+	public Attack(AttackType type, double range, int strength) {
+		super();
+		this.type = type;
+		this.range = range;
+		this.strength = strength;
+	}
 
 	/* getters & setters */
 	public AttackType getType() {
@@ -25,11 +32,11 @@ public class Attack {
 		this.range = range;
 	}
 
-	public short getStrength() {
+	public int getStrength() {
 		return strength;
 	}
 
-	public void setStrength(short strength) {
+	public void setStrength(int strength) {
 		this.strength = strength;
 	}
 
