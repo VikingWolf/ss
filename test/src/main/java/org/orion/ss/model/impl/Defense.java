@@ -5,7 +5,13 @@ import org.orion.ss.model.core.DefenseType;
 public class Defense {
 
 	private DefenseType type;
-	private short strength;
+	private int strength;
+
+	public Defense(DefenseType type, int strength) {
+		super();
+		this.type = type;
+		this.strength = strength;
+	}
 
 	/* getters & setters */
 
@@ -17,11 +23,11 @@ public class Defense {
 		this.type = type;
 	}
 
-	public short getStrength() {
+	public int getStrength() {
 		return strength;
 	}
 
-	public void setStrength(short strength) {
+	public void setStrength(int strength) {
 		this.strength = strength;
 	}
 

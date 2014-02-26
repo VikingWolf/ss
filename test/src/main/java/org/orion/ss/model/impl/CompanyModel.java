@@ -14,6 +14,7 @@ public class CompanyModel extends CombatUnitModel implements Upgradable {
 	private String code;
 	private CompanyType type;
 	private Mobility mobility;
+	private double speed;
 	private List<CompanyTrait> traits;
 	private List<CompanyModel> upgrades;
 
@@ -70,6 +71,14 @@ public class CompanyModel extends CombatUnitModel implements Upgradable {
 
 	public void setMobility(Mobility mobility) {
 		this.mobility = mobility;
+	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 
 }

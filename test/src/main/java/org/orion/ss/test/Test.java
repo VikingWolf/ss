@@ -7,9 +7,11 @@ import java.util.List;
 import org.orion.ss.model.core.AttackType;
 import org.orion.ss.model.core.CompanyType;
 import org.orion.ss.model.core.Country;
+import org.orion.ss.model.core.DefenseType;
 import org.orion.ss.model.core.Mobility;
 import org.orion.ss.model.impl.Attack;
 import org.orion.ss.model.impl.CompanyModel;
+import org.orion.ss.model.impl.Defense;
 import org.orion.ss.model.impl.Game;
 import org.orion.ss.model.impl.Position;
 import org.slf4j.Logger;
@@ -46,6 +48,17 @@ public class Test {
 		ukRifleCompany.setType(CompanyType.INFANTRY);
 		ukRifleCompany.setMobility(Mobility.LEG);
 		ukRifleCompany.addAttack(new Attack(AttackType.SOFT, 0d, 3));
+		ukRifleCompany.addAttack(new Attack(AttackType.HARD, 0d, 1));
+		ukRifleCompany.addDefense(new Defense(DefenseType.GROUND, 4));
+		ukRifleCompany.addDefense(new Defense(DefenseType.CLOSE, 3));
+		CompanyModel gerGrenadierCompany = new CompanyModel();
+		ukRifleCompany.setCode("Rifle Company");
+		ukRifleCompany.setType(CompanyType.INFANTRY);
+		ukRifleCompany.setMobility(Mobility.LEG);
+		ukRifleCompany.addAttack(new Attack(AttackType.SOFT, 0d, 3));
+		ukRifleCompany.addAttack(new Attack(AttackType.HARD, 0d, 1));
+		ukRifleCompany.addDefense(new Defense(DefenseType.GROUND, 4));
+		ukRifleCompany.addDefense(new Defense(DefenseType.CLOSE, 3));
 	}
 
 	protected void buildPositions() {
