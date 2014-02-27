@@ -9,16 +9,19 @@ public class Company extends ActivableImpl implements Mobile {
 	private final static double INITIATIVE_EXPERIENCE_EXPONENT = 0.5d;
 	private final static double INITIATIVE_ORGANIZATION_EXPONENT = 0.5d;
 	
+	private String code;
 	private CompanyModel model;
 	private Location location;
 	private double strength;
 	private double experience;
 	private double organization;
 	private Stock supplies;
+	private Formation parent;
 	
-	public Company(CompanyModel model, Location location, double strength, double experience, double organization) {
+	public Company(CompanyModel model, String code, Location location, double strength, double experience, double organization) {
 		super();
 		supplies = new Stock();
+		this.code = code;
 		this.model = model;
 		this.location = location;
 		this.strength = strength;
@@ -50,7 +53,18 @@ public class Company extends ActivableImpl implements Mobile {
 				* Math.pow(this.getExperience(), INITIATIVE_EXPERIENCE_EXPONENT)
 				* Math.pow(this.getOrganization(), INITIATIVE_ORGANIZATION_EXPONENT);
 	}
+	
+	@Override
+	public String toString() {
+		return code;
+	}
 
+	public String getId(){
+		String result = parent.getId();
+		result += "/" + this.getCode();
+		return result;
+	}
+	
 	/* getters & setters */
 
 	public CompanyModel getModel() {
@@ -101,6 +115,22 @@ public class Company extends ActivableImpl implements Mobile {
 	@Override
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public Formation getParent() {
+		return parent;
+	}
+
+	public void setParent(Formation parent) {
+		this.parent = parent;
 	}
 
 }

@@ -8,6 +8,7 @@ import org.orion.ss.model.core.AttackType;
 import org.orion.ss.model.core.CompanyType;
 import org.orion.ss.model.core.Country;
 import org.orion.ss.model.core.DefenseType;
+import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.Mobility;
 import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.core.WeatherType;
@@ -30,8 +31,8 @@ public class GameSample {
 
 	private Game game;
 	private Scenario scenario;
-	private Position ger = new Position();
-	private Position uk = new Position();
+	private Position ger = new Position(FormationLevel.REGIMENT, "Infanterie-Regiment 1");
+	private Position uk = new Position(FormationLevel.REGIMENT, "2nd Infantry Brigade");
 
 	private CompanyModel ukRifleCompany = new CompanyModel();
 	private CompanyModel gerGrenadierCompany = new CompanyModel();
@@ -81,18 +82,16 @@ public class GameSample {
 	}
 	
 	protected void buildPositions() {
-		ger.setCode("German Attacker");
 		ger.setCountry(Country.GER);
 		ger.setPrestige(400);
-		uk.setCode("British Defender");
 		uk.setCountry(Country.UK);
 		uk.setPrestige(450);
-		Formation ukReg1 = new Formation("3rd Rifle Regiment");
-		ukReg1.addCompany(new Company(ukRifleCompany, new Location(2, 2), 1.0d, 1.0d, 1.0d));
-		uk.addFormation(ukReg1);
-		Formation gerReg1 = new Formation("1. Grenadierregiment");
-		gerReg1.addCompany(new Company(gerGrenadierCompany, new Location(3,3), 1.0d, 1.0d, 1.0d));
-		ger.addFormation(gerReg1);
+		Formation ukBn1 = new Formation(FormationLevel.BATTALION, "1st Bn");
+		ukBn1.addCompany(new Company(ukRifleCompany, "I", new Location(2, 2), 1.0d, 1.0d, 1.0d));
+		uk.addSubordinate(ukBn1);
+		Formation gerBn1 = new Formation(FormationLevel.BATTALION, "I. Bn");
+		gerBn1.addCompany(new Company(gerGrenadierCompany, "1", new Location(3,3), 1.0d, 1.0d, 1.0d));
+		ger.addSubordinate(gerBn1);
 	}
 	
 	protected void configGame(){

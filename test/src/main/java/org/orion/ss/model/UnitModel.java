@@ -1,5 +1,6 @@
 package org.orion.ss.model;
 
+import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.Mobility;
 import org.orion.ss.model.impl.Stock;
 
@@ -9,6 +10,8 @@ public abstract class UnitModel {
 	private Stock maxSupplies;
 
 	public abstract Mobility getMobility();
+	
+	public abstract FormationLevel getFormationLevel();
 
 	/* getters & setters */
 
@@ -27,5 +30,5 @@ public abstract class UnitModel {
 	public void setMaxSupplies(Stock maxSupplies) {
 		this.maxSupplies = maxSupplies;
 	}
-
+	
 }

@@ -7,6 +7,7 @@ import org.orion.ss.model.CombatUnitModel;
 import org.orion.ss.model.Upgradable;
 import org.orion.ss.model.core.CompanyTrait;
 import org.orion.ss.model.core.CompanyType;
+import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.Mobility;
 
 public class CompanyModel extends CombatUnitModel implements Upgradable {
@@ -29,6 +30,11 @@ public class CompanyModel extends CombatUnitModel implements Upgradable {
 	public int getValue() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	@Override
+	public FormationLevel getFormationLevel() {
+		return FormationLevel.COMPANY;
 	}
 
 	/* getters & setters */

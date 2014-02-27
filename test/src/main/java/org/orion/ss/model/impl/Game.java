@@ -29,12 +29,7 @@ public class Game extends Observable {
 		attacker = new HashMap<Player, Position>();
 		defender = new HashMap<Player, Position>();
 		log = new GameLog();
-		log.addEntry("Game " + getId() + " created at " + new Date());
-		log.addEntry("turn=" + getTurn());
-		log.addEntry("date=" + getDate());
-		log.addDisplay(settings);
-		log.addDisplay(market);
-		log.addSeparator();
+		logGameStart();
 	}
 
 	public void advanceTurn() {
@@ -59,15 +54,54 @@ public class Game extends Observable {
 		}
 		return result;
 	}
+	
+	/* loggers */
+	
+	public void logGameStart(){
+		log.addEntry("Game " + getId() + " created at " + new Date());
+		log.addEntry("turn=" + getTurn());
+		log.addEntry("date=" + getDate());
+		log.addDisplay(settings);
+		log.addDisplay(market);
+		log.addSeparator();
+	}
+	
+	private void logPositions(Map<Player, Position> positions, int mode){
+		for (Player player : positions.keySet()){
+			Position position = positions.get(player);
+			logPosition(player, position, mode);
+		}
+	}
+	
+	private void logPosition(Player player, Position position, int mode){
+		String entry = player.getEmail() + " plays with " + position.getName() + "(" + position.getCountry() +") as ";
+		if (mode == Position.ATTACKER){
+			entry += "attacker.";
+		} else {
+			entry += "defender.";
+		}
+		this.getLog().addEntry(entry);		
+	}
+	
+	public void logScore(){
+		this.getLog().addSeparator();
+		this.getLog().addEntry("Game score");
+		for (Player player : this.getPlayers()){
+			Position position = getPositionFor(player);
+			this.getLog().addEntry(player.getEmail() + "\t\t" + position.getName() + "(" + position.getCountry() + ") =\t\t" + position.getPrestige());
+		}
+	}
 
 	/* adders */
 
 	public void addAttacker(Player player, Position position) {
 		attacker.put(player, position);
+		logPosition(player, position, Position.ATTACKER);
 	}
 
 	public void addDefender(Player player, Position position) {
 		defender.put(player, position);
+		logPosition(player, position, Position.DEFENDER);
 	}
 
 	public Date getDate() {
@@ -99,6 +133,7 @@ public class Game extends Observable {
 
 	public void setDefender(Map<Player, Position> defender) {
 		this.defender = defender;
+		logPositions(attacker, Position.DEFENDER);
 	}
 
 	public GameSettings getSettings() {
@@ -127,6 +162,10 @@ public class Game extends Observable {
 
 	public Player getCurrentPlayer() {
 		return currentPlayer;
+	}
+	
+	public Position getCurrentPlayerPosition(){
+		return this.getPositionFor(getCurrentPlayer());
 	}
 
 	public void setCurrentPlayer(Player currentPlayer) {

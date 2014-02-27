@@ -5,24 +5,29 @@ import java.util.List;
 
 import org.orion.ss.model.ActivableImpl;
 import org.orion.ss.model.Mobile;
+import org.orion.ss.model.core.Country;
+import org.orion.ss.model.core.FormationLevel;
 
 public class Formation extends ActivableImpl implements Mobile {
 
 	private String name;
+	private Country country;
 	private Location location; /* location of the hq */
 	private List<Formation> subordinates;
 	private List<Company> companies;
 	private List<AirSquadron> airSquadrons;
 	private List<Ship> ships;
+	private FormationLevel type;
+	private Formation parent;
 
-	public Formation(String name){
+	public Formation(FormationLevel type, String name){
 		super();
 		this.name = name;
 		subordinates = new ArrayList<Formation>();
 		companies = new ArrayList<Company>();
 		airSquadrons = new ArrayList<AirSquadron>();
 		ships = new ArrayList<Ship>();
-		
+		this.type = type;
 	}
 	
 	@Override
@@ -64,14 +69,31 @@ public class Formation extends ActivableImpl implements Mobile {
 		return result;
 	}
 	
+	@Override
+	public String toString() {
+		return name;
+	}
+	
+	public String getId(){
+		String result = "";
+		if (parent != null){
+			result += parent.getId() + ", ";
+		}
+		result += this.getName();
+		return result;
+	}
+	
 	/* adders */
 	
 	public void addCompany(Company company){
 		this.companies.add(company);
+		company.setParent(this);
 	}
 	
 	public void addSubordinate(Formation formation){
 		this.subordinates.add(formation);
+		formation.setParent(this);
+		formation.setCountry(this.getCountry());
 	}
 	
 	public void addAirSquadron(AirSquadron airSquadron){
@@ -131,6 +153,38 @@ public class Formation extends ActivableImpl implements Mobile {
 	}
 
 	public void setShip(List<Ship> ships) {
+		this.ships = ships;
+	}
+
+	public FormationLevel getType() {
+		return type;
+	}
+
+	public void setType(FormationLevel type) {
+		this.type = type;
+	}
+
+	public Formation getParent() {
+		return parent;
+	}
+
+	public void setParent(Formation parent) {
+		this.parent = parent;
+	}
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
+	public List<Ship> getShips() {
+		return ships;
+	}
+
+	public void setShips(List<Ship> ships) {
 		this.ships = ships;
 	}
 

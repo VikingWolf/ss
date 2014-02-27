@@ -39,7 +39,7 @@ public class GameLog extends Observable {
 	public void addDisplay(Market market) {
 		addEntry("market=" + market.toString());
 	}
-
+	
 	public void addSeparator() {
 		addEntry("__________________________________________________________________________________________________________________\n");
 	}

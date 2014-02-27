@@ -32,12 +32,14 @@ public class GameService extends Service {
 	}
 
 	public void startGame() {
-		getGame().getLog().addEntry("Turn " + getGame().getTurn() + " started.");
+		getGame().getLog().addSeparator();
+		getGame().getLog().addEntry("The game has started!");
 		resetPlayers();
 		nextPlayer();
 	}
 
-	public void nextPlayer() {
+	public boolean nextPlayer() {
+		boolean result = false;
 		if (getGame().getCurrentPlayer() != null) {
 			getGame().getCurrentPlayer().setPlayed(true);
 		}
@@ -49,13 +51,15 @@ public class GameService extends Service {
 			if (!gameHasEnded()) {
 				next = getNextPlayer();
 				getGame().setCurrentPlayer(next);
+			} else {
+				result = true;
 			}
 		}
+		return result;
 	}
 
-	public void computeScore() {
-		getGame().getLog().addSeparator();
-		getGame().getLog().addEntry("Game Score");
+	public void computeScore() {		
+		getGame().logScore();
 	}
 
 	private List<Player> getSuitablePlayers() {

@@ -3,20 +3,18 @@ package org.orion.ss.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.orion.ss.model.ActivableImpl;
-import org.orion.ss.model.core.Country;
+import org.orion.ss.model.core.FormationLevel;
 
-public class Position extends ActivableImpl {
+public class Position extends Formation {
 
-	private String code;
-	private Country country;
-	private List<Formation> battleOrder;
+	public final static int ATTACKER = 1;
+	public final static int DEFENDER = 2;
+	
 	private List<Fortification> defenses;
 	private int prestige;
 
-	public Position(){
-		super();
-		battleOrder = new ArrayList<Formation>();
+	public Position(FormationLevel type, String name){
+		super(type, name);
 		defenses = new ArrayList<Fortification>();
 	}
 	
@@ -25,44 +23,9 @@ public class Position extends ActivableImpl {
 		return true;
 	}
 	
-	public List<Company> getAllCompanies(){
-		List<Company> result = new ArrayList<Company>();
-		for (Formation formation : this.getBattleOrder()){
-			result.addAll(formation.getAllCompanies());
-		}
-		return result;
-	}
-
-	/* adders */
-	public void addFormation(Formation formation){
-		battleOrder.add(formation);
-	}
 
 	/* getters & setters */
 
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public Country getCountry() {
-		return country;
-	}
-
-	public void setCountry(Country country) {
-		this.country = country;
-	}
-
-	public List<Formation> getBattleOrder() {
-		return battleOrder;
-	}
-
-	public void setBattleOrder(List<Formation> battleOrder) {
-		this.battleOrder = battleOrder;
-	}
 
 	public List<Fortification> getDefenses() {
 		return defenses;

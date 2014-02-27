@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.orion.ss.model.CombatUnitModel;
 import org.orion.ss.model.core.AirSquadronType;
+import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.Mobility;
 
 public class AirSquadronModel extends CombatUnitModel {
@@ -15,6 +16,11 @@ public class AirSquadronModel extends CombatUnitModel {
 	@Override
 	public Mobility getMobility() {
 		return Mobility.AIR;
+	}
+		
+	@Override
+	public FormationLevel getFormationLevel() {
+		return FormationLevel.AIR_SQUADRON;
 	}
 
 	/* getters & setters */

@@ -10,6 +10,6 @@ public class ManagementService extends Service {
 
 	private int cheapestBuy() {
 		return 0;
-	}
+	}	
 
 }

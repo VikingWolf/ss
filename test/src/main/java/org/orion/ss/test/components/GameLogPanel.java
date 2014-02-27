@@ -1,12 +1,15 @@
 package org.orion.ss.test.components;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import org.orion.ss.test.GraphicTest;
 
-public class GameLogPanel extends JPanel {
+public class GameLogPanel extends JPanel implements Observer {
 
 	private static final long serialVersionUID = 6487852662932859447L;
 
@@ -27,6 +30,11 @@ public class GameLogPanel extends JPanel {
 	public void update(String text) {
 		textArea.setText(text);
 		repaint();
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		this.update((String)arg);
 	}
 
 }

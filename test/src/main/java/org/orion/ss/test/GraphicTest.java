@@ -7,8 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Date;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -26,7 +24,7 @@ import org.orion.ss.test.components.PlayerPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GraphicTest implements Observer {
+public class GraphicTest {
 
 	protected final static Logger logger = LoggerFactory.getLogger(Test.class);
 
@@ -52,8 +50,6 @@ public class GraphicTest implements Observer {
 
 	private GameService gameService;
 
-	private boolean paused = false;
-
 	/* GUI components */
 	private GameLogPanel gameLogPanel;
 	private CurrentPlayerLabel currentPlayerLabel;
@@ -65,24 +61,22 @@ public class GraphicTest implements Observer {
 		logger.info("Starting test at " + new Date());
 		test.prepareGame();
 		test.mountGUI();
-		test.start();
+		test.startGame();
 	}
 
-	protected void start() {
+	protected void startGame() {
 		showInfoDialog("The Game is prepared.");
 		gameService.startGame();
-		while (!gameService.gameHasEnded()) {
-			this.showInfoDialog(game.getPhase() + "(" + game.getTurn() + ") : " + game.getCurrentPlayer().getEmail(), "" + game.getDate());
-			pause();
-		}
+	}
+	
+	public void endGame(){
+		this.showInfoDialog("The game has ended after " + game.getTurn() + " turns. ");
 		gameService.computeScore();
-		playerPanel.dismiss();
 	}
 
 	protected void prepareGame() {
 		game = new GameSample().buildGame();
 		gameService = new GameService(game);
-		game.getLog().addObserver(this);
 	}
 
 	protected void addPlayerPanel() {
@@ -117,6 +111,7 @@ public class GraphicTest implements Observer {
 		mainFrame.getContentPane().add(mainPane);
 		gameLogPanel = new GameLogPanel();
 		mainPane.addTab("Game Log", gameLogPanel);
+		game.getLog().addObserver(gameLogPanel);
 		currentPlayerLabel = new CurrentPlayerLabel();
 		game.addObserver(currentPlayerLabel);
 		mainFrame.getContentPane().add(currentPlayerLabel);
@@ -132,25 +127,9 @@ public class GraphicTest implements Observer {
 		mainFrame.setVisible(true);
 	}
 
-	private void pause() {
-		paused = true;
-		while (paused) {
-		}
-	}
 
-	private void resume() {
-		paused = false;
-	}
-
-	public void nextPlayer() {
-		gameService.nextPlayer();
-		resume();
-	}
-
-	@Override
-	public void update(Observable observed, Object text) {
-		this.gameLogPanel.update((String) text);
-		mainFrame.repaint();
+	public boolean nextPlayer() {
+		return gameService.nextPlayer();		
 	}
 
 	protected void showInfoDialog(String... texts) {
@@ -165,7 +144,6 @@ public class GraphicTest implements Observer {
 			public void windowClosing(WindowEvent e) {
 				dialog.setVisible(false);
 				dialog.dispose();
-				resume();
 			}
 		});
 		for (int i = 0; i < texts.length; i++) {
@@ -182,11 +160,9 @@ public class GraphicTest implements Observer {
 			public void actionPerformed(ActionEvent e) {
 				dialog.setVisible(false);
 				dialog.dispose();
-				resume();
 			}
 
 		});
-		pause();
 		dialog.setModal(true);
 	}
 
