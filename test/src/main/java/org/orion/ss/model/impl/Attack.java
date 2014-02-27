@@ -6,13 +6,15 @@ public class Attack {
 
 	private AttackType type;
 	private double range;
-	private int strength;
+	private double strength;
+	private Stock consumption;
 
-	public Attack(AttackType type, double range, int strength) {
+	public Attack(AttackType type, double range, double strength) {
 		super();
 		this.type = type;
 		this.range = range;
 		this.strength = strength;
+		consumption = new Stock();
 	}
 
 	/* getters & setters */
@@ -32,12 +34,20 @@ public class Attack {
 		this.range = range;
 	}
 
-	public int getStrength() {
+	public double getStrength() {
 		return strength;
 	}
 
-	public void setStrength(int strength) {
+	public void setStrength(double strength) {
 		this.strength = strength;
 	}
 
+	public Stock getConsumption() {
+		return consumption;
+	}
+
+	public void setConsumption(Stock consumption) {
+		this.consumption = consumption;
+	}
+	
 }

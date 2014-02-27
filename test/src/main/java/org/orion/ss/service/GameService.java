@@ -90,9 +90,10 @@ public class GameService extends Service {
 
 	private Player getNextPlayer() {
 		Player result = null;
-		double max = Double.MIN_VALUE;
+		double max = Double.NEGATIVE_INFINITY;
 		for (Player player : getSuitablePlayers()) {
 			double initiative = computeInitiative(player);
+			logger.debug("current=" + max + ", initiative=" + initiative + ", player=" + player);
 			if (initiative > max) {
 				max = initiative;
 				result = player;

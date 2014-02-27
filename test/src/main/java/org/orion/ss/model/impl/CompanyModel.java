@@ -19,9 +19,16 @@ public class CompanyModel extends CombatUnitModel implements Upgradable {
 	private List<CompanyTrait> traits;
 	private List<CompanyModel> upgrades;
 	private int initiative;
+	private int maxStrength;
 
-	public CompanyModel() {
+	public CompanyModel(String code, CompanyType type, Mobility mobility, double speed, int initiative, int maxStrength) {
 		super();
+		this.code = code;
+		this.type = type;
+		this.mobility = mobility;
+		this.speed = speed;
+		this.initiative = initiative;
+		this.maxStrength = maxStrength;
 		traits = new ArrayList<CompanyTrait>();
 		upgrades = new ArrayList<CompanyModel>();
 	}
@@ -94,6 +101,14 @@ public class CompanyModel extends CombatUnitModel implements Upgradable {
 
 	public void setInitiative(int initiative) {
 		this.initiative = initiative;
+	}
+
+	public int getMaxStrength() {
+		return maxStrength;
+	}
+
+	public void setMaxStrength(int strength) {
+		this.maxStrength = strength;
 	}
 
 }

@@ -31,8 +31,8 @@ public class GraphicTest {
 	private final static String VERSION = "0.1";
 
 	/* GUI constants */
-	public final static Rectangle WINDOW_BOUNDS = new Rectangle(0, 0, 1370, 500);
-	public final static Rectangle TAB_BOUNDS = new Rectangle(0, 0, 1370, 400);
+	public final static Rectangle WINDOW_BOUNDS = new Rectangle(0, 0, 1370, 600);
+	public final static Rectangle TAB_BOUNDS = new Rectangle(0, 0, 1370, 500);
 	public final static Rectangle INFO_DIALOG_BOUNDS = new Rectangle(100, 100, 400, 250);
 	public final static int LOG_TEXT_AREA_HEIGHT = 300;
 	public final static int LEFT_MARGIN = 10;

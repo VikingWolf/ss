@@ -420,3 +420,108 @@
 27-02 14:53:19 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 14:53:19 CET 2014
 27-02 14:53:30 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 14:53:30 CET 2014
 27-02 14:53:41 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 14:53:41 CET 2014
+27-02 14:54:21 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 14:54:21 CET 2014
+27-02 14:54:45 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 14:54:45 CET 2014
+27-02 14:55:20 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 14:55:20 CET 2014
+27-02 14:55:24 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 14:55:24 CET 2014
+27-02 14:56:11 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 14:56:11 CET 2014
+27-02 14:56:15 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 14:56:15 CET 2014
+27-02 14:56:23 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 14:56:23 CET 2014
+27-02 14:57:18 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 14:57:18 CET 2014
+27-02 14:57:32 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 14:57:32 CET 2014
+27-02 14:57:38 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 14:57:38 CET 2014
+27-02 15:53:08 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 15:53:08 CET 2014
+27-02 15:54:18 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 15:54:18 CET 2014
+27-02 15:54:18 [main] [ERROR] GraphicTest[68]: players=[Player [email=ger@player, played=false], Player [email=uk@player, played=false]]
+27-02 15:54:39 [AWT-EventQueue-0] [INFO ] GraphicTest$2[122]: Ending test at Thu Feb 27 15:54:39 CET 2014
+27-02 15:54:41 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 15:54:41 CET 2014
+27-02 15:55:41 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 15:55:41 CET 2014
+27-02 15:55:41 [main] [ERROR] GraphicTest[68]: players=[Player [email=ger@player, played=false], Player [email=uk@player, played=false]]
+27-02 15:56:09 [AWT-EventQueue-0] [INFO ] GraphicTest$2[122]: Ending test at Thu Feb 27 15:56:09 CET 2014
+27-02 15:56:57 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 15:56:57 CET 2014
+27-02 15:56:57 [main] [ERROR] GraphicTest[68]: players=[Player [email=ger@player, played=false], Player [email=uk@player, played=false]]
+27-02 15:56:57 [main] [ERROR] GameService[47]: next=null
+27-02 15:57:02 [AWT-EventQueue-0] [INFO ] GraphicTest$2[122]: Ending test at Thu Feb 27 15:57:02 CET 2014
+27-02 15:57:07 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 15:57:07 CET 2014
+27-02 15:57:08 [main] [ERROR] GraphicTest[68]: players=[Player [email=ger@player, played=false], Player [email=uk@player, played=false]]
+27-02 15:57:08 [main] [ERROR] GameService[47]: next=null
+27-02 15:57:10 [AWT-EventQueue-0] [INFO ] GraphicTest$2[122]: Ending test at Thu Feb 27 15:57:10 CET 2014
+27-02 15:59:16 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 15:59:16 CET 2014
+27-02 15:59:16 [main] [ERROR] GraphicTest[68]: players=[Player [email=ger@player, played=false], Player [email=uk@player, played=false]]
+27-02 15:59:16 [main] [DEBUG] GameService[96]: initiative=0.0, player=Player [email=ger@player, played=false]
+27-02 15:59:16 [main] [DEBUG] GameService[96]: initiative=0.0, player=Player [email=uk@player, played=false]
+27-02 15:59:16 [main] [DEBUG] GameService[96]: initiative=0.0, player=Player [email=ger@player, played=false]
+27-02 15:59:16 [main] [DEBUG] GameService[96]: initiative=0.0, player=Player [email=uk@player, played=false]
+27-02 16:01:03 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 16:01:03 CET 2014
+27-02 16:01:03 [main] [ERROR] GraphicTest[68]: players=[Player [email=ger@player, played=false], Player [email=uk@player, played=false]]
+27-02 16:01:03 [main] [DEBUG] GameService[96]: current=4.9E-324, initiative=0.0, player=Player [email=ger@player, played=false]
+27-02 16:01:03 [main] [DEBUG] GameService[96]: current=4.9E-324, initiative=0.0, player=Player [email=uk@player, played=false]
+27-02 16:01:03 [main] [DEBUG] GameService[96]: current=4.9E-324, initiative=0.0, player=Player [email=ger@player, played=false]
+27-02 16:01:03 [main] [DEBUG] GameService[96]: current=4.9E-324, initiative=0.0, player=Player [email=uk@player, played=false]
+27-02 16:01:13 [AWT-EventQueue-0] [INFO ] GraphicTest$2[122]: Ending test at Thu Feb 27 16:01:13 CET 2014
+27-02 16:01:26 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 16:01:26 CET 2014
+27-02 16:01:26 [main] [ERROR] GraphicTest[68]: players=[Player [email=ger@player, played=false], Player [email=uk@player, played=false]]
+27-02 16:01:26 [main] [DEBUG] GameService[96]: current=-Infinity, initiative=0.0, player=Player [email=ger@player, played=false]
+27-02 16:01:26 [main] [DEBUG] GameService[96]: current=0.0, initiative=0.0, player=Player [email=uk@player, played=false]
+27-02 16:02:10 [AWT-EventQueue-0] [INFO ] GraphicTest$2[122]: Ending test at Thu Feb 27 16:02:10 CET 2014
+27-02 16:02:26 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 16:02:26 CET 2014
+27-02 16:02:26 [main] [ERROR] GameService[85]: company= 1
+27-02 16:02:26 [main] [DEBUG] GameService[97]: current=-Infinity, initiative=0.0, player=Player [email=ger@player, played=false]
+27-02 16:02:26 [main] [ERROR] GameService[85]: company= I
+27-02 16:02:26 [main] [DEBUG] GameService[97]: current=0.0, initiative=0.0, player=Player [email=uk@player, played=false]
+27-02 16:02:31 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 16:02:31 CET 2014
+27-02 16:03:11 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 16:03:11 CET 2014
+27-02 16:03:11 [main] [ERROR] GameService[85]: company= 1
+27-02 16:03:11 [main] [DEBUG] GameService[97]: current=-Infinity, initiative=4.540665114962872, player=Player [email=ger@player, played=false]
+27-02 16:03:11 [main] [ERROR] GameService[85]: company= I
+27-02 16:03:11 [main] [DEBUG] GameService[97]: current=4.540665114962872, initiative=3.205964797288808, player=Player [email=uk@player, played=false]
+27-02 16:03:25 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 16:03:25 CET 2014
+27-02 16:03:42 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 16:03:42 CET 2014
+27-02 16:03:46 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 16:03:46 CET 2014
+27-02 16:03:51 [AWT-EventQueue-0] [INFO ] GraphicTest$2[122]: Ending test at Thu Feb 27 16:03:51 CET 2014
+27-02 16:37:50 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 16:37:50 CET 2014
+27-02 16:37:58 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 16:37:58 CET 2014
+27-02 16:38:14 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 16:38:14 CET 2014
+27-02 16:39:06 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 16:39:06 CET 2014
+27-02 16:48:55 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 16:48:55 CET 2014
+27-02 16:49:06 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 16:49:06 CET 2014
+27-02 16:49:17 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 16:49:17 CET 2014
+27-02 16:49:58 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 16:49:58 CET 2014
+27-02 16:58:33 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 16:58:33 CET 2014
+27-02 16:58:41 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 16:58:41 CET 2014
+27-02 17:02:13 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 17:02:13 CET 2014
+27-02 17:02:23 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 17:02:23 CET 2014
+27-02 17:02:51 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 17:02:51 CET 2014
+27-02 17:03:15 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 17:03:15 CET 2014
+27-02 17:03:57 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 17:03:57 CET 2014
+27-02 17:04:05 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 17:04:05 CET 2014
+27-02 17:04:15 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 17:04:15 CET 2014
+27-02 17:04:40 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 17:04:40 CET 2014
+27-02 17:07:00 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 17:07:00 CET 2014
+27-02 17:07:14 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 17:07:14 CET 2014
+27-02 17:14:03 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 17:14:03 CET 2014
+27-02 17:14:08 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 17:14:08 CET 2014
+27-02 17:37:04 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 17:37:04 CET 2014
+27-02 17:38:04 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 17:38:04 CET 2014
+27-02 17:38:38 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 17:38:38 CET 2014
+27-02 17:38:47 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 17:38:47 CET 2014
+27-02 17:39:34 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 17:39:34 CET 2014
+27-02 17:39:54 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 17:39:54 CET 2014
+27-02 17:41:37 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 17:41:37 CET 2014
+27-02 17:41:46 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 17:41:46 CET 2014
+27-02 17:48:53 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 17:48:53 CET 2014
+27-02 17:49:38 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 17:49:38 CET 2014
+27-02 18:01:10 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 18:01:10 CET 2014
+27-02 18:01:22 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 18:01:22 CET 2014
+27-02 18:03:19 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 18:03:19 CET 2014
+27-02 18:03:28 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 18:03:28 CET 2014
+27-02 18:03:36 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 18:03:36 CET 2014
+27-02 18:03:52 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 18:03:52 CET 2014
+27-02 18:25:12 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 18:25:12 CET 2014
+27-02 18:25:24 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 18:25:24 CET 2014
+27-02 18:26:31 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 18:26:31 CET 2014
+27-02 18:27:10 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 18:27:10 CET 2014
+27-02 18:27:18 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 18:27:18 CET 2014
+27-02 18:27:55 [main] [INFO ] GraphicTest[61]: Starting test at Thu Feb 27 18:27:55 CET 2014
+27-02 18:28:09 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 18:28:09 CET 2014
+27-02 18:28:27 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Thu Feb 27 18:28:27 CET 2014

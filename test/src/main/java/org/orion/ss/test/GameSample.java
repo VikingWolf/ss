@@ -24,6 +24,7 @@ import org.orion.ss.model.impl.Market;
 import org.orion.ss.model.impl.Player;
 import org.orion.ss.model.impl.Position;
 import org.orion.ss.model.impl.Scenario;
+import org.orion.ss.model.impl.Stock;
 import org.orion.ss.model.impl.Supply;
 import org.orion.ss.model.impl.WeatherForecast;
 
@@ -34,8 +35,8 @@ public class GameSample {
 	private Position ger = new Position(FormationLevel.REGIMENT, "Infanterie-Regiment 1");
 	private Position uk = new Position(FormationLevel.REGIMENT, "2nd Infantry Brigade");
 
-	private CompanyModel ukRifleCompany = new CompanyModel();
-	private CompanyModel gerGrenadierCompany = new CompanyModel();
+	private CompanyModel ukRifleCompany;
+	private CompanyModel gerGrenadierCompany;
 
 	public Game buildGame(){
 		buildModels();
@@ -49,24 +50,22 @@ public class GameSample {
 	}
 	
 	protected void buildModels() {
-		ukRifleCompany.setCode("Rifle Company");
-		ukRifleCompany.setType(CompanyType.INFANTRY);
-		ukRifleCompany.setMobility(Mobility.LEG);
-		ukRifleCompany.setSpeed(4.5d);
-		ukRifleCompany.setInitiative(3);
-		ukRifleCompany.addAttack(new Attack(AttackType.SOFT, 0d, 3));
+		ukRifleCompany = new CompanyModel("Rifle Company", CompanyType.INFANTRY, Mobility.LEG, 4.5d, 3, 135);		
+		ukRifleCompany.addAttack(new Attack(AttackType.SOFT, 0.45d, 3));
 		ukRifleCompany.addAttack(new Attack(AttackType.HARD, 0d, 1));
 		ukRifleCompany.addDefense(new Defense(DefenseType.GROUND, 4));
 		ukRifleCompany.addDefense(new Defense(DefenseType.CLOSE, 3));
-		gerGrenadierCompany.setCode("Rifle Company");
-		gerGrenadierCompany.setType(CompanyType.INFANTRY);
-		gerGrenadierCompany.setMobility(Mobility.LEG);
-		gerGrenadierCompany.setSpeed(4.5d);
-		gerGrenadierCompany.setInitiative(4);
-		gerGrenadierCompany.addAttack(new Attack(AttackType.SOFT, 0d, 3));
+		Stock ukRifleCompanyStock = new Stock();
+		ukRifleCompanyStock.put(SupplyType.AMMO, 0.003);		
+		ukRifleCompany.setMaxSupplies(ukRifleCompanyStock);		
+		gerGrenadierCompany = new CompanyModel("Grenadier Kompanie", CompanyType.INFANTRY, Mobility.LEG, 4.5d, 4, 105);		
+		gerGrenadierCompany.addAttack(new Attack(AttackType.SOFT, 0.5d, 3));
 		gerGrenadierCompany.addAttack(new Attack(AttackType.HARD, 0d, 1));
 		gerGrenadierCompany.addDefense(new Defense(DefenseType.GROUND, 4));
 		gerGrenadierCompany.addDefense(new Defense(DefenseType.CLOSE, 3));
+		Stock gerGrenadierCompanyStock = new Stock();
+		gerGrenadierCompanyStock.put(SupplyType.AMMO, 0.003);		
+		gerGrenadierCompany.setMaxSupplies(gerGrenadierCompanyStock);		
 	}
 	
 	protected void configScenario() {
@@ -87,10 +86,10 @@ public class GameSample {
 		uk.setCountry(Country.UK);
 		uk.setPrestige(450);
 		Formation ukBn1 = new Formation(FormationLevel.BATTALION, "1st Bn");
-		ukBn1.addCompany(new Company(ukRifleCompany, "I", new Location(2, 2), 1.0d, 1.0d, 1.0d));
+		ukBn1.addCompany(new Company(ukRifleCompany, "I", new Location(2, 2)));
 		uk.addSubordinate(ukBn1);
 		Formation gerBn1 = new Formation(FormationLevel.BATTALION, "I. Bn");
-		gerBn1.addCompany(new Company(gerGrenadierCompany, "1", new Location(3,3), 1.0d, 1.0d, 1.0d));
+		gerBn1.addCompany(new Company(gerGrenadierCompany, "1", new Location(3,3)));
 		ger.addSubordinate(gerBn1);
 	}
 	

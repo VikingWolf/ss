@@ -29,6 +29,6 @@
 	</root>
 	
 	<!--  Log levels -->
-	<logger name ="org.orion.ss.test" level="DEBUG" />
+	<logger name ="org.orion.ss.test" level="INFO" />
 	
 </configuration>

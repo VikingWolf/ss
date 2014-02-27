@@ -13,6 +13,11 @@ public abstract class UnitModel {
 	
 	public abstract FormationLevel getFormationLevel();
 
+	public UnitModel(){
+		super();
+		this.consumption = new Stock();
+		this.maxSupplies = new Stock();
+	}
 	/* getters & setters */
 
 	public Stock getConsumption() {

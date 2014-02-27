@@ -1,8 +1,12 @@
 package org.orion.ss.model.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.orion.ss.model.ActivableImpl;
 import org.orion.ss.model.Mobile;
 import org.orion.ss.model.core.AttackType;
+import org.orion.ss.model.core.SupplyType;
 
 public class Company extends ActivableImpl implements Mobile {
 
@@ -12,21 +16,21 @@ public class Company extends ActivableImpl implements Mobile {
 	private String code;
 	private CompanyModel model;
 	private Location location;
-	private double strength;
+	private int strength;
 	private double experience;
 	private double organization;
 	private Stock supplies;
 	private Formation parent;
 	
-	public Company(CompanyModel model, String code, Location location, double strength, double experience, double organization) {
+	public Company(CompanyModel model, String code, Location location) {
 		super();
 		supplies = new Stock();
 		this.code = code;
 		this.model = model;
 		this.location = location;
-		this.strength = strength;
-		this.experience = experience;
-		this.organization = organization;
+		this.strength = model.getMaxStrength();
+		this.experience = 1.0d;
+		this.organization = 1.0d;
 	}
 
 	public boolean isAttackCapable(AttackType type) {
@@ -65,6 +69,34 @@ public class Company extends ActivableImpl implements Mobile {
 		return result;
 	}
 	
+	public List<Attack> computeAttacks(){
+		List<Attack> result = new ArrayList<Attack>();
+		for (Attack attack : this.getModel().getAttacks()){
+			double adjustedStrength = attack.getStrength() * Math.pow(this.getExperience(), attack.getType().getExperienceExponent()) * Math.pow(this.getOrganization(), attack.getType().getOrganizationExponent());
+			result.add(new Attack(attack.getType(), attack.getRange(), adjustedStrength));
+		}
+		return result;
+	}
+	
+	public List<Defense> computeDefenses(){
+		List<Defense> result = new ArrayList<Defense>();
+		for (Defense defense : this.getModel().getDefenses()){
+			double adjustedStrength = defense.getStrength() * Math.pow(this.getExperience(), defense.getType().getExperienceExponent()) * Math.pow(this.getOrganization(), defense.getType().getOrganizationExponent());
+			result.add(new Defense(defense.getType(), adjustedStrength));
+		}
+		return result;		
+	}
+	
+	public Stock getMaxSupplies(){
+		//TODO esto es en caso de la infantería, gestionar el uso de transportes
+		Stock result = new Stock();
+		for (SupplyType type : this.getModel().getMaxSupplies().keySet()){
+			double amount = this.getModel().getMaxSupplies().get(type) * this.getStrength();
+			result.put(type, amount);
+		}
+		return result;		
+	}
+
 	/* getters & setters */
 
 	public CompanyModel getModel() {
@@ -75,11 +107,11 @@ public class Company extends ActivableImpl implements Mobile {
 		this.model = model;
 	}
 
-	public double getStrength() {
+	public int getStrength() {
 		return strength;
 	}
 
-	public void setStrength(double strength) {
+	public void setStrength(int strength) {
 		this.strength = strength;
 	}
 
