@@ -42,13 +42,14 @@ public class GameService extends Service {
 			getGame().getCurrentPlayer().setPlayed(true);
 		}
 		Player next = getNextPlayer();
-		logger.error("next player " + next);
 		if (next != null) {
 			getGame().setCurrentPlayer(next);
 		} else {
 			endTurn();
-			next = getNextPlayer();
-			getGame().setCurrentPlayer(next);
+			if (!gameHasEnded()) {
+				next = getNextPlayer();
+				getGame().setCurrentPlayer(next);
+			}
 		}
 	}
 
@@ -99,7 +100,8 @@ public class GameService extends Service {
 	public boolean gameHasEnded() {
 		// TODO game endconditions
 		boolean result = false;
-		if (getGame().getTurn() > getGame().getSettings().getTimeLimit() + getGame().getSettings().getTimeMargin()) {
+		if ((getGame().getTurn() >= getGame().getSettings().getTimeLimit() + getGame().getSettings().getTimeMargin())
+				&& (this.getSuitablePlayers().isEmpty())) {
 			result = true;
 		}
 		return result;

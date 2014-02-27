@@ -72,7 +72,7 @@ public class GraphicTest implements Observer {
 		showInfoDialog("The Game is prepared.");
 		gameService.startGame();
 		while (!gameService.gameHasEnded()) {
-			this.showInfoDialog("" + game.getCurrentPlayer());
+			this.showInfoDialog(game.getPhase() + "(" + game.getTurn() + ") : " + game.getCurrentPlayer().getEmail(), "" + game.getDate());
 			pause();
 		}
 		gameService.computeScore();
@@ -153,9 +153,9 @@ public class GraphicTest implements Observer {
 		mainFrame.repaint();
 	}
 
-	protected void showInfoDialog(String text) {
+	protected void showInfoDialog(String... texts) {
 		final JDialog dialog = new JDialog();
-		dialog.setTitle(text);
+		dialog.setTitle("Info");
 		dialog.setBounds(INFO_DIALOG_BOUNDS);
 		dialog.setLayout(null);
 		dialog.setVisible(true);
@@ -168,9 +168,11 @@ public class GraphicTest implements Observer {
 				resume();
 			}
 		});
-		JLabel label = new JLabel(text);
-		label.setBounds(20, 20, 240, 30);
-		dialog.add(label);
+		for (int i = 0; i < texts.length; i++) {
+			JLabel label = new JLabel(texts[i]);
+			label.setBounds(20, 20 + 30 * i, 240, 30);
+			dialog.add(label);
+		}
 		JButton button = new JButton("Capisco, jefe");
 		button.setBounds(100, 160, 200, 30);
 		dialog.add(button);

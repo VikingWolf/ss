@@ -136,7 +136,6 @@ public class Game extends Observable {
 		} else {
 			getLog().addEntry(currentPlayer.getEmail() + " plays his turn " + getTurn());
 		}
-		System.out.println("current player changed");
 		setChanged();
 		this.notifyObservers(currentPlayer);
 	}

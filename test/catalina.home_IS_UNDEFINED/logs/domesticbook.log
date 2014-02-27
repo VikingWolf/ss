@@ -1,0 +1,295 @@
+26-02 19:48:21 [main] [INFO ] GraphicTest[51]: Starting test at Wed Feb 26 19:48:21 CET 2014
+26-02 19:59:37 [AWT-EventQueue-0] [INFO ] GraphicTest$1[85]: Ending test at Wed Feb 26 19:59:37 CET 2014
+26-02 20:09:32 [main] [INFO ] GraphicTest[51]: Starting test at Wed Feb 26 20:09:32 CET 2014
+26-02 20:09:39 [AWT-EventQueue-0] [INFO ] GraphicTest$1[85]: Ending test at Wed Feb 26 20:09:39 CET 2014
+26-02 20:09:55 [main] [INFO ] GraphicTest[51]: Starting test at Wed Feb 26 20:09:55 CET 2014
+26-02 20:10:04 [AWT-EventQueue-0] [INFO ] GraphicTest$1[85]: Ending test at Wed Feb 26 20:10:04 CET 2014
+26-02 20:11:57 [main] [INFO ] GraphicTest[51]: Starting test at Wed Feb 26 20:11:57 CET 2014
+26-02 21:04:54 [AWT-EventQueue-0] [INFO ] GraphicTest$1[85]: Ending test at Wed Feb 26 21:04:54 CET 2014
+26-02 21:07:51 [main] [INFO ] GraphicTest[51]: Starting test at Wed Feb 26 21:07:51 CET 2014
+26-02 21:08:01 [AWT-EventQueue-0] [INFO ] GraphicTest$1[87]: Ending test at Wed Feb 26 21:08:01 CET 2014
+26-02 21:08:06 [main] [INFO ] GraphicTest[51]: Starting test at Wed Feb 26 21:08:06 CET 2014
+26-02 21:08:12 [AWT-EventQueue-0] [INFO ] GraphicTest$1[87]: Ending test at Wed Feb 26 21:08:12 CET 2014
+26-02 21:08:37 [main] [INFO ] GraphicTest[51]: Starting test at Wed Feb 26 21:08:37 CET 2014
+26-02 21:08:52 [AWT-EventQueue-0] [INFO ] GraphicTest$1[87]: Ending test at Wed Feb 26 21:08:52 CET 2014
+26-02 21:12:34 [main] [INFO ] GraphicTest[53]: Starting test at Wed Feb 26 21:12:34 CET 2014
+26-02 21:12:37 [AWT-EventQueue-0] [INFO ] GraphicTest$1[89]: Ending test at Wed Feb 26 21:12:37 CET 2014
+26-02 21:12:47 [main] [INFO ] GraphicTest[53]: Starting test at Wed Feb 26 21:12:47 CET 2014
+26-02 21:12:55 [AWT-EventQueue-0] [INFO ] GraphicTest$1[89]: Ending test at Wed Feb 26 21:12:55 CET 2014
+26-02 21:13:46 [main] [INFO ] GraphicTest[53]: Starting test at Wed Feb 26 21:13:46 CET 2014
+26-02 21:14:30 [main] [INFO ] GraphicTest[53]: Starting test at Wed Feb 26 21:14:30 CET 2014
+26-02 21:14:33 [AWT-EventQueue-0] [INFO ] GraphicTest$1[90]: Ending test at Wed Feb 26 21:14:33 CET 2014
+26-02 21:14:44 [main] [INFO ] GraphicTest[53]: Starting test at Wed Feb 26 21:14:44 CET 2014
+26-02 21:16:13 [AWT-EventQueue-0] [INFO ] GraphicTest$1[90]: Ending test at Wed Feb 26 21:16:13 CET 2014
+26-02 21:16:15 [main] [INFO ] GraphicTest[53]: Starting test at Wed Feb 26 21:16:15 CET 2014
+26-02 21:16:22 [AWT-EventQueue-0] [INFO ] GraphicTest$1[90]: Ending test at Wed Feb 26 21:16:22 CET 2014
+26-02 21:20:23 [main] [INFO ] GraphicTest[53]: Starting test at Wed Feb 26 21:20:23 CET 2014
+26-02 21:20:33 [AWT-EventQueue-0] [INFO ] GraphicTest$1[91]: Ending test at Wed Feb 26 21:20:33 CET 2014
+26-02 21:20:35 [AWT-EventQueue-0] [INFO ] GraphicTest$1[89]: Ending test at Wed Feb 26 21:20:35 CET 2014
+26-02 21:21:38 [main] [INFO ] GraphicTest[53]: Starting test at Wed Feb 26 21:21:38 CET 2014
+26-02 21:25:43 [main] [INFO ] GraphicTest[55]: Starting test at Wed Feb 26 21:25:43 CET 2014
+26-02 21:25:49 [AWT-EventQueue-0] [INFO ] GraphicTest$1[99]: Ending test at Wed Feb 26 21:25:49 CET 2014
+26-02 21:28:48 [main] [INFO ] GraphicTest[54]: Starting test at Wed Feb 26 21:28:48 CET 2014
+26-02 21:28:49 [main] [ERROR] GraphicTest[119]: update
+26-02 21:28:49 [main] [ERROR] GraphicTest[119]: update
+26-02 21:28:55 [AWT-EventQueue-0] [INFO ] GraphicTest$1[98]: Ending test at Wed Feb 26 21:28:55 CET 2014
+26-02 21:29:09 [AWT-EventQueue-0] [INFO ] GraphicTest$1[96]: Ending test at Wed Feb 26 21:29:09 CET 2014
+26-02 21:29:11 [main] [INFO ] GraphicTest[54]: Starting test at Wed Feb 26 21:29:11 CET 2014
+26-02 21:29:13 [main] [ERROR] GraphicTest[119]: update
+26-02 21:29:13 [main] [ERROR] GraphicTest[119]: update
+26-02 21:29:16 [AWT-EventQueue-0] [INFO ] GraphicTest$1[98]: Ending test at Wed Feb 26 21:29:16 CET 2014
+26-02 21:29:48 [main] [INFO ] GraphicTest[54]: Starting test at Wed Feb 26 21:29:48 CET 2014
+26-02 21:29:51 [main] [ERROR] GraphicTest[119]: update
+26-02 21:29:51 [main] [ERROR] GraphicTest[119]: update
+26-02 21:29:54 [AWT-EventQueue-0] [INFO ] GraphicTest$1[98]: Ending test at Wed Feb 26 21:29:54 CET 2014
+26-02 21:30:30 [main] [INFO ] GraphicTest[54]: Starting test at Wed Feb 26 21:30:30 CET 2014
+26-02 21:30:33 [main] [ERROR] GraphicTest[119]: update
+26-02 21:30:33 [main] [ERROR] GraphicTest[119]: update
+26-02 21:30:37 [AWT-EventQueue-0] [INFO ] GraphicTest$1[99]: Ending test at Wed Feb 26 21:30:37 CET 2014
+26-02 21:31:16 [main] [INFO ] GraphicTest[54]: Starting test at Wed Feb 26 21:31:16 CET 2014
+26-02 21:31:22 [AWT-EventQueue-0] [INFO ] GraphicTest$1[99]: Ending test at Wed Feb 26 21:31:22 CET 2014
+26-02 21:31:30 [main] [INFO ] GraphicTest[54]: Starting test at Wed Feb 26 21:31:30 CET 2014
+26-02 21:31:41 [AWT-EventQueue-0] [INFO ] GraphicTest$1[99]: Ending test at Wed Feb 26 21:31:41 CET 2014
+26-02 21:31:50 [main] [INFO ] GraphicTest[54]: Starting test at Wed Feb 26 21:31:50 CET 2014
+26-02 21:32:06 [AWT-EventQueue-0] [INFO ] GraphicTest$1[99]: Ending test at Wed Feb 26 21:32:06 CET 2014
+26-02 21:54:02 [main] [INFO ] GraphicTest[58]: Starting test at Wed Feb 26 21:54:02 CET 2014
+26-02 21:55:00 [main] [INFO ] GraphicTest[58]: Starting test at Wed Feb 26 21:55:00 CET 2014
+26-02 21:55:09 [AWT-EventQueue-0] [INFO ] GraphicTest$1[103]: Ending test at Wed Feb 26 21:55:09 CET 2014
+26-02 21:55:59 [main] [INFO ] GraphicTest[58]: Starting test at Wed Feb 26 21:55:59 CET 2014
+26-02 21:56:43 [main] [INFO ] GraphicTest[58]: Starting test at Wed Feb 26 21:56:43 CET 2014
+26-02 21:56:43 [main] [ERROR] GraphicTest[94]: log=org.orion.ss.model.impl.GameLog@4e9b7d
+26-02 21:57:14 [main] [INFO ] GraphicTest[58]: Starting test at Wed Feb 26 21:57:14 CET 2014
+26-02 21:57:21 [AWT-EventQueue-0] [INFO ] GraphicTest$1[106]: Ending test at Wed Feb 26 21:57:21 CET 2014
+26-02 22:03:18 [main] [INFO ] GraphicTest[59]: Starting test at Wed Feb 26 22:03:18 CET 2014
+26-02 22:03:23 [AWT-EventQueue-0] [INFO ] GraphicTest$1[105]: Ending test at Wed Feb 26 22:03:23 CET 2014
+26-02 22:04:05 [main] [INFO ] GraphicTest[59]: Starting test at Wed Feb 26 22:04:05 CET 2014
+26-02 22:04:12 [AWT-EventQueue-0] [INFO ] GraphicTest$1[105]: Ending test at Wed Feb 26 22:04:12 CET 2014
+26-02 22:04:44 [main] [INFO ] GraphicTest[60]: Starting test at Wed Feb 26 22:04:44 CET 2014
+26-02 22:04:48 [AWT-EventQueue-0] [INFO ] GraphicTest$1[107]: Ending test at Wed Feb 26 22:04:48 CET 2014
+26-02 22:05:02 [main] [INFO ] GraphicTest[60]: Starting test at Wed Feb 26 22:05:02 CET 2014
+26-02 22:05:08 [AWT-EventQueue-0] [INFO ] GraphicTest$1[107]: Ending test at Wed Feb 26 22:05:08 CET 2014
+26-02 22:05:19 [main] [INFO ] GraphicTest[59]: Starting test at Wed Feb 26 22:05:19 CET 2014
+26-02 22:05:25 [AWT-EventQueue-0] [INFO ] GraphicTest$1[105]: Ending test at Wed Feb 26 22:05:25 CET 2014
+26-02 22:05:31 [main] [INFO ] GraphicTest[59]: Starting test at Wed Feb 26 22:05:31 CET 2014
+26-02 22:05:35 [AWT-EventQueue-0] [INFO ] GraphicTest$1[105]: Ending test at Wed Feb 26 22:05:35 CET 2014
+26-02 22:05:44 [main] [INFO ] GraphicTest[59]: Starting test at Wed Feb 26 22:05:44 CET 2014
+26-02 22:05:48 [AWT-EventQueue-0] [INFO ] GraphicTest$1[105]: Ending test at Wed Feb 26 22:05:48 CET 2014
+26-02 22:06:08 [main] [INFO ] GraphicTest[59]: Starting test at Wed Feb 26 22:06:08 CET 2014
+26-02 22:06:11 [AWT-EventQueue-0] [INFO ] GraphicTest$1[105]: Ending test at Wed Feb 26 22:06:11 CET 2014
+26-02 22:14:14 [main] [INFO ] GraphicTest[59]: Starting test at Wed Feb 26 22:14:14 CET 2014
+26-02 22:14:55 [main] [INFO ] GraphicTest[59]: Starting test at Wed Feb 26 22:14:55 CET 2014
+26-02 22:15:06 [AWT-EventQueue-0] [INFO ] GraphicTest$1[105]: Ending test at Wed Feb 26 22:15:06 CET 2014
+26-02 22:15:45 [main] [INFO ] GraphicTest[59]: Starting test at Wed Feb 26 22:15:45 CET 2014
+26-02 22:16:35 [main] [INFO ] GraphicTest[59]: Starting test at Wed Feb 26 22:16:35 CET 2014
+26-02 22:16:40 [AWT-EventQueue-0] [INFO ] GraphicTest$1[105]: Ending test at Wed Feb 26 22:16:40 CET 2014
+26-02 22:17:11 [main] [INFO ] GraphicTest[59]: Starting test at Wed Feb 26 22:17:11 CET 2014
+26-02 22:17:37 [AWT-EventQueue-0] [INFO ] GraphicTest$1[105]: Ending test at Wed Feb 26 22:17:37 CET 2014
+26-02 22:19:29 [main] [INFO ] GraphicTest[59]: Starting test at Wed Feb 26 22:19:29 CET 2014
+26-02 22:23:25 [AWT-EventQueue-0] [INFO ] GraphicTest$1[105]: Ending test at Wed Feb 26 22:23:25 CET 2014
+26-02 22:29:54 [main] [INFO ] GraphicTest[61]: Starting test at Wed Feb 26 22:29:54 CET 2014
+26-02 22:30:11 [main] [INFO ] GraphicTest[61]: Starting test at Wed Feb 26 22:30:11 CET 2014
+26-02 22:35:02 [main] [INFO ] GraphicTest[63]: Starting test at Wed Feb 26 22:35:02 CET 2014
+26-02 22:35:11 [main] [INFO ] GraphicTest[63]: Starting test at Wed Feb 26 22:35:11 CET 2014
+26-02 22:35:15 [AWT-EventQueue-0] [ERROR] GraphicTest$1[110]: change=javax.swing.JTabbedPane[,0,0,1370x400,invalid,layout=javax.swing.plaf.metal.MetalTabbedPaneUI$TabbedPaneLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=352,maximumSize=,minimumSize=,preferredSize=,haveRegistered=false,tabPlacement=TOP]
+26-02 22:35:35 [AWT-EventQueue-0] [INFO ] GraphicTest$2[117]: Ending test at Wed Feb 26 22:35:35 CET 2014
+26-02 22:36:30 [main] [INFO ] GraphicTest[63]: Starting test at Wed Feb 26 22:36:30 CET 2014
+26-02 22:37:53 [main] [INFO ] GraphicTest[63]: Starting test at Wed Feb 26 22:37:53 CET 2014
+26-02 22:39:25 [main] [INFO ] GraphicTest[63]: Starting test at Wed Feb 26 22:39:25 CET 2014
+26-02 22:39:32 [AWT-EventQueue-0] [INFO ] GraphicTest$2[119]: Ending test at Wed Feb 26 22:39:32 CET 2014
+26-02 22:40:02 [main] [INFO ] GraphicTest[64]: Starting test at Wed Feb 26 22:40:02 CET 2014
+26-02 22:40:08 [AWT-EventQueue-0] [INFO ] GraphicTest$2[120]: Ending test at Wed Feb 26 22:40:08 CET 2014
+26-02 22:40:27 [main] [INFO ] GraphicTest[65]: Starting test at Wed Feb 26 22:40:27 CET 2014
+26-02 22:40:31 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Wed Feb 26 22:40:31 CET 2014
+26-02 22:40:45 [main] [INFO ] GraphicTest[65]: Starting test at Wed Feb 26 22:40:45 CET 2014
+26-02 22:40:59 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Wed Feb 26 22:40:59 CET 2014
+26-02 22:42:51 [main] [INFO ] GraphicTest[66]: Starting test at Wed Feb 26 22:42:51 CET 2014
+26-02 22:44:17 [AWT-EventQueue-0] [INFO ] GraphicTest$2[128]: Ending test at Wed Feb 26 22:44:17 CET 2014
+26-02 22:44:19 [AWT-EventQueue-0] [INFO ] GraphicTest$2[119]: Ending test at Wed Feb 26 22:44:19 CET 2014
+26-02 22:44:22 [AWT-EventQueue-0] [INFO ] GraphicTest$2[118]: Ending test at Wed Feb 26 22:44:22 CET 2014
+26-02 22:44:24 [AWT-EventQueue-0] [INFO ] GraphicTest$1[105]: Ending test at Wed Feb 26 22:44:24 CET 2014
+26-02 22:44:27 [AWT-EventQueue-0] [INFO ] GraphicTest$1[105]: Ending test at Wed Feb 26 22:44:27 CET 2014
+26-02 22:46:05 [main] [INFO ] GraphicTest[66]: Starting test at Wed Feb 26 22:46:05 CET 2014
+26-02 22:46:20 [AWT-EventQueue-0] [INFO ] GraphicTest$2[132]: Ending test at Wed Feb 26 22:46:20 CET 2014
+26-02 22:46:40 [main] [INFO ] GraphicTest[66]: Starting test at Wed Feb 26 22:46:40 CET 2014
+26-02 22:46:56 [AWT-EventQueue-0] [INFO ] GraphicTest$2[131]: Ending test at Wed Feb 26 22:46:56 CET 2014
+26-02 22:50:47 [main] [INFO ] GraphicTest[66]: Starting test at Wed Feb 26 22:50:47 CET 2014
+26-02 22:54:27 [main] [INFO ] GraphicTest[67]: Starting test at Wed Feb 26 22:54:27 CET 2014
+26-02 22:54:40 [AWT-EventQueue-0] [INFO ] GraphicTest$2[132]: Ending test at Wed Feb 26 22:54:40 CET 2014
+26-02 22:55:20 [main] [INFO ] GraphicTest[67]: Starting test at Wed Feb 26 22:55:20 CET 2014
+26-02 22:55:39 [AWT-EventQueue-0] [INFO ] GraphicTest$2[132]: Ending test at Wed Feb 26 22:55:39 CET 2014
+26-02 22:58:29 [main] [INFO ] GraphicTest[67]: Starting test at Wed Feb 26 22:58:29 CET 2014
+26-02 22:58:35 [AWT-EventQueue-0] [INFO ] GraphicTest$2[132]: Ending test at Wed Feb 26 22:58:35 CET 2014
+26-02 22:58:52 [main] [INFO ] GraphicTest[67]: Starting test at Wed Feb 26 22:58:52 CET 2014
+26-02 22:58:58 [AWT-EventQueue-0] [INFO ] GraphicTest$2[132]: Ending test at Wed Feb 26 22:58:58 CET 2014
+26-02 22:59:03 [main] [INFO ] GraphicTest[67]: Starting test at Wed Feb 26 22:59:03 CET 2014
+26-02 22:59:15 [AWT-EventQueue-0] [INFO ] GraphicTest$2[132]: Ending test at Wed Feb 26 22:59:15 CET 2014
+26-02 23:02:02 [main] [INFO ] GraphicTest[67]: Starting test at Wed Feb 26 23:02:02 CET 2014
+26-02 23:02:21 [AWT-EventQueue-0] [INFO ] GraphicTest$2[132]: Ending test at Wed Feb 26 23:02:21 CET 2014
+26-02 23:05:51 [main] [INFO ] GraphicTest[67]: Starting test at Wed Feb 26 23:05:51 CET 2014
+26-02 23:18:54 [main] [INFO ] GraphicTest[66]: Starting test at Wed Feb 26 23:18:54 CET 2014
+26-02 23:19:01 [AWT-EventQueue-0] [INFO ] GraphicTest$2[126]: Ending test at Wed Feb 26 23:19:01 CET 2014
+26-02 23:26:54 [main] [INFO ] GraphicTest[64]: Starting test at Wed Feb 26 23:26:53 CET 2014
+26-02 23:28:02 [main] [INFO ] GraphicTest[64]: Starting test at Wed Feb 26 23:28:02 CET 2014
+26-02 23:29:57 [main] [INFO ] GraphicTest[64]: Starting test at Wed Feb 26 23:29:57 CET 2014
+26-02 23:30:05 [AWT-EventQueue-0] [INFO ] GraphicTest$2[123]: Ending test at Wed Feb 26 23:30:05 CET 2014
+26-02 23:30:07 [AWT-EventQueue-0] [INFO ] GraphicTest$2[123]: Ending test at Wed Feb 26 23:30:07 CET 2014
+26-02 23:30:09 [AWT-EventQueue-0] [INFO ] GraphicTest$2[123]: Ending test at Wed Feb 26 23:30:09 CET 2014
+26-02 23:30:11 [AWT-EventQueue-0] [INFO ] GraphicTest$2[141]: Ending test at Wed Feb 26 23:30:11 CET 2014
+26-02 23:33:05 [main] [INFO ] GraphicTest[64]: Starting test at Wed Feb 26 23:33:05 CET 2014
+26-02 23:33:48 [main] [INFO ] GraphicTest[64]: Starting test at Wed Feb 26 23:33:48 CET 2014
+26-02 23:33:49 [main] [ERROR] GameService[53]: Player [email=ger@player, played=false]
+26-02 23:33:49 [main] [ERROR] GameService[53]: Player [email=uk@player, played=false]
+26-02 23:35:56 [main] [INFO ] GraphicTest[64]: Starting test at Wed Feb 26 23:35:56 CET 2014
+26-02 23:35:57 [main] [ERROR] GameService[53]: Player [email=ger@player, played=false]
+26-02 23:35:57 [main] [ERROR] GameService[53]: Player [email=uk@player, played=false]
+26-02 23:36:19 [main] [INFO ] GraphicTest[64]: Starting test at Wed Feb 26 23:36:19 CET 2014
+26-02 23:36:21 [main] [ERROR] GameService[53]: Player [email=ger@player, played=false]
+26-02 23:36:21 [main] [ERROR] GameService[53]: Player [email=uk@player, played=false]
+26-02 23:36:25 [AWT-EventQueue-0] [ERROR] GameService[53]: Player [email=uk@player, played=false]
+26-02 23:36:28 [AWT-EventQueue-0] [ERROR] GameService[53]: Player [email=ger@player, played=false]
+26-02 23:36:28 [AWT-EventQueue-0] [ERROR] GameService[53]: Player [email=uk@player, played=false]
+26-02 23:36:35 [AWT-EventQueue-0] [ERROR] GameService[53]: Player [email=ger@player, played=false]
+26-02 23:36:37 [AWT-EventQueue-0] [ERROR] GameService[53]: Player [email=ger@player, played=false]
+26-02 23:36:37 [AWT-EventQueue-0] [ERROR] GameService[53]: Player [email=uk@player, played=false]
+26-02 23:36:39 [AWT-EventQueue-0] [ERROR] GameService[53]: Player [email=uk@player, played=false]
+26-02 23:37:00 [AWT-EventQueue-0] [ERROR] GameService[53]: Player [email=ger@player, played=false]
+26-02 23:37:00 [AWT-EventQueue-0] [ERROR] GameService[53]: Player [email=uk@player, played=false]
+26-02 23:37:17 [AWT-EventQueue-0] [INFO ] GraphicTest$2[123]: Ending test at Wed Feb 26 23:37:17 CET 2014
+26-02 23:38:23 [main] [INFO ] GraphicTest[64]: Starting test at Wed Feb 26 23:38:23 CET 2014
+26-02 23:38:25 [main] [ERROR] GameService[53]: Player [email=ger@player, played=false]
+26-02 23:38:25 [main] [ERROR] GameService[53]: Player [email=uk@player, played=false]
+26-02 23:38:30 [AWT-EventQueue-0] [ERROR] GameService[53]: Player [email=ger@player, played=false]
+26-02 23:38:34 [AWT-EventQueue-0] [ERROR] GameService[53]: Player [email=ger@player, played=false]
+26-02 23:38:34 [AWT-EventQueue-0] [ERROR] GameService[53]: Player [email=uk@player, played=false]
+26-02 23:38:43 [AWT-EventQueue-0] [ERROR] GameService[53]: Player [email=uk@player, played=false]
+26-02 23:38:51 [AWT-EventQueue-0] [ERROR] GameService[53]: Player [email=ger@player, played=false]
+26-02 23:38:51 [AWT-EventQueue-0] [ERROR] GameService[53]: Player [email=uk@player, played=false]
+26-02 23:38:54 [AWT-EventQueue-0] [ERROR] GameService[53]: Player [email=ger@player, played=false]
+26-02 23:40:15 [AWT-EventQueue-0] [INFO ] GraphicTest$2[123]: Ending test at Wed Feb 26 23:40:15 CET 2014
+26-02 23:40:17 [AWT-EventQueue-0] [INFO ] GraphicTest$2[123]: Ending test at Wed Feb 26 23:40:17 CET 2014
+26-02 23:40:19 [AWT-EventQueue-0] [INFO ] GraphicTest$2[123]: Ending test at Wed Feb 26 23:40:19 CET 2014
+26-02 23:40:21 [AWT-EventQueue-0] [INFO ] GraphicTest$2[123]: Ending test at Wed Feb 26 23:40:21 CET 2014
+26-02 23:40:28 [main] [INFO ] GraphicTest[64]: Starting test at Wed Feb 26 23:40:28 CET 2014
+26-02 23:40:29 [main] [ERROR] GameService[37]: next player
+26-02 23:40:29 [main] [ERROR] GameService[54]: Player [email=ger@player, played=false]
+26-02 23:40:29 [main] [ERROR] GameService[54]: Player [email=uk@player, played=false]
+26-02 23:40:32 [AWT-EventQueue-0] [ERROR] GameService[37]: next player
+26-02 23:40:32 [AWT-EventQueue-0] [ERROR] GameService[54]: Player [email=uk@player, played=false]
+26-02 23:40:36 [AWT-EventQueue-0] [ERROR] GameService[37]: next player
+26-02 23:40:36 [AWT-EventQueue-0] [ERROR] GameService[54]: Player [email=ger@player, played=false]
+26-02 23:40:36 [AWT-EventQueue-0] [ERROR] GameService[54]: Player [email=uk@player, played=false]
+26-02 23:40:46 [AWT-EventQueue-0] [ERROR] GameService[37]: next player
+26-02 23:40:46 [AWT-EventQueue-0] [ERROR] GameService[54]: Player [email=ger@player, played=false]
+26-02 23:40:58 [AWT-EventQueue-0] [INFO ] GraphicTest$2[123]: Ending test at Wed Feb 26 23:40:58 CET 2014
+26-02 23:41:18 [main] [INFO ] GraphicTest[64]: Starting test at Wed Feb 26 23:41:18 CET 2014
+26-02 23:41:20 [main] [ERROR] GameService[41]: next player Player [email=ger@player, played=false]
+26-02 23:41:22 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:41:28 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:41:48 [main] [INFO ] GraphicTest[64]: Starting test at Wed Feb 26 23:41:48 CET 2014
+26-02 23:41:49 [main] [ERROR] GameService[41]: next player Player [email=ger@player, played=false]
+26-02 23:41:52 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:41:54 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:41:56 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:41:58 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:42:03 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:42:06 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:42:08 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:42:09 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:42:11 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:42:14 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:42:21 [AWT-EventQueue-0] [INFO ] GraphicTest$2[123]: Ending test at Wed Feb 26 23:42:21 CET 2014
+26-02 23:44:37 [main] [INFO ] GraphicTest[64]: Starting test at Wed Feb 26 23:44:37 CET 2014
+26-02 23:44:39 [main] [ERROR] GameService[41]: next player Player [email=ger@player, played=false]
+26-02 23:44:41 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:44:43 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:44:44 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=ger@player, played=false]
+26-02 23:44:45 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:44:46 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=ger@player, played=false]
+26-02 23:44:48 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:44:49 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:44:53 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:44:55 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:44:56 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:45:01 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:45:02 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:45:11 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Wed Feb 26 23:45:11 CET 2014
+26-02 23:49:43 [main] [INFO ] GraphicTest[65]: Starting test at Wed Feb 26 23:49:43 CET 2014
+26-02 23:49:44 [main] [ERROR] GameService[41]: next player Player [email=ger@player, played=false]
+26-02 23:49:53 [AWT-EventQueue-0] [INFO ] GraphicTest$2[126]: Ending test at Wed Feb 26 23:49:53 CET 2014
+26-02 23:50:07 [main] [INFO ] GraphicTest[65]: Starting test at Wed Feb 26 23:50:07 CET 2014
+26-02 23:50:09 [main] [ERROR] GameService[41]: next player Player [email=ger@player, played=false]
+26-02 23:50:11 [AWT-EventQueue-0] [INFO ] GraphicTest$2[126]: Ending test at Wed Feb 26 23:50:11 CET 2014
+26-02 23:51:05 [main] [INFO ] GraphicTest[65]: Starting test at Wed Feb 26 23:51:05 CET 2014
+26-02 23:51:06 [main] [ERROR] GameService[41]: next player Player [email=ger@player, played=false]
+26-02 23:51:11 [AWT-EventQueue-0] [INFO ] GraphicTest$2[126]: Ending test at Wed Feb 26 23:51:11 CET 2014
+26-02 23:51:20 [main] [INFO ] GraphicTest[65]: Starting test at Wed Feb 26 23:51:20 CET 2014
+26-02 23:51:22 [main] [ERROR] GameService[41]: next player Player [email=ger@player, played=false]
+26-02 23:51:23 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:51:24 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:51:24 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:51:25 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:51:25 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:51:26 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:51:26 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:51:27 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:51:27 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=ger@player, played=false]
+26-02 23:51:27 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:51:28 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:51:48 [AWT-EventQueue-0] [INFO ] GraphicTest$2[126]: Ending test at Wed Feb 26 23:51:48 CET 2014
+26-02 23:51:51 [main] [INFO ] GraphicTest[65]: Starting test at Wed Feb 26 23:51:51 CET 2014
+26-02 23:51:52 [main] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:51:55 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=ger@player, played=false]
+26-02 23:51:56 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:51:56 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=ger@player, played=false]
+26-02 23:51:56 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:51:57 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:51:57 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:51:57 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:51:57 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:51:57 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:51:57 [AWT-EventQueue-0] [ERROR] GameService[41]: next player null
+26-02 23:51:57 [AWT-EventQueue-0] [ERROR] GameService[41]: next player Player [email=uk@player, played=false]
+26-02 23:53:42 [main] [INFO ] GraphicTest[65]: Starting test at Wed Feb 26 23:53:42 CET 2014
+26-02 23:53:44 [main] [ERROR] GameService[43]: next player Player [email=ger@player, played=false]
+26-02 23:53:46 [AWT-EventQueue-0] [ERROR] GameService[43]: next player Player [email=uk@player, played=false]
+26-02 23:53:47 [AWT-EventQueue-0] [ERROR] GameService[43]: next player null
+26-02 23:53:47 [AWT-EventQueue-0] [ERROR] GameService[43]: next player Player [email=uk@player, played=false]
+26-02 23:53:48 [AWT-EventQueue-0] [ERROR] GameService[43]: next player null
+26-02 23:53:48 [AWT-EventQueue-0] [ERROR] GameService[43]: next player Player [email=ger@player, played=false]
+26-02 23:53:49 [AWT-EventQueue-0] [ERROR] GameService[43]: next player null
+26-02 23:53:49 [AWT-EventQueue-0] [ERROR] GameService[43]: next player Player [email=ger@player, played=false]
+26-02 23:53:50 [AWT-EventQueue-0] [ERROR] GameService[43]: next player null
+26-02 23:53:51 [AWT-EventQueue-0] [ERROR] GameService[43]: next player Player [email=uk@player, played=false]
+26-02 23:53:51 [AWT-EventQueue-0] [ERROR] GameService[43]: next player null
+26-02 23:53:52 [AWT-EventQueue-0] [ERROR] GameService[43]: next player Player [email=uk@player, played=false]
+26-02 23:56:07 [AWT-EventQueue-0] [INFO ] GraphicTest$2[126]: Ending test at Wed Feb 26 23:56:07 CET 2014
+26-02 23:56:09 [AWT-EventQueue-0] [INFO ] GraphicTest$2[126]: Ending test at Wed Feb 26 23:56:09 CET 2014
+26-02 23:56:11 [AWT-EventQueue-0] [INFO ] GraphicTest$2[123]: Ending test at Wed Feb 26 23:56:11 CET 2014
+27-02 08:47:08 [main] [INFO ] GraphicTest[65]: Starting test at Thu Feb 27 08:47:08 CET 2014
+27-02 08:47:10 [main] [ERROR] GameService[45]: next player Player [email=ger@player, played=false]
+27-02 08:47:14 [AWT-EventQueue-0] [ERROR] GameService[45]: next player Player [email=uk@player, played=false]
+27-02 08:47:14 [AWT-EventQueue-0] [ERROR] GameService[45]: next player null
+27-02 08:47:14 [AWT-EventQueue-0] [ERROR] GameService[45]: next player Player [email=uk@player, played=false]
+27-02 08:47:15 [AWT-EventQueue-0] [ERROR] GameService[45]: next player null
+27-02 08:47:15 [AWT-EventQueue-0] [ERROR] GameService[45]: next player Player [email=uk@player, played=false]
+27-02 08:47:15 [AWT-EventQueue-0] [ERROR] GameService[45]: next player null
+27-02 08:47:15 [AWT-EventQueue-0] [ERROR] GameService[45]: next player Player [email=uk@player, played=false]
+27-02 08:47:16 [AWT-EventQueue-0] [ERROR] GameService[45]: next player null
+27-02 08:47:16 [AWT-EventQueue-0] [ERROR] GameService[45]: next player Player [email=uk@player, played=false]
+27-02 08:47:17 [AWT-EventQueue-0] [ERROR] GameService[45]: next player null
+27-02 08:47:17 [AWT-EventQueue-0] [ERROR] GameService[45]: next player Player [email=ger@player, played=false]
+27-02 08:48:43 [AWT-EventQueue-0] [INFO ] GraphicTest$2[126]: Ending test at Thu Feb 27 08:48:43 CET 2014
+27-02 08:48:46 [main] [INFO ] GraphicTest[65]: Starting test at Thu Feb 27 08:48:46 CET 2014
+27-02 08:51:40 [AWT-EventQueue-0] [INFO ] GraphicTest$2[126]: Ending test at Thu Feb 27 08:51:40 CET 2014
+27-02 08:55:39 [main] [INFO ] GraphicTest[65]: Starting test at Thu Feb 27 08:55:39 CET 2014
+27-02 08:55:56 [AWT-EventQueue-0] [INFO ] GraphicTest$2[126]: Ending test at Thu Feb 27 08:55:56 CET 2014
+27-02 08:57:24 [main] [INFO ] GraphicTest[65]: Starting test at Thu Feb 27 08:57:24 CET 2014
+27-02 08:57:53 [AWT-EventQueue-0] [INFO ] GraphicTest$2[126]: Ending test at Thu Feb 27 08:57:53 CET 2014
+27-02 08:59:17 [main] [INFO ] GraphicTest[65]: Starting test at Thu Feb 27 08:59:17 CET 2014
+27-02 09:00:26 [AWT-EventQueue-0] [INFO ] GraphicTest$2[126]: Ending test at Thu Feb 27 09:00:26 CET 2014
+27-02 09:00:29 [main] [INFO ] GraphicTest[65]: Starting test at Thu Feb 27 09:00:29 CET 2014
+27-02 09:00:34 [AWT-EventQueue-0] [INFO ] GraphicTest$2[126]: Ending test at Thu Feb 27 09:00:34 CET 2014
+27-02 09:01:22 [main] [INFO ] GraphicTest[65]: Starting test at Thu Feb 27 09:01:22 CET 2014
+27-02 09:01:38 [AWT-EventQueue-0] [INFO ] GraphicTest$2[126]: Ending test at Thu Feb 27 09:01:38 CET 2014
+27-02 09:05:02 [main] [INFO ] GraphicTest[65]: Starting test at Thu Feb 27 09:05:02 CET 2014
+27-02 09:05:33 [AWT-EventQueue-0] [INFO ] GraphicTest$2[126]: Ending test at Thu Feb 27 09:05:33 CET 2014
