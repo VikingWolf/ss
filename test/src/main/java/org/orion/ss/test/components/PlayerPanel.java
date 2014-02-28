@@ -22,8 +22,10 @@ import org.orion.ss.model.impl.Attack;
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.Defense;
 import org.orion.ss.model.impl.Game;
+import org.orion.ss.model.impl.WeaponModel;
 import org.orion.ss.service.ManagementService;
 import org.orion.ss.test.GraphicTest;
+import org.orion.ss.utils.NumberFormats;
 
 public class PlayerPanel extends FastPanel implements Observer {
 
@@ -33,8 +35,8 @@ public class PlayerPanel extends FastPanel implements Observer {
 
 	private final GraphicTest parent;
 
-	private ManagementService managementService;
-	
+	private final ManagementService managementService;
+
 	/* GUI components */
 	private JButton button;
 	private FastPanel unitDetailPanel;
@@ -60,18 +62,20 @@ public class PlayerPanel extends FastPanel implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				boolean gameEnded = parent.nextPlayer();
-				if (gameEnded){
+				if (gameEnded) {
 					button.setEnabled(false);
 					parent.endGame();
 				}
 			}
 
 		});
-		PositionTreePanel treePanel = new PositionTreePanel(this, game.getCurrentPlayerPosition(), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT, GraphicTest.COLUMN_WIDTH_XLARGE, 380);
+		PositionTreePanel treePanel = new PositionTreePanel(this, game.getCurrentPlayerPosition(), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN
+				* 2 + GraphicTest.ROW_HEIGHT, GraphicTest.COLUMN_WIDTH_XLARGE, 380);
 		add(treePanel.getPanel());
 		unitDetailPanel = new FastPanel();
 		unitDetailPanel.setLayout(null);
-		unitDetailPanel.setBounds(GraphicTest.LEFT_MARGIN * 2 + GraphicTest.COLUMN_WIDTH_XLARGE, GraphicTest.TOP_MARGIN, GraphicTest.COLUMN_WIDTH + GraphicTest.COLUMN_WIDTH_LARGE + GraphicTest.LEFT_MARGIN * 2, 460);
+		unitDetailPanel.setBounds(GraphicTest.LEFT_MARGIN * 2 + GraphicTest.COLUMN_WIDTH_XLARGE, GraphicTest.TOP_MARGIN, GraphicTest.COLUMN_WIDTH * 2
+				+ GraphicTest.COLUMN_WIDTH_LARGE * 2 + GraphicTest.LEFT_MARGIN * 3, 460);
 		add(unitDetailPanel);
 
 	}
@@ -80,34 +84,54 @@ public class PlayerPanel extends FastPanel implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		mount();
 	}
-	
-	public void updateUnitPanel(Company company){
+
+	public void updateUnitPanel(Company company) {
 		unitDetailPanel.removeAll();
 		TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), company.getId());
 		unitDetailPanel.setBorder(title);
-		List<String> labels = new ArrayList<String>(Arrays.asList(new String[]{"Type", "Model", "Mobility", "Speed", "Initiative", "Strength", "Organization", "Experience" }));
-		List<String> textfields = new ArrayList<String>(Arrays.asList(new String[]{"" + company.getModel().getType(), company.getModel().getCode(), "" + company.getModel().getMobility(), "" + company.getModel().getSpeed() + "km/h", "" + company.computeInitiative(), company.getStrength() + "/" + company.getModel().getMaxStrength(), "" + company.getOrganization(), "" + company.getExperience() }));
-		for (Attack attack : company.computeAttacks()){
-			labels.add(attack.getType().getDenomination());
-			textfields.add(attack.getStrength() + " at " + attack.getRange() + " km");
+		/* First column */
+		List<String> labels1 = new ArrayList<String>(Arrays.asList(new String[] { "Type", "Model", "Mobility", "Speed", "Initiative", "Strength",
+				"Organization", "Experience" }));
+		List<String> textfields1 = new ArrayList<String>(
+				Arrays.asList(new String[] { "" + company.getModel().getType(), company.getModel().getCode(), "" + company.getModel().getMobility(),
+						"" + company.getModel().getSpeed() + "km/h", "" + company.computeInitiative(),
+						company.getStrength() + "(" + company.getModel().getMaxStrength() + ")", "" + company.getOrganization(),
+						"" + company.getExperience() }));
+		for (Attack attack : company.computeAttacks()) {
+			labels1.add(attack.getType().getDenomination());
+			textfields1.add(NumberFormats.DF_2.format(attack.getStrength()) + " at " + attack.getRange() + " km");
 		}
-		for (Defense defense : company.computeDefenses()){
-			labels.add(defense.getType().getDenomination());
-			textfields.add("" + defense.getStrength());			
+		for (Defense defense : company.computeDefenses()) {
+			labels1.add(defense.getType().getDenomination());
+			textfields1.add("" + NumberFormats.DF_2.format(defense.getStrength()));
 		}
-		for (SupplyType stock : company.getMaxSupplies().keySet()){
-			labels.add("Max " + stock.getDenomination());
-			textfields.add("" + company.getMaxSupplies().get(stock));			
-		}		
-		for (int i = 0; i < labels.size(); i++){
-			unitDetailPanel.addLabel(labels.get(i), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
-			unitDetailPanel.addNotEditableTextField(textfields.get(i), GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH_LARGE, GraphicTest.ROW_HEIGHT);
+		for (SupplyType stock : company.getMaxSupplies().keySet()) {
+			labels1.add("Max " + stock.getDenomination());
+			textfields1.add("" + company.getMaxSupplies().get(stock));
 		}
-		//TODO montando panel
+		for (int i = 0; i < labels1.size(); i++) {
+			unitDetailPanel.addLabel(labels1.get(i), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * i,
+					GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+			unitDetailPanel.addNotEditableTextField(textfields1.get(i), GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH, GraphicTest.TOP_MARGIN
+					* 2
+					+ GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH_LARGE, GraphicTest.ROW_HEIGHT);
+		}
+		/* Second Column */
+		List<String> labels2 = new ArrayList<String>();
+		List<String> textfields2 = new ArrayList<String>();
+		int i = 0;
+		for (WeaponModel weaponModel : company.getModel().getWeaponry().keySet()) {
+			unitDetailPanel.addLabel(labels2.get(i), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * i,
+					GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+
+			i++;
+		}
+
+		// TODO montando panel
 	}
-	
-	public void updateUnitPanel(AirSquadron airSquadron){
-		//TODO montar panel		
+
+	public void updateUnitPanel(AirSquadron airSquadron) {
+		// TODO montar panel
 	}
 
 }
@@ -120,9 +144,9 @@ class FastPanel extends JPanel {
 		JLabel label = new JLabel(text);
 		label.setBounds(x, y, w, h);
 		add(label);
-	}	
-	
-	protected void addNotEditableTextField(String text, int x, int y, int w, int h){
+	}
+
+	protected void addNotEditableTextField(String text, int x, int y, int w, int h) {
 		JTextField textField = new JTextField();
 		textField.setBounds(x, y, w, h);
 		textField.setText(text);

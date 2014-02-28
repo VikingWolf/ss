@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.orion.ss.model.CombatUnitModel;
 import org.orion.ss.model.core.AirSquadronType;
+import org.orion.ss.model.core.AttackType;
 import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.Mobility;
 
@@ -14,10 +15,22 @@ public class AirSquadronModel extends CombatUnitModel {
 	private List<AirSquadronModel> upgrades;
 
 	@Override
+	public double computeWeaponAmountModifier(AttackType attackType) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Defense> computeDefenses() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public Mobility getMobility() {
 		return Mobility.AIR;
 	}
-		
+
 	@Override
 	public FormationLevel getFormationLevel() {
 		return FormationLevel.AIR_SQUADRON;

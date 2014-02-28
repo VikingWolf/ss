@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.orion.ss.model.CombatUnitModel;
 import org.orion.ss.model.Upgradable;
+import org.orion.ss.model.core.AttackType;
 import org.orion.ss.model.core.CompanyTrait;
 import org.orion.ss.model.core.CompanyType;
 import org.orion.ss.model.core.FormationLevel;
@@ -38,10 +39,26 @@ public class CompanyModel extends CombatUnitModel implements Upgradable {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	@Override
 	public FormationLevel getFormationLevel() {
 		return FormationLevel.COMPANY;
+	}
+
+	@Override
+	public double computeWeaponAmountModifier(AttackType attackType) {
+		int amount = 0;
+		for (WeaponModel weapon : this.getWeaponry().keySet()) {
+			if (weapon.hasAttackType(attackType)) {
+				amount += weapon.getCrew() * this.getWeaponry().get(weapon);
+			}
+		}
+		return (double) this.getMaxStrength() / (double) amount;
+	}
+
+	@Override
+	public List<Defense> computeDefenses() {
+		return this.getType().getDefenses();
 	}
 
 	/* getters & setters */
