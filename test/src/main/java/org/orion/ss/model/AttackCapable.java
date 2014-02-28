@@ -1,11 +1,9 @@
 package org.orion.ss.model;
 
-import java.util.List;
-
-import org.orion.ss.model.impl.Attack;
+import org.orion.ss.model.impl.AttackSet;
 
 public interface AttackCapable {
 
-	public List<Attack> computeAttacks();
+	public AttackSet computeAttacks();
 
 }

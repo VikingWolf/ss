@@ -13,14 +13,14 @@ import org.orion.ss.model.impl.Formation;
 import org.orion.ss.model.impl.Position;
 
 public class PositionTreePanel implements TreeSelectionListener {
-	
-	private Position position;
-	private JTree tree;
 
-	private PlayerPanel parent;
-	private JScrollPane panel;
-	
-	public PositionTreePanel(PlayerPanel parent, Position position, int x, int y, int w, int h){
+	private final Position position;
+	private final JTree tree;
+
+	private final PlayerPanel parent;
+	private final JScrollPane panel;
+
+	public PositionTreePanel(PlayerPanel parent, Position position, int x, int y, int w, int h) {
 		super();
 		this.position = position;
 		this.parent = parent;
@@ -32,22 +32,22 @@ public class PositionTreePanel implements TreeSelectionListener {
 		panel = new JScrollPane(tree);
 		panel.setBounds(x, y, w, h);
 	}
-	
-	private void createNodes(DefaultMutableTreeNode top){
-		for (Formation formation : position.getSubordinates()){
+
+	private void createNodes(DefaultMutableTreeNode top) {
+		for (Formation formation : position.getSubordinates()) {
 			createNodes(top, formation);
 		}
 	}
-	
-	private void createNodes(DefaultMutableTreeNode parent, Formation formation){
+
+	private void createNodes(DefaultMutableTreeNode parent, Formation formation) {
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(formation);
-		for (Company company : formation.getCompanies()){
+		for (Company company : formation.getCompanies()) {
 			node.add(new DefaultMutableTreeNode(company));
 		}
 		parent.add(node);
 	}
-	
-	public JScrollPane getPanel(){
+
+	public JScrollPane getPanel() {
 		return this.panel;
 	}
 
@@ -55,17 +55,17 @@ public class PositionTreePanel implements TreeSelectionListener {
 	public void valueChanged(TreeSelectionEvent e) {
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
 		if (node == null) return;
-		
+
 		Object nodeInfo = node.getUserObject();
-		if (node.isLeaf()){
-			if (nodeInfo instanceof Company){
+		if (node.isLeaf()) {
+			if (nodeInfo instanceof Company) {
 				Company company = (Company) nodeInfo;
-				parent.updateUnitPanel(company);				
-			} else if (nodeInfo instanceof AirSquadron){
+				parent.updateUnitPanel(company);
+			} else if (nodeInfo instanceof AirSquadron) {
 				AirSquadron airSquadron = (AirSquadron) nodeInfo;
-				parent.updateUnitPanel(airSquadron);								
+				parent.updateUnitPanel(airSquadron);
 			}
-		}		
+		}
 	}
 
 }

@@ -1,12 +1,10 @@
 package org.orion.ss.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.orion.ss.model.core.AttackType;
 import org.orion.ss.model.core.Country;
 import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.impl.Attack;
+import org.orion.ss.model.impl.AttackSet;
 import org.orion.ss.model.impl.Stock;
 import org.orion.ss.model.impl.WeaponModel;
 import org.orion.ss.model.impl.Weaponry;
@@ -25,8 +23,8 @@ public abstract class CombatUnitModel extends UnitModel implements AttackCapable
 	public abstract double computeWeaponAmountModifier(AttackType attackType);
 
 	@Override
-	public List<Attack> computeAttacks() {
-		List<Attack> result = new ArrayList<Attack>();
+	public AttackSet computeAttacks() {
+		AttackSet result = new AttackSet();
 		for (WeaponModel weaponModel : getWeaponry().keySet()) {
 			for (Attack attack : weaponModel.computeAttacks()) {
 				double strength = attack.getStrength() * getWeaponry().get(weaponModel)

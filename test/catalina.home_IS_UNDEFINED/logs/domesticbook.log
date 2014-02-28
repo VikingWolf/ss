@@ -300,3 +300,144 @@
 28-02 08:55:46 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Fri Feb 28 08:55:46 CET 2014
 28-02 08:56:36 [main] [INFO ] GraphicTest[61]: Starting test at Fri Feb 28 08:56:36 CET 2014
 28-02 08:58:10 [AWT-EventQueue-0] [INFO ] GraphicTest$2[121]: Ending test at Fri Feb 28 08:58:10 CET 2014
+28-02 20:16:31 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 20:16:31 CET 2014
+28-02 20:16:46 [AWT-EventQueue-0] [ERROR] PlayerPanel[248]: upgrade=null
+28-02 20:33:43 [AWT-EventQueue-0] [ERROR] PlayerPanel[248]: upgrade=Rifle Company 40
+28-02 20:33:45 [AWT-EventQueue-0] [ERROR] PlayerPanel[248]: upgrade=Rifle Company 40
+28-02 20:33:48 [AWT-EventQueue-0] [ERROR] PlayerPanel[248]: upgrade=Rifle Company 40
+28-02 20:33:53 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 20:33:53 CET 2014
+28-02 20:33:56 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 20:33:56 CET 2014
+28-02 20:34:00 [AWT-EventQueue-0] [ERROR] PlayerPanel[248]: upgrade=null
+28-02 20:34:04 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 20:34:04 CET 2014
+28-02 20:34:12 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 20:34:12 CET 2014
+28-02 20:34:17 [AWT-EventQueue-0] [ERROR] PlayerPanel[248]: upgrade=null
+28-02 20:34:19 [AWT-EventQueue-0] [ERROR] PlayerPanel[248]: upgrade=null
+28-02 20:34:22 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 20:34:22 CET 2014
+28-02 20:34:33 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 20:34:33 CET 2014
+28-02 20:34:40 [AWT-EventQueue-0] [ERROR] PlayerPanel[248]: upgrade=null
+28-02 20:34:43 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 20:34:43 CET 2014
+28-02 20:35:10 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 20:35:10 CET 2014
+28-02 20:35:15 [AWT-EventQueue-0] [ERROR] PlayerPanel[266]: upgrade=null
+28-02 20:35:17 [AWT-EventQueue-0] [ERROR] PlayerPanel[266]: upgrade=null
+28-02 20:35:27 [AWT-EventQueue-0] [ERROR] PlayerPanel[266]: upgrade=Rifle Company 40
+28-02 20:35:32 [AWT-EventQueue-0] [ERROR] PlayerPanel[266]: upgrade=Rifle Company 40
+28-02 20:35:52 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 20:35:52 CET 2014
+28-02 20:39:54 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 20:39:54 CET 2014
+28-02 20:40:09 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 20:40:09 CET 2014
+28-02 20:41:05 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 20:41:05 CET 2014
+28-02 20:42:19 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 20:42:19 CET 2014
+28-02 20:42:59 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 20:42:59 CET 2014
+28-02 20:43:03 [AWT-EventQueue-0] [ERROR] PlayerPanel[272]: upgrade=null
+28-02 20:43:08 [AWT-EventQueue-0] [ERROR] PlayerPanel[272]: upgrade=null
+28-02 20:43:12 [AWT-EventQueue-0] [ERROR] PlayerPanel[272]: upgrade=Rifle Company 40
+28-02 20:43:14 [AWT-EventQueue-0] [ERROR] PlayerPanel[272]: upgrade=Rifle Company 40
+28-02 20:43:49 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 20:43:49 CET 2014
+28-02 20:43:51 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 20:43:51 CET 2014
+28-02 20:43:53 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 20:43:53 CET 2014
+28-02 20:52:31 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 20:52:31 CET 2014
+28-02 20:52:35 [AWT-EventQueue-0] [ERROR] PlayerPanel[288]: upgrade=null
+28-02 20:52:48 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 20:52:48 CET 2014
+28-02 20:54:06 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 20:54:06 CET 2014
+28-02 20:54:10 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=null
+28-02 20:54:13 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 20:54:13 CET 2014
+28-02 20:54:55 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 20:54:55 CET 2014
+28-02 20:55:02 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=null
+28-02 20:55:14 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 20:55:14 CET 2014
+28-02 20:55:48 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 20:55:48 CET 2014
+28-02 20:55:55 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 20:56:09 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 20:56:09 CET 2014
+28-02 20:56:25 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 20:56:25 CET 2014
+28-02 20:56:29 [AWT-EventQueue-0] [ERROR] PlayerPanel[286]: upgrade=null
+28-02 20:56:34 [AWT-EventQueue-0] [ERROR] PlayerPanel[286]: upgrade=Rifle Company 40
+28-02 20:56:43 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 20:56:43 CET 2014
+28-02 20:57:22 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 20:57:22 CET 2014
+28-02 20:57:27 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 20:57:41 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 20:57:41 CET 2014
+28-02 20:58:44 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 20:58:44 CET 2014
+28-02 20:58:49 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 20:59:00 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 20:59:00 CET 2014
+28-02 20:59:23 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 20:59:23 CET 2014
+28-02 20:59:28 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 21:00:27 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:00:27 CET 2014
+28-02 21:04:38 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:04:38 CET 2014
+28-02 21:04:58 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 21:05:08 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:05:08 CET 2014
+28-02 21:11:28 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:11:28 CET 2014
+28-02 21:11:34 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=null
+28-02 21:11:35 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=null
+28-02 21:11:49 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 21:11:53 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:11:53 CET 2014
+28-02 21:12:25 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:12:25 CET 2014
+28-02 21:12:27 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:12:27 CET 2014
+28-02 21:13:14 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:13:14 CET 2014
+28-02 21:13:18 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 21:14:45 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 21:14:55 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:14:55 CET 2014
+28-02 21:24:19 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:24:19 CET 2014
+28-02 21:24:25 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=null
+28-02 21:24:28 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=null
+28-02 21:24:40 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 21:24:45 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:24:45 CET 2014
+28-02 21:25:03 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:25:03 CET 2014
+28-02 21:25:07 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 21:25:45 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 21:26:00 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:26:00 CET 2014
+28-02 21:26:09 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:26:09 CET 2014
+28-02 21:26:13 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 21:26:26 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:26:26 CET 2014
+28-02 21:26:35 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:26:35 CET 2014
+28-02 21:26:39 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 21:26:45 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:26:45 CET 2014
+28-02 21:30:56 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:30:56 CET 2014
+28-02 21:31:01 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 21:31:48 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:31:48 CET 2014
+28-02 21:31:51 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:31:51 CET 2014
+28-02 21:31:56 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 21:33:08 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:33:08 CET 2014
+28-02 21:33:13 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 21:35:45 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:35:45 CET 2014
+28-02 21:35:50 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=null
+28-02 21:35:54 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 21:36:03 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40
+28-02 21:36:49 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:36:49 CET 2014
+28-02 21:38:26 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:38:26 CET 2014
+28-02 21:38:30 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40, str=0.9
+28-02 21:38:37 [AWT-EventQueue-0] [ERROR] PlayerPanel[287]: upgrade=Rifle Company 40, str=1.0
+28-02 21:39:03 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:39:03 CET 2014
+28-02 21:39:05 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:39:05 CET 2014
+28-02 21:39:06 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:39:06 CET 2014
+28-02 21:39:12 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:39:12 CET 2014
+28-02 21:39:19 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:39:19 CET 2014
+28-02 21:45:56 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:45:56 CET 2014
+28-02 21:46:29 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:46:29 CET 2014
+28-02 21:48:01 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:48:01 CET 2014
+28-02 21:48:08 [AWT-EventQueue-0] [ERROR] PlayerPanel[193]: update upgrade unit panel = Rifle Company 40
+28-02 21:48:09 [AWT-EventQueue-0] [ERROR] PlayerPanel[193]: update upgrade unit panel = Rifle Company 40
+28-02 21:49:16 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:49:16 CET 2014
+28-02 21:49:21 [AWT-EventQueue-0] [ERROR] PlayerPanel[193]: update upgrade unit panel = Rifle Company 40
+28-02 21:49:23 [AWT-EventQueue-0] [ERROR] PlayerPanel[193]: update upgrade unit panel = Rifle Company 40
+28-02 21:49:24 [AWT-EventQueue-0] [ERROR] PlayerPanel[193]: update upgrade unit panel = null
+28-02 21:49:35 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:49:35 CET 2014
+28-02 21:50:08 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:50:08 CET 2014
+28-02 21:50:11 [AWT-EventQueue-0] [ERROR] PlayerPanel[193]: update upgrade unit panel = null
+28-02 21:50:14 [AWT-EventQueue-0] [ERROR] PlayerPanel[193]: update upgrade unit panel = null
+28-02 21:50:18 [AWT-EventQueue-0] [ERROR] PlayerPanel[193]: update upgrade unit panel = Rifle Company 40
+28-02 21:50:20 [AWT-EventQueue-0] [ERROR] PlayerPanel[193]: update upgrade unit panel = Rifle Company 40
+28-02 21:50:21 [AWT-EventQueue-0] [ERROR] PlayerPanel[193]: update upgrade unit panel = null
+28-02 21:50:24 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:50:24 CET 2014
+28-02 21:50:33 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:50:33 CET 2014
+28-02 21:51:14 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:51:14 CET 2014
+28-02 21:51:18 [AWT-EventQueue-0] [ERROR] PlayerPanel[193]: update upgrade unit panel = null
+28-02 21:51:24 [AWT-EventQueue-0] [ERROR] PlayerPanel[193]: update upgrade unit panel = Rifle Company 40
+28-02 21:51:25 [AWT-EventQueue-0] [ERROR] PlayerPanel[193]: update upgrade unit panel = Rifle Company 40
+28-02 21:51:26 [AWT-EventQueue-0] [ERROR] PlayerPanel[193]: update upgrade unit panel = null
+28-02 21:51:35 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:51:35 CET 2014
+28-02 21:53:07 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 21:53:07 CET 2014
+28-02 21:54:13 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:54:13 CET 2014
+28-02 21:54:15 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:54:15 CET 2014
+28-02 21:54:17 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 21:54:17 CET 2014
+28-02 22:00:21 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 22:00:21 CET 2014
+28-02 22:00:31 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 22:00:31 CET 2014
+28-02 22:15:48 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 22:15:48 CET 2014
+28-02 22:16:44 [main] [INFO ] GraphicTest[64]: Starting test at Fri Feb 28 22:16:44 CET 2014
+28-02 22:17:00 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Fri Feb 28 22:17:00 CET 2014

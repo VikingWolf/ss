@@ -57,12 +57,12 @@ public class GameSample {
 	protected void buildWeaponModels() {
 		mauser98k = new WeaponModel("Mauser 98k", WeaponType.SMALL_ARM, 12, 0.86, 0.5d, 0.000012d, 1, 55);
 		leeEnfieldMk1 = new WeaponModel("Lee-Enfield Mk 1", WeaponType.SMALL_ARM, 12, 0.853, 0.457, 0.000012d, 1, 60);
-		vickersBerthierLMG = new WeaponModel("VB LMG", WeaponType.SMALL_ARM, 180, 0.745, 0.4, 0.000012d, 1, 110);
+		vickersBerthierLMG = new WeaponModel("VB LMG", WeaponType.SMALL_ARM, 180, 0.745, 0.457, 0.000012d, 1, 110);
 	}
 
 	protected void buildCompanyModels() {
 		ukRifleCompany39 = new CompanyModel("Rifle Company 39", CompanyType.INFANTRY, Mobility.FOOT, 4.5d, 3, 135, Country.UK);
-		ukRifleCompany39.addWeaponry(this.leeEnfieldMk1, 135);
+		ukRifleCompany39.addWeaponry(leeEnfieldMk1, 135);
 		Stock ukRifleCompany39Stock = new Stock();
 		ukRifleCompany39Stock.put(SupplyType.AMMO, 0.003);
 		ukRifleCompany39.setMaxSupplies(ukRifleCompany39Stock);
@@ -70,10 +70,10 @@ public class GameSample {
 		gerGrenadierCompany39.addWeaponry(mauser98k, 105);
 		Stock gerGrenadierCompany39Stock = new Stock();
 		gerGrenadierCompany39Stock.put(SupplyType.AMMO, 0.003);
-		gerGrenadierCompany39.setMaxSupplies(gerGrenadierCompany39Stock);		
+		gerGrenadierCompany39.setMaxSupplies(gerGrenadierCompany39Stock);
 		ukRifleCompany40 = new CompanyModel("Rifle Company 40", CompanyType.INFANTRY, Mobility.FOOT, 4.5d, 3, 135, Country.GER);
-		ukRifleCompany40.addWeaponry(this.leeEnfieldMk1, 135);
-		ukRifleCompany40.addWeaponry(this.vickersBerthierLMG, 10);
+		ukRifleCompany40.addWeaponry(leeEnfieldMk1, 135);
+		ukRifleCompany40.addWeaponry(vickersBerthierLMG, 10);
 		Stock ukRifleCompany40Stock = new Stock();
 		ukRifleCompany40Stock.put(SupplyType.AMMO, 0.003);
 		ukRifleCompany40.setMaxSupplies(ukRifleCompany40Stock);
@@ -88,7 +88,7 @@ public class GameSample {
 		settings.setTimeMargin(1);
 		settings.setHexSide(1.0f);
 		settings.setStackLimit(6);
-		this.scenario = new Scenario(10, 10);
+		scenario = new Scenario(10, 10);
 		scenario.setSettings(settings);
 	}
 

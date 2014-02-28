@@ -17,6 +17,34 @@ public class Attack {
 		consumption = new Stock();
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(range);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		Attack other = (Attack) obj;
+		if (Double.doubleToLongBits(range) != Double.doubleToLongBits(other.range)) return false;
+		return true;
+	}
+
+	public void increaseStrength(double strength) {
+		this.strength += strength;
+	}
+
+	public void increaseConsumption(Stock consumption) {
+		this.consumption.add(consumption);
+	}
+
 	/* getters & setters */
 	public AttackType getType() {
 		return type;
@@ -49,5 +77,5 @@ public class Attack {
 	public void setConsumption(Stock consumption) {
 		this.consumption = consumption;
 	}
-	
+
 }

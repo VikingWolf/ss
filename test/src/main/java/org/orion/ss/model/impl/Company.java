@@ -25,15 +25,26 @@ public class Company extends ActivableImpl implements Mobile, AttackCapable {
 	private Stock supplies;
 	private Formation parent;
 
+	public Company(Company company) {
+		super();
+		model = company.getModel();
+		supplies = company.getSupplies();
+		code = company.getCode();
+		strength = company.getStrength();
+		experience = company.getExperience();
+		organization = company.getOrganization();
+		morale = company.getMorale();
+	}
+
 	public Company(CompanyModel model, String code, Location location, double experience, double morale, double strength) {
 		super();
+		this.model = model;
 		supplies = new Stock();
 		this.code = code;
-		this.model = model;
 		this.location = location;
 		this.strength = strength;
 		this.experience = experience;
-		this.organization = 1.0d;
+		organization = 1.0d;
 		this.morale = morale;
 	}
 
@@ -73,8 +84,8 @@ public class Company extends ActivableImpl implements Mobile, AttackCapable {
 	}
 
 	@Override
-	public List<Attack> computeAttacks() {
-		List<Attack> result = new ArrayList<Attack>();
+	public AttackSet computeAttacks() {
+		AttackSet result = new AttackSet();
 		for (Attack attack : this.getModel().computeAttacks()) {
 			double adjustedStrength = attack.getStrength() * Math.pow(this.getExperience(), attack.getType().getExperienceExponent())
 					* Math.pow(this.getOrganization(), attack.getType().getOrganizationExponent());
@@ -108,24 +119,24 @@ public class Company extends ActivableImpl implements Mobile, AttackCapable {
 		}
 		return result;
 	}
-	
-	public Country getCountry(){
+
+	public Country getCountry() {
 		return parent.getCountry();
 	}
-	
-	public Weaponry getWeaponry(){
+
+	public Weaponry getWeaponry() {
 		Weaponry result = new Weaponry();
-		for (WeaponModel weaponModel : this.getModel().getWeaponry().keySet()){
-			result.put(weaponModel, (int)(this.getModel().getWeaponry().get(weaponModel) * this.getStrength()));
+		for (WeaponModel weaponModel : this.getModel().getWeaponry().keySet()) {
+			result.put(weaponModel, (int) (this.getModel().getWeaponry().get(weaponModel) * this.getStrength()));
 		}
 		return result;
 	}
-	
-	public Position getPosition(){
+
+	public Position getPosition() {
 		return this.getParent().getPosition();
 	}
-	
-	public void increaseStrength(double strength){
+
+	public void increaseStrength(double strength) {
 		this.strength += strength;
 	}
 
@@ -204,5 +215,5 @@ public class Company extends ActivableImpl implements Mobile, AttackCapable {
 	public void setMorale(double morale) {
 		this.morale = morale;
 	}
-	
+
 }
