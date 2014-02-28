@@ -7,6 +7,7 @@ import org.orion.ss.model.ActivableImpl;
 import org.orion.ss.model.AttackCapable;
 import org.orion.ss.model.Mobile;
 import org.orion.ss.model.core.AttackType;
+import org.orion.ss.model.core.Country;
 import org.orion.ss.model.core.SupplyType;
 
 public class Company extends ActivableImpl implements Mobile, AttackCapable {
@@ -20,18 +21,20 @@ public class Company extends ActivableImpl implements Mobile, AttackCapable {
 	private double strength;
 	private double experience;
 	private double organization;
+	private double morale;
 	private Stock supplies;
 	private Formation parent;
 
-	public Company(CompanyModel model, String code, Location location) {
+	public Company(CompanyModel model, String code, Location location, double experience, double morale, double strength) {
 		super();
 		supplies = new Stock();
 		this.code = code;
 		this.model = model;
 		this.location = location;
-		this.strength = 1.0d;
-		this.experience = 1.0d;
+		this.strength = strength;
+		this.experience = experience;
 		this.organization = 1.0d;
+		this.morale = morale;
 	}
 
 	public boolean isAttackCapable(AttackType type) {
@@ -105,6 +108,26 @@ public class Company extends ActivableImpl implements Mobile, AttackCapable {
 		}
 		return result;
 	}
+	
+	public Country getCountry(){
+		return parent.getCountry();
+	}
+	
+	public Weaponry getWeaponry(){
+		Weaponry result = new Weaponry();
+		for (WeaponModel weaponModel : this.getModel().getWeaponry().keySet()){
+			result.put(weaponModel, (int)(this.getModel().getWeaponry().get(weaponModel) * this.getStrength()));
+		}
+		return result;
+	}
+	
+	public Position getPosition(){
+		return this.getParent().getPosition();
+	}
+	
+	public void increaseStrength(double strength){
+		this.strength += strength;
+	}
 
 	/* getters & setters */
 
@@ -174,4 +197,12 @@ public class Company extends ActivableImpl implements Mobile, AttackCapable {
 		this.parent = parent;
 	}
 
+	public double getMorale() {
+		return morale;
+	}
+
+	public void setMorale(double morale) {
+		this.morale = morale;
+	}
+	
 }

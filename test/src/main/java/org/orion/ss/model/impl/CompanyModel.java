@@ -8,11 +8,13 @@ import org.orion.ss.model.Upgradable;
 import org.orion.ss.model.core.AttackType;
 import org.orion.ss.model.core.CompanyTrait;
 import org.orion.ss.model.core.CompanyType;
+import org.orion.ss.model.core.Country;
 import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.Mobility;
 
 public class CompanyModel extends CombatUnitModel implements Upgradable {
 
+	
 	private String code;
 	private CompanyType type;
 	private Mobility mobility;
@@ -22,8 +24,8 @@ public class CompanyModel extends CombatUnitModel implements Upgradable {
 	private int initiative;
 	private int maxStrength;
 
-	public CompanyModel(String code, CompanyType type, Mobility mobility, double speed, int initiative, int maxStrength) {
-		super();
+	public CompanyModel(String code, CompanyType type, Mobility mobility, double speed, int initiative, int maxStrength, Country country) {
+		super(country);
 		this.code = code;
 		this.type = type;
 		this.mobility = mobility;
@@ -34,11 +36,6 @@ public class CompanyModel extends CombatUnitModel implements Upgradable {
 		upgrades = new ArrayList<CompanyModel>();
 	}
 
-	@Override
-	public int getValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public FormationLevel getFormationLevel() {
@@ -60,7 +57,17 @@ public class CompanyModel extends CombatUnitModel implements Upgradable {
 	public List<Defense> computeDefenses() {
 		return this.getType().getDefenses();
 	}
+	
+	@Override
+	public String toString() {
+		return this.getCode();
+	}
 
+	/* adders */
+	public void addUpgrade(CompanyModel model){
+		this.upgrades.add(model);
+	}
+	
 	/* getters & setters */
 
 	@Override

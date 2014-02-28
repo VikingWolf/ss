@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.orion.ss.model.CombatUnitModel;
 import org.orion.ss.model.core.AttackType;
+import org.orion.ss.model.core.Country;
 import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.Mobility;
 import org.orion.ss.model.core.ShipType;
@@ -13,6 +14,10 @@ public class ShipModel extends CombatUnitModel {
 	private String code;
 	private ShipType type;
 
+	public ShipModel(Country country){
+		super(country);
+	}
+	
 	@Override
 	public double computeWeaponAmountModifier(AttackType attackType) {
 		// TODO Auto-generated method stub

@@ -31,8 +31,8 @@ public class GraphicTest {
 	private final static String VERSION = "0.1";
 
 	/* GUI constants */
-	public final static Rectangle WINDOW_BOUNDS = new Rectangle(0, 0, 1370, 600);
-	public final static Rectangle TAB_BOUNDS = new Rectangle(0, 0, 1370, 500);
+	public final static Rectangle WINDOW_BOUNDS = new Rectangle(0, 0, 1370, 700);
+	public final static Rectangle TAB_BOUNDS = new Rectangle(0, 0, 1370, 600);
 	public final static Rectangle INFO_DIALOG_BOUNDS = new Rectangle(100, 100, 400, 250);
 	public final static int LOG_TEXT_AREA_HEIGHT = 300;
 	public final static int LEFT_MARGIN = 10;
@@ -43,6 +43,9 @@ public class GraphicTest {
 	public final static int COLUMN_WIDTH = 120;
 	public final static int COLUMN_WIDTH_LARGE = 160;
 	public final static int COLUMN_WIDTH_XLARGE = 200;
+	public final static int COLUMN_WIDTH_XXLARGE = 240;
+	public final static int COLUMN_WIDTH_XXXLARGE = 280;
+	public final static int COLUMN_WIDTH_NARROW = 80;
 	public final static int ROW_HEIGHT = 25;
 
 	private Game game;

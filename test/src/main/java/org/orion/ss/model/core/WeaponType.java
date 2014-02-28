@@ -5,14 +5,17 @@ import java.util.List;
 
 public enum WeaponType {
 
-	SMALL_ARM("Small Arm", new AttackType[] { AttackType.SOFT });
+	/*				denomination	unitOfFireModifier	attacks */
+	SMALL_ARM(		"Small Arm", 		0.05d, 			new AttackType[] { AttackType.SOFT });
 
 	private String denomination;
+	private double unitOfFireModifier;
 	private List<AttackType> attackTypes;
 
-	private WeaponType(String denomination, AttackType[] attackTypes) {
+	private WeaponType(String denomination, double unitOfFireModifier, AttackType[] attackTypes) {
 		this.denomination = denomination;
 		this.attackTypes = Arrays.asList(attackTypes);
+		this.unitOfFireModifier = unitOfFireModifier;
 	}
 
 	public String getDenomination() {
@@ -23,4 +26,17 @@ public enum WeaponType {
 		return attackTypes;
 	}
 
+	public double getUnitOfFireModifier() {
+		return unitOfFireModifier;
+	}
+
+	public void setUnitOfFireModifier(double unitOfFireModifier) {
+		this.unitOfFireModifier = unitOfFireModifier;
+	}
+
 }
+
+/* the use modifier is the modifier refered to habitual use of weapon rof, a concept related to the unit of fire.
+ * the unit of fire modifier is the ratio between the maximum rof of a weapon and the weapon unit of fire 
+ * the unit of fire represents a specified number of rounds per weapon used in an hour of normal combat action
+ */

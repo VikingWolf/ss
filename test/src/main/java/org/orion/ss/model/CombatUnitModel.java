@@ -1,25 +1,25 @@
 package org.orion.ss.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.orion.ss.model.core.AttackType;
+import org.orion.ss.model.core.Country;
 import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.impl.Attack;
 import org.orion.ss.model.impl.Stock;
 import org.orion.ss.model.impl.WeaponModel;
+import org.orion.ss.model.impl.Weaponry;
 
 public abstract class CombatUnitModel extends UnitModel implements AttackCapable {
 
 	private final static double WEAPON_AMOUNT_MODIFIER_EXPONENT = 0.5d;
 
-	private Map<WeaponModel, Integer> weaponry;
+	private Weaponry weaponry;
 
-	public CombatUnitModel() {
-		super();
-		weaponry = new HashMap<WeaponModel, Integer>();
+	public CombatUnitModel(Country country) {
+		super(country);
+		weaponry = new Weaponry();
 	}
 
 	public abstract double computeWeaponAmountModifier(AttackType attackType);
@@ -51,11 +51,11 @@ public abstract class CombatUnitModel extends UnitModel implements AttackCapable
 
 	/* getters & setters */
 
-	public Map<WeaponModel, Integer> getWeaponry() {
+	public Weaponry getWeaponry() {
 		return weaponry;
 	}
 
-	public void setWeaponry(Map<WeaponModel, Integer> weaponry) {
+	public void setWeaponry(Weaponry weaponry) {
 		this.weaponry = weaponry;
 	}
 

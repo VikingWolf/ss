@@ -83,6 +83,14 @@ public class Formation extends ActivableImpl implements Mobile {
 		return result;
 	}
 	
+	public Position getPosition(){
+		if (this instanceof Position){
+			return (Position) this;
+		} else {
+			return this.getParent().getPosition();
+		}
+	}
+	
 	/* adders */
 	
 	public void addCompany(Company company){

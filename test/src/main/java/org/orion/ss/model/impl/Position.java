@@ -23,6 +23,9 @@ public class Position extends Formation {
 		return true;
 	}
 	
+	public void decreasePrestige(int prestige){
+		this.prestige -= prestige;
+	}
 
 	/* getters & setters */
 

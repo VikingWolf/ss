@@ -10,6 +10,8 @@ import org.orion.ss.model.core.WeaponType;
 
 public class WeaponModel implements AttackCapable {
 
+	private final static int MINUTES_PER_HOUR = 60;
+	
 	private String denomination;
 	private int maxROF; /* shots per minutes */
 	private WeaponType type;
@@ -17,8 +19,9 @@ public class WeaponModel implements AttackCapable {
 	private double muzzleVelocity;
 	private double shellWeight;
 	private int crew;
+	private int cost; 
 
-	public WeaponModel(String denomination, WeaponType type, int maxROF, double muzzleVelocity, double maxRange, double shellWeight, int crew) {
+	public WeaponModel(String denomination, WeaponType type, int maxROF, double muzzleVelocity, double maxRange, double shellWeight, int crew, int cost) {
 		super();
 		this.type = type;
 		this.denomination = denomination;
@@ -27,6 +30,7 @@ public class WeaponModel implements AttackCapable {
 		this.shellWeight = shellWeight;
 		this.muzzleVelocity = muzzleVelocity;
 		this.crew = crew;
+		this.cost = cost;
 	}
 
 	@Override
@@ -35,6 +39,7 @@ public class WeaponModel implements AttackCapable {
 		for (AttackType attackType : type.getAttackTypes()) {
 			double strength = maxRange * maxROF * muzzleVelocity * shellWeight;
 			Attack attack = new Attack(attackType, maxRange, strength);
+			attack.setConsumption(computeSupplyConsumption());
 			result.add(attack);
 		}
 		return result;
@@ -42,7 +47,7 @@ public class WeaponModel implements AttackCapable {
 
 	public Stock computeSupplyConsumption() {
 		Stock result = new Stock();
-		result.put(SupplyType.AMMO, shellWeight * maxROF);
+		result.put(SupplyType.AMMO, shellWeight * maxROF * MINUTES_PER_HOUR * this.getType().getUnitOfFireModifier());
 		return result;
 	}
 
@@ -113,6 +118,14 @@ public class WeaponModel implements AttackCapable {
 
 	public void setCrew(int crew) {
 		this.crew = crew;
+	}
+
+	public int getCost() {
+		return cost;
+	}
+
+	public void setCost(int cost) {
+		this.cost = cost;
 	}
 
 }
