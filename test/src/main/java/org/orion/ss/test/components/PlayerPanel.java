@@ -121,11 +121,11 @@ public class PlayerPanel extends FastPanel implements Observer {
 		if (company != null) {
 			TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Reinforce Availability");
 			reinforceInfoPanel.setBorder(title);
-			reinforceInfoPanel.addLabel(NumberFormats.XP.format(1.0d), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
-			reinforceInfoPanel.addLabel(NumberFormats.XP.format(2.0d), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
-			reinforceInfoPanel.addLabel(NumberFormats.XP.format(3.0d), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * 2, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
-			reinforceInfoPanel.addLabel(NumberFormats.XP.format(4.0d), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * 3, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
-			reinforceInfoPanel.addLabel(NumberFormats.XP.format(5.0d), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * 4, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+			for (int i = 0; i < 6; i++) {
+				reinforceInfoPanel.addLabel(NumberFormats.XP.format(i), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+				reinforceInfoPanel.addNotEditableTextField(managementService.getReinforceAvailability(i, company), GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+			}
+
 			// TODO here
 		} else {
 			reinforceInfoPanel.setBorder(null);

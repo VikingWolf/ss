@@ -2,6 +2,7 @@ package org.orion.ss.service;
 
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.CompanyModel;
+import org.orion.ss.model.impl.Country;
 import org.orion.ss.model.impl.Game;
 import org.orion.ss.model.impl.WeaponModel;
 import org.orion.ss.utils.Maths;
@@ -83,6 +84,10 @@ public class ManagementService extends Service {
 		company.getPosition().decreasePrestige(cost);
 		company.setModel(upgrade);
 		getGame().getLog().addEntry(company.getId() + " upgraded to " + upgrade.getCode() + " spending " + cost + " prestige.");
+	}
+
+	public int getReinforceAvailability(double xp, Country country) {
+
 	}
 
 }
