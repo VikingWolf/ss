@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.orion.ss.model.ActivableImpl;
 import org.orion.ss.model.Mobile;
-import org.orion.ss.model.core.Country;
 import org.orion.ss.model.core.FormationLevel;
 
 public class Formation extends ActivableImpl implements Mobile {

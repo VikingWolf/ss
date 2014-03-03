@@ -1,6 +1,5 @@
 package org.orion.ss.model.impl;
 
-import org.orion.ss.model.core.Country;
 import org.orion.ss.model.core.SupplyType;
 
 public class Supply {

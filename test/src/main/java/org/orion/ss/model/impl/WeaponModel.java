@@ -1,11 +1,10 @@
 package org.orion.ss.model.impl;
 
-import org.orion.ss.model.AttackCapable;
 import org.orion.ss.model.core.AttackType;
 import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.core.WeaponType;
 
-public class WeaponModel implements AttackCapable {
+public class WeaponModel {
 
 	private final static int MINUTES_PER_HOUR = 60;
 
@@ -30,7 +29,6 @@ public class WeaponModel implements AttackCapable {
 		this.cost = cost;
 	}
 
-	@Override
 	public AttackSet computeAttacks() {
 		AttackSet result = new AttackSet();
 		for (AttackType attackType : type.getAttackTypes()) {

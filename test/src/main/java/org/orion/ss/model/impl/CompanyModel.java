@@ -5,16 +5,13 @@ import java.util.List;
 
 import org.orion.ss.model.CombatUnitModel;
 import org.orion.ss.model.Upgradable;
-import org.orion.ss.model.core.AttackType;
 import org.orion.ss.model.core.CompanyTrait;
 import org.orion.ss.model.core.CompanyType;
-import org.orion.ss.model.core.Country;
 import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.Mobility;
 
 public class CompanyModel extends CombatUnitModel implements Upgradable {
 
-	
 	private String code;
 	private CompanyType type;
 	private Mobility mobility;
@@ -36,38 +33,21 @@ public class CompanyModel extends CombatUnitModel implements Upgradable {
 		upgrades = new ArrayList<CompanyModel>();
 	}
 
-
 	@Override
 	public FormationLevel getFormationLevel() {
 		return FormationLevel.COMPANY;
 	}
 
 	@Override
-	public double computeWeaponAmountModifier(AttackType attackType) {
-		int amount = 0;
-		for (WeaponModel weapon : this.getWeaponry().keySet()) {
-			if (weapon.hasAttackType(attackType)) {
-				amount += weapon.getCrew() * this.getWeaponry().get(weapon);
-			}
-		}
-		return (double) this.getMaxStrength() / (double) amount;
-	}
-
-	@Override
-	public List<Defense> computeDefenses() {
-		return this.getType().getDefenses();
-	}
-	
-	@Override
 	public String toString() {
 		return this.getCode();
 	}
 
 	/* adders */
-	public void addUpgrade(CompanyModel model){
-		this.upgrades.add(model);
+	public void addUpgrade(CompanyModel model) {
+		upgrades.add(model);
 	}
-	
+
 	/* getters & setters */
 
 	@Override
@@ -132,7 +112,7 @@ public class CompanyModel extends CombatUnitModel implements Upgradable {
 	}
 
 	public void setMaxStrength(int strength) {
-		this.maxStrength = strength;
+		maxStrength = strength;
 	}
 
 }

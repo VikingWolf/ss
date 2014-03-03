@@ -1,16 +1,10 @@
 package org.orion.ss.model.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.orion.ss.model.ActivableImpl;
-import org.orion.ss.model.AttackCapable;
 import org.orion.ss.model.Mobile;
-import org.orion.ss.model.core.AttackType;
-import org.orion.ss.model.core.Country;
 import org.orion.ss.model.core.SupplyType;
 
-public class Company extends ActivableImpl implements Mobile, AttackCapable {
+public class Company extends ActivableImpl implements Mobile {
 
 	private final static double INITIATIVE_EXPERIENCE_EXPONENT = 0.5d;
 	private final static double INITIATIVE_ORGANIZATION_EXPONENT = 0.5d;
@@ -48,17 +42,6 @@ public class Company extends ActivableImpl implements Mobile, AttackCapable {
 		this.morale = morale;
 	}
 
-	public boolean isAttackCapable(AttackType type) {
-		boolean result = false;
-		for (Attack attack : model.computeAttacks()) {
-			if (attack.getType().equals(type)) {
-				result = true;
-				break;
-			}
-		}
-		return result;
-	}
-
 	@Override
 	public MobilitySet getMobilities() {
 		MobilitySet result = new MobilitySet();
@@ -80,33 +63,6 @@ public class Company extends ActivableImpl implements Mobile, AttackCapable {
 	public String getId() {
 		String result = parent.getId();
 		result += "/" + this.getCode();
-		return result;
-	}
-
-	@Override
-	public AttackSet computeAttacks() {
-		AttackSet result = new AttackSet();
-		for (Attack attack : this.getModel().computeAttacks()) {
-			double adjustedStrength = attack.getStrength() * Math.pow(this.getExperience(), attack.getType().getExperienceExponent())
-					* Math.pow(this.getOrganization(), attack.getType().getOrganizationExponent());
-			Attack adjustedAttack = new Attack(attack.getType(), attack.getRange(), adjustedStrength);
-			Stock adjustedStock = new Stock();
-			for (SupplyType supplyType : attack.getConsumption().keySet()) {
-				adjustedStock.put(supplyType, attack.getConsumption().get(supplyType) * this.getStrength());
-			}
-			adjustedAttack.setConsumption(adjustedStock);
-			result.add(adjustedAttack);
-		}
-		return result;
-	}
-
-	public List<Defense> computeDefenses() {
-		List<Defense> result = new ArrayList<Defense>();
-		for (Defense defense : this.getModel().computeDefenses()) {
-			double adjustedStrength = defense.getStrength() * Math.pow(this.getExperience(), defense.getType().getExperienceExponent())
-					* Math.pow(this.getOrganization(), defense.getType().getOrganizationExponent());
-			result.add(new Defense(defense.getType(), adjustedStrength));
-		}
 		return result;
 	}
 

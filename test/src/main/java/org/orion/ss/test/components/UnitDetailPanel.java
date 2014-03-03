@@ -17,10 +17,12 @@ import javax.swing.border.TitledBorder;
 
 import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.impl.Attack;
+import org.orion.ss.model.impl.AttackSet;
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.CompanyModel;
 import org.orion.ss.model.impl.Defense;
 import org.orion.ss.model.impl.WeaponModel;
+import org.orion.ss.service.CombatService;
 import org.orion.ss.service.ManagementService;
 import org.orion.ss.service.ReinforceCost;
 import org.orion.ss.test.GraphicTest;
@@ -39,12 +41,14 @@ public class UnitDetailPanel extends FastPanel {
 	private JTextField costRegularReinforceTF;
 
 	private final ManagementService managementService;
+	private final CombatService combatService;
 
 	private final PlayerPanel parent;
 
-	public UnitDetailPanel(ManagementService managementService, PlayerPanel parent) {
+	public UnitDetailPanel(ManagementService managementService, CombatService combatService, PlayerPanel parent) {
 		super();
 		this.managementService = managementService;
+		this.combatService = combatService;
 		this.parent = parent;
 	}
 
@@ -70,7 +74,7 @@ public class UnitDetailPanel extends FastPanel {
 		textfields1.add(NumberFormats.PERCENT.format(company.getOrganization()));
 		textfields1.add(NumberFormats.MORALE.format(company.getMorale()));
 		textfields1.add(NumberFormats.XP.format(company.getExperience()));
-		for (Defense defense : company.computeDefenses()) {
+		for (Defense defense : combatService.computeDefenses(company)) {
 			labels1.add(defense.getType().getDenomination());
 			textfields1.add("" + NumberFormats.DF_2.format(defense.getStrength()));
 		}
@@ -102,8 +106,9 @@ public class UnitDetailPanel extends FastPanel {
 		/* Attacks */
 		addLabel("Consumption", GraphicTest.LEFT_MARGIN * 2 + GraphicTest.COLUMN_WIDTH + GraphicTest.COLUMN_WIDTH_LARGE,
 				GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * (labels1.size() - 1), GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
-		for (int i = 0; i < company.computeAttacks().size(); i++) {
-			Attack attack = company.computeAttacks().get(i);
+		AttackSet attacks = combatService.computeAttacks(company);
+		for (int i = 0; i < attacks.size(); i++) {
+			Attack attack = attacks.get(i);
 			String supplyConsumption = "";
 			for (SupplyType supplyType : attack.getConsumption().keySet()) {
 				supplyConsumption += supplyType.getDenomination() + "=" + NumberFormats.DF_4.format(attack.getConsumption().get(supplyType)) + ", ";

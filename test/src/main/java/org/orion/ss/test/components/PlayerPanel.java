@@ -8,13 +8,14 @@ import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import org.orion.ss.model.impl.AirSquadron;
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.CompanyModel;
 import org.orion.ss.model.impl.Game;
+import org.orion.ss.service.CombatService;
 import org.orion.ss.service.ManagementService;
 import org.orion.ss.test.GraphicTest;
 import org.orion.ss.utils.NumberFormats;
@@ -32,12 +33,16 @@ public class PlayerPanel extends FastPanel implements Observer {
 	private final GraphicTest parent;
 
 	private final ManagementService managementService;
+	private final CombatService combatService;
 
 	/* GUI components */
 	private JTextField prestigeTF;
 	private JButton button;
 	private UnitDetailPanel unitDetailPanel;
 	private UnitUpgradePanel unitUpgradeInfoPanel;
+	private FastPanel reinforceInfoPanel;
+
+	private JPanel detailsPanel;
 
 	public PlayerPanel(GraphicTest parent, Game game) {
 		super();
@@ -46,6 +51,7 @@ public class PlayerPanel extends FastPanel implements Observer {
 		setBounds(GraphicTest.TAB_BOUNDS);
 		setLayout(null);
 		managementService = new ManagementService(game);
+		combatService = new CombatService(game);
 	}
 
 	protected void mount() {
@@ -78,17 +84,30 @@ public class PlayerPanel extends FastPanel implements Observer {
 		PositionTreePanel treePanel = new PositionTreePanel(this, game.getCurrentPlayerPosition(), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN
 				* 3 + GraphicTest.ROW_HEIGHT * 2, GraphicTest.COLUMN_WIDTH_XLARGE, 435);
 		add(treePanel.getPanel());
-		unitDetailPanel = new UnitDetailPanel(managementService, this);
+		detailsPanel = new JPanel();
+		detailsPanel.setLayout(null);
+		detailsPanel.setBounds(GraphicTest.LEFT_MARGIN * 2 + GraphicTest.COLUMN_WIDTH_XLARGE, GraphicTest.TOP_MARGIN, 1200, 560);
+		add(detailsPanel);
+		mountUnitDetailsPanel();
+	}
+
+	protected void mountUnitDetailsPanel() {
+		unitDetailPanel = new UnitDetailPanel(managementService, combatService, this);
 		unitDetailPanel.setLayout(null);
-		unitDetailPanel.setBounds(GraphicTest.LEFT_MARGIN * 2 + GraphicTest.COLUMN_WIDTH_XLARGE, GraphicTest.TOP_MARGIN,
-				GraphicTest.COLUMN_WIDTH * 2 + GraphicTest.COLUMN_WIDTH_LARGE * 2 + GraphicTest.LEFT_MARGIN, 560);
-		add(unitDetailPanel);
-		unitUpgradeInfoPanel = new UnitUpgradePanel(managementService);
+		unitDetailPanel.setBounds(0, 0, GraphicTest.COLUMN_WIDTH * 2 + GraphicTest.COLUMN_WIDTH_LARGE * 2 + GraphicTest.LEFT_MARGIN, 560);
+		detailsPanel.add(unitDetailPanel);
+		reinforceInfoPanel = new FastPanel();
+		reinforceInfoPanel.setBounds(GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH * 2
+				+ GraphicTest.COLUMN_WIDTH_LARGE * 2, 0,
+				GraphicTest.COLUMN_WIDTH * 2 + GraphicTest.COLUMN_WIDTH_LARGE * 2, 160);
+		reinforceInfoPanel.setLayout(null);
+		detailsPanel.add(reinforceInfoPanel);
+		unitUpgradeInfoPanel = new UnitUpgradePanel(managementService, combatService);
 		unitUpgradeInfoPanel.setLayout(null);
-		unitUpgradeInfoPanel.setBounds(GraphicTest.LEFT_MARGIN * 3 + GraphicTest.COLUMN_WIDTH * 2 + GraphicTest.COLUMN_WIDTH_XLARGE
-				+ GraphicTest.COLUMN_WIDTH_LARGE * 2, GraphicTest.TOP_MARGIN,
-				GraphicTest.COLUMN_WIDTH * 2 + GraphicTest.COLUMN_WIDTH_LARGE * 2, 560);
-		add(unitUpgradeInfoPanel);
+		unitUpgradeInfoPanel.setBounds(GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH * 2
+				+ GraphicTest.COLUMN_WIDTH_LARGE * 2, GraphicTest.TOP_MARGIN + GraphicTest.ROW_HEIGHT * 6,
+				GraphicTest.COLUMN_WIDTH * 2 + GraphicTest.COLUMN_WIDTH_LARGE * 2, 400);
+		detailsPanel.add(unitUpgradeInfoPanel);
 		repaint();
 	}
 
@@ -97,29 +116,29 @@ public class PlayerPanel extends FastPanel implements Observer {
 		mount();
 	}
 
-	public void updateUpgradeUnitPanel(final Company company, final CompanyModel upgradeModel) {
-		unitUpgradeInfoPanel.removeAll();
-		if (upgradeModel != null) {
-			Company upgraded = new Company(company);
-			upgraded.setModel(upgradeModel);
-			TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Upgrade to " + upgradeModel.getCode());
-			unitUpgradeInfoPanel.setBorder(title);
-			// TODO
-			unitUpgradeInfoPanel.displayUnitInfo(upgraded, unitUpgradeInfoPanel);
-
+	public void updateReinforceInfoPanel(Company company) {
+		reinforceInfoPanel.removeAll();
+		if (company != null) {
+			TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Reinforce Availability");
+			reinforceInfoPanel.setBorder(title);
+			reinforceInfoPanel.addLabel(NumberFormats.XP.format(1.0d), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+			reinforceInfoPanel.addLabel(NumberFormats.XP.format(2.0d), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+			reinforceInfoPanel.addLabel(NumberFormats.XP.format(3.0d), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * 2, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+			reinforceInfoPanel.addLabel(NumberFormats.XP.format(4.0d), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * 3, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+			reinforceInfoPanel.addLabel(NumberFormats.XP.format(5.0d), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * 4, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+			// TODO here
 		} else {
-			unitUpgradeInfoPanel.setBorder(null);
-
+			reinforceInfoPanel.setBorder(null);
 		}
-		repaint();
+	}
+
+	public void updateUpgradeUnitPanel(final Company company, final CompanyModel upgradeModel) {
+		unitUpgradeInfoPanel.update(company, upgradeModel);
 	}
 
 	public void updateUnitPanel(final Company company) {
 		unitDetailPanel.updateUnitPanel(company);
-	}
-
-	public void updateUnitPanel(AirSquadron airSquadron) {
-		// TODO air squadron
+		updateReinforceInfoPanel(company);
 	}
 
 	protected void updatePrestigeTF() {

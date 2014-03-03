@@ -3,7 +3,6 @@ package org.orion.ss.model.impl;
 import java.util.Map;
 
 import org.orion.ss.model.ActivableImpl;
-import org.orion.ss.model.core.AttackType;
 
 public class Fortification extends ActivableImpl {
 
@@ -14,14 +13,8 @@ public class Fortification extends ActivableImpl {
 
 	@Override
 	public boolean isActivable() {
-		boolean result = super.isActivable();
-		for (Company company : garrison.keySet()) {
-			if (company.isAttackCapable(AttackType.BARRAGE)) {
-				result = true;
-				break;
-			}
-		}
-		return result;
+		// TODO
+		return false;
 	}
 
 	/* getters & setters */

@@ -1,11 +1,11 @@
 package org.orion.ss.model;
 
-import org.orion.ss.model.core.Country;
 import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.Mobility;
+import org.orion.ss.model.impl.Country;
 import org.orion.ss.model.impl.Stock;
 
-public abstract class UnitModel implements DefenseCapable {
+public abstract class UnitModel {
 
 	private Stock consumption;
 	private Stock maxSupplies;
@@ -17,8 +17,8 @@ public abstract class UnitModel implements DefenseCapable {
 
 	public UnitModel(Country country) {
 		super();
-		this.consumption = new Stock();
-		this.maxSupplies = new Stock();
+		consumption = new Stock();
+		maxSupplies = new Stock();
 		this.country = country;
 	}
 

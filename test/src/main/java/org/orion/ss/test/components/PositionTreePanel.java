@@ -7,7 +7,6 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
-import org.orion.ss.model.impl.AirSquadron;
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.Formation;
 import org.orion.ss.model.impl.Position;
@@ -48,7 +47,7 @@ public class PositionTreePanel implements TreeSelectionListener {
 	}
 
 	public JScrollPane getPanel() {
-		return this.panel;
+		return panel;
 	}
 
 	@Override
@@ -61,10 +60,9 @@ public class PositionTreePanel implements TreeSelectionListener {
 			if (nodeInfo instanceof Company) {
 				Company company = (Company) nodeInfo;
 				parent.updateUnitPanel(company);
-			} else if (nodeInfo instanceof AirSquadron) {
-				AirSquadron airSquadron = (AirSquadron) nodeInfo;
-				parent.updateUnitPanel(airSquadron);
 			}
+		} else {
+
 		}
 	}
 
