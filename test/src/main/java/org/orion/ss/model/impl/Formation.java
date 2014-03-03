@@ -16,17 +16,17 @@ public class Formation extends ActivableImpl implements Mobile {
 	private List<Company> companies;
 	private List<AirSquadron> airSquadrons;
 	private List<Ship> ships;
-	private FormationLevel type;
+	private FormationLevel level;
 	private Formation parent;
 
-	public Formation(FormationLevel type, String name){
+	public Formation(FormationLevel level, String name){
 		super();
 		this.name = name;
 		subordinates = new ArrayList<Formation>();
 		companies = new ArrayList<Company>();
 		airSquadrons = new ArrayList<AirSquadron>();
 		ships = new ArrayList<Ship>();
-		this.type = type;
+		this.level = level;
 	}
 	
 	@Override
@@ -66,6 +66,22 @@ public class Formation extends ActivableImpl implements Mobile {
 			result.addAll(formation.getCompanyStackAtLocation(location, onlyActivables));
 		}
 		return result;
+	}
+	
+	public int getAbsoluteStrength(){
+		int strength = 0;
+		for (Company company : this.getAllCompanies()){
+			strength += company.getAbsoluteStrength();
+		}
+		return strength;
+	}
+	
+	public int getMaxStrength(){
+		int strength = 0;
+		for (Company company : this.getAllCompanies()){
+			strength += company.getModel().getMaxStrength();
+		}
+		return strength;
 	}
 	
 	@Override
@@ -163,12 +179,12 @@ public class Formation extends ActivableImpl implements Mobile {
 		this.ships = ships;
 	}
 
-	public FormationLevel getType() {
-		return type;
+	public FormationLevel getLevel() {
+		return level;
 	}
 
-	public void setType(FormationLevel type) {
-		this.type = type;
+	public void setType(FormationLevel level) {
+		this.level = level;
 	}
 
 	public Formation getParent() {

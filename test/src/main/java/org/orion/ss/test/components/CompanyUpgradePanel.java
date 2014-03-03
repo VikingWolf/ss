@@ -19,14 +19,14 @@ import org.orion.ss.service.ManagementService;
 import org.orion.ss.test.GraphicTest;
 import org.orion.ss.utils.NumberFormats;
 
-public class UnitUpgradePanel extends FastPanel {
+public class CompanyUpgradePanel extends FastPanel {
 
 	private static final long serialVersionUID = 7856777506136459114L;
 
 	private final ManagementService managementService;
 	private final CombatService combatService;
 
-	public UnitUpgradePanel(ManagementService managementService, CombatService combatService) {
+	public CompanyUpgradePanel(ManagementService managementService, CombatService combatService) {
 		super();
 		this.managementService = managementService;
 		this.combatService = combatService;
@@ -60,7 +60,7 @@ public class UnitUpgradePanel extends FastPanel {
 		}
 		for (SupplyType stock : company.getMaxSupplies().keySet()) {
 			labels1.add("Max " + stock.getDenomination());
-			textfields1.add(NumberFormats.DF_4.format(company.getMaxSupplies().get(stock)));
+			textfields1.add(NumberFormats.DF_3.format(company.getMaxSupplies().get(stock)));
 		}
 		for (int i = 0; i < labels1.size(); i++) {
 			addLabel(labels1.get(i), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * i,
@@ -91,7 +91,7 @@ public class UnitUpgradePanel extends FastPanel {
 			Attack attack = attacks.get(i);
 			String supplyConsumption = "";
 			for (SupplyType supplyType : attack.getConsumption().keySet()) {
-				supplyConsumption += supplyType.getDenomination() + "=" + NumberFormats.DF_4.format(attack.getConsumption().get(supplyType)) + ", ";
+				supplyConsumption += supplyType.getDenomination() + "=" + NumberFormats.DF_3.format(attack.getConsumption().get(supplyType)) + ", ";
 			}
 			if (supplyConsumption.length() > 0) {
 				supplyConsumption = supplyConsumption.substring(0, supplyConsumption.length() - 2);

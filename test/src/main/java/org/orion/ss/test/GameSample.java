@@ -22,7 +22,6 @@ import org.orion.ss.model.impl.Player;
 import org.orion.ss.model.impl.Position;
 import org.orion.ss.model.impl.Scenario;
 import org.orion.ss.model.impl.Stock;
-import org.orion.ss.model.impl.Supply;
 import org.orion.ss.model.impl.WeaponModel;
 import org.orion.ss.model.impl.WeatherForecast;
 
@@ -31,8 +30,8 @@ public class GameSample {
 	private Game game;
 	private Scenario scenario;
 
-	private final Country uk = new Country("UK", 0.6d);
-	private final Country ger = new Country("GER", 07.d);
+	private final Country uk = new Country("UK", 0.9d);
+	private final Country ger = new Country("GER", 1.0d);
 	private final Position gerInfReg1 = new Position(FormationLevel.REGIMENT, "Infanterie-Regiment 1");
 	private final Position ukInfBg2 = new Position(FormationLevel.REGIMENT, "2nd Infantry Brigade");
 
@@ -40,47 +39,57 @@ public class GameSample {
 	private WeaponModel mauser98k;
 	private WeaponModel vickersBerthierLMG;
 
-	private CompanyModel ukRifleCompany39;
-	private CompanyModel gerGrenadierCompany39;
-	private CompanyModel ukRifleCompany40;
-	private CompanyModel gerGrenadierCompany40;
+	private CompanyModel ukRifleCompanyModel39;
+	private CompanyModel gerGrenadierCompanyModel39;
+	private CompanyModel ukRifleCompanyModel40;
 
 	public Game buildGame() {
+		buildCountries();
 		buildWeaponModels();
 		buildCompanyModels();
 		configScenario();
 		mountForecast();
 		buildPositions();
-		mountMarket();
 		configGame();
 		mountCamps();
 		return game;
 	}
 
+	protected void buildCountries(){
+		Market ukMarket = new Market();
+		ukMarket.put(SupplyType.AMMO, 100);
+		ukMarket.put(SupplyType.FUEL, 23);
+		uk.setMarket(ukMarket);
+		Market gerMarket = new Market();
+		gerMarket.put(SupplyType.AMMO,  100);		
+		gerMarket.put(SupplyType.FUEL, 40);
+		ger.setMarket(gerMarket);
+	}
+	
 	protected void buildWeaponModels() {
-		mauser98k = new WeaponModel("Mauser 98k", WeaponType.SMALL_ARM, 12, 0.86, 0.5d, 0.000012d, 1, 55);
-		leeEnfieldMk1 = new WeaponModel("Lee-Enfield Mk 1", WeaponType.SMALL_ARM, 12, 0.853, 0.457, 0.000012d, 1, 60);
-		vickersBerthierLMG = new WeaponModel("VB LMG", WeaponType.SMALL_ARM, 180, 0.745, 0.457, 0.000012d, 1, 110);
+		mauser98k = new WeaponModel("Mauser 98k", WeaponType.SMALL_ARM, 12, 0.86, 0.5d, 0.000012d, 1, 5);
+		leeEnfieldMk1 = new WeaponModel("Lee-Enfield Mk 1", WeaponType.SMALL_ARM, 12, 0.853, 0.457, 0.000012d, 1, 6);
+		vickersBerthierLMG = new WeaponModel("VB LMG", WeaponType.SMALL_ARM, 180, 0.745, 0.457, 0.000012d, 1, 11);
 	}
 
 	protected void buildCompanyModels() {
-		ukRifleCompany39 = new CompanyModel("Rifle Company 39", CompanyType.INFANTRY, Mobility.FOOT, 4.5d, 3, 135, uk);
-		ukRifleCompany39.addWeaponry(leeEnfieldMk1, 135);
-		Stock ukRifleCompany39Stock = new Stock();
-		ukRifleCompany39Stock.put(SupplyType.AMMO, 0.003);
-		ukRifleCompany39.setMaxSupplies(ukRifleCompany39Stock);
-		gerGrenadierCompany39 = new CompanyModel("Grenadier Kompanie 39", CompanyType.INFANTRY, Mobility.FOOT, 4.5d, 4, 105, uk);
-		gerGrenadierCompany39.addWeaponry(mauser98k, 105);
-		Stock gerGrenadierCompany39Stock = new Stock();
-		gerGrenadierCompany39Stock.put(SupplyType.AMMO, 0.003);
-		gerGrenadierCompany39.setMaxSupplies(gerGrenadierCompany39Stock);
-		ukRifleCompany40 = new CompanyModel("Rifle Company 40", CompanyType.INFANTRY, Mobility.FOOT, 4.5d, 3, 135, ger);
-		ukRifleCompany40.addWeaponry(leeEnfieldMk1, 135);
-		ukRifleCompany40.addWeaponry(vickersBerthierLMG, 10);
+		ukRifleCompanyModel39 = new CompanyModel("Rifle Company 39", CompanyType.INFANTRY, Mobility.FOOT, 4.5d, 3, 135, uk);
+		ukRifleCompanyModel39.addWeaponry(leeEnfieldMk1, 135);
+		Stock ukRifleCompany39MaxStock = new Stock();
+		ukRifleCompany39MaxStock.put(SupplyType.AMMO, 0.005);
+		ukRifleCompanyModel39.setMaxSupplies(ukRifleCompany39MaxStock);		
+		gerGrenadierCompanyModel39 = new CompanyModel("Grenadier Kompanie 39", CompanyType.INFANTRY, Mobility.FOOT, 4.5d, 4, 105, uk);
+		gerGrenadierCompanyModel39.addWeaponry(mauser98k, 105);		
+		Stock gerGrenadierCompanyMax39Stock = new Stock();
+		gerGrenadierCompanyMax39Stock.put(SupplyType.AMMO, 0.005);
+		gerGrenadierCompanyModel39.setMaxSupplies(gerGrenadierCompanyMax39Stock);		
+		ukRifleCompanyModel40 = new CompanyModel("Rifle Company 40", CompanyType.INFANTRY, Mobility.FOOT, 4.5d, 3, 135, ger);
+		ukRifleCompanyModel40.addWeaponry(leeEnfieldMk1, 135);
+		ukRifleCompanyModel40.addWeaponry(vickersBerthierLMG, 10);
 		Stock ukRifleCompany40Stock = new Stock();
-		ukRifleCompany40Stock.put(SupplyType.AMMO, 0.003);
-		ukRifleCompany40.setMaxSupplies(ukRifleCompany40Stock);
-		ukRifleCompany39.addUpgrade(ukRifleCompany40);
+		ukRifleCompany40Stock.put(SupplyType.AMMO, 0.005);
+		ukRifleCompanyModel40.setMaxSupplies(ukRifleCompany40Stock);
+		ukRifleCompanyModel39.addUpgrade(ukRifleCompanyModel40);
 	}
 
 	protected void configScenario() {
@@ -97,19 +106,27 @@ public class GameSample {
 
 	protected void buildPositions() {
 		gerInfReg1.setCountry(ger);
-		gerInfReg1.setPrestige(4000);
+		gerInfReg1.setPrestige(8000);
 		ukInfBg2.setCountry(uk);
-		ukInfBg2.setPrestige(4500);
+		ukInfBg2.setPrestige(9500);
 		Formation ukBn1 = new Formation(FormationLevel.BATTALION, "1st Bn");
-		ukBn1.addCompany(new Company(ukRifleCompany39, "I", new Location(2, 2), 1.8d, 0.8d, 0.9d));
+		Company ukRifleCompany39 = new Company(ukRifleCompanyModel39, "I", new Location(2, 2), 1.8d, 0.8d, 0.9d);
+		Stock ukRifleCompany39Stock = new Stock();
+		ukRifleCompany39Stock.put(SupplyType.AMMO, 0.5d);
+		ukRifleCompany39.setSupplies(ukRifleCompany39Stock);
+		ukBn1.addCompany(ukRifleCompany39);
 		ukInfBg2.addSubordinate(ukBn1);
 		Formation gerBn1 = new Formation(FormationLevel.BATTALION, "I. Bn");
-		gerBn1.addCompany(new Company(gerGrenadierCompany39, "1", new Location(3, 3), 1.5d, 0.6d, 0.9d));
+		Company gerGrenadierCompany39 = new Company(gerGrenadierCompanyModel39, "1", new Location(3, 3), 1.5d, 0.6d, 0.9d);
+		Stock gerGrenadierCompany39Stock = new Stock();
+		gerGrenadierCompany39Stock.put(SupplyType.AMMO, 0.32d);
+		gerGrenadierCompany39.setSupplies(gerGrenadierCompany39Stock);
+		gerBn1.addCompany(gerGrenadierCompany39);
 		gerInfReg1.addSubordinate(gerBn1);
 	}
 
 	protected void configGame() {
-		game = new Game("test", scenario.getSettings(), scenario.getMarket());
+		game = new Game("test", scenario.getSettings());
 	}
 
 	protected void mountCamps() {
@@ -120,15 +137,6 @@ public class GameSample {
 
 	}
 
-	protected void mountMarket() {
-		Market market = new Market();
-		market.put(new Supply(SupplyType.AMMO, uk), 1);
-		market.put(new Supply(SupplyType.AMMO, ger), 1);
-		market.put(new Supply(SupplyType.FUEL, uk), 3);
-		market.put(new Supply(SupplyType.FUEL, ger), 5);
-		scenario.setMarket(market);
-
-	}
 
 	protected void mountForecast() {
 		List<WeatherForecast> forecast = new ArrayList<WeatherForecast>();

@@ -1,19 +1,22 @@
 package org.orion.ss.service;
 
+import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.CompanyModel;
-import org.orion.ss.model.impl.Country;
 import org.orion.ss.model.impl.Game;
+import org.orion.ss.model.impl.Position;
 import org.orion.ss.model.impl.WeaponModel;
-import org.orion.ss.utils.Maths;
 import org.orion.ss.utils.NumberFormats;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ManagementService extends Service {
+	
+	protected final static Logger logger = LoggerFactory.getLogger(ManagementService.class);
 
-	private final static int REGULAR_REINFORCEMENTS_COST = 100;
-	private final static double ELITE_REINFORCEMENTS_UNITARY_DEVIATION = 0.20d;
+	private final static int REGULAR_REINFORCEMENTS_COST = 10;
 	private final static double ELITE_REINFORCEMENT_COST_EXPONENT = 1.75d;
-	private final static double ELITE_REINFORCEMENT_AVAILABILITY_EXPONENT = 1.5d;
+	private final static double REINFORCEMENT_AVAILABILITY_EXPONENT = 0.4d;
 
 	public ManagementService(Game game) {
 		super(game);
@@ -33,7 +36,7 @@ public class ManagementService extends Service {
 
 	public ReinforceCost eliteReinforceCost(Company company) {
 		double toReinforce = (1 - company.getStrength());
-		double availability = Math.max(0, Maths.gaussianRandomize(1 / Math.pow(company.getExperience(), ELITE_REINFORCEMENT_AVAILABILITY_EXPONENT), ELITE_REINFORCEMENTS_UNITARY_DEVIATION));
+		double availability = (double) getReinforceAvailability(company.getExperience(), company.getPosition()) / company.getModel().getMaxStrength();
 		toReinforce = Math.min(toReinforce, availability);
 		double cost = weaponryResupplyCost(company);
 		cost += REGULAR_REINFORCEMENTS_COST
@@ -42,6 +45,15 @@ public class ManagementService extends Service {
 				* company.getModel().getMaxStrength()
 				* Math.pow(company.getExperience(), ELITE_REINFORCEMENT_COST_EXPONENT);
 		return new ReinforceCost(toReinforce, (int) cost);
+	}
+	
+	public int resupplyCost(Company company){
+		int cost = 0;
+		for (SupplyType supplyType : company.getModel().getMaxSupplies().keySet()){
+			double amount = company.getMaxSupplies().get(supplyType) - company.getSupplies().get(supplyType);
+			cost +=  amount * company.getCountry().getMarket().get(supplyType); 
+		}
+		return cost;
 	}
 
 	private double weaponryResupplyCost(Company company) {
@@ -78,6 +90,13 @@ public class ManagementService extends Service {
 		company.increaseStrength(cost.getStrength());
 		getGame().getLog().addEntry(company.getId() + " reinforced " + NumberFormats.PERCENT.format(cost.getStrength()) + " strength with elite replacements spending " + cost.getCost() + " prestige.");
 	}
+	
+	public void resupply(Company company){
+		int cost = this.resupplyCost(company);
+		company.getPosition().decreasePrestige(cost);
+		company.resupply();
+		getGame().getLog().addEntry(company.getId() + " re-supplied spending " + cost + " prestige.");
+	}
 
 	public void upgrade(Company company, CompanyModel upgrade) {
 		int cost = this.upgradeCost(company, upgrade);
@@ -86,7 +105,9 @@ public class ManagementService extends Service {
 		getGame().getLog().addEntry(company.getId() + " upgraded to " + upgrade.getCode() + " spending " + cost + " prestige.");
 	}
 
-	public int getReinforceAvailability(double xp, Country country) {
+	public int getReinforceAvailability(double xp, Position position) {
+		double available = Math.pow(position.getPrestige() / REGULAR_REINFORCEMENTS_COST, Math.pow(position.getCountry().getManpowerModifier() / xp, REINFORCEMENT_AVAILABILITY_EXPONENT));
+		return (int)available;
 
 	}
 

@@ -23,7 +23,7 @@ public class PositionTreePanel implements TreeSelectionListener {
 		super();
 		this.position = position;
 		this.parent = parent;
-		DefaultMutableTreeNode top = new DefaultMutableTreeNode(position.getName());
+		DefaultMutableTreeNode top = new DefaultMutableTreeNode(position);
 		tree = new JTree(top);
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		createNodes(top);
@@ -54,15 +54,14 @@ public class PositionTreePanel implements TreeSelectionListener {
 	public void valueChanged(TreeSelectionEvent e) {
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
 		if (node == null) return;
-
 		Object nodeInfo = node.getUserObject();
-		if (node.isLeaf()) {
-			if (nodeInfo instanceof Company) {
-				Company company = (Company) nodeInfo;
-				parent.updateUnitPanel(company);
-			}
-		} else {
-
+		if (nodeInfo instanceof Company) {
+			Company company = (Company) nodeInfo;
+			parent.updateDetails(company);
+		}
+		if (nodeInfo instanceof Formation) {
+			Formation formation = (Formation) nodeInfo;
+			parent.updateDetails(formation);
 		}
 	}
 

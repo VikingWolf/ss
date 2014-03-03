@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import org.orion.ss.model.core.SupplyType;
+
 public class GameLog extends Observable {
 
 	private final List<String> entries;
@@ -37,7 +39,10 @@ public class GameLog extends Observable {
 	}
 
 	public void addDisplay(Market market) {
-		addEntry("market=" + market.toString());
+		addEntry("market:");
+		for (SupplyType type : market.keySet()){
+			addEntry("\t" + type.getDenomination() + "=" + market.get(type) + " prestige");
+		}
 	}
 	
 	public void addSeparator() {

@@ -14,6 +14,7 @@ import javax.swing.border.TitledBorder;
 
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.CompanyModel;
+import org.orion.ss.model.impl.Formation;
 import org.orion.ss.model.impl.Game;
 import org.orion.ss.service.CombatService;
 import org.orion.ss.service.ManagementService;
@@ -36,13 +37,14 @@ public class PlayerPanel extends FastPanel implements Observer {
 	private final CombatService combatService;
 
 	/* GUI components */
+	private JPanel detailsPanel;
 	private JTextField prestigeTF;
 	private JButton button;
-	private UnitDetailPanel unitDetailPanel;
-	private UnitUpgradePanel unitUpgradeInfoPanel;
+	private CompanyDetailPanel unitDetailPanel;
+	private CompanyUpgradePanel unitUpgradeInfoPanel;	
 	private FastPanel reinforceInfoPanel;
+	private FormationDetailPanel formationDetailPanel;
 
-	private JPanel detailsPanel;
 
 	public PlayerPanel(GraphicTest parent, Game game) {
 		super();
@@ -84,25 +86,29 @@ public class PlayerPanel extends FastPanel implements Observer {
 		PositionTreePanel treePanel = new PositionTreePanel(this, game.getCurrentPlayerPosition(), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN
 				* 3 + GraphicTest.ROW_HEIGHT * 2, GraphicTest.COLUMN_WIDTH_XLARGE, 435);
 		add(treePanel.getPanel());
+		/* variable */
 		detailsPanel = new JPanel();
 		detailsPanel.setLayout(null);
-		detailsPanel.setBounds(GraphicTest.LEFT_MARGIN * 2 + GraphicTest.COLUMN_WIDTH_XLARGE, GraphicTest.TOP_MARGIN, 1200, 560);
 		add(detailsPanel);
-		mountUnitDetailsPanel();
+		detailsPanel.setBounds(GraphicTest.LEFT_MARGIN * 2 + GraphicTest.COLUMN_WIDTH_XLARGE, GraphicTest.TOP_MARGIN, 1200, 560);
 	}
 
-	protected void mountUnitDetailsPanel() {
-		unitDetailPanel = new UnitDetailPanel(managementService, combatService, this);
+	private void mountFormationPanel(){
+		detailsPanel.removeAll();
+		formationDetailPanel = new FormationDetailPanel(managementService);
+		formationDetailPanel.setLayout(null);
+		formationDetailPanel.setBounds(0, 0, GraphicTest.COLUMN_WIDTH * 6 + GraphicTest.LEFT_MARGIN, 560);
+		detailsPanel.add(formationDetailPanel);
+		repaint();
+	}
+
+	private void mountUnitDetailsPanel() {
+		detailsPanel.removeAll();
+		unitDetailPanel = new CompanyDetailPanel(managementService, combatService, this);
 		unitDetailPanel.setLayout(null);
 		unitDetailPanel.setBounds(0, 0, GraphicTest.COLUMN_WIDTH * 2 + GraphicTest.COLUMN_WIDTH_LARGE * 2 + GraphicTest.LEFT_MARGIN, 560);
 		detailsPanel.add(unitDetailPanel);
-		reinforceInfoPanel = new FastPanel();
-		reinforceInfoPanel.setBounds(GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH * 2
-				+ GraphicTest.COLUMN_WIDTH_LARGE * 2, 0,
-				GraphicTest.COLUMN_WIDTH * 2 + GraphicTest.COLUMN_WIDTH_LARGE * 2, 160);
-		reinforceInfoPanel.setLayout(null);
-		detailsPanel.add(reinforceInfoPanel);
-		unitUpgradeInfoPanel = new UnitUpgradePanel(managementService, combatService);
+		unitUpgradeInfoPanel = new CompanyUpgradePanel(managementService, combatService);
 		unitUpgradeInfoPanel.setLayout(null);
 		unitUpgradeInfoPanel.setBounds(GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH * 2
 				+ GraphicTest.COLUMN_WIDTH_LARGE * 2, GraphicTest.TOP_MARGIN + GraphicTest.ROW_HEIGHT * 6,
@@ -116,33 +122,44 @@ public class PlayerPanel extends FastPanel implements Observer {
 		mount();
 	}
 
-	public void updateReinforceInfoPanel(Company company) {
-		reinforceInfoPanel.removeAll();
-		if (company != null) {
-			TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Reinforce Availability");
-			reinforceInfoPanel.setBorder(title);
-			for (int i = 0; i < 6; i++) {
-				reinforceInfoPanel.addLabel(NumberFormats.XP.format(i), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
-				reinforceInfoPanel.addNotEditableTextField(managementService.getReinforceAvailability(i, company), GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
-			}
-
-			// TODO here
-		} else {
-			reinforceInfoPanel.setBorder(null);
+	public void updateReinforceInfoPanel() {		
+		reinforceInfoPanel = new FastPanel();
+		int width = GraphicTest.LEFT_MARGIN * 3 + GraphicTest.COLUMN_WIDTH_NARROW * 2 + GraphicTest.COLUMN_WIDTH_XNARROW * 2;
+		reinforceInfoPanel.setBounds(detailsPanel.getWidth() - width - 75, 0, width, 160);
+		reinforceInfoPanel.setLayout(null);
+		detailsPanel.add(reinforceInfoPanel);
+		TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Reinforce Availability");
+		reinforceInfoPanel.setBorder(title);
+		double[] firstColumnValues = {1.0d, 2.0d, 2.5d, 3.0d, 3.5d};
+		double[] secondColumnValues = {4.0d, 4.25d, 4.5d, 4.75d, 5.0d};
+		for (int i = 0; i < 5; i++) {
+			reinforceInfoPanel.addLabel(NumberFormats.XP.format(firstColumnValues[i]), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH_NARROW, GraphicTest.ROW_HEIGHT);
+			reinforceInfoPanel.addNotEditableTextField(""+managementService.getReinforceAvailability(firstColumnValues[i], game.getCurrentPlayerPosition()), GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH_NARROW, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH_XNARROW, GraphicTest.ROW_HEIGHT);
+			reinforceInfoPanel.addLabel(NumberFormats.XP.format(secondColumnValues[i]), GraphicTest.LEFT_MARGIN * 2 + GraphicTest.COLUMN_WIDTH_NARROW + GraphicTest.COLUMN_WIDTH_XNARROW, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH_NARROW, GraphicTest.ROW_HEIGHT);
+			reinforceInfoPanel.addNotEditableTextField(""+managementService.getReinforceAvailability(secondColumnValues[i], game.getCurrentPlayerPosition()), GraphicTest.LEFT_MARGIN * 2 + GraphicTest.COLUMN_WIDTH_NARROW * 2 + GraphicTest.COLUMN_WIDTH_XNARROW, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH_XNARROW, GraphicTest.ROW_HEIGHT);
 		}
+	} 
+
+	public void updateDetails(final Company company) {
+		mountUnitDetailsPanel();
+		unitDetailPanel.updateUnitPanel(company);
+		updateReinforceInfoPanel();
+	}
+
+	public void updateDetails(final Formation formation){
+		mountFormationPanel();
+		formationDetailPanel.update(formation);
+		updateReinforceInfoPanel();		
 	}
 
 	public void updateUpgradeUnitPanel(final Company company, final CompanyModel upgradeModel) {
 		unitUpgradeInfoPanel.update(company, upgradeModel);
 	}
 
-	public void updateUnitPanel(final Company company) {
-		unitDetailPanel.updateUnitPanel(company);
-		updateReinforceInfoPanel(company);
-	}
 
 	protected void updatePrestigeTF() {
 		prestigeTF.setText(NumberFormats.PRESTIGE.format(game.getCurrentPlayerPosition().getPrestige()));
 	}
 
 }
+

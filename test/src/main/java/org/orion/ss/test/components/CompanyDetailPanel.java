@@ -28,7 +28,7 @@ import org.orion.ss.service.ReinforceCost;
 import org.orion.ss.test.GraphicTest;
 import org.orion.ss.utils.NumberFormats;
 
-public class UnitDetailPanel extends FastPanel {
+public class CompanyDetailPanel extends FastPanel {
 
 	private static final long serialVersionUID = 2165976278365302905L;
 
@@ -39,13 +39,15 @@ public class UnitDetailPanel extends FastPanel {
 	private JButton regularReinforceB;
 	private JTextField costEliteReinforceTF;
 	private JTextField costRegularReinforceTF;
+	private JButton resupplyB;
+	private JTextField resupplyTF;
 
 	private final ManagementService managementService;
 	private final CombatService combatService;
 
 	private final PlayerPanel parent;
 
-	public UnitDetailPanel(ManagementService managementService, CombatService combatService, PlayerPanel parent) {
+	public CompanyDetailPanel(ManagementService managementService, CombatService combatService, PlayerPanel parent) {
 		super();
 		this.managementService = managementService;
 		this.combatService = combatService;
@@ -70,7 +72,7 @@ public class UnitDetailPanel extends FastPanel {
 		textfields1.add(company.getModel().getMobility().getDenomination());
 		textfields1.add(NumberFormats.DF_2.format(company.getModel().getSpeed()) + " km/h");
 		textfields1.add(NumberFormats.DF_2.format(company.computeInitiative()));
-		textfields1.add((int) (company.getStrength() * company.getModel().getMaxStrength()) + "/ " + company.getModel().getMaxStrength());
+		textfields1.add((int) (company.getStrength() * company.getModel().getMaxStrength()) + " / " + company.getModel().getMaxStrength());
 		textfields1.add(NumberFormats.PERCENT.format(company.getOrganization()));
 		textfields1.add(NumberFormats.MORALE.format(company.getMorale()));
 		textfields1.add(NumberFormats.XP.format(company.getExperience()));
@@ -79,8 +81,8 @@ public class UnitDetailPanel extends FastPanel {
 			textfields1.add("" + NumberFormats.DF_2.format(defense.getStrength()));
 		}
 		for (SupplyType stock : company.getMaxSupplies().keySet()) {
-			labels1.add("Max " + stock.getDenomination());
-			textfields1.add(NumberFormats.DF_4.format(company.getMaxSupplies().get(stock)));
+			labels1.add(stock.getDenomination()+" Supply");
+			textfields1.add(NumberFormats.DF_3.format(company.getSupplies().get(stock)) + " / " + NumberFormats.DF_3.format(company.getMaxSupplies().get(stock)));
 		}
 		for (int i = 0; i < labels1.size(); i++) {
 			addLabel(labels1.get(i), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * i,
@@ -111,7 +113,7 @@ public class UnitDetailPanel extends FastPanel {
 			Attack attack = attacks.get(i);
 			String supplyConsumption = "";
 			for (SupplyType supplyType : attack.getConsumption().keySet()) {
-				supplyConsumption += supplyType.getDenomination() + "=" + NumberFormats.DF_4.format(attack.getConsumption().get(supplyType)) + ", ";
+				supplyConsumption += supplyType.getDenomination() + "=" + NumberFormats.DF_3.format(attack.getConsumption().get(supplyType)) + ", ";
 			}
 			if (supplyConsumption.length() > 0) {
 				supplyConsumption = supplyConsumption.substring(0, supplyConsumption.length() - 2);
@@ -172,7 +174,8 @@ public class UnitDetailPanel extends FastPanel {
 		upgradesCB.setBounds(GraphicTest.LEFT_MARGIN * 2 + GraphicTest.COLUMN_WIDTH_NARROW, 445, GraphicTest.COLUMN_WIDTH_XLARGE,
 				GraphicTest.ROW_HEIGHT);
 		add(upgradesCB);
-
+		final ReinforceCost eliteCost = managementService.eliteReinforceCost(company);
+		final ReinforceCost regularCost = managementService.regularReinforceCost(company);
 		eliteReinforceB = new JButton("Elite Reinforce");
 		eliteReinforceB.setBounds(GraphicTest.LEFT_MARGIN, 445 + GraphicTest.ROW_HEIGHT + (int) (GraphicTest.TOP_MARGIN * 1.5d),
 				GraphicTest.COLUMN_WIDTH_LARGE, GraphicTest.ROW_HEIGHT);
@@ -191,9 +194,6 @@ public class UnitDetailPanel extends FastPanel {
 				+ (int) (GraphicTest.TOP_MARGIN * 1.5d), GraphicTest.COLUMN_WIDTH_XLARGE + 5, GraphicTest.ROW_HEIGHT);
 		costRegularReinforceTF.setEditable(false);
 		add(costRegularReinforceTF);
-		final ReinforceCost eliteCost = managementService.eliteReinforceCost(company);
-		final ReinforceCost regularCost = managementService.regularReinforceCost(company);
-		updateReinforcementArea(company, regularCost, eliteCost);
 		eliteReinforceB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -211,6 +211,27 @@ public class UnitDetailPanel extends FastPanel {
 			}
 
 		});
+		resupplyB = new JButton("Re-supply");
+		resupplyB.setBounds(GraphicTest.LEFT_MARGIN * 3 + GraphicTest.COLUMN_WIDTH_LARGE + GraphicTest.COLUMN_WIDTH_XLARGE + 10, 445 + GraphicTest.ROW_HEIGHT + (int) (GraphicTest.TOP_MARGIN * 1.5d),
+				GraphicTest.COLUMN_WIDTH_LARGE , GraphicTest.ROW_HEIGHT);
+		add(resupplyB);
+		resupplyTF = new JTextField();
+		resupplyTF.setBounds(GraphicTest.LEFT_MARGIN * 3 + GraphicTest.COLUMN_WIDTH_LARGE + GraphicTest.COLUMN_WIDTH_XLARGE + 10, 480 + GraphicTest.ROW_HEIGHT
+				+ (int) (GraphicTest.TOP_MARGIN * 1.5d), GraphicTest.COLUMN_WIDTH_LARGE , GraphicTest.ROW_HEIGHT);
+		int resupplyCost = managementService.resupplyCost(company);
+		resupplyTF.setText("" + resupplyCost);
+		add(resupplyTF);
+		resupplyB.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				managementService.resupply(company);
+				updateUnitPanel(company);				
+			}
+			
+		});
+		
+		updateReinforcementArea(company, regularCost, eliteCost, resupplyCost);
 	}
 
 	public void updateUpgradeArea(Company target, CompanyModel upgrade) {
@@ -223,19 +244,17 @@ public class UnitDetailPanel extends FastPanel {
 		parent.updateUpgradeUnitPanel(target, upgrade);
 	}
 
-	protected void updateReinforcementArea(Company company, ReinforceCost regularCost, ReinforceCost eliteCost) {
+	protected void updateReinforcementArea(Company company, ReinforceCost regularCost, ReinforceCost eliteCost, int resupplyCost) {
 		if (company.getStrength() < 1.0d) {
 			if (company.getExperience() > 1.0d) {
-				costEliteReinforceTF.setText("costs " + eliteCost.getCost() + " for " + NumberFormats.PERCENT.format(eliteCost.getStrength())
-						+ " strength");
+				costEliteReinforceTF.setText("costs " + eliteCost.getCost() + " for " + NumberFormats.PERCENT.format(eliteCost.getStrength()) + " strength");
 			}
-			costRegularReinforceTF.setText("costs " + regularCost.getCost() + " for " + NumberFormats.PERCENT.format(regularCost.getStrength())
-					+ " strength");
+			costRegularReinforceTF.setText("costs " + regularCost.getCost() + " for " + NumberFormats.PERCENT.format(regularCost.getStrength()) + " strength");
 		}
-		eliteReinforceB.setEnabled(company.getStrength() < 1.0d && company.getExperience() > 1.0d
-				&& company.getPosition().getPrestige() > eliteCost.getCost());
-		regularReinforceB.setEnabled(company.getStrength() < 1.0d && company.getPosition().getPrestige() > regularCost.getCost());
-
+		eliteReinforceB.setEnabled(company.getStrength() < 1.0d && company.getExperience() > 1.0d && company.getPosition().getPrestige() >= eliteCost.getCost());
+		regularReinforceB.setEnabled(company.getStrength() < 1.0d && company.getPosition().getPrestige() >= regularCost.getCost());
+		resupplyB.setEnabled((managementService.resupplyCost(company)>0 && (company.getPosition().getPrestige()>=managementService.resupplyCost(company))));
+		resupplyTF.setText("" + managementService.resupplyCost(company));
 	}
 
 }

@@ -13,7 +13,7 @@ public abstract class UnitModel {
 
 	public abstract Mobility getMobility();
 
-	public abstract FormationLevel getFormationLevel();
+	public abstract FormationLevel getLevel();
 
 	public UnitModel(Country country) {
 		super();

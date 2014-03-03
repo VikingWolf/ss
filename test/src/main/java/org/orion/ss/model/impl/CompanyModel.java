@@ -34,7 +34,7 @@ public class CompanyModel extends CombatUnitModel implements Upgradable {
 	}
 
 	@Override
-	public FormationLevel getFormationLevel() {
+	public FormationLevel getLevel() {
 		return FormationLevel.COMPANY;
 	}
 

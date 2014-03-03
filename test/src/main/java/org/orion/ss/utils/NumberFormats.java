@@ -7,9 +7,9 @@ import java.text.ParsePosition;
 
 public class NumberFormats {
 
-	public final static NumberFormat DF_2 = new DecimalFormat("#0.00");
-	public final static NumberFormat DF_4 = new DecimalFormat("#0.0000");
-	public final static NumberFormat PERCENT = new DecimalFormat("#%");
+	public final static NumberFormat DF_2 = new DecimalFormat("#0.0#");
+	public final static NumberFormat DF_3 = new DecimalFormat("#0.0##");
+	public final static NumberFormat PERCENT = new DecimalFormat("0.##%");
 	public final static NumberFormat XP = new XpFormat();
 	public final static NumberFormat MORALE = new MoraleFormat();
 	public final static NumberFormat PRESTIGE = new PrestigeFormat();
@@ -136,8 +136,7 @@ class XpFormat extends NumberFormat {
 	@Override
 	public StringBuffer format(long number, StringBuffer toAppendTo,
 			FieldPosition pos) {
-		// TODO Auto-generated method stub
-		return null;
+		return format((double)number, toAppendTo, pos);
 	}
 
 	@Override

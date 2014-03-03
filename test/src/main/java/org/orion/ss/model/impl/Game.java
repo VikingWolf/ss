@@ -17,15 +17,13 @@ public class Game extends Observable {
 	private String id;
 	private int turn = 0;
 	private Player currentPlayer;
-	private Market market;
 	private GameLog log;
 	private GamePhase phase = GamePhase.MANAGEMENT;
 
-	public Game(String id, GameSettings settings, Market market) {
+	public Game(String id, GameSettings settings) {
 		super();
 		this.id = id;
 		this.settings = settings;
-		this.market = market;
 		attacker = new HashMap<Player, Position>();
 		defender = new HashMap<Player, Position>();
 		log = new GameLog();
@@ -62,7 +60,6 @@ public class Game extends Observable {
 		log.addEntry("turn=" + getTurn());
 		log.addEntry("date=" + getDate());
 		log.addDisplay(settings);
-		log.addDisplay(market);
 		log.addSeparator();
 	}
 	
@@ -74,13 +71,15 @@ public class Game extends Observable {
 	}
 	
 	private void logPosition(Player player, Position position, int mode){
-		String entry = player.getEmail() + " plays with " + position.getName() + "(" + position.getCountry() +") as ";
+		String entry = player.getEmail() + " plays with " + position.getName() + "(" + position.getCountry().getName() +") as ";
 		if (mode == Position.ATTACKER){
 			entry += "attacker.";
 		} else {
 			entry += "defender.";
 		}
-		this.getLog().addEntry(entry);		
+		this.getLog().addEntry(entry);
+		System.out.println("market = " + position.getCountry().getMarket());
+		log.addDisplay(position.getCountry().getMarket());
 	}
 	
 	public void logScore(){
@@ -177,14 +176,6 @@ public class Game extends Observable {
 		}
 		setChanged();
 		this.notifyObservers(currentPlayer);
-	}
-
-	public Market getMarket() {
-		return market;
-	}
-
-	public void setMarket(Market market) {
-		this.market = market;
 	}
 
 	public GameLog getLog() {

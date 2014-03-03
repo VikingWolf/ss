@@ -70,7 +70,7 @@ public class Company extends ActivableImpl implements Mobile {
 		// TODO esto es en caso de la infanter�a, gestionar el uso de transportes
 		Stock result = new Stock();
 		for (SupplyType type : this.getModel().getMaxSupplies().keySet()) {
-			double amount = this.getModel().getMaxSupplies().get(type) * this.getStrength();
+			double amount = this.getModel().getMaxSupplies().get(type) * this.getStrength() * this.getModel().getMaxStrength();
 			result.put(type, amount);
 		}
 		return result;
@@ -94,6 +94,18 @@ public class Company extends ActivableImpl implements Mobile {
 
 	public void increaseStrength(double strength) {
 		this.strength += strength;
+	}
+	
+	public int getAbsoluteStrength(){
+		return (int) (this.getStrength() * (double) this.getModel().getMaxStrength());
+	}
+	
+	public void resupply(){
+		for (SupplyType type : this.getModel().getMaxSupplies().keySet()){
+			double defect = this.getMaxSupplies().get(type) - this.getSupplies().get(type);
+			System.out.println("max=" + this.getMaxSupplies().get(type) + ", current=" + this.getSupplies().get(type));
+			this.getSupplies().put(type, defect);
+		}
 	}
 
 	/* getters & setters */
