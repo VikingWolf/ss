@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
@@ -41,6 +42,7 @@ public class ManagementPanel extends PlayerPanel {
 	private FastPanel reinforceInfoPanel;
 	private FastPanel supplyCostPanel;
 	private FormationDetailPanel formationDetailPanel;
+	private FastPanel purchasePanel;
 
 	private PositionTreePanel treePanel;
 
@@ -124,8 +126,22 @@ public class ManagementPanel extends PlayerPanel {
 				GraphicTest.TOP_MARGIN * 3 + GraphicTest.ROW_HEIGHT * 5);
 		supplyCostPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Supply Costs"));
 		detailsPanel.add(supplyCostPanel);
-
+		purchasePanel = new FastPanel();
+		purchasePanel.setLayout(null);
+		purchasePanel.setBounds(
+				supplyCostPanel.getX() + supplyCostPanel.getWidth(),
+				formationDetailPanel.getHeight() + GraphicTest.TOP_MARGIN,
+				GraphicTest.LEFT_MARGIN + GraphicTest.RIGHT_MARGIN + GraphicTest.COLUMN_WIDTH * 2,
+				GraphicTest.TOP_MARGIN * 2 + GraphicTest.BOTTOM_MARGIN + GraphicTest.ROW_HEIGHT * 2);
+		purchasePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Purchase"));
+		detailsPanel.add(purchasePanel);
 		repaint();
+	}
+
+	private void updatePurchasePanel() {
+		JComboBox<CompanyModel> purchaseCB = new JComboBox<CompanyModel>(game.getCurrentPlayerPosition().getCountry().getCompanyModels().toArray(new CompanyModel[] {}));
+		purchaseCB.setBounds(GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+		purchasePanel.add(purchaseCB);
 	}
 
 	private void mountUnitDetailsPanel() {

@@ -109,25 +109,26 @@ public class GameSample {
 		gerInfReg1.setPrestige(8000);
 		ukInfBg2.setCountry(uk);
 		ukInfBg2.setPrestige(9500);
+
 		Formation ukBn1 = new Formation(FormationLevel.BATTALION, "1st Bn");
+		ukInfBg2.addSubordinate(ukBn1);
 		Company ukRifleCompany39_1 = new Company(ukRifleCompanyModel39, "I", new Location(2, 2), 1.8d, 0.8d, 0.9d);
 		Stock ukRifleCompany39Stock_1 = new Stock();
 		ukRifleCompany39Stock_1.put(SupplyType.AMMO, 0.5d);
 		ukRifleCompany39_1.setSupplies(ukRifleCompany39Stock_1);
 		ukBn1.addCompany(ukRifleCompany39_1);
-		ukInfBg2.addSubordinate(ukBn1);
 		Company ukRifleCompany39_2 = new Company(ukRifleCompanyModel39, "II", new Location(2, 2), 1.8d, 0.8d, 1.0d);
 		Stock ukRifleCompany39Stock_2 = new Stock();
 		ukRifleCompany39Stock_2.put(SupplyType.AMMO, 0.55d);
 		ukRifleCompany39_2.setSupplies(ukRifleCompany39Stock_2);
 		ukBn1.addCompany(ukRifleCompany39_2);
 		Formation gerBn1 = new Formation(FormationLevel.BATTALION, "I. Bn");
+		gerInfReg1.addSubordinate(gerBn1);
 		Company gerGrenadierCompany39 = new Company(gerGrenadierCompanyModel39, "1", new Location(3, 3), 1.5d, 0.6d, 0.9d);
 		Stock gerGrenadierCompany39Stock = new Stock();
 		gerGrenadierCompany39Stock.put(SupplyType.AMMO, 0.32d);
 		gerGrenadierCompany39.setSupplies(gerGrenadierCompany39Stock);
 		gerBn1.addCompany(gerGrenadierCompany39);
-		gerInfReg1.addSubordinate(gerBn1);
 	}
 
 	protected void configGame() {

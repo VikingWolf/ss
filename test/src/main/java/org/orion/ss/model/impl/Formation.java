@@ -111,6 +111,7 @@ public class Formation extends ActivableImpl implements Mobile {
 	public void addCompany(Company company) {
 		companies.add(company);
 		company.setParent(this);
+		this.getCountry().addCompanyModel(company.getModel());
 	}
 
 	public void addSubordinate(Formation formation) {
