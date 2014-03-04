@@ -2,14 +2,18 @@ package org.orion.ss.model.impl;
 
 import org.orion.ss.model.ActivableImpl;
 import org.orion.ss.model.Mobile;
+import org.orion.ss.model.Unit;
+import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.SupplyType;
+import org.orion.ss.model.geo.Location;
+import org.orion.ss.utils.FormationFormats;
 
-public class Company extends ActivableImpl implements Mobile {
+public class Company extends ActivableImpl implements Mobile, Unit {
 
 	private final static double INITIATIVE_EXPERIENCE_EXPONENT = 0.5d;
 	private final static double INITIATIVE_ORGANIZATION_EXPONENT = 0.5d;
 
-	private String code;
+	private int id;
 	private CompanyModel model;
 	private Location location;
 	private double strength;
@@ -19,22 +23,33 @@ public class Company extends ActivableImpl implements Mobile {
 	private Stock supplies;
 	private Formation parent;
 
+	public Company(CompanyModel model){
+		super();
+		this.model = model;
+		supplies = new Stock();
+		this.strength = 0.0d;
+		this.experience = 1.0d;
+		this.organization = 1.0d;
+		this.morale = 1.0d;
+		this.supplies = new Stock();
+	}
+	
 	public Company(Company company) {
 		super();
 		model = company.getModel();
 		supplies = company.getSupplies();
-		code = company.getCode();
+		id = company.getId();
 		strength = company.getStrength();
 		experience = company.getExperience();
 		organization = company.getOrganization();
 		morale = company.getMorale();
 	}
 
-	public Company(CompanyModel model, String code, Location location, double experience, double morale, double strength) {
+	public Company(CompanyModel model, int id, Location location, double experience, double morale, double strength) {
 		super();
 		this.model = model;
 		supplies = new Stock();
-		this.code = code;
+		this.id = id;
 		this.location = location;
 		this.strength = strength;
 		this.experience = experience;
@@ -57,13 +72,20 @@ public class Company extends ActivableImpl implements Mobile {
 
 	@Override
 	public String toString() {
-		return code;
+		return getName();
 	}
 
-	public String getId() {
-		String result = parent.getId();
-		result += "/" + this.getCode();
-		return result;
+	public String getFullName(){
+		return FormationFormats.fullFormat(this);
+	}
+	
+	public String getName() {
+		return FormationFormats.format(this);
+	}
+
+	@Override
+	public FormationLevel getFormationLevel() {
+		return getModel().getFormationLevel();
 	}
 
 	public Stock getMaxSupplies() {
@@ -103,7 +125,6 @@ public class Company extends ActivableImpl implements Mobile {
 	public void resupply(){
 		for (SupplyType type : this.getModel().getMaxSupplies().keySet()){
 			double defect = this.getMaxSupplies().get(type) - this.getSupplies().get(type);
-			System.out.println("max=" + this.getMaxSupplies().get(type) + ", current=" + this.getSupplies().get(type));
 			this.getSupplies().put(type, defect);
 		}
 	}
@@ -160,12 +181,13 @@ public class Company extends ActivableImpl implements Mobile {
 		this.location = location;
 	}
 
-	public String getCode() {
-		return code;
+	@Override
+	public int getId() {
+		return id;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Formation getParent() {

@@ -3,8 +3,14 @@ package org.orion.ss.model.impl;
 import java.util.List;
 import java.util.Map;
 
-import org.orion.ss.model.core.Terrain;
-import org.orion.ss.model.core.Vegetation;
+import org.orion.ss.model.geo.GeoMap;
+import org.orion.ss.model.geo.Location;
+import org.orion.ss.model.geo.Minefield;
+import org.orion.ss.model.geo.Railway;
+import org.orion.ss.model.geo.Road;
+import org.orion.ss.model.geo.Terrain;
+import org.orion.ss.model.geo.Trench;
+import org.orion.ss.model.geo.Vegetation;
 
 public class Scenario {
 
@@ -25,7 +31,7 @@ public class Scenario {
 
 	public Scenario(int mapRows, int mapColumns){
 		super();
-		map = new GeoMap(mapRows, mapColumns, Terrain.PLAIN, Vegetation.NONE);
+		map = new GeoMap(mapRows, mapColumns, Terrain.PLAINS, Vegetation.NONE);
 	}
 	/* getters & setters */
 

@@ -3,7 +3,6 @@ package org.orion.ss.test;
 import java.util.Date;
 
 import org.orion.ss.model.impl.Game;
-import org.orion.ss.service.GameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +13,6 @@ public class Test {
 	private Game game;
 
 	/* services */
-	private GameService gameService;
 
 	public static void main(String[] args) {
 		Test test = new Test();
@@ -33,7 +31,6 @@ public class Test {
 	protected void mountServices() {
 		game = new GameSample().buildGame();
 		logger.info("Mounting services...");
-		gameService = new GameService(game);
 	}
 
 	/* getters & setters */

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.orion.ss.model.core.FormationLevel;
+import org.orion.ss.model.core.TroopType;
+import org.orion.ss.model.geo.Fortification;
 
 public class Position extends Formation {
 
@@ -13,8 +15,8 @@ public class Position extends Formation {
 	private List<Fortification> defenses;
 	private int prestige;
 
-	public Position(FormationLevel type, String name){
-		super(type, name);
+	public Position(FormationLevel level, TroopType type, int id){
+		super(level, type, id);
 		defenses = new ArrayList<Fortification>();
 	}
 	

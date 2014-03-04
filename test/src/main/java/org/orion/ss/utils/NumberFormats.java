@@ -134,8 +134,7 @@ class XpFormat extends NumberFormat {
 	}
 
 	@Override
-	public StringBuffer format(long number, StringBuffer toAppendTo,
-			FieldPosition pos) {
+	public StringBuffer format(long number, StringBuffer toAppendTo, FieldPosition pos) {
 		return format((double)number, toAppendTo, pos);
 	}
 

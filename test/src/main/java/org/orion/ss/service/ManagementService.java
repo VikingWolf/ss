@@ -1,6 +1,12 @@
 package org.orion.ss.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.SupplyType;
+import org.orion.ss.model.core.TroopType;
+import org.orion.ss.model.core.TroopTypesCompatibility;
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.CompanyModel;
 import org.orion.ss.model.impl.Formation;
@@ -58,8 +64,8 @@ public class ManagementService extends Service {
 
 	public int resupplyCost(Company company) {
 		int cost = 0;
-		for (SupplyType supplyType : company.getModel().getMaxSupplies().keySet()) {
-			double amount = company.getMaxSupplies().get(supplyType) - company.getSupplies().get(supplyType);
+		for (SupplyType supplyType : company.getMaxSupplies().keySet()) {
+			double amount = company.getMaxSupplies().get(supplyType) - company.getSupplies().get(supplyType);			
 			cost += amount * company.getCountry().getMarket().get(supplyType);
 		}
 		return cost;
@@ -109,13 +115,13 @@ public class ManagementService extends Service {
 		company.getPosition().decreasePrestige(cost.getCost());
 		company.increaseStrength(cost.getStrength());
 		company.setExperience(avgXp);
-		getGame().getLog().addEntry(company.getId() + " reinforced " + NumberFormats.PERCENT.format(cost.getStrength()) + " strength with regular replacements spending " + cost.getCost() + " prestige.");
+		getGame().getLog().addEntry(company.getFullName() + " reinforced " + NumberFormats.PERCENT.format(cost.getStrength()) + " strength with regular replacements spending " + cost.getCost() + " prestige.");
 	}
 
 	public void eliteReinforce(Company company, ReinforceCost cost) {
 		company.getPosition().decreasePrestige(cost.getCost());
 		company.increaseStrength(cost.getStrength());
-		getGame().getLog().addEntry(company.getId() + " reinforced " + NumberFormats.PERCENT.format(cost.getStrength()) + " strength with elite replacements spending " + cost.getCost() + " prestige.");
+		getGame().getLog().addEntry(company.getFullName() + " reinforced " + NumberFormats.PERCENT.format(cost.getStrength()) + " strength with elite replacements spending " + cost.getCost() + " prestige.");
 	}
 
 	public void resupply(Formation formation) {
@@ -128,14 +134,14 @@ public class ManagementService extends Service {
 		int cost = this.resupplyCost(company);
 		company.getPosition().decreasePrestige(cost);
 		company.resupply();
-		getGame().getLog().addEntry(company.getId() + " re-supplied spending " + cost + " prestige.");
+		getGame().getLog().addEntry(company.getFullName() + " re-supplied spending " + cost + " prestige.");
 	}
 
 	public void upgrade(Company company, CompanyModel upgrade) {
 		int cost = this.upgradeCost(company, upgrade);
 		company.getPosition().decreasePrestige(cost);
 		company.setModel(upgrade);
-		getGame().getLog().addEntry(company.getId() + " upgraded to " + upgrade.getCode() + " spending " + cost + " prestige.");
+		getGame().getLog().addEntry(company.getFullName() + " upgraded to " + upgrade.getCode() + " spending " + cost + " prestige.");
 	}
 
 	public int getReinforceAvailability(double xp, Position position) {
@@ -145,11 +151,74 @@ public class ManagementService extends Service {
 	}
 
 	public void dismiss(Company company) {
-		company.getParent().getCompanies().remove(company);
+		company.getParent().getCompanies().remove(company);		
+		getGame().getLog().addEntry(company.getFullName() + " moved to the reserve. ");
+
 	}
 
 	public void dismiss(Formation formation) {
 		formation.getParent().getSubordinates().remove(formation);
+		getGame().getLog().addEntry(formation.getFullName() + " moved to the reserve. ");
+	}
+	
+	public int purchaseCost(Formation formation, CompanyModel companyModel){
+		if (companyModel != null) {
+			Company company = new Company(companyModel);
+			company.setParent(formation);
+			ReinforceCost cost = this.regularReinforceCost(company);
+			company.setStrength(1.0d);
+			int suppliesCost = this.resupplyCost(company);
+			return cost.getCost() + suppliesCost;			
+		} else return 0;
+	}
+	
+	public void purchaseCompany(Formation formation, CompanyModel companyModel){
+		int cost = purchaseCost(formation, companyModel);
+		formation.getPosition().decreasePrestige(cost);
+		int id = 1;
+		for (Company company : formation.getCompanies()){
+			if (company.getId()>= id){
+				id = company.getId() + 1;
+			}
+		}
+		Company company = new Company(companyModel);
+		company.setId(id);
+		company.setStrength(1.0d);
+		company.resupply();
+		formation.addCompany(company);
+		getGame().getLog().addEntry(company.getFullName() + " purchased to " + formation.getFullName() + " spending " + cost + " prestige.");
+
+	}
+	
+	public void createFormation(Formation parent, FormationLevel level, TroopType troopType){		
+		int id = 1;
+		if (level.isUniqueId()){
+			id = parent.getCountry().getLastIdFor(level);
+		} else {
+			for (Formation subordinate : parent.getSubordinates()){
+				if (subordinate.getId()>= id){
+					id = subordinate.getId() + 1;
+				}
+			}
+			
+		}
+		Formation formation = new Formation(level, troopType, id);		
+		parent.addSubordinate(formation);
+		getGame().getLog().addEntry(formation.getFullName() + " newly created subordinate to " + parent.getFullName() + ".");
+	}
+	
+	public List<FormationLevel> getSubordinables(Formation formation){
+		List<FormationLevel> subordinables = new ArrayList<FormationLevel>();
+		for (FormationLevel level : FormationLevel.values()){
+			if ((level.getOrdinal()>0) && (level.getOrdinal() < formation.getFormationLevel().getOrdinal())){
+				subordinables.add(level);
+			}
+		}
+		return subordinables;
+	}
+	
+	public List<TroopType> getSubordinateTroopTypes(Formation formation){
+		return TroopTypesCompatibility.loadCompatibles(formation.getType(), formation.getFormationLevel());
 	}
 
 }

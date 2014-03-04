@@ -132,7 +132,7 @@ public class CompanyDetailPanel extends FastPanel {
 	protected void updateUnitPanel(final Company company) {
 		parent.updatePrestigeTF();
 		removeAll();
-		TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), company.getId());
+		TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), company.getFullName());
 		setBorder(title);
 		displayUnitInfo(company);
 		/* Actions */
@@ -164,7 +164,6 @@ public class CompanyDetailPanel extends FastPanel {
 			@Override
 			@SuppressWarnings("unchecked")
 			public void itemStateChanged(ItemEvent e) {
-				System.out.println("selected");
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					JComboBox<CompanyModel> source = (JComboBox<CompanyModel>) e.getSource();
 					updateUpgradeArea(company, (CompanyModel) source.getSelectedItem());

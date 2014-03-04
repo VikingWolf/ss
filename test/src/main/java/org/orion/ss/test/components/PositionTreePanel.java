@@ -39,6 +39,9 @@ public class PositionTreePanel implements TreeSelectionListener {
 	}
 
 	private void createNodes(DefaultMutableTreeNode top) {
+		for (Company company : position.getCompanies()){
+			top.add(new DefaultMutableTreeNode(company));			
+		}
 		for (Formation formation : position.getSubordinates()) {
 			createNodes(top, formation);
 		}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.orion.ss.model.Activable;
 import org.orion.ss.model.Mobile;
+import org.orion.ss.model.geo.Location;
 
 public class CompanyStack extends ArrayList<Company> implements Activable, Mobile {
 

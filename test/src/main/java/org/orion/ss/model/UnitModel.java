@@ -5,7 +5,7 @@ import org.orion.ss.model.core.Mobility;
 import org.orion.ss.model.impl.Country;
 import org.orion.ss.model.impl.Stock;
 
-public abstract class UnitModel {
+public abstract class UnitModel implements Leveleable{
 
 	private Stock consumption;
 	private Stock maxSupplies;
@@ -13,7 +13,7 @@ public abstract class UnitModel {
 
 	public abstract Mobility getMobility();
 
-	public abstract FormationLevel getLevel();
+	public abstract FormationLevel getFormationLevel();
 
 	public UnitModel(Country country) {
 		super();

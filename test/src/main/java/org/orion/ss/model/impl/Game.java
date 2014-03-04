@@ -78,7 +78,6 @@ public class Game extends Observable {
 			entry += "defender.";
 		}
 		this.getLog().addEntry(entry);
-		System.out.println("market = " + position.getCountry().getMarket());
 		log.addDisplay(position.getCountry().getMarket());
 	}
 

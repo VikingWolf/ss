@@ -48,10 +48,11 @@ public class FormationDetailPanel extends FastPanel {
 	public void update(Formation target) {
 		formation = target;
 		removeAll();
-		TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), formation.getId());
+		TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), formation.getName());
 		setBorder(title);
 		List<String> labels1 = new ArrayList<String>();
 		labels1.add("Name");
+		labels1.add("Size");
 		labels1.add("Type");
 		labels1.add("Strength");
 		labels1.add("Reinforce Cost");
@@ -67,8 +68,9 @@ public class FormationDetailPanel extends FastPanel {
 		int j = 1;
 		for (Company company : formation.getCompanies()) {
 			List<Object> values1 = new ArrayList<Object>();
-			values1.add(company.getCode());
-			values1.add(company.getModel().getLevel() + "(" + company.getModel().getLevel().getCode() + ")");
+			values1.add(company.getName());
+			values1.add(company.getModel().getFormationLevel() + "(" + company.getModel().getFormationLevel().getCode() + ")");
+			values1.add(company.getModel().getType().getDenomination());
 			values1.add("" + company.getAbsoluteStrength() + "/" + company.getModel().getMaxStrength());
 			ReinforceCost regularCost = managementService.regularReinforceCost(company);
 			values1.add(NumberFormats.PERCENT.format(regularCost.getStrength()) + " for " + NumberFormats.PRESTIGE.format(regularCost.getCost()));
@@ -106,7 +108,8 @@ public class FormationDetailPanel extends FastPanel {
 		for (Formation subordinate : formation.getSubordinates()) {
 			List<Object> values1 = new ArrayList<Object>();
 			values1.add(subordinate.getName());
-			values1.add("" + subordinate.getLevel() + "(" + subordinate.getLevel().getCode() + ")");
+			values1.add("" + subordinate.getFormationLevel() + "(" + subordinate.getFormationLevel().getCode() + ")");
+			values1.add(formation.getType().getDenomination());
 			values1.add("" + subordinate.getAbsoluteStrength() + "/" + subordinate.getMaxStrength());
 			values1.add(NumberFormats.PRESTIGE.format(managementService.regularReinforceCost(subordinate)));
 			JButton reinforceB = new FormationButton("Reinforce", subordinate);
@@ -138,7 +141,6 @@ public class FormationDetailPanel extends FastPanel {
 			}
 			j++;
 		}
-
 	}
 
 	class CompanyButton extends JButton {

@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.orion.ss.model.impl.Defense;
 
-public enum CompanyType {
+public enum TroopType {
 
 	/* denomination defenses */
-	INFANTRY("infantry", TargetType.SOFT, new Defense[] { new Defense(DefenseType.GROUND, 1.0d), new Defense(DefenseType.CLOSE, 1.0d) }),
+	INFANTRY("infantry", TargetType.SOFT, new Defense[] { new Defense(DefenseType.GROUND, 1.0d), new Defense(DefenseType.CLOSE, 1.0d) } ),
 	CAVALRY("infantry", TargetType.SOFT, new Defense[] { new Defense(DefenseType.GROUND, 1.0d), new Defense(DefenseType.CLOSE, 1.0d) }),
 	MOTORIZED("infantry", TargetType.SOFT, new Defense[] { new Defense(DefenseType.GROUND, 1.0d), new Defense(DefenseType.CLOSE, 1.0d) }),
 	ARMOURED("infantry", TargetType.HARD, new Defense[] { new Defense(DefenseType.GROUND, 1.0d), new Defense(DefenseType.CLOSE, 1.0d) });
@@ -17,7 +17,7 @@ public enum CompanyType {
 	private List<Defense> defenses;
 	private TargetType targetType;
 
-	private CompanyType(String denomination, TargetType targetType, Defense[] defenses) {
+	private TroopType(String denomination, TargetType targetType, Defense[] defenses) {
 		this.denomination = denomination;
 		this.targetType = targetType;
 		this.defenses = Arrays.asList(defenses);

@@ -2,6 +2,7 @@ package org.orion.ss.model.impl;
 
 import org.orion.ss.model.ActivableImpl;
 import org.orion.ss.model.Mobile;
+import org.orion.ss.model.geo.Location;
 
 public class AirSquadron extends ActivableImpl implements Mobile {
 

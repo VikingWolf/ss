@@ -23,7 +23,7 @@ public class AirSquadronModel extends CombatUnitModel {
 	}
 
 	@Override
-	public FormationLevel getLevel() {
+	public FormationLevel getFormationLevel() {
 		return FormationLevel.AIR_SQUADRON;
 	}
 

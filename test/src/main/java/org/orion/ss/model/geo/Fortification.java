@@ -1,8 +1,9 @@
-package org.orion.ss.model.impl;
+package org.orion.ss.model.geo;
 
 import java.util.Map;
 
 import org.orion.ss.model.ActivableImpl;
+import org.orion.ss.model.impl.Company;
 
 public class Fortification extends ActivableImpl {
 

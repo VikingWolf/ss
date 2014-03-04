@@ -1,4 +1,4 @@
-package org.orion.ss.model.impl;
+package org.orion.ss.model.geo;
 
 public class Location {
 

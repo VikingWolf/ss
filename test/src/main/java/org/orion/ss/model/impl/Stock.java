@@ -24,4 +24,11 @@ public class Stock extends HashMap<SupplyType, Double> {
 		return amount;
 	}
 
+	public Double get(SupplyType type) {
+		if (this.containsKey(type)) {
+			return super.get(type);
+		}
+		else return 0d;
+	}
+
 }

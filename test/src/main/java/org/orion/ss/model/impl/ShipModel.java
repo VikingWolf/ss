@@ -20,7 +20,7 @@ public class ShipModel extends CombatUnitModel {
 	}
 
 	@Override
-	public FormationLevel getLevel() {
+	public FormationLevel getFormationLevel() {
 		return FormationLevel.SHIP;
 	}
 

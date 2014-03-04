@@ -1,4 +1,4 @@
-package org.orion.ss.model.core;
+package org.orion.ss.model.geo;
 
 public enum WeatherType {
 

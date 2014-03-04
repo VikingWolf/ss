@@ -5,11 +5,15 @@ import java.util.List;
 
 import org.orion.ss.model.ActivableImpl;
 import org.orion.ss.model.Mobile;
+import org.orion.ss.model.Unit;
 import org.orion.ss.model.core.FormationLevel;
+import org.orion.ss.model.core.TroopType;
+import org.orion.ss.model.geo.Location;
+import org.orion.ss.utils.FormationFormats;
 
-public class Formation extends ActivableImpl implements Mobile {
+public class Formation extends ActivableImpl implements Mobile, Unit {
 
-	private String name;
+	private int id;
 	private Country country;
 	private Location location; /* location of the hq */
 	private List<Formation> subordinates;
@@ -18,15 +22,17 @@ public class Formation extends ActivableImpl implements Mobile {
 	private List<Ship> ships;
 	private FormationLevel level;
 	private Formation parent;
+	private TroopType type;
 
-	public Formation(FormationLevel level, String name) {
+	public Formation(FormationLevel level, TroopType type, int id) {
 		super();
-		this.name = name;
+		this.id = id;
 		subordinates = new ArrayList<Formation>();
 		companies = new ArrayList<Company>();
 		airSquadrons = new ArrayList<AirSquadron>();
 		ships = new ArrayList<Ship>();
 		this.level = level;
+		this.type = type;
 	}
 
 	@Override
@@ -86,16 +92,12 @@ public class Formation extends ActivableImpl implements Mobile {
 
 	@Override
 	public String toString() {
-		return name;
+		return getName();
 	}
 
-	public String getId() {
-		String result = "";
-		if (parent != null) {
-			result += parent.getId() + ", ";
-		}
-		result += this.getName();
-		return result;
+	@Override
+	public int getId() {
+		return this.id;
 	}
 
 	public Position getPosition() {
@@ -105,13 +107,16 @@ public class Formation extends ActivableImpl implements Mobile {
 			return this.getParent().getPosition();
 		}
 	}
-
+	
+	public boolean isExpandable(){
+		return this.getAllCompanies().size() <= this.getFormationLevel().getSupplyLimit();
+	}
+	
 	/* adders */
 
 	public void addCompany(Company company) {
 		companies.add(company);
 		company.setParent(this);
-		this.getCountry().addCompanyModel(company.getModel());
 	}
 
 	public void addSubordinate(Formation formation) {
@@ -127,19 +132,27 @@ public class Formation extends ActivableImpl implements Mobile {
 	public void addShip(Ship ship) {
 		ships.add(ship);
 	}
+	
+	public String getFullName(){
+		return FormationFormats.fullFormat(this);
+	}
+
+	public String getName() {
+		return FormationFormats.format(this);
+	}
 
 	/* getters & setters */
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public List<Formation> getSubordinates() {
 		return subordinates;
+	}
+
+	public TroopType getType() {
+		return type;
+	}
+
+	public void setType(TroopType type) {
+		this.type = type;
 	}
 
 	public void setSubordinates(List<Formation> subordinates) {
@@ -180,7 +193,7 @@ public class Formation extends ActivableImpl implements Mobile {
 		this.ships = ships;
 	}
 
-	public FormationLevel getLevel() {
+	public FormationLevel getFormationLevel() {
 		return level;
 	}
 
@@ -202,6 +215,7 @@ public class Formation extends ActivableImpl implements Mobile {
 
 	public void setCountry(Country country) {
 		this.country = country;
+		country.updateLastId(this);
 	}
 
 	public List<Ship> getShips() {

@@ -1,6 +1,6 @@
 package org.orion.ss.model;
 
-import org.orion.ss.model.impl.Location;
+import org.orion.ss.model.geo.Location;
 
 public interface Localizable {
 

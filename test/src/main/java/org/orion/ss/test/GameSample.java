@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.orion.ss.model.core.CompanyType;
+import org.orion.ss.model.core.TroopType;
 import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.Mobility;
 import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.core.WeaponType;
-import org.orion.ss.model.core.WeatherType;
+import org.orion.ss.model.geo.Location;
+import org.orion.ss.model.geo.WeatherType;
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.CompanyModel;
 import org.orion.ss.model.impl.Country;
 import org.orion.ss.model.impl.Formation;
 import org.orion.ss.model.impl.Game;
 import org.orion.ss.model.impl.GameSettings;
-import org.orion.ss.model.impl.Location;
 import org.orion.ss.model.impl.Market;
 import org.orion.ss.model.impl.Player;
 import org.orion.ss.model.impl.Position;
@@ -32,8 +32,8 @@ public class GameSample {
 
 	private final Country uk = new Country("UK", 0.9d);
 	private final Country ger = new Country("GER", 1.0d);
-	private final Position gerInfReg1 = new Position(FormationLevel.REGIMENT, "Infanterie-Regiment 1");
-	private final Position ukInfBg2 = new Position(FormationLevel.REGIMENT, "2nd Infantry Brigade");
+	private final Position gerInfReg1 = new Position(FormationLevel.REGIMENT, TroopType.INFANTRY, 1);
+	private final Position ukInfBg2 = new Position(FormationLevel.REGIMENT, TroopType.INFANTRY, 2);
 
 	private WeaponModel leeEnfieldMk1;
 	private WeaponModel mauser98k;
@@ -73,23 +73,28 @@ public class GameSample {
 	}
 
 	protected void buildCompanyModels() {
-		ukRifleCompanyModel39 = new CompanyModel("Rifle Company 39", CompanyType.INFANTRY, Mobility.FOOT, 4.5d, 3, 135, uk);
+		ukRifleCompanyModel39 = new CompanyModel("Rifle Company 39", TroopType.INFANTRY, Mobility.FOOT, 4.5d, 3, 135, uk);
 		ukRifleCompanyModel39.addWeaponry(leeEnfieldMk1, 135);
 		Stock ukRifleCompany39MaxStock = new Stock();
 		ukRifleCompany39MaxStock.put(SupplyType.AMMO, 0.005);
 		ukRifleCompanyModel39.setMaxSupplies(ukRifleCompany39MaxStock);
-		gerGrenadierCompanyModel39 = new CompanyModel("Grenadier Kompanie 39", CompanyType.INFANTRY, Mobility.FOOT, 4.5d, 4, 105, uk);
+		uk.addCompanyModel(ukRifleCompanyModel39);
+		
+		gerGrenadierCompanyModel39 = new CompanyModel("Grenadier Kompanie 39", TroopType.INFANTRY, Mobility.FOOT, 4.5d, 4, 105, uk);
 		gerGrenadierCompanyModel39.addWeaponry(mauser98k, 105);
 		Stock gerGrenadierCompanyMax39Stock = new Stock();
 		gerGrenadierCompanyMax39Stock.put(SupplyType.AMMO, 0.005);
 		gerGrenadierCompanyModel39.setMaxSupplies(gerGrenadierCompanyMax39Stock);
-		ukRifleCompanyModel40 = new CompanyModel("Rifle Company 40", CompanyType.INFANTRY, Mobility.FOOT, 4.5d, 3, 135, ger);
+		ger.addCompanyModel(gerGrenadierCompanyModel39);
+		
+		ukRifleCompanyModel40 = new CompanyModel("Rifle Company 40", TroopType.INFANTRY, Mobility.FOOT, 4.5d, 3, 135, ger);
 		ukRifleCompanyModel40.addWeaponry(leeEnfieldMk1, 135);
 		ukRifleCompanyModel40.addWeaponry(vickersBerthierLMG, 10);
 		Stock ukRifleCompany40Stock = new Stock();
 		ukRifleCompany40Stock.put(SupplyType.AMMO, 0.005);
 		ukRifleCompanyModel40.setMaxSupplies(ukRifleCompany40Stock);
 		ukRifleCompanyModel39.addUpgrade(ukRifleCompanyModel40);
+		uk.addCompanyModel(ukRifleCompanyModel40);
 	}
 
 	protected void configScenario() {
@@ -110,21 +115,21 @@ public class GameSample {
 		ukInfBg2.setCountry(uk);
 		ukInfBg2.setPrestige(9500);
 
-		Formation ukBn1 = new Formation(FormationLevel.BATTALION, "1st Bn");
+		Formation ukBn1 = new Formation(FormationLevel.BATTALION, TroopType.INFANTRY, 1);
 		ukInfBg2.addSubordinate(ukBn1);
-		Company ukRifleCompany39_1 = new Company(ukRifleCompanyModel39, "I", new Location(2, 2), 1.8d, 0.8d, 0.9d);
+		Company ukRifleCompany39_1 = new Company(ukRifleCompanyModel39, 1, new Location(2, 2), 1.8d, 0.8d, 0.9d);
 		Stock ukRifleCompany39Stock_1 = new Stock();
 		ukRifleCompany39Stock_1.put(SupplyType.AMMO, 0.5d);
 		ukRifleCompany39_1.setSupplies(ukRifleCompany39Stock_1);
 		ukBn1.addCompany(ukRifleCompany39_1);
-		Company ukRifleCompany39_2 = new Company(ukRifleCompanyModel39, "II", new Location(2, 2), 1.8d, 0.8d, 1.0d);
+		Company ukRifleCompany39_2 = new Company(ukRifleCompanyModel39, 2, new Location(2, 2), 1.8d, 0.8d, 1.0d);
 		Stock ukRifleCompany39Stock_2 = new Stock();
 		ukRifleCompany39Stock_2.put(SupplyType.AMMO, 0.55d);
 		ukRifleCompany39_2.setSupplies(ukRifleCompany39Stock_2);
 		ukBn1.addCompany(ukRifleCompany39_2);
-		Formation gerBn1 = new Formation(FormationLevel.BATTALION, "I. Bn");
+		Formation gerBn1 = new Formation(FormationLevel.BATTALION, TroopType.INFANTRY, 1);
 		gerInfReg1.addSubordinate(gerBn1);
-		Company gerGrenadierCompany39 = new Company(gerGrenadierCompanyModel39, "1", new Location(3, 3), 1.5d, 0.6d, 0.9d);
+		Company gerGrenadierCompany39 = new Company(gerGrenadierCompanyModel39, 1, new Location(3, 3), 1.5d, 0.6d, 0.9d);
 		Stock gerGrenadierCompany39Stock = new Stock();
 		gerGrenadierCompany39Stock.put(SupplyType.AMMO, 0.32d);
 		gerGrenadierCompany39.setSupplies(gerGrenadierCompany39Stock);
