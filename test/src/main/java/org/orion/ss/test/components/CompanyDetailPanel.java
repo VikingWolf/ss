@@ -45,9 +45,9 @@ public class CompanyDetailPanel extends FastPanel {
 	private final ManagementService managementService;
 	private final CombatService combatService;
 
-	private final PlayerPanel parent;
+	private final ManagementPanel parent;
 
-	public CompanyDetailPanel(ManagementService managementService, CombatService combatService, PlayerPanel parent) {
+	public CompanyDetailPanel(ManagementService managementService, CombatService combatService, ManagementPanel parent) {
 		super();
 		this.managementService = managementService;
 		this.combatService = combatService;

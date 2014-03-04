@@ -19,7 +19,7 @@ public class Formation extends ActivableImpl implements Mobile {
 	private FormationLevel level;
 	private Formation parent;
 
-	public Formation(FormationLevel level, String name){
+	public Formation(FormationLevel level, String name) {
 		super();
 		this.name = name;
 		subordinates = new ArrayList<Formation>();
@@ -28,7 +28,7 @@ public class Formation extends ActivableImpl implements Mobile {
 		ships = new ArrayList<Ship>();
 		this.level = level;
 	}
-	
+
 	@Override
 	public MobilitySet getMobilities() {
 		MobilitySet result = new MobilitySet();
@@ -38,15 +38,15 @@ public class Formation extends ActivableImpl implements Mobile {
 		return result;
 	}
 
-	public List<Company> getAllCompanies(){
+	public List<Company> getAllCompanies() {
 		List<Company> result = new ArrayList<Company>();
 		result.addAll(this.getCompanies());
-		for (Formation formation : this.getSubordinates()){
+		for (Formation formation : this.getSubordinates()) {
 			result.addAll(formation.getAllCompanies());
 		}
 		return result;
 	}
-	
+
 	protected CompanyStack getCompanyStackAtLocation(boolean onlyActivables) {
 		return getCompanyStackAtLocation(this.getLocation(), false);
 	}
@@ -67,68 +67,68 @@ public class Formation extends ActivableImpl implements Mobile {
 		}
 		return result;
 	}
-	
-	public int getAbsoluteStrength(){
+
+	public int getAbsoluteStrength() {
 		int strength = 0;
-		for (Company company : this.getAllCompanies()){
+		for (Company company : this.getAllCompanies()) {
 			strength += company.getAbsoluteStrength();
 		}
 		return strength;
 	}
-	
-	public int getMaxStrength(){
+
+	public int getMaxStrength() {
 		int strength = 0;
-		for (Company company : this.getAllCompanies()){
+		for (Company company : this.getAllCompanies()) {
 			strength += company.getModel().getMaxStrength();
 		}
 		return strength;
 	}
-	
+
 	@Override
 	public String toString() {
 		return name;
 	}
-	
-	public String getId(){
+
+	public String getId() {
 		String result = "";
-		if (parent != null){
+		if (parent != null) {
 			result += parent.getId() + ", ";
 		}
 		result += this.getName();
 		return result;
 	}
-	
-	public Position getPosition(){
-		if (this instanceof Position){
+
+	public Position getPosition() {
+		if (this instanceof Position) {
 			return (Position) this;
 		} else {
 			return this.getParent().getPosition();
 		}
 	}
-	
+
 	/* adders */
-	
-	public void addCompany(Company company){
-		this.companies.add(company);
+
+	public void addCompany(Company company) {
+		companies.add(company);
 		company.setParent(this);
 	}
-	
-	public void addSubordinate(Formation formation){
-		this.subordinates.add(formation);
+
+	public void addSubordinate(Formation formation) {
 		formation.setParent(this);
 		formation.setCountry(this.getCountry());
+		subordinates.add(formation);
 	}
-	
-	public void addAirSquadron(AirSquadron airSquadron){
-		this.airSquadrons.add(airSquadron);
+
+	public void addAirSquadron(AirSquadron airSquadron) {
+		airSquadrons.add(airSquadron);
 	}
-	
-	public void addShip(Ship ship){
-		this.ships.add(ship);
+
+	public void addShip(Ship ship) {
+		ships.add(ship);
 	}
-	
+
 	/* getters & setters */
-	
+
 	public String getName() {
 		return name;
 	}

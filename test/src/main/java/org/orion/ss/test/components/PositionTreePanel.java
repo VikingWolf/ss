@@ -10,20 +10,26 @@ import javax.swing.tree.TreeSelectionModel;
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.Formation;
 import org.orion.ss.model.impl.Position;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PositionTreePanel implements TreeSelectionListener {
+
+	protected final static Logger logger = LoggerFactory.getLogger(PositionTreePanel.class);
 
 	private final Position position;
 	private final JTree tree;
 
-	private final PlayerPanel parent;
+	private final ManagementPanel parent;
 	private final JScrollPane panel;
 
-	public PositionTreePanel(PlayerPanel parent, Position position, int x, int y, int w, int h) {
+	private final DefaultMutableTreeNode top;
+
+	public PositionTreePanel(ManagementPanel parent, Position position, int x, int y, int w, int h) {
 		super();
 		this.position = position;
 		this.parent = parent;
-		DefaultMutableTreeNode top = new DefaultMutableTreeNode(position);
+		top = new DefaultMutableTreeNode(position);
 		tree = new JTree(top);
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		createNodes(top);

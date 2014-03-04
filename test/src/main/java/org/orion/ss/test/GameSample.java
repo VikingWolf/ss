@@ -55,17 +55,17 @@ public class GameSample {
 		return game;
 	}
 
-	protected void buildCountries(){
+	protected void buildCountries() {
 		Market ukMarket = new Market();
-		ukMarket.put(SupplyType.AMMO, 100);
-		ukMarket.put(SupplyType.FUEL, 23);
+		ukMarket.put(SupplyType.AMMO, 800);
+		ukMarket.put(SupplyType.FUEL, 950);
 		uk.setMarket(ukMarket);
 		Market gerMarket = new Market();
-		gerMarket.put(SupplyType.AMMO,  100);		
-		gerMarket.put(SupplyType.FUEL, 40);
+		gerMarket.put(SupplyType.AMMO, 800);
+		gerMarket.put(SupplyType.FUEL, 1150);
 		ger.setMarket(gerMarket);
 	}
-	
+
 	protected void buildWeaponModels() {
 		mauser98k = new WeaponModel("Mauser 98k", WeaponType.SMALL_ARM, 12, 0.86, 0.5d, 0.000012d, 1, 5);
 		leeEnfieldMk1 = new WeaponModel("Lee-Enfield Mk 1", WeaponType.SMALL_ARM, 12, 0.853, 0.457, 0.000012d, 1, 6);
@@ -77,12 +77,12 @@ public class GameSample {
 		ukRifleCompanyModel39.addWeaponry(leeEnfieldMk1, 135);
 		Stock ukRifleCompany39MaxStock = new Stock();
 		ukRifleCompany39MaxStock.put(SupplyType.AMMO, 0.005);
-		ukRifleCompanyModel39.setMaxSupplies(ukRifleCompany39MaxStock);		
+		ukRifleCompanyModel39.setMaxSupplies(ukRifleCompany39MaxStock);
 		gerGrenadierCompanyModel39 = new CompanyModel("Grenadier Kompanie 39", CompanyType.INFANTRY, Mobility.FOOT, 4.5d, 4, 105, uk);
-		gerGrenadierCompanyModel39.addWeaponry(mauser98k, 105);		
+		gerGrenadierCompanyModel39.addWeaponry(mauser98k, 105);
 		Stock gerGrenadierCompanyMax39Stock = new Stock();
 		gerGrenadierCompanyMax39Stock.put(SupplyType.AMMO, 0.005);
-		gerGrenadierCompanyModel39.setMaxSupplies(gerGrenadierCompanyMax39Stock);		
+		gerGrenadierCompanyModel39.setMaxSupplies(gerGrenadierCompanyMax39Stock);
 		ukRifleCompanyModel40 = new CompanyModel("Rifle Company 40", CompanyType.INFANTRY, Mobility.FOOT, 4.5d, 3, 135, ger);
 		ukRifleCompanyModel40.addWeaponry(leeEnfieldMk1, 135);
 		ukRifleCompanyModel40.addWeaponry(vickersBerthierLMG, 10);
@@ -110,12 +110,17 @@ public class GameSample {
 		ukInfBg2.setCountry(uk);
 		ukInfBg2.setPrestige(9500);
 		Formation ukBn1 = new Formation(FormationLevel.BATTALION, "1st Bn");
-		Company ukRifleCompany39 = new Company(ukRifleCompanyModel39, "I", new Location(2, 2), 1.8d, 0.8d, 0.9d);
-		Stock ukRifleCompany39Stock = new Stock();
-		ukRifleCompany39Stock.put(SupplyType.AMMO, 0.5d);
-		ukRifleCompany39.setSupplies(ukRifleCompany39Stock);
-		ukBn1.addCompany(ukRifleCompany39);
+		Company ukRifleCompany39_1 = new Company(ukRifleCompanyModel39, "I", new Location(2, 2), 1.8d, 0.8d, 0.9d);
+		Stock ukRifleCompany39Stock_1 = new Stock();
+		ukRifleCompany39Stock_1.put(SupplyType.AMMO, 0.5d);
+		ukRifleCompany39_1.setSupplies(ukRifleCompany39Stock_1);
+		ukBn1.addCompany(ukRifleCompany39_1);
 		ukInfBg2.addSubordinate(ukBn1);
+		Company ukRifleCompany39_2 = new Company(ukRifleCompanyModel39, "II", new Location(2, 2), 1.8d, 0.8d, 1.0d);
+		Stock ukRifleCompany39Stock_2 = new Stock();
+		ukRifleCompany39Stock_2.put(SupplyType.AMMO, 0.55d);
+		ukRifleCompany39_2.setSupplies(ukRifleCompany39Stock_2);
+		ukBn1.addCompany(ukRifleCompany39_2);
 		Formation gerBn1 = new Formation(FormationLevel.BATTALION, "I. Bn");
 		Company gerGrenadierCompany39 = new Company(gerGrenadierCompanyModel39, "1", new Location(3, 3), 1.5d, 0.6d, 0.9d);
 		Stock gerGrenadierCompany39Stock = new Stock();
@@ -136,7 +141,6 @@ public class GameSample {
 		game.addDefender(ukPlayer, ukInfBg2);
 
 	}
-
 
 	protected void mountForecast() {
 		List<WeatherForecast> forecast = new ArrayList<WeatherForecast>();

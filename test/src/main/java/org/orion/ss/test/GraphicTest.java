@@ -1,6 +1,5 @@
 package org.orion.ss.test;
 
-import java.awt.Component;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,13 +12,14 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
+import org.orion.ss.model.core.GamePhase;
 import org.orion.ss.model.impl.Game;
 import org.orion.ss.service.GameService;
 import org.orion.ss.test.components.CurrentPlayerLabel;
+import org.orion.ss.test.components.DeploymentPanel;
 import org.orion.ss.test.components.GameLogPanel;
+import org.orion.ss.test.components.ManagementPanel;
 import org.orion.ss.test.components.PlayerPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +46,7 @@ public class GraphicTest {
 	public final static int COLUMN_WIDTH_XXLARGE = 240;
 	public final static int COLUMN_WIDTH_XXXLARGE = 280;
 	public final static int COLUMN_WIDTH_NARROW = 80;
-	public final static int COLUMN_WIDTH_XNARROW = 60;	
+	public final static int COLUMN_WIDTH_XNARROW = 60;
 	public final static int ROW_HEIGHT = 25;
 
 	private Game game;
@@ -69,11 +69,12 @@ public class GraphicTest {
 	}
 
 	protected void startGame() {
-		showInfoDialog("The Game is prepared.");
 		gameService.startGame();
+		this.updatePlayerPanel();
+		mainPane.repaint();
 	}
-	
-	public void endGame(){
+
+	public void endGame() {
 		this.showInfoDialog("The game has ended after " + game.getTurn() + " turns. ");
 		gameService.computeScore();
 	}
@@ -83,27 +84,18 @@ public class GraphicTest {
 		gameService = new GameService(game);
 	}
 
-	protected void addPlayerPanel() {
-		playerPanel = new PlayerPanel(this, game);
-		mainPane.addTab("Current Player", playerPanel);
-		mainPane.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				JTabbedPane source = (JTabbedPane) e.getSource();
-				for (Component component : source.getComponents()) {
-					if (component instanceof PlayerPanel) {
-						component.setEnabled(false);
-					}
-				}
-				Component component = source.getSelectedComponent();
-				if (component instanceof PlayerPanel) {
-					PlayerPanel panel = (PlayerPanel) source.getSelectedComponent();
-					panel.setEnabled(true);
-				}
-			}
-
-		});
-		game.addObserver(playerPanel);
+	public void updatePlayerPanel() {
+		mainPane.removeTabAt(1);
+		logger.error("phase=" + game.getPhase());
+		if (game.getPhase() == GamePhase.MANAGEMENT) {
+			playerPanel = new ManagementPanel(this, game);
+		} else if (game.getPhase() == GamePhase.DEPLOYMENT) {
+			playerPanel = new DeploymentPanel(this, game);
+		} else if (game.getPhase() == GamePhase.TURN) {
+		}
+		playerPanel.mount();
+		mainPane.addTab("CurrentPlayer", playerPanel);
+		mainPane.setSelectedIndex(1);
 	}
 
 	protected void mountGUI() {
@@ -127,13 +119,12 @@ public class GraphicTest {
 				super.windowClosing(e);
 			}
 		});
-		addPlayerPanel();
+		mainPane.addTab("Current Player", playerPanel);
 		mainFrame.setVisible(true);
 	}
 
-
 	public boolean nextPlayer() {
-		return gameService.nextPlayer();		
+		return gameService.nextPlayer();
 	}
 
 	protected void showInfoDialog(String... texts) {

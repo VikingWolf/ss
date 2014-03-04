@@ -52,27 +52,27 @@ public class Game extends Observable {
 		}
 		return result;
 	}
-	
+
 	/* loggers */
-	
-	public void logGameStart(){
+
+	public void logGameStart() {
 		log.addEntry("Game " + getId() + " created at " + new Date());
 		log.addEntry("turn=" + getTurn());
 		log.addEntry("date=" + getDate());
 		log.addDisplay(settings);
 		log.addSeparator();
 	}
-	
-	private void logPositions(Map<Player, Position> positions, int mode){
-		for (Player player : positions.keySet()){
+
+	private void logPositions(Map<Player, Position> positions, int mode) {
+		for (Player player : positions.keySet()) {
 			Position position = positions.get(player);
 			logPosition(player, position, mode);
 		}
 	}
-	
-	private void logPosition(Player player, Position position, int mode){
-		String entry = player.getEmail() + " plays with " + position.getName() + "(" + position.getCountry().getName() +") as ";
-		if (mode == Position.ATTACKER){
+
+	private void logPosition(Player player, Position position, int mode) {
+		String entry = player.getEmail() + " plays with " + position.getName() + "(" + position.getCountry().getName() + ") as ";
+		if (mode == Position.ATTACKER) {
 			entry += "attacker.";
 		} else {
 			entry += "defender.";
@@ -81,11 +81,11 @@ public class Game extends Observable {
 		System.out.println("market = " + position.getCountry().getMarket());
 		log.addDisplay(position.getCountry().getMarket());
 	}
-	
-	public void logScore(){
+
+	public void logScore() {
 		this.getLog().addSeparator();
 		this.getLog().addEntry("Game score");
-		for (Player player : this.getPlayers()){
+		for (Player player : this.getPlayers()) {
 			Position position = getPositionFor(player);
 			this.getLog().addEntry(player.getEmail() + "\t\t" + position.getName() + "(" + position.getCountry() + ") =\t\t" + position.getPrestige());
 		}
@@ -162,8 +162,8 @@ public class Game extends Observable {
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
-	
-	public Position getCurrentPlayerPosition(){
+
+	public Position getCurrentPlayerPosition() {
 		return this.getPositionFor(getCurrentPlayer());
 	}
 

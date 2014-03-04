@@ -482,3 +482,473 @@
 03-03 09:06:28 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Mon Mar 03 09:06:28 CET 2014
 03-03 09:06:49 [main] [INFO ] GraphicTest[64]: Starting test at Mon Mar 03 09:06:49 CET 2014
 03-03 09:06:58 [AWT-EventQueue-0] [INFO ] GraphicTest$2[124]: Ending test at Mon Mar 03 09:06:58 CET 2014
+03-03 19:50:01 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 19:50:01 CET 2014
+03-03 19:53:39 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 19:53:39 CET 2014
+03-03 19:53:42 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 19:53:42 CET 2014
+03-03 19:53:52 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 19:53:52 CET 2014
+03-03 19:54:20 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 19:54:20 CET 2014
+03-03 19:55:39 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 19:55:39 CET 2014
+03-03 21:49:32 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 21:49:32 CET 2014
+03-03 21:50:06 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 21:50:06 CET 2014
+03-03 21:53:59 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 21:53:59 CET 2014
+03-03 21:54:08 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 21:54:08 CET 2014
+03-03 21:55:21 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 21:55:21 CET 2014
+03-03 21:55:27 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 21:55:27 CET 2014
+03-03 21:56:01 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 21:56:01 CET 2014
+03-03 21:56:06 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 21:56:06 CET 2014
+03-03 21:56:14 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 21:56:14 CET 2014
+03-03 21:56:19 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 21:56:19 CET 2014
+03-03 21:56:44 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 21:56:44 CET 2014
+03-03 21:56:49 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 21:56:49 CET 2014
+03-03 22:13:50 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:13:50 CET 2014
+03-03 22:13:54 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:13:54 CET 2014
+03-03 22:14:22 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:14:22 CET 2014
+03-03 22:14:28 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:14:28 CET 2014
+03-03 22:14:44 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:14:44 CET 2014
+03-03 22:14:51 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:14:51 CET 2014
+03-03 22:17:50 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:17:50 CET 2014
+03-03 22:18:02 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:18:02 CET 2014
+03-03 22:18:22 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:18:22 CET 2014
+03-03 22:18:40 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:18:40 CET 2014
+03-03 22:19:20 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:19:20 CET 2014
+03-03 22:19:24 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:19:24 CET 2014
+03-03 22:20:13 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:20:13 CET 2014
+03-03 22:20:21 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:20:21 CET 2014
+03-03 22:20:30 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:20:30 CET 2014
+03-03 22:20:51 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:20:51 CET 2014
+03-03 22:25:19 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:25:19 CET 2014
+03-03 22:25:29 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:25:29 CET 2014
+03-03 22:26:37 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:26:37 CET 2014
+03-03 22:26:43 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:26:43 CET 2014
+03-03 22:27:47 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:27:47 CET 2014
+03-03 22:28:11 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:28:11 CET 2014
+03-03 22:28:32 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:28:32 CET 2014
+03-03 22:28:38 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:28:38 CET 2014
+03-03 22:29:27 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:29:27 CET 2014
+03-03 22:29:32 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:29:32 CET 2014
+03-03 22:29:54 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:29:54 CET 2014
+03-03 22:29:57 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:29:57 CET 2014
+03-03 22:30:10 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:30:10 CET 2014
+03-03 22:30:17 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:30:17 CET 2014
+03-03 22:30:41 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:30:41 CET 2014
+03-03 22:31:00 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:31:00 CET 2014
+03-03 22:34:21 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:34:21 CET 2014
+03-03 22:34:34 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:34:34 CET 2014
+03-03 22:34:46 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:34:46 CET 2014
+03-03 22:34:58 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:34:58 CET 2014
+03-03 22:35:40 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:35:40 CET 2014
+03-03 22:35:43 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:35:43 CET 2014
+03-03 22:36:02 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:36:02 CET 2014
+03-03 22:36:08 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:36:08 CET 2014
+03-03 22:36:13 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:36:13 CET 2014
+03-03 22:36:19 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:36:19 CET 2014
+03-03 22:36:56 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:36:56 CET 2014
+03-03 22:37:18 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:37:18 CET 2014
+03-03 22:46:41 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:46:41 CET 2014
+03-03 22:46:54 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:46:54 CET 2014
+03-03 22:47:50 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:47:50 CET 2014
+03-03 22:48:08 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:48:08 CET 2014
+03-03 22:48:27 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 22:48:27 CET 2014
+03-03 22:48:46 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 22:48:46 CET 2014
+03-03 23:02:56 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:02:56 CET 2014
+03-03 23:03:07 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:03:07 CET 2014
+03-03 23:03:20 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:03:20 CET 2014
+03-03 23:03:26 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:03:26 CET 2014
+03-03 23:05:09 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:05:09 CET 2014
+03-03 23:05:22 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:05:22 CET 2014
+03-03 23:08:02 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:08:02 CET 2014
+03-03 23:08:15 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:08:15 CET 2014
+03-03 23:08:38 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:08:38 CET 2014
+03-03 23:08:50 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:08:50 CET 2014
+03-03 23:09:51 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:09:51 CET 2014
+03-03 23:10:00 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:10:00 CET 2014
+03-03 23:10:14 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:10:14 CET 2014
+03-03 23:10:23 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:10:23 CET 2014
+03-03 23:11:13 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:11:13 CET 2014
+03-03 23:11:19 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:11:19 CET 2014
+03-03 23:11:28 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:11:28 CET 2014
+03-03 23:11:41 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:11:41 CET 2014
+03-03 23:14:27 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:14:27 CET 2014
+03-03 23:14:32 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:14:32 CET 2014
+03-03 23:17:43 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:17:43 CET 2014
+03-03 23:17:52 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:17:52 CET 2014
+03-03 23:18:05 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:18:05 CET 2014
+03-03 23:18:12 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:18:12 CET 2014
+03-03 23:19:05 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:19:05 CET 2014
+03-03 23:19:11 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:19:11 CET 2014
+03-03 23:34:37 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:34:37 CET 2014
+03-03 23:34:55 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:34:55 CET 2014
+03-03 23:35:13 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:35:13 CET 2014
+03-03 23:37:02 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:37:02 CET 2014
+03-03 23:37:05 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:37:05 CET 2014
+03-03 23:37:14 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:37:14 CET 2014
+03-03 23:37:26 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:37:26 CET 2014
+03-03 23:38:36 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:38:36 CET 2014
+03-03 23:39:01 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:39:01 CET 2014
+03-03 23:39:12 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:39:12 CET 2014
+03-03 23:39:14 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:39:14 CET 2014
+03-03 23:39:17 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:39:17 CET 2014
+03-03 23:39:22 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:39:22 CET 2014
+03-03 23:40:07 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:40:07 CET 2014
+03-03 23:40:09 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:40:09 CET 2014
+03-03 23:40:22 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:40:22 CET 2014
+03-03 23:45:38 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:45:38 CET 2014
+03-03 23:46:14 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:46:14 CET 2014
+03-03 23:46:21 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:46:21 CET 2014
+03-03 23:46:30 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:46:30 CET 2014
+03-03 23:46:55 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:46:55 CET 2014
+03-03 23:47:01 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:47:01 CET 2014
+03-03 23:47:28 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:47:28 CET 2014
+03-03 23:47:37 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:47:37 CET 2014
+03-03 23:48:27 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:48:27 CET 2014
+03-03 23:48:41 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:48:41 CET 2014
+03-03 23:49:08 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:49:08 CET 2014
+03-03 23:49:13 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:49:13 CET 2014
+03-03 23:49:25 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:49:25 CET 2014
+03-03 23:49:35 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:49:35 CET 2014
+03-03 23:50:38 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:50:38 CET 2014
+03-03 23:50:48 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:50:48 CET 2014
+03-03 23:51:13 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:51:13 CET 2014
+03-03 23:51:20 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:51:20 CET 2014
+03-03 23:52:28 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:52:28 CET 2014
+03-03 23:52:41 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:52:41 CET 2014
+03-03 23:53:36 [main] [INFO ] GraphicTest[65]: Starting test at Mon Mar 03 23:53:36 CET 2014
+03-03 23:53:54 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Mon Mar 03 23:53:54 CET 2014
+04-03 00:00:27 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:00:27 CET 2014
+04-03 00:00:40 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:00:40 CET 2014
+04-03 00:07:01 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:07:01 CET 2014
+04-03 00:07:41 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:07:41 CET 2014
+04-03 00:07:43 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:07:43 CET 2014
+04-03 00:08:22 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:08:22 CET 2014
+04-03 00:11:58 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:11:58 CET 2014
+04-03 00:12:19 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:12:19 CET 2014
+04-03 00:12:20 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:12:20 CET 2014
+04-03 00:12:22 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:12:22 CET 2014
+04-03 00:12:49 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:12:49 CET 2014
+04-03 00:13:04 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:13:04 CET 2014
+04-03 00:13:06 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:13:06 CET 2014
+04-03 00:14:27 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:14:27 CET 2014
+04-03 00:14:35 [AWT-EventQueue-0] [ERROR] ManagementService[152]: parent=null
+04-03 00:15:54 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:15:54 CET 2014
+04-03 00:15:58 [AWT-EventQueue-0] [ERROR] ManagementService[152]: parent=2nd Infantry Brigade
+04-03 00:16:08 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:16:08 CET 2014
+04-03 00:19:22 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:19:22 CET 2014
+04-03 00:20:50 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:20:50 CET 2014
+04-03 00:20:55 [AWT-EventQueue-0] [ERROR] ManagementService[152]: parent=Infanterie-Regiment 1
+04-03 00:21:02 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:21:02 CET 2014
+04-03 00:22:52 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:22:52 CET 2014
+04-03 00:22:52 [main] [ERROR] PositionTreePanel[49]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:22:58 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:22:58 CET 2014
+04-03 00:23:00 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:23:00 CET 2014
+04-03 00:23:11 [AWT-EventQueue-0] [ERROR] ManagementService[152]: parent=Infanterie-Regiment 1
+04-03 00:23:30 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:23:30 CET 2014
+04-03 00:23:36 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:23:36 CET 2014
+04-03 00:23:37 [main] [ERROR] PositionTreePanel[49]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:23:47 [AWT-EventQueue-0] [ERROR] ManagementService[152]: parent=Infanterie-Regiment 1
+04-03 00:24:44 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:24:44 CET 2014
+04-03 00:24:44 [main] [ERROR] PositionTreePanel[49]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:24:48 [AWT-EventQueue-0] [ERROR] ManagementService[152]: parent=Infanterie-Regiment 1
+04-03 00:24:54 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:24:54 CET 2014
+04-03 00:24:56 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:24:56 CET 2014
+04-03 00:25:24 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:25:24 CET 2014
+04-03 00:25:25 [main] [ERROR] PositionTreePanel[50]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:25:33 [AWT-EventQueue-0] [ERROR] PositionTreePanel[40]: update nodes
+04-03 00:28:44 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:28:44 CET 2014
+04-03 00:28:44 [main] [ERROR] PositionTreePanel[47]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:28:53 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:28:53 CET 2014
+04-03 00:31:26 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:31:26 CET 2014
+04-03 00:31:27 [main] [ERROR] PositionTreePanel[49]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:31:35 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:31:35 CET 2014
+04-03 00:31:56 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:31:56 CET 2014
+04-03 00:31:56 [main] [ERROR] PositionTreePanel[50]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 00:32:03 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:32:03 CET 2014
+04-03 00:32:09 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:32:09 CET 2014
+04-03 00:32:12 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:32:12 CET 2014
+04-03 00:32:12 [main] [ERROR] PositionTreePanel[50]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:32:17 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:32:17 CET 2014
+04-03 00:34:29 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:34:29 CET 2014
+04-03 00:34:30 [main] [ERROR] PositionTreePanel[53]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 00:36:44 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:36:44 CET 2014
+04-03 00:38:45 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:38:45 CET 2014
+04-03 00:38:45 [main] [ERROR] PositionTreePanel[53]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:38:53 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:38:53 CET 2014
+04-03 00:40:25 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:40:25 CET 2014
+04-03 00:40:25 [main] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:40:35 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:40:35 CET 2014
+04-03 00:41:03 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:41:03 CET 2014
+04-03 00:41:04 [main] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:41:08 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:41:14 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:41:14 CET 2014
+04-03 00:41:17 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:41:17 CET 2014
+04-03 00:41:17 [main] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:41:32 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:41:32 CET 2014
+04-03 00:43:27 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:43:27 CET 2014
+04-03 00:43:27 [main] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:43:32 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 00:43:32 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 00:43:40 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:43:40 CET 2014
+04-03 00:43:50 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:43:50 CET 2014
+04-03 00:43:50 [main] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:43:53 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 00:44:33 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:44:33 CET 2014
+04-03 00:48:21 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 00:48:21 CET 2014
+04-03 00:48:21 [main] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:48:27 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 00:48:28 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:48:33 [AWT-EventQueue-0] [INFO ] GraphicTest$2[125]: Ending test at Tue Mar 04 00:48:33 CET 2014
+04-03 00:51:02 [main] [INFO ] GraphicTest[66]: Starting test at Tue Mar 04 00:51:02 CET 2014
+04-03 00:51:03 [main] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:51:06 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 00:51:07 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:51:08 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 00:51:08 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:51:10 [AWT-EventQueue-0] [INFO ] GraphicTest$2[130]: Ending test at Tue Mar 04 00:51:10 CET 2014
+04-03 00:51:54 [main] [INFO ] GraphicTest[66]: Starting test at Tue Mar 04 00:51:54 CET 2014
+04-03 00:51:54 [main] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:51:57 [AWT-EventQueue-0] [INFO ] GraphicTest$2[131]: Ending test at Tue Mar 04 00:51:57 CET 2014
+04-03 00:59:42 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 00:59:42 CET 2014
+04-03 00:59:42 [main] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 00:59:46 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:59:46 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 00:59:48 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 00:59:48 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 00:59:49 [AWT-EventQueue-0] [INFO ] GraphicTest$2[132]: Ending test at Tue Mar 04 00:59:49 CET 2014
+04-03 01:00:20 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:00:20 CET 2014
+04-03 01:00:20 [main] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 01:00:25 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 01:00:26 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 01:00:27 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 01:00:27 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 01:00:28 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 01:00:28 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 01:00:28 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 01:00:28 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 01:00:29 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 01:00:30 [AWT-EventQueue-0] [INFO ] GraphicTest$2[134]: Ending test at Tue Mar 04 01:00:30 CET 2014
+04-03 01:01:15 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:01:15 CET 2014
+04-03 01:01:15 [main] [ERROR] GraphicTest[90]: phase=MANAGEMENT
+04-03 01:01:15 [main] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 01:01:31 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:01:31 CET 2014
+04-03 01:01:31 [main] [ERROR] GraphicTest[90]: phase=MANAGEMENT
+04-03 01:01:31 [main] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 01:01:34 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 01:01:35 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 01:01:36 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 01:01:36 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 01:01:37 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 01:01:37 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 01:01:37 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 01:01:38 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=2nd Infantry Brigade, 1st Bn
+04-03 01:01:38 [AWT-EventQueue-0] [ERROR] PositionTreePanel[43]: subordinate=Infanterie-Regiment 1, I. Bn
+04-03 01:02:16 [AWT-EventQueue-0] [INFO ] GraphicTest$2[134]: Ending test at Tue Mar 04 01:02:16 CET 2014
+04-03 01:02:20 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:02:20 CET 2014
+04-03 01:02:21 [main] [ERROR] GraphicTest[90]: phase=MANAGEMENT
+04-03 01:02:32 [AWT-EventQueue-0] [INFO ] GraphicTest$2[133]: Ending test at Tue Mar 04 01:02:32 CET 2014
+04-03 01:02:34 [AWT-EventQueue-0] [INFO ] GraphicTest$2[134]: Ending test at Tue Mar 04 01:02:34 CET 2014
+04-03 01:06:09 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:06:09 CET 2014
+04-03 01:06:09 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+04-03 01:06:16 [AWT-EventQueue-0] [INFO ] GraphicTest$2[138]: Ending test at Tue Mar 04 01:06:16 CET 2014
+04-03 01:06:35 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:06:35 CET 2014
+04-03 01:06:36 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+04-03 01:06:38 [AWT-EventQueue-0] [INFO ] GraphicTest$2[137]: Ending test at Tue Mar 04 01:06:38 CET 2014
+04-03 01:07:22 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:07:22 CET 2014
+04-03 01:07:22 [main] [ERROR] GraphicTest[92]: phase=MANAGEMENT
+04-03 01:08:07 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:08:07 CET 2014
+04-03 01:08:07 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+04-03 01:08:07 [main] [ERROR] GraphicTest[93]: phase=MANAGEMENT
+04-03 01:08:10 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+04-03 01:08:10 [AWT-EventQueue-0] [ERROR] GraphicTest[93]: phase=MANAGEMENT
+04-03 01:08:16 [AWT-EventQueue-0] [INFO ] GraphicTest$2[141]: Ending test at Tue Mar 04 01:08:16 CET 2014
+04-03 01:08:19 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:08:19 CET 2014
+04-03 01:08:19 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+04-03 01:08:19 [main] [ERROR] GraphicTest[93]: phase=MANAGEMENT
+04-03 01:08:22 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+04-03 01:08:22 [AWT-EventQueue-0] [ERROR] GraphicTest[93]: phase=MANAGEMENT
+04-03 01:08:24 [AWT-EventQueue-0] [INFO ] GraphicTest$2[141]: Ending test at Tue Mar 04 01:08:24 CET 2014
+04-03 01:10:29 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:10:29 CET 2014
+04-03 01:10:40 [AWT-EventQueue-0] [INFO ] GraphicTest$2[136]: Ending test at Tue Mar 04 01:10:40 CET 2014
+04-03 01:11:12 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:11:12 CET 2014
+04-03 01:11:20 [AWT-EventQueue-0] [INFO ] GraphicTest$2[136]: Ending test at Tue Mar 04 01:11:20 CET 2014
+04-03 01:12:17 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:12:17 CET 2014
+04-03 01:12:20 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+04-03 01:12:22 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+04-03 01:12:30 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+04-03 01:12:31 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:12:32 [AWT-EventQueue-0] [INFO ] GraphicTest$2[138]: Ending test at Tue Mar 04 01:12:32 CET 2014
+04-03 01:12:34 [AWT-EventQueue-0] [INFO ] GraphicTest$2[140]: Ending test at Tue Mar 04 01:12:34 CET 2014
+04-03 01:13:37 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:13:37 CET 2014
+04-03 01:13:41 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+04-03 01:13:42 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+04-03 01:13:44 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+04-03 01:13:44 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:13:45 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:13:45 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:13:46 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:13:46 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:13:47 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:13:49 [AWT-EventQueue-0] [INFO ] GraphicTest$2[139]: Ending test at Tue Mar 04 01:13:49 CET 2014
+04-03 01:14:39 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:14:39 CET 2014
+04-03 01:14:42 [AWT-EventQueue-0] [ERROR] GraphicTest[90]: phase=MANAGEMENT
+04-03 01:14:45 [AWT-EventQueue-0] [INFO ] GraphicTest$2[141]: Ending test at Tue Mar 04 01:14:45 CET 2014
+04-03 01:14:56 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:14:56 CET 2014
+04-03 01:14:58 [AWT-EventQueue-0] [ERROR] GraphicTest[90]: phase=MANAGEMENT
+04-03 01:15:04 [AWT-EventQueue-0] [INFO ] GraphicTest$2[141]: Ending test at Tue Mar 04 01:15:04 CET 2014
+04-03 01:15:15 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:15:15 CET 2014
+04-03 01:15:18 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+04-03 01:15:19 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+04-03 01:15:20 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+04-03 01:15:21 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:15:21 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:15:22 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:15:22 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:15:22 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:15:23 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:15:26 [AWT-EventQueue-0] [INFO ] GraphicTest$2[140]: Ending test at Tue Mar 04 01:15:26 CET 2014
+04-03 01:16:13 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:16:13 CET 2014
+04-03 01:16:16 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+04-03 01:16:16 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+04-03 01:16:17 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+04-03 01:16:18 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:16:18 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:16:19 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:16:19 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:16:19 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:16:19 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:16:22 [AWT-EventQueue-0] [INFO ] GraphicTest$2[139]: Ending test at Tue Mar 04 01:16:22 CET 2014
+04-03 01:17:27 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:17:27 CET 2014
+04-03 01:17:29 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+04-03 01:17:30 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+04-03 01:17:30 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+04-03 01:17:31 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:17:31 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:17:31 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:17:32 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+04-03 01:17:33 [AWT-EventQueue-0] [INFO ] GraphicTest$2[139]: Ending test at Tue Mar 04 01:17:33 CET 2014
+04-03 01:18:01 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:18:01 CET 2014
+04-03 01:18:05 [AWT-EventQueue-0] [ERROR] GraphicTest[92]: phase=DEPLOYMENT
+04-03 01:18:35 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:18:35 CET 2014
+04-03 01:18:38 [AWT-EventQueue-0] [ERROR] GraphicTest[92]: phase=DEPLOYMENT
+04-03 01:18:38 [AWT-EventQueue-0] [ERROR] GraphicTest[92]: phase=DEPLOYMENT
+04-03 01:18:40 [AWT-EventQueue-0] [INFO ] GraphicTest$2[139]: Ending test at Tue Mar 04 01:18:40 CET 2014
+04-03 01:19:32 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:19:32 CET 2014
+04-03 01:19:43 [AWT-EventQueue-0] [INFO ] GraphicTest$2[139]: Ending test at Tue Mar 04 01:19:43 CET 2014
+04-03 01:20:04 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:20:04 CET 2014
+04-03 01:20:11 [AWT-EventQueue-0] [INFO ] GraphicTest$2[139]: Ending test at Tue Mar 04 01:20:11 CET 2014
+04-03 01:20:56 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:20:56 CET 2014
+04-03 01:21:03 [AWT-EventQueue-0] [INFO ] GraphicTest$2[140]: Ending test at Tue Mar 04 01:21:03 CET 2014
+04-03 01:21:12 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:21:12 CET 2014
+04-03 01:21:18 [AWT-EventQueue-0] [INFO ] GraphicTest$2[140]: Ending test at Tue Mar 04 01:21:18 CET 2014
+04-03 01:24:09 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:24:09 CET 2014
+04-03 01:24:13 [AWT-EventQueue-0] [INFO ] GraphicTest$2[143]: Ending test at Tue Mar 04 01:24:13 CET 2014
+04-03 01:24:56 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:24:56 CET 2014
+04-03 01:24:59 [AWT-EventQueue-0] [ERROR] GraphicTest[92]: phase=DEPLOYMENT
+04-03 01:24:59 [AWT-EventQueue-0] [ERROR] GraphicTest[92]: phase=DEPLOYMENT
+04-03 01:25:01 [AWT-EventQueue-0] [INFO ] GraphicTest$2[140]: Ending test at Tue Mar 04 01:25:01 CET 2014
+04-03 01:25:08 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:25:08 CET 2014
+04-03 01:25:14 [AWT-EventQueue-0] [INFO ] GraphicTest$2[140]: Ending test at Tue Mar 04 01:25:14 CET 2014
+04-03 01:25:56 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:25:56 CET 2014
+04-03 01:27:01 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:27:01 CET 2014
+04-03 01:27:05 [AWT-EventQueue-0] [INFO ] GraphicTest$2[139]: Ending test at Tue Mar 04 01:27:05 CET 2014
+04-03 01:27:07 [AWT-EventQueue-0] [INFO ] GraphicTest$2[141]: Ending test at Tue Mar 04 01:27:07 CET 2014
+04-03 01:27:41 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:27:41 CET 2014
+04-03 01:27:49 [AWT-EventQueue-0] [INFO ] GraphicTest$2[139]: Ending test at Tue Mar 04 01:27:49 CET 2014
+04-03 01:28:17 [main] [INFO ] GraphicTest[68]: Starting test at Tue Mar 04 01:28:17 CET 2014
+04-03 01:28:20 [AWT-EventQueue-0] [ERROR] GraphicTest[96]: playerpanel=class org.orion.ss.test.components.ManagementPanel
+04-03 01:28:35 [AWT-EventQueue-0] [INFO ] GraphicTest$2[140]: Ending test at Tue Mar 04 01:28:35 CET 2014
+04-03 01:30:11 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:30:11 CET 2014
+04-03 01:30:13 [AWT-EventQueue-0] [ERROR] GraphicTest[93]: playerpanel=class org.orion.ss.test.components.ManagementPanel
+04-03 01:30:19 [AWT-EventQueue-0] [INFO ] GraphicTest$1[120]: Ending test at Tue Mar 04 01:30:19 CET 2014
+04-03 01:30:36 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:30:36 CET 2014
+04-03 01:30:38 [AWT-EventQueue-0] [ERROR] GraphicTest[93]: playerpanel=class org.orion.ss.test.components.ManagementPanel
+04-03 01:30:39 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+04-03 01:30:39 [AWT-EventQueue-0] [ERROR] GraphicTest[93]: playerpanel=class org.orion.ss.test.components.DeploymentPanel
+04-03 01:30:40 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+04-03 01:30:40 [AWT-EventQueue-0] [ERROR] GraphicTest[93]: playerpanel=class org.orion.ss.test.components.DeploymentPanel
+04-03 01:30:40 [AWT-EventQueue-0] [ERROR] GraphicTest[93]: playerpanel=class org.orion.ss.test.components.DeploymentPanel
+04-03 01:30:40 [AWT-EventQueue-0] [ERROR] GraphicTest[93]: playerpanel=class org.orion.ss.test.components.DeploymentPanel
+04-03 01:30:41 [AWT-EventQueue-0] [ERROR] GraphicTest[93]: playerpanel=class org.orion.ss.test.components.DeploymentPanel
+04-03 01:30:41 [AWT-EventQueue-0] [ERROR] GraphicTest[93]: playerpanel=class org.orion.ss.test.components.DeploymentPanel
+04-03 01:30:42 [AWT-EventQueue-0] [ERROR] GraphicTest[93]: playerpanel=class org.orion.ss.test.components.DeploymentPanel
+04-03 01:30:43 [AWT-EventQueue-0] [ERROR] GraphicTest[93]: playerpanel=class org.orion.ss.test.components.DeploymentPanel
+04-03 01:30:46 [AWT-EventQueue-0] [INFO ] GraphicTest$1[120]: Ending test at Tue Mar 04 01:30:46 CET 2014
+04-03 01:31:40 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:31:39 CET 2014
+04-03 01:32:06 [main] [INFO ] GraphicTest[66]: Starting test at Tue Mar 04 01:32:06 CET 2014
+04-03 01:32:57 [main] [INFO ] GraphicTest[66]: Starting test at Tue Mar 04 01:32:57 CET 2014
+04-03 01:33:02 [AWT-EventQueue-0] [INFO ] GraphicTest$1[115]: Ending test at Tue Mar 04 01:33:02 CET 2014
+04-03 01:34:42 [main] [INFO ] GraphicTest[66]: Starting test at Tue Mar 04 01:34:42 CET 2014
+04-03 01:34:45 [AWT-EventQueue-0] [INFO ] GraphicTest$1[115]: Ending test at Tue Mar 04 01:34:45 CET 2014
+04-03 01:36:20 [main] [INFO ] GraphicTest[66]: Starting test at Tue Mar 04 01:36:20 CET 2014
+04-03 01:36:20 [main] [ERROR] GraphicTest[94]: playerpanel=class org.orion.ss.test.components.ManagementPanel
+04-03 01:36:23 [AWT-EventQueue-0] [INFO ] GraphicTest$1[115]: Ending test at Tue Mar 04 01:36:23 CET 2014
+04-03 01:36:34 [main] [INFO ] GraphicTest[66]: Starting test at Tue Mar 04 01:36:34 CET 2014
+04-03 01:36:34 [main] [ERROR] GraphicTest[94]: playerpanel=class org.orion.ss.test.components.ManagementPanel
+04-03 01:36:38 [AWT-EventQueue-0] [INFO ] GraphicTest$1[115]: Ending test at Tue Mar 04 01:36:38 CET 2014
+04-03 01:37:23 [main] [INFO ] GraphicTest[66]: Starting test at Tue Mar 04 01:37:23 CET 2014
+04-03 01:37:23 [main] [ERROR] GraphicTest[94]: playerpanel=class javax.swing.JPanel
+04-03 01:37:23 [main] [ERROR] GraphicTest[97]: playerpanel=class org.orion.ss.test.components.ManagementPanel
+04-03 01:37:44 [AWT-EventQueue-0] [INFO ] GraphicTest$1[117]: Ending test at Tue Mar 04 01:37:44 CET 2014
+04-03 01:38:58 [main] [INFO ] GraphicTest[66]: Starting test at Tue Mar 04 01:38:58 CET 2014
+04-03 01:38:58 [main] [ERROR] GraphicTest[94]: playerpanel=class javax.swing.JPanel
+04-03 01:38:58 [main] [ERROR] GraphicTest[97]: playerpanel=class org.orion.ss.test.components.ManagementPanel
+04-03 01:39:02 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Tue Mar 04 01:39:02 CET 2014
+04-03 01:39:36 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:39:36 CET 2014
+04-03 01:39:53 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:39:53 CET 2014
+04-03 01:40:00 [AWT-EventQueue-0] [INFO ] GraphicTest$1[112]: Ending test at Tue Mar 04 01:40:00 CET 2014
+04-03 01:40:59 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:40:59 CET 2014
+04-03 01:41:04 [AWT-EventQueue-0] [INFO ] GraphicTest$1[112]: Ending test at Tue Mar 04 01:41:04 CET 2014
+04-03 01:42:32 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:42:32 CET 2014
+04-03 01:42:35 [AWT-EventQueue-0] [INFO ] GraphicTest$1[112]: Ending test at Tue Mar 04 01:42:35 CET 2014
+04-03 01:42:57 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:42:57 CET 2014
+04-03 01:44:40 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:44:40 CET 2014
+04-03 01:44:45 [AWT-EventQueue-0] [INFO ] GraphicTest$1[113]: Ending test at Tue Mar 04 01:44:45 CET 2014
+04-03 01:45:32 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:45:32 CET 2014
+04-03 01:45:36 [AWT-EventQueue-0] [INFO ] GraphicTest$1[114]: Ending test at Tue Mar 04 01:45:36 CET 2014
+04-03 01:45:50 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:45:50 CET 2014
+04-03 01:45:54 [AWT-EventQueue-0] [INFO ] GraphicTest$1[115]: Ending test at Tue Mar 04 01:45:54 CET 2014
+04-03 01:46:20 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:46:20 CET 2014
+04-03 01:46:20 [main] [ERROR] GraphicTest[88]: phase=MANAGEMENT
+04-03 01:46:32 [AWT-EventQueue-0] [ERROR] GraphicTest[92]: phase=DEPLOYMENT
+04-03 01:46:36 [AWT-EventQueue-0] [ERROR] GraphicTest[92]: phase=DEPLOYMENT
+04-03 01:46:39 [AWT-EventQueue-0] [INFO ] GraphicTest$2[141]: Ending test at Tue Mar 04 01:46:39 CET 2014
+04-03 01:46:46 [AWT-EventQueue-0] [INFO ] GraphicTest$1[115]: Ending test at Tue Mar 04 01:46:46 CET 2014
+04-03 01:46:48 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:46:48 CET 2014
+04-03 01:46:49 [main] [ERROR] GraphicTest[88]: phase=MANAGEMENT
+04-03 01:46:56 [AWT-EventQueue-0] [INFO ] GraphicTest$1[115]: Ending test at Tue Mar 04 01:46:56 CET 2014
+04-03 01:47:03 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:47:03 CET 2014
+04-03 01:47:03 [main] [ERROR] GraphicTest[88]: phase=MANAGEMENT
+04-03 01:47:09 [AWT-EventQueue-0] [INFO ] GraphicTest$1[115]: Ending test at Tue Mar 04 01:47:09 CET 2014
+04-03 01:47:42 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:47:42 CET 2014
+04-03 01:48:05 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:48:05 CET 2014
+04-03 01:48:08 [AWT-EventQueue-0] [ERROR] GraphicTest[91]: phase=MANAGEMENT
+04-03 01:48:09 [AWT-EventQueue-0] [ERROR] GraphicTest[91]: phase=DEPLOYMENT
+04-03 01:48:11 [AWT-EventQueue-0] [ERROR] GraphicTest[91]: phase=DEPLOYMENT
+04-03 01:48:13 [AWT-EventQueue-0] [ERROR] GraphicTest[91]: phase=TURN
+04-03 01:48:13 [AWT-EventQueue-0] [ERROR] GraphicTest[91]: phase=TURN
+04-03 01:48:13 [AWT-EventQueue-0] [ERROR] GraphicTest[91]: phase=TURN
+04-03 01:48:16 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Tue Mar 04 01:48:16 CET 2014
+04-03 01:48:47 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:48:47 CET 2014
+04-03 01:48:48 [main] [ERROR] GraphicTest[87]: phase=MANAGEMENT
+04-03 01:48:50 [AWT-EventQueue-0] [INFO ] GraphicTest$1[115]: Ending test at Tue Mar 04 01:48:50 CET 2014
+04-03 01:49:10 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:49:10 CET 2014
+04-03 01:49:11 [main] [ERROR] GraphicTest[88]: phase=MANAGEMENT
+04-03 01:49:20 [AWT-EventQueue-0] [INFO ] GraphicTest$1[116]: Ending test at Tue Mar 04 01:49:20 CET 2014
+04-03 01:49:55 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:49:55 CET 2014
+04-03 01:49:55 [main] [ERROR] GraphicTest[88]: phase=MANAGEMENT
+04-03 01:49:58 [AWT-EventQueue-0] [ERROR] GraphicTest[88]: phase=MANAGEMENT
+04-03 01:50:00 [AWT-EventQueue-0] [ERROR] GraphicTest[88]: phase=DEPLOYMENT
+04-03 01:50:06 [AWT-EventQueue-0] [INFO ] GraphicTest$1[117]: Ending test at Tue Mar 04 01:50:06 CET 2014
+04-03 01:50:27 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:50:27 CET 2014
+04-03 01:50:28 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+04-03 01:50:32 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+04-03 01:50:35 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+04-03 01:50:37 [AWT-EventQueue-0] [INFO ] GraphicTest$1[116]: Ending test at Tue Mar 04 01:50:37 CET 2014
+04-03 01:50:45 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:50:45 CET 2014
+04-03 01:50:45 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+04-03 01:50:49 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+04-03 01:50:52 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+04-03 01:50:54 [AWT-EventQueue-0] [INFO ] GraphicTest$1[116]: Ending test at Tue Mar 04 01:50:54 CET 2014
+04-03 01:51:13 [main] [INFO ] GraphicTest[65]: Starting test at Tue Mar 04 01:51:13 CET 2014
+04-03 01:51:13 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+04-03 01:51:15 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+04-03 01:51:16 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+04-03 01:51:17 [AWT-EventQueue-0] [INFO ] GraphicTest$1[117]: Ending test at Tue Mar 04 01:51:17 CET 2014
