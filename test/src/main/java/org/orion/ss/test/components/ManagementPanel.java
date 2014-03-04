@@ -132,16 +132,19 @@ public class ManagementPanel extends PlayerPanel {
 				supplyCostPanel.getX() + supplyCostPanel.getWidth(),
 				formationDetailPanel.getHeight() + GraphicTest.TOP_MARGIN,
 				GraphicTest.LEFT_MARGIN + GraphicTest.RIGHT_MARGIN + GraphicTest.COLUMN_WIDTH * 2,
-				GraphicTest.TOP_MARGIN * 2 + GraphicTest.BOTTOM_MARGIN + GraphicTest.ROW_HEIGHT * 2);
+				GraphicTest.TOP_MARGIN * 3 + GraphicTest.ROW_HEIGHT * 5);
 		purchasePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Purchase"));
 		detailsPanel.add(purchasePanel);
+		updatePurchasePanel();
 		repaint();
 	}
 
 	private void updatePurchasePanel() {
 		JComboBox<CompanyModel> purchaseCB = new JComboBox<CompanyModel>(game.getCurrentPlayerPosition().getCountry().getCompanyModels().toArray(new CompanyModel[] {}));
-		purchaseCB.setBounds(GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+		purchaseCB.setBounds(GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2, GraphicTest.COLUMN_WIDTH * 2, GraphicTest.ROW_HEIGHT);
 		purchasePanel.add(purchaseCB);
+		JTextField purchaseCostTF = new JTextField(managementService.purchaseCost(purchaseCB.getSelectedItem()));
+		purchaseCostTF.setBounds(GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
 	}
 
 	private void mountUnitDetailsPanel() {
