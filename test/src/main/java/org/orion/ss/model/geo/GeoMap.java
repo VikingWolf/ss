@@ -14,7 +14,6 @@ public class GeoMap extends ArrayList<Hex> {
 
 	private final List<River> rivers;
 	private final List<Road> roads;
-
 	private final int rows;
 	private final int columns;
 
@@ -24,8 +23,8 @@ public class GeoMap extends ArrayList<Hex> {
 		roads = new ArrayList<Road>();
 		this.rows = rows;
 		this.columns = columns;
-		for (int i = 0; i <= rows; i++) {
-			for (int j = 0; j <= columns; j++) {
+		for (int i = 0; i < columns; i++) {
+			for (int j = 0; j < rows; j++) {
 				Hex hex = new Hex(defaultTerrain, defaultVegetation);
 				hex.setCoords(new Point(i, j));
 				addOrReplace(hex);
@@ -57,14 +56,6 @@ public class GeoMap extends ArrayList<Hex> {
 		if (this.contains(candidate))
 			return this.get(this.indexOf(candidate));
 		else return null;
-	}
-
-	public int getColumns() {
-		return columns;
-	}
-
-	public int getRows() {
-		return rows;
 	}
 
 	public List<River> getRiversOf(int x, int y) {
@@ -109,13 +100,17 @@ public class GeoMap extends ArrayList<Hex> {
 
 	private boolean isInsideMap(Hex loc) {
 		if (loc.getCoords() != null) {
-			if ((loc.getCoords().getX() < 0) ||
-					(loc.getCoords().getY() < 0) ||
-					(loc.getCoords().getX() >= rows) ||
-					(loc.getCoords().getY() >= columns))
-				return false;
-			else return true;
+			return isInsideMap(loc.getCoords());
 		} else return false;
+	}
+
+	public boolean isInsideMap(Point loc){
+		if ((loc.getX() < 0) ||
+				(loc.getY() < 0) ||
+				(loc.getX() >= rows) ||
+				(loc.getY() >= columns))
+			return false;
+		else return true;
 	}
 
 	public double getDistance(Hex hex1, Hex hex2) {
@@ -159,6 +154,16 @@ public class GeoMap extends ArrayList<Hex> {
 			unchecked.addAll(toAdd);
 			recursiveGetArea(result, checked, unchecked, stage + 1, radius);
 		}
+	}
+
+	/* getters & setters */
+
+	public int getColumns() {
+		return columns;
+	}
+
+	public int getRows() {
+		return rows;
 	}
 
 }

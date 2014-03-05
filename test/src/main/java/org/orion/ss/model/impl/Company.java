@@ -110,6 +110,7 @@ public class Company extends ActivableImpl implements Mobile, Unit {
 		return result;
 	}
 
+	@Override
 	public Position getPosition() {
 		return this.getParent().getPosition();
 	}
@@ -127,6 +128,11 @@ public class Company extends ActivableImpl implements Mobile, Unit {
 			double defect = this.getMaxSupplies().get(type) - this.getSupplies().get(type);
 			this.getSupplies().put(type, defect);
 		}
+	}
+	
+	@Override
+	public int stackSize(){
+		return 1;
 	}
 
 	/* getters & setters */

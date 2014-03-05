@@ -5,12 +5,14 @@ import java.awt.Point;
 public enum HexSide {
 
 	/*			code	index	adjX	adjYeven	adjYodd */
-	SOUTHWEST(	"SW", 	0,		-1,		+0,			-1),
+	SOUTHWEST(	"SW", 	0,		-1,		+1,			0),	
+	
 	SOUTH(		"S", 	1,		+0,		+1,			+1),
-	SOUTHEAST(	"SE", 	2,		+1,		+1,			-1),			
+	SOUTHEAST(	"SE", 	2,		+1,		+1,			0),			
 	NORTHEAST(	"NE", 	3,		+1,		+0,			+1),
 	NORTH(		"N", 	4,		+0,		-1,			-1),		
-	NORTHWEST(	"NW", 	5,		-1,		+1,			+0);
+	
+	NORTHWEST(	"NW", 	5,		-1,		+0,			-1);
 
 	
 	private final String code;

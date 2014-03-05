@@ -2,7 +2,6 @@ package org.orion.ss.test.components;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
-import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
@@ -13,19 +12,19 @@ import org.orion.ss.model.impl.Position;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PositionTreePanel implements TreeSelectionListener {
+public abstract class PositionTreePanel implements TreeSelectionListener {
 
 	protected final static Logger logger = LoggerFactory.getLogger(PositionTreePanel.class);
 
 	private final Position position;
 	private final JTree tree;
 
-	private final ManagementPanel parent;
+	private final PlayerPanel parent;
 	private final JScrollPane panel;
 
 	private final DefaultMutableTreeNode top;
 
-	public PositionTreePanel(ManagementPanel parent, Position position, int x, int y, int w, int h) {
+	public PositionTreePanel(PlayerPanel parent, Position position, int x, int y, int w, int h) {
 		super();
 		this.position = position;
 		this.parent = parent;
@@ -55,23 +54,26 @@ public class PositionTreePanel implements TreeSelectionListener {
 		parent.add(node);
 	}
 
+	/* getters & setters */
+	
 	public JScrollPane getPanel() {
 		return panel;
 	}
 
-	@Override
-	public void valueChanged(TreeSelectionEvent e) {
-		DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-		if (node == null) return;
-		Object nodeInfo = node.getUserObject();
-		if (nodeInfo instanceof Company) {
-			Company company = (Company) nodeInfo;
-			parent.updateDetails(company);
-		}
-		if (nodeInfo instanceof Formation) {
-			Formation formation = (Formation) nodeInfo;
-			parent.updateDetails(formation);
-		}
+	public PlayerPanel getParent() {
+		return parent;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public JTree getTree() {
+		return tree;
+	}
+
+	public DefaultMutableTreeNode getTop() {
+		return top;
 	}
 
 }

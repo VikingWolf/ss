@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
+import org.orion.ss.model.Unit;
 import org.orion.ss.model.core.GamePhase;
 import org.orion.ss.model.geo.GeoMap;
+import org.orion.ss.model.geo.Location;
 
 public class Game extends Observable {
 
-	private Map<Player, Position> attacker;
-	private Map<Player, Position> defender;
+	private Map<Player, Position> positions;
 	private GameSettings settings;
 	private String id;
 	private int turn = 0;
@@ -26,8 +27,7 @@ public class Game extends Observable {
 		super();
 		this.id = id;
 		this.settings = settings;
-		attacker = new HashMap<Player, Position>();
-		defender = new HashMap<Player, Position>();
+		positions = new HashMap<Player, Position>();
 		log = new GameLog();
 		logGameStart();
 	}
@@ -46,13 +46,7 @@ public class Game extends Observable {
 	}
 
 	public Position getPositionFor(Player player) {
-		Position result = null;
-		if (attacker.containsKey(player)) {
-			result = attacker.get(player);
-		} else if (defender.containsKey(player)) {
-			result = defender.get(player);
-		}
-		return result;
+		return positions.get(player);
 	}
 
 	/* loggers */
@@ -65,20 +59,8 @@ public class Game extends Observable {
 		log.addSeparator();
 	}
 
-	private void logPositions(Map<Player, Position> positions, int mode) {
-		for (Player player : positions.keySet()) {
-			Position position = positions.get(player);
-			logPosition(player, position, mode);
-		}
-	}
-
-	private void logPosition(Player player, Position position, int mode) {
-		String entry = player.getEmail() + " plays with " + position.getName() + "(" + position.getCountry().getName() + ") as ";
-		if (mode == Position.ATTACKER) {
-			entry += "attacker.";
-		} else {
-			entry += "defender.";
-		}
+	private void logPosition(Player player, Position position) {
+		String entry = player.getEmail() + " plays with " + position.getName() + "(" + position.getCountry().getName() + ") as " + position.getRole();
 		this.getLog().addEntry(entry);
 		log.addDisplay(position.getCountry().getMarket());
 	}
@@ -91,17 +73,30 @@ public class Game extends Observable {
 			this.getLog().addEntry(player.getEmail() + "\t\t" + position.getName() + "(" + position.getCountry() + ") =\t\t" + position.getPrestige());
 		}
 	}
-
+	
+	public List<Company> getAllCompanies(){
+		List<Company> result = new ArrayList<Company>();
+		for (Position position : positions.values()){
+			result.addAll(position.getAllCompanies());
+		}
+		return result;
+	}
+	
+	public Map<Location, Unit> getAllUnitsLocated(){
+		Map<Location, Unit> result = new HashMap<Location, Unit>();
+		for (Position position : positions.values()){
+			for (Company company : position.getAllCompanies()){
+				result.put(company.getLocation(), company);
+			}
+		}
+		return result;
+	}
+	
 	/* adders */
 
-	public void addAttacker(Player player, Position position) {
-		attacker.put(player, position);
-		logPosition(player, position, Position.ATTACKER);
-	}
-
-	public void addDefender(Player player, Position position) {
-		defender.put(player, position);
-		logPosition(player, position, Position.DEFENDER);
+	public void addPosition(Player player, Position position) {
+		positions.put(player, position);
+		logPosition(player, position);
 	}
 
 	public Date getDate() {
@@ -113,27 +108,17 @@ public class Game extends Observable {
 	/* getters & setters */
 
 	public List<Player> getPlayers() {
-		ArrayList<Player> result = new ArrayList<Player>();
-		result.addAll(attacker.keySet());
-		result.addAll(defender.keySet());
+		List<Player> result = new ArrayList<Player>();
+		result.addAll(positions.keySet());
 		return result;
 	}
 
-	public Map<Player, Position> getAttacker() {
-		return attacker;
+	public void setPositions(Map<Player, Position> positions) {
+		this.positions = positions;
 	}
 
-	public void setAttacker(Map<Player, Position> attacker) {
-		this.attacker = attacker;
-	}
-
-	public Map<Player, Position> getDefender() {
-		return defender;
-	}
-
-	public void setDefender(Map<Player, Position> defender) {
-		this.defender = defender;
-		logPositions(attacker, Position.DEFENDER);
+	public Map<Player, Position> getPositions() {
+		return positions;
 	}
 
 	public GameSettings getSettings() {

@@ -38,7 +38,7 @@ public class ManagementPanel extends PlayerPanel {
 	/* GUI components */
 	private JPanel detailsPanel;
 	private JTextField prestigeTF;
-	private JButton button;
+	private JButton endTurnB;
 	private CompanyDetailPanel unitDetailPanel;
 	private CompanyUpgradePanel unitUpgradeInfoPanel;
 	private FastPanel reinforceInfoPanel;
@@ -49,7 +49,7 @@ public class ManagementPanel extends PlayerPanel {
 	private JComboBox<FormationLevel> createCB;
 	private JComboBox<TroopType> troopTypeCB;
 
-	private PositionTreePanel treePanel;
+	private ManagementTreePanel treePanel;
 
 	public ManagementPanel(GraphicTest parent, Game game) {
 		super(parent, game);
@@ -63,7 +63,7 @@ public class ManagementPanel extends PlayerPanel {
 	public void updateTree() {
 		this.remove(treePanel.getPanel());
 		Rectangle bounds = treePanel.getPanel().getBounds();
-		treePanel = new PositionTreePanel(this, game.getCurrentPlayerPosition(), (int) bounds.getX(), (int) bounds.getY(), (int) bounds.getWidth(), (int) bounds.getHeight());
+		treePanel = new ManagementTreePanel(this, game.getCurrentPlayerPosition(), (int) bounds.getX(), (int) bounds.getY(), (int) bounds.getWidth(), (int) bounds.getHeight());
 		add(treePanel.getPanel());
 		this.repaint();
 	}
@@ -73,16 +73,16 @@ public class ManagementPanel extends PlayerPanel {
 		this.removeAll();
 		addLabel("Administration, " + game.getCurrentPlayer().getEmail(), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN,
 				GraphicTest.COLUMN_WIDTH_XLARGE, GraphicTest.ROW_HEIGHT);
-		button = new JButton("End Turn");
-		button.setBounds(GraphicTest.LEFT_MARGIN, 540, GraphicTest.COLUMN_WIDTH_XLARGE, GraphicTest.ROW_HEIGHT);
-		add(button);
-		button.addActionListener(new ActionListener() {
+		endTurnB = new JButton("End Management");
+		endTurnB.setBounds(GraphicTest.LEFT_MARGIN, 540, GraphicTest.COLUMN_WIDTH_XLARGE, GraphicTest.ROW_HEIGHT);
+		add(endTurnB);
+		endTurnB.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				boolean gameEnded = parent.nextPlayer();
 				if (gameEnded) {
-					button.setEnabled(false);
+					endTurnB.setEnabled(false);
 					parent.endGame();
 				} else {
 					parent.updatePlayerPanel();
@@ -98,7 +98,7 @@ public class ManagementPanel extends PlayerPanel {
 		prestigeTF.setEditable(false);
 		prestigeTF.setText(NumberFormats.PRESTIGE.format(game.getCurrentPlayerPosition().getPrestige()));
 		add(prestigeTF);
-		treePanel = new PositionTreePanel(this, game.getCurrentPlayerPosition(), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN
+		treePanel = new ManagementTreePanel(this, game.getCurrentPlayerPosition(), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN
 				* 3 + GraphicTest.ROW_HEIGHT * 2, GraphicTest.COLUMN_WIDTH_XLARGE, 435);
 		add(treePanel.getPanel());
 		/* variable */

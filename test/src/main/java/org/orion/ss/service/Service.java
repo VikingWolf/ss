@@ -1,9 +1,13 @@
 package org.orion.ss.service;
 
 import org.orion.ss.model.impl.Game;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class Service {
 
+	protected final static Logger logger = LoggerFactory.getLogger(Service.class);
+	
 	private Game game;
 
 	public Service(Game game) {

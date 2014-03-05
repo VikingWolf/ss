@@ -74,9 +74,10 @@ class DirectFormat extends NumberFormat {
 
 	@Override
 	public StringBuffer format(long number, StringBuffer arg1, FieldPosition arg2) {
-		if ((number <= 0) || (number > 25)) throw new IllegalArgumentException();
+		if ((number < 0) || (number > 99)) throw new IllegalArgumentException();
 		StringBuffer result = new StringBuffer();
-		result.append(number);
+		if (number == 0) result.append("HQ");
+		else result.append(number);
 		return result;
 	}
 

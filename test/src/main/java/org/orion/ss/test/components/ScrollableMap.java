@@ -4,12 +4,16 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 
+import org.orion.ss.model.Unit;
 import org.orion.ss.model.geo.GeoMap;
 import org.orion.ss.model.geo.HexSet;
+import org.orion.ss.model.geo.Location;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,33 +26,25 @@ public class ScrollableMap extends JPanel {
 	private final JScrollBar vbar;
 	private final JScrollBar hbar;
 	private final MapPanel mapPanel;
-	private final GeoMap map;
 	private final int width;
 	private final int height;
-	private final double size;
 
-	public ScrollableMap(GeoMap map, int x, int y, int w, int h, double size, HexSet displayArea) {
-		this(map, x, y, w, h, size);
-		mapPanel.setDisplayArea(displayArea);
-	}
-
-	public ScrollableMap(GeoMap map, int x, int y, int w, int h, double size) {
+	public ScrollableMap(GeoMap map, int x, int y, int w, int h, double size, HexSet displayArea, LocationUpdatable updatable, List<Unit> units) {
 		super();
-		this.map = map;
 		width = w;
 		height = h;
-		this.size = size;
 		this.setLayout(null);
 		this.setBounds(x, y, w, h);
 		this.setBackground(Color.BLACK);
-		mapPanel = new MapPanel(this.size, map);
+		mapPanel = new MapPanel(size, map, updatable);
 		mapPanel.setBounds(0, 0, width - _barThickness, height - _barThickness);
-		add(mapPanel);
+		mapPanel.setDisplayArea(displayArea);
+		add(mapPanel);		
 		hbar = new JScrollBar(JScrollBar.HORIZONTAL);
 		hbar.setBounds(0, height - _barThickness, width - _barThickness, _barThickness);
 		hbar.setMaximum(10 + horizontalMax());
 		hbar.addAdjustmentListener(new MapAdjustmentListener());
-		add(hbar);
+		add(hbar);		
 		vbar = new JScrollBar(JScrollBar.VERTICAL);
 		vbar.setBounds(width - _barThickness, 0, _barThickness, height - _barThickness);
 		vbar.setMaximum(10 + verticalMax());
@@ -57,14 +53,26 @@ public class ScrollableMap extends JPanel {
 	}
 
 	private int verticalMax() {
-		int max = map.getRows() - mapPanel.vertCapacity() + 1;
-		return Math.min(max, mapPanel.getColumns() + 1);
+		int max = mapPanel.getMap().getRows() - mapPanel.vertCapacity();
+		return Math.min(max, mapPanel.getRows());
 	}
 
 	private int horizontalMax() {
-		int max = map.getColumns() - mapPanel.horizCapacity() + 1;
-		return Math.min(max, mapPanel.getRows() + 1);
+		int max = mapPanel.getMap().getColumns() - mapPanel.horizCapacity();
+		return Math.min(max, mapPanel.getColumns());
 	}
+	
+	public void setDeployArea(List<Point> deployArea){
+		this.mapPanel.setDeployArea(deployArea);
+	}
+	
+	public void setUnits(Map<Location, Unit> units){
+		mapPanel.setUnits(units);
+	}
+	
+	/* getters & setters */
+	
+	/* event listeners */
 
 	class MapAdjustmentListener implements AdjustmentListener {
 

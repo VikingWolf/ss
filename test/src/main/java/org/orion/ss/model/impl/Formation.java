@@ -10,14 +10,17 @@ import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.TroopType;
 import org.orion.ss.model.geo.Location;
 import org.orion.ss.utils.FormationFormats;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Formation extends ActivableImpl implements Mobile, Unit {
 
+	protected final static Logger logger = LoggerFactory.getLogger(Formation.class);
+	
 	private int id;
 	private Country country;
-	private Location location; /* location of the hq */
 	private List<Formation> subordinates;
-	private List<Company> companies;
+	private List<Company> companies; /* company at 0 is hq company */
 	private List<AirSquadron> airSquadrons;
 	private List<Ship> ships;
 	private FormationLevel level;
@@ -100,6 +103,7 @@ public class Formation extends ActivableImpl implements Mobile, Unit {
 		return this.id;
 	}
 
+	@Override
 	public Position getPosition() {
 		if (this instanceof Position) {
 			return (Position) this;
@@ -110,6 +114,11 @@ public class Formation extends ActivableImpl implements Mobile, Unit {
 	
 	public boolean isExpandable(){
 		return this.getAllCompanies().size() <= this.getFormationLevel().getSupplyLimit();
+	}
+	
+	@Override
+	public int stackSize(){
+		return this.getCompanyStackAtLocation(false).size();
 	}
 	
 	/* adders */
@@ -169,12 +178,12 @@ public class Formation extends ActivableImpl implements Mobile, Unit {
 
 	@Override
 	public Location getLocation() {
-		return location;
+		return companies.get(0).getLocation();
 	}
 
 	@Override
 	public void setLocation(Location location) {
-		this.location = location;
+		this.companies.get(0).setLocation(location);
 	}
 
 	public List<AirSquadron> getAirSquadrons() {
