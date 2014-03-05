@@ -1,7 +1,5 @@
-package org.orion.ss.model.impl;
+package org.orion.ss.model.geo;
 
-import org.orion.ss.model.geo.HexSide;
-import org.orion.ss.model.geo.Location;
 
 public class SideLocation extends Location {
 

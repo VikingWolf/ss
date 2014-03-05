@@ -1,15 +1,20 @@
 package org.orion.ss.test;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.orion.ss.model.core.TroopType;
 import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.Mobility;
 import org.orion.ss.model.core.SupplyType;
+import org.orion.ss.model.core.TroopType;
 import org.orion.ss.model.core.WeaponType;
+import org.orion.ss.model.geo.Hex;
 import org.orion.ss.model.geo.Location;
+import org.orion.ss.model.geo.Terrain;
+import org.orion.ss.model.geo.Vegetation;
+import org.orion.ss.model.geo.WeatherForecast;
 import org.orion.ss.model.geo.WeatherType;
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.CompanyModel;
@@ -23,7 +28,6 @@ import org.orion.ss.model.impl.Position;
 import org.orion.ss.model.impl.Scenario;
 import org.orion.ss.model.impl.Stock;
 import org.orion.ss.model.impl.WeaponModel;
-import org.orion.ss.model.impl.WeatherForecast;
 
 public class GameSample {
 
@@ -48,6 +52,7 @@ public class GameSample {
 		buildWeaponModels();
 		buildCompanyModels();
 		configScenario();
+		buildMap();
 		mountForecast();
 		buildPositions();
 		configGame();
@@ -79,14 +84,14 @@ public class GameSample {
 		ukRifleCompany39MaxStock.put(SupplyType.AMMO, 0.005);
 		ukRifleCompanyModel39.setMaxSupplies(ukRifleCompany39MaxStock);
 		uk.addCompanyModel(ukRifleCompanyModel39);
-		
+
 		gerGrenadierCompanyModel39 = new CompanyModel("Grenadier Kompanie 39", TroopType.INFANTRY, Mobility.FOOT, 4.5d, 4, 105, uk);
 		gerGrenadierCompanyModel39.addWeaponry(mauser98k, 105);
 		Stock gerGrenadierCompanyMax39Stock = new Stock();
 		gerGrenadierCompanyMax39Stock.put(SupplyType.AMMO, 0.005);
 		gerGrenadierCompanyModel39.setMaxSupplies(gerGrenadierCompanyMax39Stock);
 		ger.addCompanyModel(gerGrenadierCompanyModel39);
-		
+
 		ukRifleCompanyModel40 = new CompanyModel("Rifle Company 40", TroopType.INFANTRY, Mobility.FOOT, 4.5d, 3, 135, ger);
 		ukRifleCompanyModel40.addWeaponry(leeEnfieldMk1, 135);
 		ukRifleCompanyModel40.addWeaponry(vickersBerthierLMG, 10);
@@ -107,6 +112,10 @@ public class GameSample {
 		settings.setStackLimit(6);
 		scenario = new Scenario(10, 10);
 		scenario.setSettings(settings);
+	}
+
+	protected void buildMap() {
+		scenario.getMap().setHexAt(new Point(4, 3), new Hex(Terrain.HILLS, Vegetation.NONE));
 	}
 
 	protected void buildPositions() {
@@ -138,6 +147,7 @@ public class GameSample {
 
 	protected void configGame() {
 		game = new Game("test", scenario.getSettings());
+		game.setMap(scenario.getMap());
 	}
 
 	protected void mountCamps() {

@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Observable;
 
 import org.orion.ss.model.core.GamePhase;
+import org.orion.ss.model.geo.GeoMap;
 
 public class Game extends Observable {
 
@@ -19,6 +20,7 @@ public class Game extends Observable {
 	private Player currentPlayer;
 	private GameLog log;
 	private GamePhase phase = GamePhase.MANAGEMENT;
+	private GeoMap map;
 
 	public Game(String id, GameSettings settings) {
 		super();
@@ -191,6 +193,14 @@ public class Game extends Observable {
 
 	public void setPhase(GamePhase phase) {
 		this.phase = phase;
+	}
+
+	public GeoMap getMap() {
+		return map;
+	}
+
+	public void setMap(GeoMap map) {
+		this.map = map;
 	}
 
 }

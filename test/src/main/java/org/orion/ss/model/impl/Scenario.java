@@ -7,10 +7,11 @@ import org.orion.ss.model.geo.GeoMap;
 import org.orion.ss.model.geo.Location;
 import org.orion.ss.model.geo.Minefield;
 import org.orion.ss.model.geo.Railway;
-import org.orion.ss.model.geo.Road;
 import org.orion.ss.model.geo.Terrain;
 import org.orion.ss.model.geo.Trench;
+import org.orion.ss.model.geo.UrbanCenter;
 import org.orion.ss.model.geo.Vegetation;
+import org.orion.ss.model.geo.WeatherForecast;
 
 public class Scenario {
 
@@ -18,21 +19,19 @@ public class Scenario {
 	private List<Position> attacker;
 	private List<Position> defender;
 	private GameSettings settings;
-	private Map<Location, Road> roads;
 	private Map<Location, Railway> railroads;
 	private List<UrbanCenter> urbanCenters;
 	private Map<Location, Trench> trenches;
 	private Map<Location, Minefield> minefields;
 	private Map<Location, Airfield> airfields;
-	private List<Location> supplyArea;
 	private List<WeatherForecast> forecast;
-	private Map<Location, Stock> supplies;
 	private GeoMap map;
 
-	public Scenario(int mapRows, int mapColumns){
+	public Scenario(int mapRows, int mapColumns) {
 		super();
 		map = new GeoMap(mapRows, mapColumns, Terrain.PLAINS, Vegetation.NONE);
 	}
+
 	/* getters & setters */
 
 	public String getName() {
@@ -65,14 +64,6 @@ public class Scenario {
 
 	public void setSettings(GameSettings settings) {
 		this.settings = settings;
-	}
-
-	public Map<Location, Road> getRoads() {
-		return roads;
-	}
-
-	public void setRoads(Map<Location, Road> roads) {
-		this.roads = roads;
 	}
 
 	public Map<Location, Railway> getRailroads() {
@@ -115,28 +106,12 @@ public class Scenario {
 		this.airfields = airfields;
 	}
 
-	public List<Location> getSupplyArea() {
-		return supplyArea;
-	}
-
-	public void setSupplyArea(List<Location> supplyArea) {
-		this.supplyArea = supplyArea;
-	}
-
 	public List<WeatherForecast> getForecast() {
 		return forecast;
 	}
 
 	public void setForecast(List<WeatherForecast> forecast) {
 		this.forecast = forecast;
-	}
-
-	public Map<Location, Stock> getSupplies() {
-		return supplies;
-	}
-
-	public void setSupplies(Map<Location, Stock> supplies) {
-		this.supplies = supplies;
 	}
 
 	public GeoMap getMap() {

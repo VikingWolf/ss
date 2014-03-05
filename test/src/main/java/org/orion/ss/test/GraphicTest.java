@@ -90,6 +90,7 @@ public class GraphicTest {
 		if (game.getPhase() == GamePhase.MANAGEMENT) {
 			playerPanel = new ManagementPanel(this, game);
 		} else if (game.getPhase() == GamePhase.DEPLOYMENT) {
+
 			playerPanel = new DeploymentPanel(this, game);
 		} else if (game.getPhase() == GamePhase.TURN) {
 		}

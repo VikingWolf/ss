@@ -6,25 +6,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Hex {
-	
+
 	protected Logger logger = LoggerFactory.getLogger(Hex.class);
 
 	private Terrain terrain;
-	
 	private Vegetation vegetation;
-	
-	
 	private Point coords;
-	
-	public Hex(){
+
+	public Hex() {
 		super();
 	}
-	
-	public Hex(Point coords){
+
+	public Hex(Terrain terrain, Vegetation vegetation) {
+		super();
+		this.terrain = terrain;
+		this.vegetation = vegetation;
+	}
+
+	public Hex(Point coords) {
 		super();
 		this.setCoords(coords);
 	}
-	
+
 	public Point getCoords() {
 		return coords;
 	}
@@ -32,7 +35,6 @@ public class Hex {
 	public void setCoords(Point coords) {
 		this.coords = coords;
 	}
-
 
 	public Terrain getTerrain() {
 		return terrain;
@@ -54,7 +56,7 @@ public class Hex {
 
 	@Override
 	public String toString() {
-		return "Hex(" + (int) coords.getX() + "," + (int) coords.getY() + ")"; 
+		return "Hex(" + (int) coords.getX() + "," + (int) coords.getY() + ")";
 	}
 
 	@Override
@@ -81,5 +83,5 @@ public class Hex {
 			return false;
 		return true;
 	}
-	
+
 }
