@@ -15,7 +15,13 @@ public interface Unit extends Leveleable, Mobile, Activable {
 
 	public Position getPosition();
 
-	public String getFullName();
+	public String getShortName();
+
+	public String getFullShortName();
+
+	public String getLongName();
+
+	public String getFullLongName();
 
 	public Country getCountry();
 

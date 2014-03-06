@@ -2775,3 +2775,7 @@
 06-03 09:06:48 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
 06-03 09:06:49 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
 06-03 09:07:04 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Thu Mar 06 09:07:04 CET 2014
+06-03 09:07:42 [main] [INFO ] GraphicTest[65]: Starting test at Thu Mar 06 09:07:42 CET 2014
+06-03 09:07:43 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+06-03 09:07:44 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+06-03 09:08:29 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Thu Mar 06 09:08:29 CET 2014

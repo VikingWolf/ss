@@ -31,28 +31,23 @@ public class FormationFormats {
 		return formatter.format(unit.getId()) + " " + unit.getFormationLevel().getDenomination();
 	}
 
-	public static String format(Unit unit) {
-		NumberFormat formatter = _formats.get(unit.getFormationLevel());
-		return formatter.format(unit.getId()) + " " + unit.getFormationLevel().getAbbreviation();
-	}
-
-	private static String simpleFormat(Unit unit) {
+	private static String shortFormat(Unit unit) {
 		NumberFormat formatter = _formats.get(unit.getFormationLevel());
 		return formatter.format(unit.getId());
 	}
 
-	public static String fullFormat(Unit unit) {
+	public static String fullShortFormat(Unit unit) {
 		String result = "";
 		if (unit != null) {
 			switch (unit.getFormationLevel()) {
 				case COMPANY:
-					result = simpleFormat(unit) + " / " + fullFormat(unit.getParent());
+					result = shortFormat(unit) + " / " + fullShortFormat(unit.getParent());
 				break;
 				case BATTALION:
-					result = simpleFormat(unit) + ", " + simpleFormat(unit.getParent());
+					result = shortFormat(unit) + ", " + shortFormat(unit.getParent());
 				break;
 				default:
-					result = format(unit);
+					result = shortFormat(unit);
 			}
 		}
 		return result;

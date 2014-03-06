@@ -80,15 +80,21 @@ public class Company extends ActivableImpl implements Mobile, Unit {
 
 	@Override
 	public String toString() {
-		return getName();
+		return getLongName();
 	}
 
 	@Override
-	public String getFullName() {
-		return FormationFormats.fullFormat(this);
+	public String getShortName(){
+		return FormationFormats.
 	}
 
-	public String getName() {
+	@Override
+	public String getFullShortName() {
+		return FormationFormats.fullShortFormat(this);
+	}
+
+	@Override
+	public String getLongName() {
 		return FormationFormats.longFormat(this);
 	}
 
