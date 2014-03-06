@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -45,9 +47,13 @@ public class ManagementPanel extends PlayerPanel {
 	private FastPanel supplyCostPanel;
 	private FormationDetailPanel formationDetailPanel;
 	private FastPanel purchasePanel;
-	private JComboBox<CompanyModel> purchaseCB;
-	private JComboBox<FormationLevel> createCB;
-	private JComboBox<TroopType> troopTypeCB;
+	private FastPanel createPanel;
+	private JComboBox<CompanyModel> purchaseUnitModelCB;
+	private JComboBox<CompanyModel> formationUnitModelCB;
+	private JComboBox<FormationLevel> createFormationLevelCB;
+	private JComboBox<TroopType> createTroopTypeCB;
+	private JTextField purchaseCostTF;
+	private JTextField createCostTF;
 
 	private ManagementTreePanel treePanel;
 
@@ -118,7 +124,7 @@ public class ManagementPanel extends PlayerPanel {
 		reinforceInfoPanel.setBounds(0,
 				formationDetailPanel.getHeight() + GraphicTest.TOP_MARGIN,
 				GraphicTest.LEFT_MARGIN * 4 + GraphicTest.COLUMN_WIDTH_NARROW * 2 + GraphicTest.COLUMN_WIDTH_XNARROW * 2,
-				GraphicTest.TOP_MARGIN * 4 + GraphicTest.ROW_HEIGHT * 5);
+				GraphicTest.TOP_MARGIN * 4 + GraphicTest.ROW_HEIGHT * 6);
 		reinforceInfoPanel.setLayout(null);
 		reinforceInfoPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Reinforce Availability"));
 		detailsPanel.add(reinforceInfoPanel);
@@ -128,7 +134,7 @@ public class ManagementPanel extends PlayerPanel {
 				reinforceInfoPanel.getX() + reinforceInfoPanel.getWidth(),
 				formationDetailPanel.getHeight() + GraphicTest.TOP_MARGIN,
 				GraphicTest.LEFT_MARGIN * 2 + GraphicTest.COLUMN_WIDTH_NARROW + GraphicTest.COLUMN_WIDTH_XNARROW,
-				GraphicTest.TOP_MARGIN * 4 + GraphicTest.ROW_HEIGHT * 5);
+				GraphicTest.TOP_MARGIN * 4 + GraphicTest.ROW_HEIGHT * 6);
 		supplyCostPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Supply Costs"));
 		detailsPanel.add(supplyCostPanel);
 		purchasePanel = new FastPanel();
@@ -137,82 +143,131 @@ public class ManagementPanel extends PlayerPanel {
 				supplyCostPanel.getX() + supplyCostPanel.getWidth(),
 				formationDetailPanel.getHeight() + GraphicTest.TOP_MARGIN,
 				GraphicTest.LEFT_MARGIN + GraphicTest.RIGHT_MARGIN + GraphicTest.COLUMN_WIDTH * 2,
-				GraphicTest.TOP_MARGIN * 4 + GraphicTest.ROW_HEIGHT * 5);
+				GraphicTest.TOP_MARGIN * 4 + GraphicTest.ROW_HEIGHT * 6);
 		purchasePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Purchase"));
-		detailsPanel.add(purchasePanel);
+		detailsPanel.add(purchasePanel);		
+		createPanel = new FastPanel();
+		createPanel.setLayout(null);
+		createPanel.setBounds(
+				purchasePanel.getX() + purchasePanel.getWidth(),
+				formationDetailPanel.getHeight() + GraphicTest.TOP_MARGIN,
+				GraphicTest.LEFT_MARGIN + GraphicTest.RIGHT_MARGIN + GraphicTest.COLUMN_WIDTH * 2,
+				GraphicTest.TOP_MARGIN * 4 + GraphicTest.ROW_HEIGHT * 6);
+		createPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "New Formation"));
+		detailsPanel.add(createPanel);
 		repaint();
 	}
 
 	private void updatePurchasePanel(final Formation formation) {
-		purchaseCB = new JComboBox<CompanyModel>(formation.getCountry().getCompanyModels().toArray(new CompanyModel[] {}));
-		purchaseCB.setBounds(
+		purchasePanel.addLabel("Prestige cost", GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 3 + GraphicTest.ROW_HEIGHT, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+		purchaseUnitModelCB = new JComboBox<CompanyModel>(managementService.getCompanyModelsFor(formation).toArray(new CompanyModel[] {}));
+		purchaseUnitModelCB.setBounds(
 				GraphicTest.LEFT_MARGIN, 
 				GraphicTest.TOP_MARGIN * 2, 
 				GraphicTest.COLUMN_WIDTH * 2, 
 				GraphicTest.ROW_HEIGHT);
-		purchasePanel.add(purchaseCB);
-		int purchaseCost = managementService.purchaseCost(formation, (CompanyModel)purchaseCB.getSelectedItem());
-		JTextField purchaseCostTF = new JTextField(NumberFormats.PRESTIGE.format(purchaseCost));
+		purchasePanel.add(purchaseUnitModelCB);
+		purchaseCostTF = new JTextField(NumberFormats.PRESTIGE.format(managementService.purchaseCost(formation, (CompanyModel)purchaseUnitModelCB.getSelectedItem())));
 		purchaseCostTF.setBounds(
-				GraphicTest.LEFT_MARGIN, 
+				purchasePanel.getWidth() - GraphicTest.COLUMN_WIDTH - GraphicTest.RIGHT_MARGIN,
 				GraphicTest.TOP_MARGIN * 3 + GraphicTest.ROW_HEIGHT, 
-				GraphicTest.COLUMN_WIDTH_NARROW, 
+				GraphicTest.COLUMN_WIDTH, 
 				GraphicTest.ROW_HEIGHT);
+		purchaseCostTF.setEditable(false);
 		purchasePanel.add(purchaseCostTF);
 		JButton purchaseCompanyB = new JButton("Purchase");
 		purchaseCompanyB.setBounds(
-				purchasePanel.getWidth() - GraphicTest.COLUMN_WIDTH - GraphicTest.RIGHT_MARGIN,
-				GraphicTest.TOP_MARGIN * 3 + GraphicTest.ROW_HEIGHT,
-				GraphicTest.COLUMN_WIDTH,
-				GraphicTest.ROW_HEIGHT);
+				GraphicTest.LEFT_MARGIN,
+				GraphicTest.TOP_MARGIN * 6 + GraphicTest.ROW_HEIGHT * 4,
+				purchasePanel.getWidth() - GraphicTest.LEFT_MARGIN - GraphicTest.RIGHT_MARGIN,
+				GraphicTest.ROW_HEIGHT);				
 		purchaseCompanyB.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				managementService.purchaseCompany(formation, (CompanyModel)purchaseCB.getSelectedItem());
+				managementService.purchaseCompany(formation, (CompanyModel)purchaseUnitModelCB.getSelectedItem());
 				updateDetails(formation);
 				updatePrestigeTF();
 				updateTree();
 			}			
 		});
+		purchaseUnitModelCB.addItemListener(new ItemListener(){
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				if (arg0.getStateChange()==ItemEvent.SELECTED){
+					purchaseCostTF.setText("" + managementService.purchaseCost(formation, (CompanyModel)purchaseUnitModelCB.getSelectedItem()));
+				}
+			}			
+		});
 		purchasePanel.add(purchaseCompanyB);
-		purchaseCompanyB.setEnabled(formation.isExpandable() && (purchaseCB.getSelectedItem()!=null) && (game.getCurrentPlayerPosition().getPrestige()>=purchaseCost));
-		createCB = new JComboBox<FormationLevel>(managementService.getSubordinables(formation).toArray(new FormationLevel[]{}));
-		createCB.setBounds(				
+		purchaseCompanyB.setEnabled(formation.isExpandable() && (purchaseUnitModelCB.getSelectedItem()!=null) && (game.getCurrentPlayerPosition().getPrestige()>=Integer.parseInt(purchaseCostTF.getText())));
+	}
+	
+	protected void updateCreatePanel(final Formation formation){
+		logger.error("updating create panel");
+		createPanel.addLabel("Prestige cost", GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 4 + GraphicTest.ROW_HEIGHT * 2, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+		createPanel.addLabel("Troop Type", GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 5 + GraphicTest.ROW_HEIGHT * 3, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+		createFormationLevelCB = new JComboBox<FormationLevel>(managementService.getSubordinables(formation).toArray(new FormationLevel[]{}));
+		createFormationLevelCB.setBounds(				
 				GraphicTest.LEFT_MARGIN, 
-				GraphicTest.TOP_MARGIN * 4 + GraphicTest.ROW_HEIGHT * 2, 
+				GraphicTest.TOP_MARGIN * 2, 
 				GraphicTest.COLUMN_WIDTH * 2, 
 				GraphicTest.ROW_HEIGHT);
-		purchasePanel.add(createCB);
-		JButton createFormationB = new JButton("Create");
-		createFormationB.setBounds(
-				purchasePanel.getWidth() - GraphicTest.COLUMN_WIDTH - GraphicTest.RIGHT_MARGIN,
-				GraphicTest.TOP_MARGIN * 5 + GraphicTest.ROW_HEIGHT * 3,
-				GraphicTest.COLUMN_WIDTH,
-				GraphicTest.ROW_HEIGHT);
-		purchasePanel.add(createFormationB);
-		createFormationB.setEnabled(formation.isExpandable() && (createCB.getSelectedItem()!=null));
-		troopTypeCB = new JComboBox<TroopType>(managementService.getSubordinateTroopTypes(formation).toArray(new TroopType[]{}));
-		troopTypeCB.setBounds(
+		createPanel.add(createFormationLevelCB);		
+		formationUnitModelCB = new JComboBox<CompanyModel>(managementService.getCompanyModelsFor(formation).toArray(new CompanyModel[] {}));
+		formationUnitModelCB.setBounds(
 				GraphicTest.LEFT_MARGIN, 
+				GraphicTest.TOP_MARGIN * 3 +  GraphicTest.ROW_HEIGHT * 1, 
+				GraphicTest.COLUMN_WIDTH * 2, 
+				GraphicTest.ROW_HEIGHT);
+		createPanel.add(formationUnitModelCB);		
+		int createCost = managementService.createFormationCost(formation, (CompanyModel)purchaseUnitModelCB.getSelectedItem(), (FormationLevel)createFormationLevelCB.getSelectedItem());
+		createCostTF = new JTextField(NumberFormats.PRESTIGE.format(createCost));
+		createCostTF.setBounds(
+				purchasePanel.getWidth() - GraphicTest.COLUMN_WIDTH - GraphicTest.RIGHT_MARGIN,
+				GraphicTest.TOP_MARGIN * 4 + GraphicTest.ROW_HEIGHT * 2, 
+				GraphicTest.COLUMN_WIDTH, 
+				GraphicTest.ROW_HEIGHT);
+		createCostTF.setEditable(false);
+		createPanel.add(createCostTF);
+		createTroopTypeCB = new JComboBox<TroopType>(managementService.getSubordinateTroopTypes(formation).toArray(new TroopType[]{}));
+		createTroopTypeCB.setBounds(
+				purchasePanel.getWidth() - GraphicTest.COLUMN_WIDTH - GraphicTest.RIGHT_MARGIN, 
 				GraphicTest.TOP_MARGIN * 5 + GraphicTest.ROW_HEIGHT * 3,
 				GraphicTest.COLUMN_WIDTH, 
 				GraphicTest.ROW_HEIGHT);
-		purchaseCostTF.setEditable(formation.isExpandable() && (createCB.getSelectedItem()!=null) && (troopTypeCB.getSelectedItem()!=null));
-		purchasePanel.add(troopTypeCB);
+		createPanel.add(createTroopTypeCB);
+		JButton createFormationB = new JButton("Create");
+		createFormationB.setBounds(
+				GraphicTest.LEFT_MARGIN,
+				GraphicTest.TOP_MARGIN * 6 + GraphicTest.ROW_HEIGHT * 4,
+				createPanel.getWidth() - GraphicTest.LEFT_MARGIN - GraphicTest.RIGHT_MARGIN,
+				GraphicTest.ROW_HEIGHT);				
+		createPanel.add(createFormationB);
 		createFormationB.addActionListener(new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				managementService.createFormation(formation, (FormationLevel)createCB.getSelectedItem(), (TroopType)troopTypeCB.getSelectedItem());
+				managementService.createFormation(formation, (CompanyModel)formationUnitModelCB.getSelectedItem(), (FormationLevel)createFormationLevelCB.getSelectedItem(), (TroopType)createTroopTypeCB.getSelectedItem());
 				updateDetails(formation);
 				updatePrestigeTF();
 				updateTree();				
 			}
-			
 		});
-
+		class CreateCostListener implements ItemListener{
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				if (arg0.getStateChange()==ItemEvent.SELECTED){
+					createCostTF.setText("" + managementService.createFormationCost(formation, (CompanyModel)formationUnitModelCB.getSelectedItem(), (FormationLevel)createFormationLevelCB.getSelectedItem()));
+				}
+			}						
+		}
+		CreateCostListener createCostListener = new CreateCostListener();
+		createFormationLevelCB.addItemListener(createCostListener);
+		formationUnitModelCB.addItemListener(createCostListener);
+		createFormationB.setEnabled(formation.isExpandable() 
+				&& (createFormationLevelCB.getSelectedItem()!=null)
+				&& managementService.createFormationCost(formation, (CompanyModel)formationUnitModelCB.getSelectedItem(), (FormationLevel)createFormationLevelCB.getSelectedItem())<=formation.getPosition().getPrestige());
 	}
-
+	
 	private void mountUnitDetailsPanel() {
 		detailsPanel.removeAll();
 		unitDetailPanel = new CompanyDetailPanel(managementService, combatService, this);
@@ -287,6 +342,7 @@ public class ManagementPanel extends PlayerPanel {
 		updateReinforceInfoPanel();
 		updateSupplyCostPanel();
 		updatePurchasePanel(formation);
+		updateCreatePanel(formation);
 	}
 
 	public void updateUpgradeUnitPanel(final Company company, final CompanyModel upgradeModel) {

@@ -2,17 +2,17 @@ package org.orion.ss.model.core;
 
 public enum FormationLevel {
 
-	/* level ordinal denomination abrv code supplyLimit uniqueId */
-	COMPANY(0, "Co", "Company", "I", 1, false),
-	BATTALION(1, "Bn", "Battalion", "II", 5, false),
-	REGIMENT(2, "Rg", "Regiment", "III", 15, true),
-	BRIGADE(3, "Bd", "Brigade", "X", 45, true),
-	DIVISION(4, "D", "Division", "XX", 135, true),
-	CORPS(5, "C", "Corps", "XXX", 810, true),
-	ARMY(6, "A", "Army", "XXXX", 4860, true),
-	ARMY_GROUP(7, "G", "Army Group", "XXXXX", 19440, true),
-	AIR_SQUADRON(0, "Sqd", "Squadron", "I", 1, false),
-	SHIP(0, "HMS", "Ship", "I", 1, true);
+	/* level 	ordinal abbrev	denomination	 code 	supplyLimit uniqueId */
+	COMPANY(		1, 	"Co", 	"Company", 		"I", 		1, 		false),
+	BATTALION(		2, 	"Bn", 	"Battalion", 	"II", 		5, 		false),
+	REGIMENT(		3, 	"Rg", 	"Regiment", 	"III", 		15, 	true),
+	BRIGADE(		4, 	"Bd", 	"Brigade", 		"X", 		45, 	true),
+	DIVISION(		5, 	"D", 	"Division", 	"XX", 		135, 	true),
+	CORPS(			6, 	"C", 	"Corps", 		"XXX", 		810, 	true),
+	ARMY(			7, 	"A", 	"Army", 		"XXXX", 	4860, 	true),
+	ARMY_GROUP(		8, 	"G", 	"Army Group", 	"XXXXX", 	19440, 	true),
+	AIR_SQUADRON(	1, 	"Sqd", "Squadron", 		"I", 		1, 		false),
+	SHIP(			1, 	"HMS", "Ship", 			"I", 		1, 		true);
 
 	private int ordinal;
 	private String denomination;

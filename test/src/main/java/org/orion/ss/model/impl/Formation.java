@@ -3,39 +3,34 @@ package org.orion.ss.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.orion.ss.model.ActivableImpl;
-import org.orion.ss.model.Mobile;
 import org.orion.ss.model.Unit;
 import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.TroopType;
 import org.orion.ss.model.geo.Location;
-import org.orion.ss.utils.FormationFormats;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Formation extends ActivableImpl implements Mobile, Unit {
+public class Formation extends Unit {
 
 	protected final static Logger logger = LoggerFactory.getLogger(Formation.class);
 
-	private final int id;
 	private Country country;
 	private List<Formation> subordinates;
 	private List<Company> companies; /* company at 0 is hq company */
 	private List<AirSquadron> airSquadrons;
 	private List<Ship> ships;
 	private FormationLevel level;
-	private Formation parent;
-	private TroopType type;
+	private TroopType troopType;
 
 	public Formation(FormationLevel level, TroopType type, int id) {
 		super();
-		this.id = id;
+		setId(id);
 		subordinates = new ArrayList<Formation>();
 		companies = new ArrayList<Company>();
 		airSquadrons = new ArrayList<AirSquadron>();
 		ships = new ArrayList<Ship>();
 		this.level = level;
-		this.type = type;
+		this.troopType = type;
 	}
 
 	@Override
@@ -115,12 +110,7 @@ public class Formation extends ActivableImpl implements Mobile, Unit {
 
 	@Override
 	public String toString() {
-		return getName();
-	}
-
-	@Override
-	public int getId() {
-		return id;
+		return getLongName();
 	}
 
 	@Override
@@ -139,6 +129,17 @@ public class Formation extends ActivableImpl implements Mobile, Unit {
 	@Override
 	public int stackSize() {
 		return this.getCompanyStackAtLocation(false).size();
+	}
+	
+	@Override
+	public Formation getParentFormation(FormationLevel level) {
+		if (this.getFormationLevel().getOrdinal() < level.getOrdinal()) {
+			if (this.getParent() != null) {
+				return this.getParent().getParentFormation(level);
+			} else return null;
+		} else if (this.getFormationLevel().getOrdinal() == level.getOrdinal()) {
+			return this;
+		} else return null;
 	}
 
 	/* adders */
@@ -162,38 +163,18 @@ public class Formation extends ActivableImpl implements Mobile, Unit {
 		ships.add(ship);
 	}
 
-	@Override
-	public String getFullName() {
-		return FormationFormats.fullFormat(this);
-	}
-
-	public String getName() {
-		return FormationFormats.longFormat(this);
-	}
-
-	@Override
-	public Formation getParentFormation(FormationLevel level) {
-		if (this.getFormationLevel().getOrdinal() < level.getOrdinal()) {
-			if (this.getParent() != null) {
-				return this.getParent().getParentFormation(level);
-			} else return null;
-		} else if (this.getFormationLevel().getOrdinal() == level.getOrdinal()) {
-			return this;
-		} else return null;
-	}
-
 	/* getters & setters */
 
 	public List<Formation> getSubordinates() {
 		return subordinates;
 	}
 
-	public TroopType getType() {
-		return type;
+	public TroopType getTroopType() {
+		return troopType;
 	}
 
 	public void setType(TroopType type) {
-		this.type = type;
+		this.troopType = type;
 	}
 
 	public void setSubordinates(List<Formation> subordinates) {
@@ -244,22 +225,13 @@ public class Formation extends ActivableImpl implements Mobile, Unit {
 	}
 
 	@Override
-	public Formation getParent() {
-		return parent;
-	}
-
-	public void setParent(Formation parent) {
-		this.parent = parent;
-	}
-
-	@Override
 	public Country getCountry() {
 		return country;
 	}
 
 	public void setCountry(Country country) {
 		this.country = country;
-		country.updateLastId(this);
+		if (this.getFormationLevel().isUniqueId()) country.updateLastId(this);
 	}
 
 	public List<Ship> getShips() {

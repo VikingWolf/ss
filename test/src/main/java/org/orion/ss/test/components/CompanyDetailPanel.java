@@ -132,8 +132,7 @@ public class CompanyDetailPanel extends FastPanel {
 	protected void updateUnitPanel(final Company company) {
 		parent.updatePrestigeTF();
 		removeAll();
-		TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), company.getFullName());
-		setBorder(title);
+		setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), company.getFullLongName()));
 		displayUnitInfo(company);
 		/* Actions */
 		JLabel upgradesL = new JLabel("Upgrades");

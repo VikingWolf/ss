@@ -3,35 +3,30 @@ package org.orion.ss.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.orion.ss.model.ActivableImpl;
-import org.orion.ss.model.Mobile;
 import org.orion.ss.model.Unit;
 import org.orion.ss.model.core.CompanyTrait;
 import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.SupplyType;
+import org.orion.ss.model.core.TroopType;
 import org.orion.ss.model.geo.Location;
-import org.orion.ss.utils.FormationFormats;
 
-public class Company extends ActivableImpl implements Mobile, Unit {
+public class Company extends Unit {
 
 	private final static double INITIATIVE_EXPERIENCE_EXPONENT = 0.5d;
 	private final static double INITIATIVE_ORGANIZATION_EXPONENT = 0.5d;
 
-	private int id;
 	private CompanyModel model;
-	private Location location;
 	private double strength;
 	private double experience;
 	private double organization;
 	private double morale;
 	private Stock supplies;
-	private Formation parent;
 	private List<CompanyTrait> traits;
 
 	private Company() {
 		super();
 		supplies = new Stock();
-		location = new Location();
+		setLocation(new Location());
 		strength = 0.0d;
 		experience = 1.0d;
 		organization = 1.0d;
@@ -84,27 +79,12 @@ public class Company extends ActivableImpl implements Mobile, Unit {
 	}
 
 	@Override
-	public String getShortName(){
-		return FormationFormats.
-	}
-
-	@Override
-	public String getFullShortName() {
-		return FormationFormats.fullShortFormat(this);
-	}
-
-	@Override
-	public String getLongName() {
-		return FormationFormats.longFormat(this);
-	}
-
-	@Override
 	public FormationLevel getFormationLevel() {
 		return getModel().getFormationLevel();
 	}
 
 	public Stock getMaxSupplies() {
-		// TODO esto es en caso de la infanter�a, gestionar el uso de transportes
+		// TODO esto es en caso de la infanteria, gestionar el uso de transportes
 		Stock result = new Stock();
 		for (SupplyType type : this.getModel().getMaxSupplies().keySet()) {
 			double amount = this.getModel().getMaxSupplies().get(type) * this.getStrength() * this.getModel().getMaxStrength();
@@ -115,7 +95,7 @@ public class Company extends ActivableImpl implements Mobile, Unit {
 
 	@Override
 	public Country getCountry() {
-		return parent.getCountry();
+		return getParent().getCountry();
 	}
 
 	public Weaponry getWeaponry() {
@@ -157,8 +137,20 @@ public class Company extends ActivableImpl implements Mobile, Unit {
 			return this.getParent().getParentFormation(level);
 		else return null;
 	}
+	
+	@Override
+	public TroopType getTroopType() {
+		return this.getModel().getType();
+	}
 
 	/* getters & setters */
+	@Override
+	public void setId(int id) {
+		super.setId(id);
+		if (id == 0) {
+			traits.add(CompanyTrait.HQ);
+		}
+	}
 
 	public CompanyModel getModel() {
 		return model;
@@ -206,37 +198,6 @@ public class Company extends ActivableImpl implements Mobile, Unit {
 
 	public void setSupplies(Stock supplies) {
 		this.supplies = supplies;
-	}
-
-	@Override
-	public Location getLocation() {
-		return location;
-	}
-
-	@Override
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-
-	@Override
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-		if (id == 0) {
-			traits.add(CompanyTrait.HQ);
-		}
-	}
-
-	@Override
-	public Formation getParent() {
-		return parent;
-	}
-
-	public void setParent(Formation parent) {
-		this.parent = parent;
 	}
 
 	public double getMorale() {

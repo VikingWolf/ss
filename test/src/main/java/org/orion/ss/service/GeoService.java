@@ -9,6 +9,7 @@ import org.orion.ss.model.geo.HexSet;
 import org.orion.ss.model.geo.Location;
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.Game;
+import org.orion.ss.model.impl.Position;
 
 public class GeoService extends Service {
 
@@ -56,8 +57,18 @@ public class GeoService extends Service {
 		boolean result = false;
 		if (canBeDeployedAt(unit, location)) {
 			unit.setLocation(location);
-			getGame().getLog().addEntry(unit.getFullName() + " has been deployed at (" + location.getX() + "," + location.getY() + ")");
+			getGame().getLog().addEntry(unit.getFullLongName() + " has been deployed at (" + location.getX() + "," + location.getY() + ")");
 			result = true;
+		}
+		return result;
+	}
+	
+	public List<Unit> undeployedUnits(Position position){
+		List<Unit> result = new ArrayList<Unit>();
+		for (Company company : position.getAllCompanies()){
+			if (company.getLocation().equals(new Location(-1, -1))){
+				result.add(company);
+			}
 		}
 		return result;
 	}

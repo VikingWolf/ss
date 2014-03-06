@@ -88,11 +88,11 @@ public class GameSample1Player {
 		ukRifleCompanyModel39.addUpgrade(ukRifleCompanyModel40);
 		uk.addCompanyModel(ukRifleCompanyModel40);
 
-		ukArtilleryBatteryModel39 = new CompanyModel("Artillery Battery 39", TroopType.ARTILLERY, Mobility.FOOT, 4.5d, 3, 135, uk);
-		ukRifleCompanyModel40.addWeaponry(leeEnfieldMk1, 40);
+		ukArtilleryBatteryModel39 = new CompanyModel("Artillery Battery 39", TroopType.ARTILLERY, Mobility.FOOT, 4.5d, 3, 90, uk);
+		ukArtilleryBatteryModel39.addWeaponry(leeEnfieldMk1, 40);
 		// TODO weaponry
 		Stock ukArtilleryBattery39Stock = new Stock();
-		ukArtilleryBattery39Stock.put(SupplyType.AMMO, 0.005);
+		ukArtilleryBattery39Stock.put(SupplyType.AMMO, 0.05);
 		ukArtilleryBatteryModel39.setMaxSupplies(ukArtilleryBattery39Stock);
 		uk.addCompanyModel(ukArtilleryBatteryModel39);
 
@@ -127,42 +127,55 @@ public class GameSample1Player {
 		scenario.addDeployPoint(new Location(1, 1), ukCorpsI);
 		scenario.addDeployPoint(new Location(0, 1), ukCorpsI);
 		scenario.addDeployPoint(new Location(2, 0), ukCorpsI);
+		scenario.addDeployPoint(new Location(1, 2), ukCorpsI);
+		scenario.addDeployPoint(new Location(2, 1), ukCorpsI);
 
-		Company ukRifleCompany39_4 = new Company(ukRifleCompanyModel39, 0, 1.8d, 0.8d, 0.9d);
-		Stock ukRifleCompany39Stock_4 = new Stock();
-		ukRifleCompany39Stock_4.put(SupplyType.AMMO, 0.55d);
-		ukRifleCompany39_4.setSupplies(ukRifleCompany39Stock_4);
-		ukCorpsI.addCompany(ukRifleCompany39_4);
-
-		Formation ukInfBg2 = new Formation(FormationLevel.REGIMENT, TroopType.INFANTRY, 2);
-		ukCorpsI.addSubordinate(ukInfBg2);
-
-		Formation ukBn1 = new Formation(FormationLevel.BATTALION, TroopType.INFANTRY, 1);
-		ukInfBg2.addSubordinate(ukBn1);
-
-		Company ukRifleCompany39_3 = new Company(ukRifleCompanyModel39, 0, 1.8d, 0.8d, 0.9d);
-		Stock ukRifleCompany39Stock_3 = new Stock();
-		ukRifleCompany39Stock_3.put(SupplyType.AMMO, 0.55d);
-		ukRifleCompany39_3.setSupplies(ukRifleCompany39Stock_3);
-		ukInfBg2.addCompany(ukRifleCompany39_3);
-
-		Company ukRifleCompany39_1 = new Company(ukRifleCompanyModel39, 0, 4.0d, 0.8d, 0.9d);
+		Company corpsHQCompany = new Company(ukRifleCompanyModel39, 0, 4.0d, 0.8d, 0.9d);
 		Stock ukRifleCompany39Stock_1 = new Stock();
 		ukRifleCompany39Stock_1.put(SupplyType.AMMO, 0.5d);
-		ukRifleCompany39_1.setSupplies(ukRifleCompany39Stock_1);
-		ukBn1.addCompany(ukRifleCompany39_1);
+		corpsHQCompany.setSupplies(ukRifleCompany39Stock_1);
 
-		Company ukRifleCompany39_2 = new Company(ukRifleCompanyModel39, 1, 1.8d, 0.8d, 1.0d);
+		Company divisionHQCompany = new Company(ukRifleCompanyModel39, 0, 1.8d, 0.8d, 1.0d);
 		Stock ukRifleCompany39Stock_2 = new Stock();
 		ukRifleCompany39Stock_2.put(SupplyType.AMMO, 0.55d);
-		ukRifleCompany39_2.setSupplies(ukRifleCompany39Stock_2);
-		ukBn1.addCompany(ukRifleCompany39_2);
+		divisionHQCompany.setSupplies(ukRifleCompany39Stock_2);
 
-		Company ukArtilleryBattery39_1 = new Company(ukArtilleryBatteryModel39, 3, 1.8d, 1.0d, 0.3d);
+		Company brigadeHQCompany = new Company(ukRifleCompanyModel39, 0, 1.8d, 0.8d, 0.9d);
+		Stock ukRifleCompany39Stock_3 = new Stock();
+		ukRifleCompany39Stock_3.put(SupplyType.AMMO, 0.55d);
+		brigadeHQCompany.setSupplies(ukRifleCompany39Stock_3);
+
+		Company battalionHQCompany = new Company(ukRifleCompanyModel39, 0, 1.8d, 0.8d, 0.9d);
+		Stock ukRifleCompany39Stock_4 = new Stock();
+		ukRifleCompany39Stock_4.put(SupplyType.AMMO, 0.55d);
+		battalionHQCompany.setSupplies(ukRifleCompany39Stock_4);
+
+		Company ukRifleCompany39_1 = new Company(ukRifleCompanyModel39, 1, 1.8d, 0.8d, 0.3d);
+		Stock ukRifleCompany39Stock_5 = new Stock();
+		ukRifleCompany39Stock_5.put(SupplyType.AMMO, 0.10d);
+		ukRifleCompany39_1.setSupplies(ukRifleCompany39Stock_5);
+
+		Company ukArtilleryBattery39_1 = new Company(ukArtilleryBatteryModel39, 3, 1.8d, 1.0d, 0.6d);
 		Stock ukArtilleryBattery39Stock_1 = new Stock();
 		ukArtilleryBattery39Stock_1.put(SupplyType.AMMO, 2.00d);
 		ukArtilleryBattery39_1.setSupplies(ukArtilleryBattery39Stock_1);
-		ukInfBg2.addCompany(ukArtilleryBattery39_1);
+
+		Formation ukBn1 = new Formation(FormationLevel.BATTALION, TroopType.INFANTRY, 4);
+		Formation ukInfBg2 = new Formation(FormationLevel.BRIGADE, TroopType.INFANTRY, 2);
+		Formation ukDiv17 = new Formation(FormationLevel.DIVISION, TroopType.INFANTRY, 17);
+
+		ukCorpsI.addCompany(corpsHQCompany);
+		ukCorpsI.addSubordinate(ukDiv17);
+
+		ukDiv17.addCompany(divisionHQCompany);
+		ukDiv17.addCompany(ukArtilleryBattery39_1);
+		ukDiv17.addSubordinate(ukInfBg2);
+
+		ukInfBg2.addCompany(brigadeHQCompany);
+		ukInfBg2.addSubordinate(ukBn1);
+
+		ukBn1.addCompany(battalionHQCompany);
+		ukBn1.addCompany(ukRifleCompany39_1);
 
 	}
 

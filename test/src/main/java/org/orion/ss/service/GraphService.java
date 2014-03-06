@@ -58,9 +58,9 @@ public class GraphService extends Service {
 		drawDivisionSymbol(unit, canvas);
 		drawCorpsStrip(unit, canvas);
 		canvas.setFont(smallFont);
-		int textWidth = textWidth(canvas, unit.getFullName());
+		int textWidth = textWidth(canvas, unit.getFullShortName());
 		canvas.setColor(Color.BLACK);
-		canvas.drawString(unit.getFullName(), getSize(0.5d) - textWidth / 2, getSize(0.93d));
+		canvas.drawString(unit.getFullShortName(), getSize(0.5d) - textWidth / 2, getSize(0.93d));
 		return result;
 	}
 

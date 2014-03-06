@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.border.Border;
 
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.Formation;
@@ -47,7 +48,18 @@ public class FormationDetailPanel extends FastPanel {
 	public void update(Formation target) {
 		formation = target;
 		removeAll();
-		setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), formation.getName()));
+		Border title1 = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), formation.getFullLongName());
+		setBorder(title1);		
+		addLabel("Supply Limits", 
+				GraphicTest.LEFT_MARGIN,
+				GraphicTest.TOP_MARGIN * 2, 
+				GraphicTest.COLUMN_WIDTH, 
+				GraphicTest.ROW_HEIGHT);
+		addNotEditableTextField(formation.getAllCompanies().size() + " / " +formation.getFormationLevel().getSupplyLimit(), 
+				GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH, 
+				GraphicTest.TOP_MARGIN * 2, 
+				GraphicTest.COLUMN_WIDTH, 
+				GraphicTest.ROW_HEIGHT);
 		List<String> labels1 = new ArrayList<String>();
 		labels1.add("Name");
 		labels1.add("Size");
@@ -58,7 +70,11 @@ public class FormationDetailPanel extends FastPanel {
 		labels1.add("Re-supply cost");
 		labels1.add("");
 		for (int i = 0; i < labels1.size(); i++) {
-			addLabel(labels1.get(i), GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH * i, GraphicTest.TOP_MARGIN, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+			addLabel(labels1.get(i), 
+					GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH * i, 
+					GraphicTest.TOP_MARGIN * 3 + GraphicTest.ROW_HEIGHT,
+					GraphicTest.COLUMN_WIDTH, 
+					GraphicTest.ROW_HEIGHT);
 		}
 		ReinforceCompanyListener reinforceCompanyListener = new ReinforceCompanyListener();
 		ResupplyCompanyListener resupplyCompanyListener = new ResupplyCompanyListener();
@@ -66,7 +82,7 @@ public class FormationDetailPanel extends FastPanel {
 		int j = 1;
 		for (Company company : formation.getCompanies()) {
 			List<Object> values1 = new ArrayList<Object>();
-			values1.add(company.getName());
+			values1.add(company.getFullShortName());
 			values1.add(company.getModel().getFormationLevel() + "(" + company.getModel().getFormationLevel().getCode() + ")");
 			values1.add(company.getModel().getType().getDenomination());
 			values1.add("" + company.getAbsoluteStrength() + "/" + company.getModel().getMaxStrength());
@@ -91,11 +107,16 @@ public class FormationDetailPanel extends FastPanel {
 					JButton button = (JButton) values1.get(i);
 					button.setBounds(
 							GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH * i,
-							GraphicTest.TOP_MARGIN + GraphicTest.ROW_HEIGHT * j,
-							GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+							GraphicTest.TOP_MARGIN * 3 + GraphicTest.ROW_HEIGHT * (j+1),
+							GraphicTest.COLUMN_WIDTH, 
+							GraphicTest.ROW_HEIGHT);
 					add(button);
 				} else {
-					addNotEditableTextField((String) values1.get(i), GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH * i, GraphicTest.TOP_MARGIN + GraphicTest.ROW_HEIGHT * j, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+					addNotEditableTextField((String) values1.get(i), 
+							GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH * i, 
+							GraphicTest.TOP_MARGIN * 3 + GraphicTest.ROW_HEIGHT * (j+1), 
+							GraphicTest.COLUMN_WIDTH, 
+							GraphicTest.ROW_HEIGHT);
 				}
 			}
 			j++;
@@ -105,9 +126,9 @@ public class FormationDetailPanel extends FastPanel {
 		DismissFormationListener dismissFormationListener = new DismissFormationListener();
 		for (Formation subordinate : formation.getSubordinates()) {
 			List<Object> values1 = new ArrayList<Object>();
-			values1.add(subordinate.getName());
+			values1.add(subordinate.getFullShortName());
 			values1.add("" + subordinate.getFormationLevel() + "(" + subordinate.getFormationLevel().getCode() + ")");
-			values1.add(formation.getType().getDenomination());
+			values1.add(formation.getTroopType().getDenomination());
 			values1.add("" + subordinate.getAbsoluteStrength() + "/" + subordinate.getMaxStrength());
 			values1.add(NumberFormats.PRESTIGE.format(managementService.regularReinforceCost(subordinate)));
 			JButton reinforceB = new FormationButton("Reinforce", subordinate);
@@ -129,11 +150,16 @@ public class FormationDetailPanel extends FastPanel {
 					JButton button = (JButton) values1.get(i);
 					button.setBounds(
 							GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH * i,
-							GraphicTest.TOP_MARGIN + GraphicTest.ROW_HEIGHT * j,
-							GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+							GraphicTest.TOP_MARGIN * 3 + GraphicTest.ROW_HEIGHT * (j+1),
+							GraphicTest.COLUMN_WIDTH, 
+							GraphicTest.ROW_HEIGHT);
 					add(button);
 				} else {
-					addNotEditableTextField((String) values1.get(i), GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH * i, GraphicTest.TOP_MARGIN + GraphicTest.ROW_HEIGHT * j, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+					addNotEditableTextField((String) values1.get(i), 
+							GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH * i, 
+							GraphicTest.TOP_MARGIN * 3 + GraphicTest.ROW_HEIGHT * (j+1), 
+							GraphicTest.COLUMN_WIDTH, 
+							GraphicTest.ROW_HEIGHT);
 				}
 
 			}

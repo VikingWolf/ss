@@ -3,17 +3,22 @@ package org.orion.ss.test.components;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 import org.orion.ss.model.Unit;
 import org.orion.ss.model.geo.Location;
+import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.Game;
 import org.orion.ss.service.GeoService;
 import org.orion.ss.service.GraphService;
 import org.orion.ss.test.GraphicTest;
+import org.springframework.util.StringUtils;
 
 public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 
@@ -29,6 +34,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 	private JButton endTurnB;
 	private JLabel infoL;
 	private SmallUnitInfoPanel unitInfoPanel;
+	private JTextField toDeployTF;
 
 	private Unit selectedUnit;
 
@@ -79,11 +85,25 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 				GraphicTest.LEFT_MARGIN,
 				GraphicTest.TOP_MARGIN * 3 + GraphicTest.ROW_HEIGHT * 2,
 				GraphicTest.COLUMN_WIDTH_XLARGE,
-				435);
+				415);
 		add(treePanel.getPanel());
 	}
 
 	protected void mountEndTurnButton() {
+		addLabel("Undeployed units", 
+				GraphicTest.LEFT_MARGIN,
+				treePanel.getPanel().getY() + treePanel.getPanel().getHeight() + GraphicTest.TOP_MARGIN,
+				GraphicTest.COLUMN_WIDTH,
+				GraphicTest.ROW_HEIGHT);
+		toDeployTF = new JTextField();
+		toDeployTF.setEditable(false);
+		toDeployTF.setText("" + geoService.undeployedUnits(game.getCurrentPlayerPosition()).size());
+		toDeployTF.setBounds(
+				GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH,
+				treePanel.getPanel().getY() + treePanel.getPanel().getHeight() + GraphicTest.TOP_MARGIN,
+				GraphicTest.COLUMN_WIDTH_NARROW,
+				GraphicTest.ROW_HEIGHT);
+		add(toDeployTF);
 		endTurnB = new JButton("End Deployment");
 		endTurnB.setBounds(GraphicTest.LEFT_MARGIN, 540, GraphicTest.COLUMN_WIDTH_XLARGE, GraphicTest.ROW_HEIGHT);
 		add(endTurnB);
@@ -120,7 +140,8 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 		if (result) {
 			mapPanel.setUnits(game.getAllUnitsLocated());
 			infoL.setForeground(Color.BLACK);
-			infoL.setText(selectedUnit.getFullName() + " placed at (" + location.getX() + "," + location.getY() + ")");
+			infoL.setText(selectedUnit.getFullLongName() + " placed at (" + location.getX() + "," + location.getY() + ")");
+			toDeployTF.setText("" + geoService.undeployedUnits(game.getCurrentPlayerPosition()).size());
 		} else {
 			infoL.setForeground(Color.RED);
 			infoL.setText("This unit cannot be placed here!");
@@ -150,6 +171,25 @@ class SmallUnitInfoPanel extends FastPanel {
 		} else {
 			setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Unit Info"));
 		}
+		if (unit instanceof Company){
+			buildCompanyInfo((Company)unit);
+		}
 	}
 
+	protected void buildCompanyInfo(Company unit){
+		List<String> labels = new ArrayList<String>();
+		labels.add("Type");
+		labels.add("Mobility");
+		labels.add("Speed");
+		labels.add("Initiative");
+		labels.add("Strength");
+		labels.add("Organization");
+		labels.add("Morale");
+		labels.add("Experience");
+		List<String> values = new ArrayList<String>();
+		values.add(StringUtils.capitalize(unit.getTroopType().getDenomination()));
+		values.add("" + unit.getMobilities());
+		//TODO values
+		//TODO defenses and attacks
+	}
 }

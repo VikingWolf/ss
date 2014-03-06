@@ -8,9 +8,14 @@ import java.util.Map;
 
 import org.orion.ss.model.Unit;
 import org.orion.ss.model.core.FormationLevel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
 public class FormationFormats {
 
+	protected final static Logger logger = LoggerFactory.getLogger(FormationFormats.class);
+	
 	private final static Map<FormationLevel, NumberFormat> _formats;
 
 	static {
@@ -26,14 +31,19 @@ public class FormationFormats {
 
 	}
 
-	public static String longFormat(Unit unit) {
-		NumberFormat formatter = _formats.get(unit.getFormationLevel());
-		return formatter.format(unit.getId()) + " " + unit.getFormationLevel().getDenomination();
-	}
-
-	private static String shortFormat(Unit unit) {
+	private static String minimalFormat(Unit unit) {
 		NumberFormat formatter = _formats.get(unit.getFormationLevel());
 		return formatter.format(unit.getId());
+	}
+
+	public static String shortFormat(Unit unit){
+		NumberFormat formatter = _formats.get(unit.getFormationLevel());
+		return formatter.format(unit.getId()) + " " + unit.getFormationLevel().getAbbreviation();		
+	}
+
+	public static String longFormat(Unit unit) {
+		NumberFormat formatter = _formats.get(unit.getFormationLevel());
+		return formatter.format(unit.getId()) + " " + StringUtils.capitalize(unit.getTroopType().getDenomination()) + " " + unit.getFormationLevel().getDenomination();
 	}
 
 	public static String fullShortFormat(Unit unit) {
@@ -41,18 +51,41 @@ public class FormationFormats {
 		if (unit != null) {
 			switch (unit.getFormationLevel()) {
 				case COMPANY:
-					result = shortFormat(unit) + " / " + fullShortFormat(unit.getParent());
+					result = minimalFormat(unit) + " / " + fullShortFormat(unit.getParent());
 				break;
 				case BATTALION:
-					result = shortFormat(unit) + ", " + shortFormat(unit.getParent());
+					result = minimalFormat(unit) + ", " + minimalFormat(unit.getParent());
 				break;
 				default:
-					result = shortFormat(unit);
+					result = minimalFormat(unit);
 			}
 		}
 		return result;
-
 	}
+	
+	public static String fullLongFormat(Unit unit) {
+		String result = "";
+		if (unit != null) {
+			switch (unit.getFormationLevel()) {
+				case COMPANY:
+					result = longFormat(unit) + " / " + fullLongFormat(unit.getParent());
+				break;
+				case BATTALION:
+					result = longFormat(unit) + ", " + fullLongFormat(unit.getParent());
+				break;
+				case REGIMENT:
+					result = longFormat(unit) + "(" + longFormat(unit.getParent()) +")";
+					break;
+				case BRIGADE:
+					result = longFormat(unit) + "(" + longFormat(unit.getParent()) +")";
+					break;
+				default:
+					result = longFormat(unit);
+			}
+		}
+		return result;
+	}
+
 
 }
 

@@ -60,7 +60,7 @@ public class Game extends Observable {
 	}
 
 	private void logPosition(Player player, Position position) {
-		String entry = player.getEmail() + " plays with " + position.getName() + "(" + position.getCountry().getName() + ") as " + position.getRole();
+		String entry = player.getEmail() + " plays with " + position.getLongName() + "(" + position.getCountry().getName() + ") as " + position.getRole();
 		this.getLog().addEntry(entry);
 		log.addDisplay(position.getCountry().getMarket());
 	}
@@ -70,7 +70,7 @@ public class Game extends Observable {
 		this.getLog().addEntry("Game score");
 		for (Player player : this.getPlayers()) {
 			Position position = getPositionFor(player);
-			this.getLog().addEntry(player.getEmail() + "\t\t" + position.getName() + "(" + position.getCountry() + ") =\t\t" + position.getPrestige());
+			this.getLog().addEntry(player.getEmail() + "\t\t" + position.getLongName() + "(" + position.getCountry() + ") =\t\t" + position.getPrestige());
 		}
 	}
 
