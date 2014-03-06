@@ -2759,3 +2759,19 @@
 06-03 01:39:05 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
 06-03 01:40:23 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Thu Mar 06 01:40:23 CET 2014
 06-03 01:40:24 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Thu Mar 06 01:40:24 CET 2014
+06-03 09:02:50 [main] [INFO ] GraphicTest[65]: Starting test at Thu Mar 06 09:02:50 CET 2014
+06-03 09:02:50 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+06-03 09:02:55 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+06-03 09:03:13 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Thu Mar 06 09:03:13 CET 2014
+06-03 09:04:48 [main] [INFO ] GraphicTest[65]: Starting test at Thu Mar 06 09:04:48 CET 2014
+06-03 09:04:48 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+06-03 09:04:52 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+06-03 09:05:17 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Thu Mar 06 09:05:17 CET 2014
+06-03 09:05:35 [main] [INFO ] GraphicTest[65]: Starting test at Thu Mar 06 09:05:35 CET 2014
+06-03 09:05:35 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+06-03 09:05:36 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+06-03 09:05:55 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Thu Mar 06 09:05:55 CET 2014
+06-03 09:06:47 [main] [INFO ] GraphicTest[65]: Starting test at Thu Mar 06 09:06:47 CET 2014
+06-03 09:06:48 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+06-03 09:06:49 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+06-03 09:07:04 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Thu Mar 06 09:07:04 CET 2014

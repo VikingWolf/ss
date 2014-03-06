@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.border.TitledBorder;
 
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.Formation;
@@ -48,8 +47,7 @@ public class FormationDetailPanel extends FastPanel {
 	public void update(Formation target) {
 		formation = target;
 		removeAll();
-		TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), formation.getName());
-		setBorder(title);
+		setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), formation.getName()));
 		List<String> labels1 = new ArrayList<String>();
 		labels1.add("Name");
 		labels1.add("Size");

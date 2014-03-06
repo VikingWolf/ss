@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -27,6 +28,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 	private DeploymentTreePanel treePanel;
 	private JButton endTurnB;
 	private JLabel infoL;
+	private SmallUnitInfoPanel unitInfoPanel;
 
 	private Unit selectedUnit;
 
@@ -55,8 +57,21 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 				GraphicTest.ROW_HEIGHT);
 		add(infoL);
 		mountTreePanel();
+		mountUnitInfoPanel();
 		mountEndTurnButton();
 		mountMapPanel();
+	}
+
+	protected void mountUnitInfoPanel() {
+		unitInfoPanel = new SmallUnitInfoPanel();
+		unitInfoPanel.setLayout(null);
+		unitInfoPanel.setBounds(
+				treePanel.getPanel().getX() + treePanel.getPanel().getWidth() + GraphicTest.LEFT_MARGIN,
+				GraphicTest.TOP_MARGIN,
+				260,
+				480);
+		add(unitInfoPanel);
+		unitInfoPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Unit Info"));
 	}
 
 	protected void mountTreePanel() {
@@ -96,6 +111,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 		selectedUnit = unit;
 		mapPanel.setDeployArea(geoService.getDeployArea(unit));
 		mapPanel.repaint();
+		unitInfoPanel.update(unit);
 	}
 
 	@Override
@@ -117,4 +133,23 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 		// TODO Auto-generated method stub
 
 	}
+}
+
+class SmallUnitInfoPanel extends FastPanel {
+
+	private static final long serialVersionUID = -1792156856265716386L;
+
+	public SmallUnitInfoPanel() {
+		super();
+	}
+
+	public void update(Unit unit) {
+		removeAll();
+		if (unit != null) {
+			setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), unit.toString()));
+		} else {
+			setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Unit Info"));
+		}
+	}
+
 }
