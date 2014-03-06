@@ -15,8 +15,8 @@ public class FormationFormats {
 
 	static {
 		_formats = new HashMap<FormationLevel, NumberFormat>();
-		_formats.put(FormationLevel.COMPANY, new DirectFormat());
-		_formats.put(FormationLevel.BATTALION, new OrdinalFormat());
+		_formats.put(FormationLevel.COMPANY, new LetterFormat());
+		_formats.put(FormationLevel.BATTALION, new RomanFormat());
 		_formats.put(FormationLevel.REGIMENT, new OrdinalFormat());
 		_formats.put(FormationLevel.BRIGADE, new OrdinalFormat());
 		_formats.put(FormationLevel.DIVISION, new OrdinalFormat());
@@ -26,34 +26,33 @@ public class FormationFormats {
 
 	}
 
-	public static String format(Unit unit){
+	public static String longFormat(Unit unit) {
+		NumberFormat formatter = _formats.get(unit.getFormationLevel());
+		return formatter.format(unit.getId()) + " " + unit.getFormationLevel().getDenomination();
+	}
+
+	public static String format(Unit unit) {
 		NumberFormat formatter = _formats.get(unit.getFormationLevel());
 		return formatter.format(unit.getId()) + " " + unit.getFormationLevel().getAbbreviation();
 	}
-	
-	private static String simpleFormat(Unit unit){
+
+	private static String simpleFormat(Unit unit) {
 		NumberFormat formatter = _formats.get(unit.getFormationLevel());
-		return formatter.format(unit.getId());		
+		return formatter.format(unit.getId());
 	}
 
-	public static String fullFormat(Unit unit){
+	public static String fullFormat(Unit unit) {
 		String result = "";
 		if (unit != null) {
-			switch (unit.getFormationLevel()){
-			case COMPANY :
-				result = simpleFormat(unit) + "/" + fullFormat(unit.getParent()); 
+			switch (unit.getFormationLevel()) {
+				case COMPANY:
+					result = simpleFormat(unit) + " / " + fullFormat(unit.getParent());
 				break;
-			case BATTALION :
-				result = simpleFormat(unit) + ", " + fullFormat(unit.getParent()); 
+				case BATTALION:
+					result = simpleFormat(unit) + ", " + simpleFormat(unit.getParent());
 				break;
-			case REGIMENT :
-				result = format(unit);
-				if (unit.getParent() != null){
-					result += "(" + fullFormat(unit.getParent()) + ")" ;
-				}  
-				break;				
-			default : 
-				result = format(unit);
+				default:
+					result = format(unit);
 			}
 		}
 		return result;
@@ -76,7 +75,8 @@ class DirectFormat extends NumberFormat {
 	public StringBuffer format(long number, StringBuffer arg1, FieldPosition arg2) {
 		if ((number < 0) || (number > 99)) throw new IllegalArgumentException();
 		StringBuffer result = new StringBuffer();
-		if (number == 0) result.append("HQ");
+		if (number == 0)
+			result.append("HQ");
 		else result.append(number);
 		return result;
 	}
@@ -100,10 +100,10 @@ class LetterFormat extends NumberFormat {
 
 	@Override
 	public StringBuffer format(long number, StringBuffer arg1, FieldPosition arg2) {
-		if (number <= 0) throw new IllegalArgumentException();
-		String[] numerals = { "", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };		
+		if (number < 0) throw new IllegalArgumentException();
+		String[] numerals = { "HQ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
 		StringBuffer result = new StringBuffer();
-		result.append(numerals[(int)number]);
+		result.append(numerals[(int) number]);
 		return result;
 	}
 
@@ -129,19 +129,19 @@ class OrdinalFormat extends NumberFormat {
 		if (number <= 0) throw new IllegalArgumentException();
 		StringBuffer result = new StringBuffer();
 		result.append(number);
-		int unit = (int)number % 10;
-		switch(unit) {
-		case 1 : 
-			result.append("st");
+		int unit = (int) number % 10;
+		switch (unit) {
+			case 1:
+				result.append("st");
 			break;
-		case 2 :
-			result.append("nd");
+			case 2:
+				result.append("nd");
 			break;
-		case 3 :
-			result.append("rd");
+			case 3:
+				result.append("rd");
 			break;
-		default :
-			result.append("th");				
+			default:
+				result.append("th");
 		}
 		return result;
 	}
@@ -166,14 +166,12 @@ class RomanFormat extends NumberFormat {
 
 	@Override
 	public StringBuffer format(long number, StringBuffer arg1, FieldPosition arg2) {
-		if (number <= 0 || number > 3999){
-			throw new IllegalArgumentException();
-		}
-		int[] values = new int[] { 1000, 900, 500, 400, 100,90, 50, 40, 10, 9, 5, 4, 1 };
-		String[] numerals = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };		
+		if (number <= 0 || number > 3999) { throw new IllegalArgumentException(); }
+		int[] values = new int[] { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+		String[] numerals = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
 		StringBuffer result = new StringBuffer();
-		for (int i = 0; i < 13; i++){
-			while (number >= values[i]){
+		for (int i = 0; i < 13; i++) {
+			while (number >= values[i]) {
 				number -= values[i];
 				result.append(numerals[i]);
 			}
@@ -188,5 +186,3 @@ class RomanFormat extends NumberFormat {
 	}
 
 }
-
-

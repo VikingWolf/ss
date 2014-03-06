@@ -29,7 +29,7 @@ public class Test {
 	}
 
 	protected void mountServices() {
-		game = new GameSample().buildGame();
+		game = new GameSample1Player().buildGame();
 		logger.info("Mounting services...");
 	}
 

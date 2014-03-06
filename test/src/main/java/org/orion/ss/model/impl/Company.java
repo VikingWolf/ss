@@ -1,8 +1,12 @@
 package org.orion.ss.model.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.orion.ss.model.ActivableImpl;
 import org.orion.ss.model.Mobile;
 import org.orion.ss.model.Unit;
+import org.orion.ss.model.core.CompanyTrait;
 import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.geo.Location;
@@ -22,38 +26,42 @@ public class Company extends ActivableImpl implements Mobile, Unit {
 	private double morale;
 	private Stock supplies;
 	private Formation parent;
+	private List<CompanyTrait> traits;
 
-	public Company(CompanyModel model){
+	private Company() {
 		super();
-		this.model = model;
 		supplies = new Stock();
-		this.strength = 0.0d;
-		this.experience = 1.0d;
-		this.organization = 1.0d;
-		this.morale = 1.0d;
-		this.supplies = new Stock();
+		location = new Location();
+		strength = 0.0d;
+		experience = 1.0d;
+		organization = 1.0d;
+		morale = 1.0d;
+		traits = new ArrayList<CompanyTrait>();
+
 	}
-	
+
+	public Company(CompanyModel model) {
+		this();
+		this.model = model;
+	}
+
 	public Company(Company company) {
-		super();
+		this();
 		model = company.getModel();
 		supplies = company.getSupplies();
-		id = company.getId();
+		setId(company.getId());
 		strength = company.getStrength();
 		experience = company.getExperience();
 		organization = company.getOrganization();
 		morale = company.getMorale();
 	}
 
-	public Company(CompanyModel model, int id, Location location, double experience, double morale, double strength) {
-		super();
+	public Company(CompanyModel model, int id, double experience, double morale, double strength) {
+		this();
 		this.model = model;
-		supplies = new Stock();
-		this.id = id;
-		this.location = location;
+		setId(id);
 		this.strength = strength;
 		this.experience = experience;
-		organization = 1.0d;
 		this.morale = morale;
 	}
 
@@ -75,12 +83,13 @@ public class Company extends ActivableImpl implements Mobile, Unit {
 		return getName();
 	}
 
-	public String getFullName(){
+	@Override
+	public String getFullName() {
 		return FormationFormats.fullFormat(this);
 	}
-	
+
 	public String getName() {
-		return FormationFormats.format(this);
+		return FormationFormats.longFormat(this);
 	}
 
 	@Override
@@ -98,6 +107,7 @@ public class Company extends ActivableImpl implements Mobile, Unit {
 		return result;
 	}
 
+	@Override
 	public Country getCountry() {
 		return parent.getCountry();
 	}
@@ -118,27 +128,42 @@ public class Company extends ActivableImpl implements Mobile, Unit {
 	public void increaseStrength(double strength) {
 		this.strength += strength;
 	}
-	
-	public int getAbsoluteStrength(){
-		return (int) (this.getStrength() * (double) this.getModel().getMaxStrength());
+
+	public int getAbsoluteStrength() {
+		return (int) (this.getStrength() * this.getModel().getMaxStrength());
 	}
-	
-	public void resupply(){
-		for (SupplyType type : this.getModel().getMaxSupplies().keySet()){
+
+	public void resupply() {
+		for (SupplyType type : this.getModel().getMaxSupplies().keySet()) {
 			double defect = this.getMaxSupplies().get(type) - this.getSupplies().get(type);
 			this.getSupplies().put(type, defect);
 		}
 	}
-	
+
 	@Override
-	public int stackSize(){
+	public int stackSize() {
 		return 1;
+	}
+
+	@Override
+	public Formation getParentFormation(FormationLevel level) {
+		if (this.getParent() != null)
+			return this.getParent().getParentFormation(level);
+		else return null;
 	}
 
 	/* getters & setters */
 
 	public CompanyModel getModel() {
 		return model;
+	}
+
+	public List<CompanyTrait> getTraits() {
+		return traits;
+	}
+
+	public void setTraits(List<CompanyTrait> traits) {
+		this.traits = traits;
 	}
 
 	public void setModel(CompanyModel model) {
@@ -194,8 +219,12 @@ public class Company extends ActivableImpl implements Mobile, Unit {
 
 	public void setId(int id) {
 		this.id = id;
+		if (id == 0) {
+			traits.add(CompanyTrait.HQ);
+		}
 	}
 
+	@Override
 	public Formation getParent() {
 		return parent;
 	}

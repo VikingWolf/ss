@@ -2,13 +2,22 @@ package org.orion.ss.model.geo;
 
 public class Location {
 
-	private int x;
-	private int y;
-	
-	public Location(int x, int y){
+	private int x = -1;
+	private int y = -1;
+
+	public Location() {
+		super();
+	}
+
+	public Location(int x, int y) {
 		super();
 		this.x = x;
 		this.y = y;
+	}
+
+	public void setLocation(Location location) {
+		x = location.getX();
+		y = location.getY();
 	}
 
 	@Override

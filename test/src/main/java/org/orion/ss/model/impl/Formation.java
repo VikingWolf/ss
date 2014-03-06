@@ -16,8 +16,8 @@ import org.slf4j.LoggerFactory;
 public class Formation extends ActivableImpl implements Mobile, Unit {
 
 	protected final static Logger logger = LoggerFactory.getLogger(Formation.class);
-	
-	private int id;
+
+	private final int id;
 	private Country country;
 	private List<Formation> subordinates;
 	private List<Company> companies; /* company at 0 is hq company */
@@ -41,38 +41,58 @@ public class Formation extends ActivableImpl implements Mobile, Unit {
 	@Override
 	public MobilitySet getMobilities() {
 		MobilitySet result = new MobilitySet();
-		for (Company company : getCompanyStackAtLocation(true)) {
-			result.addAll(company.getMobilities());
+		for (Unit unit : getUnitStackAtLocation(true)) {
+			result.addAll(unit.getMobilities());
+		}
+		return result;
+	}
+
+	public List<Unit> getAllUnits() {
+		List<Unit> result = new ArrayList<Unit>();
+		result.addAll(this.getCompanies());
+		for (Formation formation : this.getSubordinates()) {
+			result.addAll(formation.getAllUnits());
+		}
+		return result;
+	}
+
+	protected UnitStack getUnitStackAtLocation(boolean onlyActivables) {
+		return getUnitStackAtLocation(this.getLocation(), false);
+	}
+
+	protected UnitStack getUnitStackAtLocation(Location location, boolean onlyActivables) {
+		UnitStack result = new UnitStack(location);
+		for (Unit unit : getCompanies()) {
+			if (unit.getLocation().equals(location)) {
+				if (onlyActivables && unit.isActivable()) {
+					result.add(unit);
+				} else {
+					result.add(unit);
+				}
+			}
+		}
+		for (Formation formation : getSubordinates()) {
+			result.addAll(formation.getUnitStackAtLocation(location, onlyActivables));
 		}
 		return result;
 	}
 
 	public List<Company> getAllCompanies() {
 		List<Company> result = new ArrayList<Company>();
-		result.addAll(this.getCompanies());
-		for (Formation formation : this.getSubordinates()) {
-			result.addAll(formation.getAllCompanies());
+		for (Unit unit : this.getAllUnits()) {
+			if (unit instanceof Company) {
+				result.add((Company) unit);
+			}
 		}
 		return result;
 	}
 
-	protected CompanyStack getCompanyStackAtLocation(boolean onlyActivables) {
-		return getCompanyStackAtLocation(this.getLocation(), false);
-	}
-
-	protected CompanyStack getCompanyStackAtLocation(Location location, boolean onlyActivables) {
-		CompanyStack result = new CompanyStack(location);
-		for (Company company : getCompanies()) {
-			if (company.getLocation().equals(location)) {
-				if (onlyActivables && company.isActivable()) {
-					result.add(company);
-				} else {
-					result.add(company);
-				}
+	public List<Company> getCompanyStackAtLocation(boolean onlyActivables) {
+		List<Company> result = new ArrayList<Company>();
+		for (Unit unit : getUnitStackAtLocation(onlyActivables)) {
+			if (unit instanceof Company) {
+				result.add((Company) unit);
 			}
-		}
-		for (Formation formation : getSubordinates()) {
-			result.addAll(formation.getCompanyStackAtLocation(location, onlyActivables));
 		}
 		return result;
 	}
@@ -100,7 +120,7 @@ public class Formation extends ActivableImpl implements Mobile, Unit {
 
 	@Override
 	public int getId() {
-		return this.id;
+		return id;
 	}
 
 	@Override
@@ -111,16 +131,16 @@ public class Formation extends ActivableImpl implements Mobile, Unit {
 			return this.getParent().getPosition();
 		}
 	}
-	
-	public boolean isExpandable(){
+
+	public boolean isExpandable() {
 		return this.getAllCompanies().size() <= this.getFormationLevel().getSupplyLimit();
 	}
-	
+
 	@Override
-	public int stackSize(){
+	public int stackSize() {
 		return this.getCompanyStackAtLocation(false).size();
 	}
-	
+
 	/* adders */
 
 	public void addCompany(Company company) {
@@ -141,13 +161,25 @@ public class Formation extends ActivableImpl implements Mobile, Unit {
 	public void addShip(Ship ship) {
 		ships.add(ship);
 	}
-	
-	public String getFullName(){
+
+	@Override
+	public String getFullName() {
 		return FormationFormats.fullFormat(this);
 	}
 
 	public String getName() {
-		return FormationFormats.format(this);
+		return FormationFormats.longFormat(this);
+	}
+
+	@Override
+	public Formation getParentFormation(FormationLevel level) {
+		if (this.getFormationLevel().getOrdinal() < level.getOrdinal()) {
+			if (this.getParent() != null) {
+				return this.getParent().getParentFormation(level);
+			} else return null;
+		} else if (this.getFormationLevel().getOrdinal() == level.getOrdinal()) {
+			return this;
+		} else return null;
 	}
 
 	/* getters & setters */
@@ -183,7 +215,7 @@ public class Formation extends ActivableImpl implements Mobile, Unit {
 
 	@Override
 	public void setLocation(Location location) {
-		this.companies.get(0).setLocation(location);
+		companies.get(0).setLocation(location);
 	}
 
 	public List<AirSquadron> getAirSquadrons() {
@@ -202,6 +234,7 @@ public class Formation extends ActivableImpl implements Mobile, Unit {
 		this.ships = ships;
 	}
 
+	@Override
 	public FormationLevel getFormationLevel() {
 		return level;
 	}
@@ -210,6 +243,7 @@ public class Formation extends ActivableImpl implements Mobile, Unit {
 		this.level = level;
 	}
 
+	@Override
 	public Formation getParent() {
 		return parent;
 	}
@@ -218,6 +252,7 @@ public class Formation extends ActivableImpl implements Mobile, Unit {
 		this.parent = parent;
 	}
 
+	@Override
 	public Country getCountry() {
 		return country;
 	}

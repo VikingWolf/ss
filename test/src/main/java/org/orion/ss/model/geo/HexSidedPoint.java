@@ -1,24 +1,22 @@
 package org.orion.ss.model.geo;
 
-import java.awt.Point;
 import java.io.Serializable;
 
-
-public class HexSidedPoint extends Point implements Serializable {
+public class HexSidedPoint extends Location implements Serializable {
 
 	private static final long serialVersionUID = 457363877407482615L;
 
 	private HexSide side;
 
-	public HexSidedPoint(){
+	public HexSidedPoint() {
 		super();
 	}
-	
-	public HexSidedPoint(Point loc){
+
+	public HexSidedPoint(Location loc) {
 		super();
 		this.setLocation(loc);
 	}
-	
+
 	public HexSide getSide() {
 		return side;
 	}
@@ -26,8 +24,8 @@ public class HexSidedPoint extends Point implements Serializable {
 	public void setSide(HexSide side) {
 		this.side = side;
 	}
-	
-	public HexSidedPoint getComplementary(){
+
+	public HexSidedPoint getComplementary() {
 		HexSidedPoint adjacent = new HexSidedPoint();
 		adjacent.setLocation(side.getAdjacent(this));
 		adjacent.setSide(side.complementary());

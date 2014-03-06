@@ -80,7 +80,7 @@ public class GraphicTest {
 	}
 
 	protected void prepareGame() {
-		game = new GameSample().buildGame();
+		game = new GameSample1Player().buildGame();
 		gameService = new GameService(game);
 	}
 

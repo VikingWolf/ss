@@ -73,25 +73,30 @@ public class Game extends Observable {
 			this.getLog().addEntry(player.getEmail() + "\t\t" + position.getName() + "(" + position.getCountry() + ") =\t\t" + position.getPrestige());
 		}
 	}
-	
-	public List<Company> getAllCompanies(){
+
+	public List<Company> getAllCompanies() {
 		List<Company> result = new ArrayList<Company>();
-		for (Position position : positions.values()){
+		for (Position position : positions.values()) {
 			result.addAll(position.getAllCompanies());
 		}
 		return result;
 	}
-	
-	public Map<Location, Unit> getAllUnitsLocated(){
-		Map<Location, Unit> result = new HashMap<Location, Unit>();
-		for (Position position : positions.values()){
-			for (Company company : position.getAllCompanies()){
-				result.put(company.getLocation(), company);
+
+	public Map<Location, UnitStack> getAllUnitsLocated() {
+		Map<Location, UnitStack> result = new HashMap<Location, UnitStack>();
+		for (Position position : positions.values()) {
+			for (Unit unit : position.getAllUnits()) {
+				UnitStack stack = new UnitStack(unit.getLocation());
+				if (result.get(unit.getLocation()) != null) {
+					stack = result.get(unit.getLocation());
+				}
+				stack.add(unit);
+				result.put(stack.getLocation(), stack);
 			}
 		}
 		return result;
 	}
-	
+
 	/* adders */
 
 	public void addPosition(Player player, Position position) {

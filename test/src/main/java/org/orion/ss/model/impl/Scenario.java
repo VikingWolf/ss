@@ -1,6 +1,5 @@
 package org.orion.ss.model.impl;
 
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,23 +33,23 @@ public class Scenario {
 		map = new GeoMap(mapRows, mapColumns, Terrain.PLAINS, Vegetation.NONE);
 		positions = new ArrayList<Position>();
 	}
-	
-	public void addSupplySource(Point location, Position position){
-		assert(this.getMap().isInsideMap(location));
-		assert(positions.contains(position));
+
+	public void addSupplySource(Location location, Position position) {
+		assert (this.getMap().isInsideMap(location));
+		assert (positions.contains(position));
 		position.addSupplySource(location);
 	}
-	
-	public void addDeployPoint(Point location, Position position){
-		assert(this.getMap().isInsideMap(location));
-		assert(positions.contains(position));
-		position.addDeployPoint(location);		
+
+	public void addDeployPoint(Location location, Position position) {
+		assert (this.getMap().isInsideMap(location));
+		assert (positions.contains(position));
+		position.addDeployPoint(location);
 	}
 
 	public List<Position> getDefender() {
 		ArrayList<Position> result = new ArrayList<Position>();
-		for (Position position : positions){
-			if (position.getRole()==PositionRole.DEFENDER){
+		for (Position position : positions) {
+			if (position.getRole() == PositionRole.DEFENDER) {
 				result.add(position);
 			}
 		}
@@ -58,10 +57,10 @@ public class Scenario {
 	}
 
 	/* adders */
-	public void addPosition(Position position){
+	public void addPosition(Position position) {
 		positions.add(position);
 	}
-	
+
 	/* getters & setters */
 
 	public String getName() {
@@ -74,18 +73,18 @@ public class Scenario {
 
 	public List<Position> getAttacker() {
 		ArrayList<Position> result = new ArrayList<Position>();
-		for (Position position : positions){
-			if (position.getRole()==PositionRole.ATTACKER){
+		for (Position position : positions) {
+			if (position.getRole() == PositionRole.ATTACKER) {
 				result.add(position);
 			}
 		}
 		return result;
 	}
 
-	public List<Position> getPositions(){
-		return this.positions;
+	public List<Position> getPositions() {
+		return positions;
 	}
-	
+
 	public void setPositions(List<Position> positions) {
 		this.positions = positions;
 	}

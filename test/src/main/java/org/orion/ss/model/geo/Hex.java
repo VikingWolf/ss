@@ -1,7 +1,5 @@
 package org.orion.ss.model.geo;
 
-import java.awt.Point;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +9,7 @@ public class Hex {
 
 	private Terrain terrain;
 	private Vegetation vegetation;
-	private Point coords;
+	private Location coords;
 
 	public Hex() {
 		super();
@@ -23,16 +21,16 @@ public class Hex {
 		this.vegetation = vegetation;
 	}
 
-	public Hex(Point coords) {
+	public Hex(Location coords) {
 		super();
 		this.setCoords(coords);
 	}
 
-	public Point getCoords() {
+	public Location getCoords() {
 		return coords;
 	}
 
-	public void setCoords(Point coords) {
+	public void setCoords(Location coords) {
 		this.coords = coords;
 	}
 
@@ -56,7 +54,7 @@ public class Hex {
 
 	@Override
 	public String toString() {
-		return "Hex(" + (int) coords.getX() + "," + (int) coords.getY() + ")";
+		return "Hex(" + coords.getX() + "," + coords.getY() + ")";
 	}
 
 	@Override

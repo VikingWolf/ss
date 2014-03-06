@@ -1,5 +1,6 @@
 package org.orion.ss.model.impl;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,31 +15,32 @@ public class Country {
 	private double manpowerModifier;
 	private Market market;
 	private List<CompanyModel> companyModels;
-	private Map<FormationLevel, Integer> lastIds;
+	private final Map<FormationLevel, Integer> lastIds;
+	private Color color;
 
-	public Country(String name, double manpowerModifier) {
+	public Country(String name, double manpowerModifier, Color color) {
 		this.name = name;
 		this.manpowerModifier = manpowerModifier;
+		this.color = color;
 		market = new Market();
 		companyModels = new ArrayList<CompanyModel>();
 		lastIds = new HashMap<FormationLevel, Integer>();
 	}
 
-	public int getLastIdFor(FormationLevel level){
+	public int getLastIdFor(FormationLevel level) {
 		return lastIds.get(level);
 	}
 
 	public void updateLastId(Unit unit) {
-		if (unit.getFormationLevel().isUniqueId()){
+		if (unit.getFormationLevel().isUniqueId()) {
 			Integer actualId = lastIds.get(unit.getFormationLevel());
-			if (actualId == null){
-				lastIds.put(unit.getFormationLevel(), unit.getId());					
-			} else if (actualId < unit.getId()){
+			if (actualId == null) {
+				lastIds.put(unit.getFormationLevel(), unit.getId());
+			} else if (actualId < unit.getId()) {
 				lastIds.put(unit.getFormationLevel(), unit.getId());
 			}
 		}
 	}
-
 
 	/* adders */
 	public void addCompanyModel(CompanyModel model) {
@@ -79,6 +81,14 @@ public class Country {
 
 	public void setCompanyModels(List<CompanyModel> companyModels) {
 		this.companyModels = companyModels;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 
 }

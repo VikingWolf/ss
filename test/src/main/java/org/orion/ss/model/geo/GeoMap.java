@@ -26,13 +26,13 @@ public class GeoMap extends ArrayList<Hex> {
 		for (int i = 0; i < columns; i++) {
 			for (int j = 0; j < rows; j++) {
 				Hex hex = new Hex(defaultTerrain, defaultVegetation);
-				hex.setCoords(new Point(i, j));
+				hex.setCoords(new Location(i, j));
 				addOrReplace(hex);
 			}
 		}
 	}
 
-	public void setHexAt(Point coords, Hex hex) {
+	public void setHexAt(Location coords, Hex hex) {
 		hex.setCoords(coords);
 		addOrReplace(hex);
 	}
@@ -47,10 +47,10 @@ public class GeoMap extends ArrayList<Hex> {
 	}
 
 	public Hex getHexAt(int x, int y) {
-		return getHexAt(new Point(x, y));
+		return getHexAt(new Location(x, y));
 	}
 
-	public Hex getHexAt(Point location) {
+	public Hex getHexAt(Location location) {
 		Hex candidate = new Hex();
 		candidate.setCoords(location);
 		if (this.contains(candidate))
@@ -62,7 +62,7 @@ public class GeoMap extends ArrayList<Hex> {
 		List<River> rivers = new ArrayList<River>();
 		for (River river : this.rivers) {
 			for (HexSidedPoint loc : river.getLocs()) {
-				if (((int) loc.getX() == x) && ((int) loc.getY() == y)) {
+				if ((loc.getX() == x) && (loc.getY() == y)) {
 					rivers.add(river);
 				}
 			}
@@ -86,7 +86,7 @@ public class GeoMap extends ArrayList<Hex> {
 		List<Road> roads = new ArrayList<Road>();
 		for (Road road : this.roads) {
 			for (HexSidedPoint loc : road.getLocs()) {
-				if (((int) loc.getX() == x) && ((int) loc.getY() == y)) {
+				if ((loc.getX() == x) && (loc.getY() == y)) {
 					roads.add(road);
 				}
 			}
@@ -104,7 +104,7 @@ public class GeoMap extends ArrayList<Hex> {
 		} else return false;
 	}
 
-	public boolean isInsideMap(Point loc){
+	public boolean isInsideMap(Location loc) {
 		if ((loc.getX() < 0) ||
 				(loc.getY() < 0) ||
 				(loc.getX() >= rows) ||
@@ -117,7 +117,7 @@ public class GeoMap extends ArrayList<Hex> {
 		return getDistance(hex1.getCoords(), hex2.getCoords());
 	}
 
-	private double getDistance(Point point1, Point point2) {
+	private double getDistance(Location point1, Location point2) {
 		return Math.pow(Math.pow(point1.getX() - point2.getX(), 2)
 				+ Math.pow(point1.getY() - point2.getY(), 2), 0.5);
 	}

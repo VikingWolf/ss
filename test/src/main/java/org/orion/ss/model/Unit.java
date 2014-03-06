@@ -1,20 +1,24 @@
 package org.orion.ss.model;
 
-import org.orion.ss.model.geo.Location;
+import org.orion.ss.model.core.FormationLevel;
+import org.orion.ss.model.impl.Country;
+import org.orion.ss.model.impl.Formation;
 import org.orion.ss.model.impl.Position;
 
-public interface Unit extends Leveleable, Localizable {
+public interface Unit extends Leveleable, Mobile, Activable {
 
 	public int getId();
-	
+
 	public Unit getParent();
-	
+
 	public int stackSize();
-	
+
 	public Position getPosition();
-	
-	public Location getLocation();
-	
-	public void setLocation(Location location);
-	
+
+	public String getFullName();
+
+	public Country getCountry();
+
+	public Formation getParentFormation(FormationLevel level);
+
 }

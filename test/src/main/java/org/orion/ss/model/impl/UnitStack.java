@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 import org.orion.ss.model.Activable;
 import org.orion.ss.model.Mobile;
+import org.orion.ss.model.Unit;
 import org.orion.ss.model.geo.Location;
 
-public class CompanyStack extends ArrayList<Company> implements Activable, Mobile {
+public class UnitStack extends ArrayList<Unit> implements Activable, Mobile {
 
 	private static final long serialVersionUID = -4815492861835612058L;
 
@@ -14,7 +15,7 @@ public class CompanyStack extends ArrayList<Company> implements Activable, Mobil
 
 	private transient boolean hasBeenActivated = false;
 
-	public CompanyStack(Location location) {
+	public UnitStack(Location location) {
 		super();
 		this.location = location;
 	}
@@ -27,8 +28,8 @@ public class CompanyStack extends ArrayList<Company> implements Activable, Mobil
 	@Override
 	public MobilitySet getMobilities() {
 		MobilitySet result = new MobilitySet();
-		for (Company company : this) {
-			result.addAll(company.getMobilities());
+		for (Unit unit : this) {
+			result.addAll(unit.getMobilities());
 		}
 		return result;
 	}
