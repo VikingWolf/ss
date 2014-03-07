@@ -7171,3 +7171,359 @@
 06-03 18:32:40 [AWT-EventQueue-0] [ERROR] ManagementPanel[206]: updating create panel
 06-03 18:32:42 [AWT-EventQueue-0] [ERROR] ManagementPanel[206]: updating create panel
 06-03 18:38:08 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Thu Mar 06 18:38:08 CET 2014
+07-03 10:17:34 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:17:34 CET 2014
+07-03 10:17:35 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:17:35 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:17:37 [AWT-EventQueue-0] [ERROR] UnitStackDialog[202]: height=45
+07-03 10:17:37 [AWT-EventQueue-0] [ERROR] UnitStackDialog[221]: dialog height=45, buttonY=10
+07-03 10:17:52 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:17:52 CET 2014
+07-03 10:18:06 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:18:06 CET 2014
+07-03 10:18:06 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:18:07 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:18:09 [AWT-EventQueue-0] [ERROR] UnitStackDialog[202]: height=75
+07-03 10:18:09 [AWT-EventQueue-0] [ERROR] UnitStackDialog[221]: dialog height=75, buttonY=40
+07-03 10:18:20 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:18:20 CET 2014
+07-03 10:19:19 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:19:19 CET 2014
+07-03 10:19:19 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:19:20 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:19:22 [AWT-EventQueue-0] [ERROR] UnitStackDialog[202]: height=75
+07-03 10:19:22 [AWT-EventQueue-0] [ERROR] UnitStackDialog[221]: dialog height=75, buttonY=20
+07-03 10:19:33 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:19:33 CET 2014
+07-03 10:20:06 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:20:06 CET 2014
+07-03 10:20:07 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:20:07 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:20:08 [AWT-EventQueue-0] [ERROR] UnitStackDialog[204]: height=95
+07-03 10:20:08 [AWT-EventQueue-0] [ERROR] UnitStackDialog[223]: dialog height=95, buttonY=10
+07-03 10:20:15 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:20:15 CET 2014
+07-03 10:20:19 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:20:19 CET 2014
+07-03 10:20:20 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:20:21 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:20:22 [AWT-EventQueue-0] [ERROR] UnitStackDialog[204]: height=95
+07-03 10:20:22 [AWT-EventQueue-0] [ERROR] UnitStackDialog[223]: dialog height=95, buttonY=30
+07-03 10:20:27 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:20:27 CET 2014
+07-03 10:20:31 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:20:31 CET 2014
+07-03 10:20:31 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:20:34 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:20:35 [AWT-EventQueue-0] [ERROR] UnitStackDialog[204]: height=95
+07-03 10:20:35 [AWT-EventQueue-0] [ERROR] UnitStackDialog[223]: dialog height=95, buttonY=20
+07-03 10:20:37 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:20:37 CET 2014
+07-03 10:21:14 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:21:14 CET 2014
+07-03 10:21:14 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:21:15 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:21:17 [AWT-EventQueue-0] [ERROR] UnitStackDialog[204]: height=135
+07-03 10:21:17 [AWT-EventQueue-0] [ERROR] UnitStackDialog[223]: dialog height=135, buttonY=60
+07-03 10:21:21 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:21:21 CET 2014
+07-03 10:27:27 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:27:27 CET 2014
+07-03 10:27:27 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:27:29 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:27:30 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=135
+07-03 10:27:30 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=135, buttonY=60
+07-03 10:27:39 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=135
+07-03 10:27:39 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=135, buttonY=60
+07-03 10:28:03 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=199
+07-03 10:28:03 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=199, buttonY=124
+07-03 10:28:17 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:28:17 CET 2014
+07-03 10:29:28 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:29:28 CET 2014
+07-03 10:29:28 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:29:29 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:29:33 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=135
+07-03 10:29:33 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=135, buttonY=60
+07-03 10:29:38 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:29:38 CET 2014
+07-03 10:30:27 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:30:27 CET 2014
+07-03 10:30:27 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:30:28 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:30:31 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=199
+07-03 10:30:31 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=199, buttonY=124
+07-03 10:30:35 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:30:35 CET 2014
+07-03 10:30:40 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:30:40 CET 2014
+07-03 10:30:41 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:30:42 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:30:47 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=199
+07-03 10:30:47 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=199, buttonY=124
+07-03 10:30:51 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:30:51 CET 2014
+07-03 10:30:54 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:30:54 CET 2014
+07-03 10:30:55 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:30:56 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:31:00 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=199
+07-03 10:31:00 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=199, buttonY=124
+07-03 10:31:03 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:31:03 CET 2014
+07-03 10:31:13 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:31:13 CET 2014
+07-03 10:31:13 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:31:14 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:31:17 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=179
+07-03 10:31:17 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=179, buttonY=104
+07-03 10:31:22 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:31:22 CET 2014
+07-03 10:31:26 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:31:26 CET 2014
+07-03 10:31:26 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:31:28 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:31:31 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=184
+07-03 10:31:31 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=184, buttonY=109
+07-03 10:31:43 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=184
+07-03 10:31:43 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=184, buttonY=109
+07-03 10:32:11 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=184
+07-03 10:32:11 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=184, buttonY=109
+07-03 10:32:14 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:32:14 CET 2014
+07-03 10:32:21 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:32:21 CET 2014
+07-03 10:32:21 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:32:22 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:32:27 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=184
+07-03 10:32:27 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=184, buttonY=109
+07-03 10:32:36 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=184
+07-03 10:32:36 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=184, buttonY=109
+07-03 10:32:42 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=184
+07-03 10:32:42 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=184, buttonY=109
+07-03 10:32:46 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=184
+07-03 10:32:46 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=184, buttonY=109
+07-03 10:32:48 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=184
+07-03 10:32:48 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=184, buttonY=109
+07-03 10:32:51 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=248
+07-03 10:32:51 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=248, buttonY=173
+07-03 10:33:12 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=248
+07-03 10:33:12 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=248, buttonY=173
+07-03 10:33:20 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:33:20 CET 2014
+07-03 10:35:14 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:35:14 CET 2014
+07-03 10:35:14 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:35:15 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:35:34 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=248
+07-03 10:35:34 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=248, buttonY=173
+07-03 10:35:52 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:35:52 CET 2014
+07-03 10:36:09 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:36:09 CET 2014
+07-03 10:36:09 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:36:15 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:36:16 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=120
+07-03 10:36:16 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=120, buttonY=45
+07-03 10:36:20 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=120
+07-03 10:36:20 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=120, buttonY=45
+07-03 10:36:24 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:36:24 CET 2014
+07-03 10:36:49 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:36:49 CET 2014
+07-03 10:36:49 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:36:50 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:36:53 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=184
+07-03 10:36:53 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=184, buttonY=109
+07-03 10:36:55 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=184
+07-03 10:36:55 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=184, buttonY=109
+07-03 10:37:00 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:37:00 CET 2014
+07-03 10:37:33 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:37:33 CET 2014
+07-03 10:37:33 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:37:34 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:37:37 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=120
+07-03 10:37:37 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=120, buttonY=45
+07-03 10:37:45 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=120
+07-03 10:37:45 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=120, buttonY=45
+07-03 10:37:47 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:37:47 CET 2014
+07-03 10:38:21 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:38:21 CET 2014
+07-03 10:38:21 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:38:22 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:38:25 [AWT-EventQueue-0] [ERROR] UnitStackDialog[204]: val=0.0
+07-03 10:38:25 [AWT-EventQueue-0] [ERROR] UnitStackDialog[209]: height=120
+07-03 10:38:25 [AWT-EventQueue-0] [ERROR] UnitStackDialog[221]: dialog height=120, buttonY=45
+07-03 10:38:40 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:38:40 CET 2014
+07-03 10:38:40 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:38:42 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:38:44 [AWT-EventQueue-0] [ERROR] UnitStackDialog[204]: val=0.0
+07-03 10:38:44 [AWT-EventQueue-0] [ERROR] UnitStackDialog[209]: height=120
+07-03 10:38:44 [AWT-EventQueue-0] [ERROR] UnitStackDialog[221]: dialog height=120, buttonY=45
+07-03 10:38:55 [AWT-EventQueue-0] [ERROR] UnitStackDialog[204]: val=0.2
+07-03 10:38:55 [AWT-EventQueue-0] [ERROR] UnitStackDialog[209]: height=120
+07-03 10:38:55 [AWT-EventQueue-0] [ERROR] UnitStackDialog[221]: dialog height=120, buttonY=45
+07-03 10:39:20 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:39:20 CET 2014
+07-03 10:39:48 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:39:48 CET 2014
+07-03 10:39:48 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:39:50 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:39:55 [AWT-EventQueue-0] [ERROR] UnitStackDialog[204]: val=1.0
+07-03 10:39:55 [AWT-EventQueue-0] [ERROR] UnitStackDialog[209]: height=184
+07-03 10:39:55 [AWT-EventQueue-0] [ERROR] UnitStackDialog[221]: dialog height=184, buttonY=109
+07-03 10:40:00 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:40:00 CET 2014
+07-03 10:41:23 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:41:23 CET 2014
+07-03 10:41:23 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:41:24 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:41:28 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=824
+07-03 10:41:28 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=824, buttonY=749
+07-03 10:41:31 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:41:31 CET 2014
+07-03 10:41:58 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:41:58 CET 2014
+07-03 10:42:02 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:42:02 CET 2014
+07-03 10:42:02 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:42:03 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:42:06 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=194
+07-03 10:42:06 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=194, buttonY=119
+07-03 10:42:09 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:42:09 CET 2014
+07-03 10:42:20 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:42:20 CET 2014
+07-03 10:42:20 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:42:21 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:42:33 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=159
+07-03 10:42:33 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=159, buttonY=84
+07-03 10:42:40 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=159
+07-03 10:42:40 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=159, buttonY=84
+07-03 10:42:45 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:42:45 CET 2014
+07-03 10:43:04 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:43:04 CET 2014
+07-03 10:43:04 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:43:06 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:43:22 [AWT-EventQueue-0] [ERROR] UnitStackDialog[206]: height=169
+07-03 10:43:22 [AWT-EventQueue-0] [ERROR] UnitStackDialog[218]: dialog height=169, buttonY=94
+07-03 10:43:50 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:43:50 CET 2014
+07-03 10:46:33 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:46:33 CET 2014
+07-03 10:46:34 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:46:36 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:46:36 CET 2014
+07-03 10:49:16 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:49:16 CET 2014
+07-03 10:49:16 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:49:17 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:49:24 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:49:24 CET 2014
+07-03 10:49:38 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:49:38 CET 2014
+07-03 10:49:39 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:49:41 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:49:50 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:49:50 CET 2014
+07-03 10:50:33 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:50:33 CET 2014
+07-03 10:50:33 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:50:34 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:50:39 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:50:39 CET 2014
+07-03 10:50:45 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:50:45 CET 2014
+07-03 10:50:45 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:50:46 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:50:52 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:50:52 CET 2014
+07-03 10:51:17 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:51:17 CET 2014
+07-03 10:51:17 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:51:18 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:51:25 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:51:25 CET 2014
+07-03 10:51:30 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:51:30 CET 2014
+07-03 10:51:30 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:51:32 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:51:47 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:51:47 CET 2014
+07-03 10:52:45 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:52:45 CET 2014
+07-03 10:52:45 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:52:46 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:52:56 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:52:56 CET 2014
+07-03 10:53:08 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:53:08 CET 2014
+07-03 10:53:08 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:53:09 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:54:04 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:54:04 CET 2014
+07-03 10:55:00 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 10:55:00 CET 2014
+07-03 10:55:00 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 10:55:01 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 10:55:24 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 10:55:24 CET 2014
+07-03 11:22:41 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 11:22:41 CET 2014
+07-03 11:22:41 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 11:22:42 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 11:22:59 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 11:22:59 CET 2014
+07-03 11:23:13 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 11:23:13 CET 2014
+07-03 11:23:13 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 11:23:15 [AWT-EventQueue-0] [ERROR] ManagementPanel[206]: updating create panel
+07-03 11:23:16 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 11:23:22 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 11:23:22 CET 2014
+07-03 11:23:54 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 11:23:53 CET 2014
+07-03 11:23:54 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 11:23:55 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 11:24:08 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 11:24:08 CET 2014
+07-03 11:24:39 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 11:24:39 CET 2014
+07-03 11:24:39 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 11:24:40 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 11:24:50 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 11:24:50 CET 2014
+07-03 11:34:06 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 11:34:06 CET 2014
+07-03 11:34:07 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 11:34:08 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 11:34:16 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 11:34:16 CET 2014
+07-03 12:35:40 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 12:35:40 CET 2014
+07-03 12:35:41 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 12:35:42 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 12:35:53 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 12:35:53 CET 2014
+07-03 12:37:19 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 12:37:19 CET 2014
+07-03 12:37:19 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 12:37:20 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 12:38:07 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 12:38:07 CET 2014
+07-03 12:38:40 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 12:38:40 CET 2014
+07-03 12:38:41 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 12:38:42 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 12:39:24 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 12:39:24 CET 2014
+07-03 12:40:07 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 12:40:07 CET 2014
+07-03 12:40:07 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 12:40:08 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 12:40:30 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 12:40:30 CET 2014
+07-03 12:46:58 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 12:46:58 CET 2014
+07-03 12:46:58 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 12:46:59 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 12:47:00 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=TURN
+07-03 12:47:15 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 12:47:15 CET 2014
+07-03 12:47:30 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 12:47:30 CET 2014
+07-03 12:47:31 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 12:47:33 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 12:47:48 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 12:47:48 CET 2014
+07-03 12:48:24 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 12:48:24 CET 2014
+07-03 12:48:24 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 12:48:26 [AWT-EventQueue-0] [ERROR] ManagementPanel[206]: updating create panel
+07-03 12:48:28 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 12:48:50 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 12:48:50 CET 2014
+07-03 12:49:53 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 12:49:53 CET 2014
+07-03 12:49:54 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 12:49:54 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 12:50:13 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 12:50:13 CET 2014
+07-03 12:50:58 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 12:50:58 CET 2014
+07-03 12:50:59 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 12:50:59 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 12:51:07 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 12:51:07 CET 2014
+07-03 12:54:06 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 12:54:06 CET 2014
+07-03 12:54:06 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 12:54:07 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 12:54:28 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 12:54:28 CET 2014
+07-03 12:55:34 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 12:55:34 CET 2014
+07-03 12:55:35 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 12:55:35 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 12:55:46 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 12:55:46 CET 2014
+07-03 12:56:39 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 12:56:39 CET 2014
+07-03 12:56:39 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 12:56:40 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 12:56:50 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 12:56:50 CET 2014
+07-03 12:58:58 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 12:58:58 CET 2014
+07-03 12:58:58 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 12:58:59 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 12:59:08 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 12:59:08 CET 2014
+07-03 13:00:36 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 13:00:36 CET 2014
+07-03 13:00:37 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 13:00:38 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 13:00:46 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 13:00:46 CET 2014
+07-03 13:07:26 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 13:07:26 CET 2014
+07-03 13:07:26 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 13:07:27 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 13:08:47 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 13:08:47 CET 2014
+07-03 13:08:48 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 13:08:48 [AWT-EventQueue-0] [ERROR] ManagementPanel[206]: updating create panel
+07-03 13:08:50 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 13:09:02 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 13:09:02 CET 2014
+07-03 13:09:25 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 13:09:25 CET 2014
+07-03 13:09:26 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 13:09:27 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 13:09:35 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 13:09:35 CET 2014
+07-03 13:11:00 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 13:11:00 CET 2014
+07-03 13:11:01 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 13:11:01 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 13:11:08 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 13:11:08 CET 2014
+07-03 13:11:14 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 13:11:14 CET 2014
+07-03 13:11:15 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 13:11:16 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 13:11:22 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 13:11:22 CET 2014
+07-03 13:11:58 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 13:11:58 CET 2014
+07-03 13:11:59 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 13:12:00 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 13:12:06 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 13:12:06 CET 2014
+07-03 13:12:18 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 13:12:18 CET 2014
+07-03 13:12:18 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 13:12:19 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 13:12:34 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 13:12:34 CET 2014
+07-03 13:15:48 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 13:15:48 CET 2014
+07-03 13:15:48 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 13:15:49 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 13:15:56 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 13:15:56 CET 2014
+07-03 13:16:10 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 13:16:10 CET 2014
+07-03 13:16:10 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 13:16:11 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 13:16:16 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 13:16:16 CET 2014
+07-03 13:16:22 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 13:16:22 CET 2014
+07-03 13:16:22 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 13:16:23 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 13:16:42 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 13:16:42 CET 2014
+07-03 13:19:07 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 13:19:07 CET 2014
+07-03 13:19:07 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 13:19:08 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 13:19:20 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 13:19:20 CET 2014
+07-03 13:22:49 [main] [INFO ] GraphicTest[65]: Starting test at Fri Mar 07 13:22:49 CET 2014
+07-03 13:22:49 [main] [ERROR] GraphicTest[89]: phase=MANAGEMENT
+07-03 13:22:50 [AWT-EventQueue-0] [ERROR] GraphicTest[89]: phase=DEPLOYMENT
+07-03 13:23:19 [AWT-EventQueue-0] [INFO ] GraphicTest$1[118]: Ending test at Fri Mar 07 13:23:19 CET 2014

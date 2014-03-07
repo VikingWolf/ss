@@ -1,20 +1,28 @@
 package org.orion.ss.test.components;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import org.orion.ss.model.Unit;
+import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.geo.Location;
+import org.orion.ss.model.impl.Company;
+import org.orion.ss.model.impl.Formation;
 import org.orion.ss.model.impl.Game;
 import org.orion.ss.model.impl.UnitStack;
 import org.orion.ss.service.GeoService;
@@ -155,20 +163,22 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 	@Override
 	public void locationInfo(Location location, int x, int y) {
 		int symbolSize = 64;
-		int horizCapacity = 6;
-		UnitStackDialog unitStackDialog = new UnitStackDialog(geoService.getStackAt(location), symbolSize, horizCapacity);
-		Point size = unitStackDialog.computeSize();
-		int bX = x + mapPanel.getX() + (int) HEX_SIDE;
-		if (bX + (int) size.getX() > GraphicTest.WINDOW_BOUNDS.getWidth()) {
-			bX = x + mapPanel.getX() - (int) HEX_SIDE - (int) size.getX();
+		UnitStack stack = geoService.getStackAt(location);
+		if (stack.size()>0){
+			UnitStackDialog unitStackDialog = new UnitStackDialog(stack, symbolSize, game);
+			Dimension dimension = unitStackDialog.computeSize();
+			int bX = x + mapPanel.getWidth() + (int) HEX_SIDE;
+			if (bX + (int) dimension.getWidth() > GraphicTest.WINDOW_BOUNDS.getWidth()) {
+				bX = x + mapPanel.getX() - (int) HEX_SIDE - (int) dimension.getWidth();
+			}
+			unitStackDialog.setBounds(
+					bX,
+					y + mapPanel.getY(),
+					(int) dimension.getWidth(),
+					(int) dimension.getHeight());
+			unitStackDialog.mount();
+			unitStackDialog.setVisible(true);
 		}
-		unitStackDialog.setBounds(
-				bX,
-				y + mapPanel.getY(),
-				(int) size.getX(),
-				(int) size.getY());
-		unitStackDialog.mount();
-		unitStackDialog.setVisible(true);
 	}
 }
 
@@ -178,47 +188,43 @@ class UnitStackDialog extends JDialog {
 
 	protected final static Logger logger = LoggerFactory.getLogger(UnitStackDialog.class);
 
-	private final UnitStack stack;
-	private final int symbolSize;
-	private final int horizCapacity;
-	private int vertCapacity = 0;
-	private final static int _okButtonHeight = GraphicTest.ROW_HEIGHT;
-	private final static int _headerHeight = 80;
 
-	public UnitStackDialog(UnitStack stack, int symbolSize, int horizCapacity) {
+	private UnitStackPanel unitStackCanvas;
+	private final static int _okButtonHeight = GraphicTest.ROW_HEIGHT;
+	private final static int _headerHeight = 35;
+	private final static int _footerHeight = 40;
+	private final static int width = 400;
+	private final static int maxHeight = 300;
+
+	public UnitStackDialog(UnitStack stack, int symbolSize, Game game) {
 		super();
-		this.stack = stack;
-		this.symbolSize = symbolSize;
-		this.horizCapacity = horizCapacity;
+		unitStackCanvas = new UnitStackPanel(stack, symbolSize, game);
 		setTitle("Unit Info at (" + stack.getLocation().getX() + "," + stack.getLocation().getY() + ")");
 		setModal(true);
-		setLayout(null);
+		getContentPane().setLayout(null);
 	}
 
-	public Point computeSize() {
-		vertCapacity = stack.size() / horizCapacity;
-		int width = symbolSize * horizCapacity + GraphicTest.LEFT_MARGIN + GraphicTest.RIGHT_MARGIN;
-		int height = GraphicTest.TOP_MARGIN + GraphicTest.BOTTOM_MARGIN + _okButtonHeight + vertCapacity * symbolSize + _headerHeight;
-		logger.error("height=" + height);
-		return new Point(width, height);
+	public Dimension computeSize() {
+		int height = unitStackCanvas.getUnitStack().size() * (GraphicTest.TOP_MARGIN + unitStackCanvas.getSymbolSize()) + GraphicTest.TOP_MARGIN * 2 + GraphicTest.BOTTOM_MARGIN + _okButtonHeight +  _footerHeight;
+		return new Dimension(width, Math.min(height, maxHeight));
 	}
 
 	public void mount() {
-		UnitStackPanel unitStackPanel = new UnitStackPanel();
+		JScrollPane unitStackPanel = new JScrollPane(unitStackCanvas);
+		unitStackPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		unitStackPanel.setBounds(
-				GraphicTest.LEFT_MARGIN,
+				GraphicTest.LEFT_MARGIN, 
 				GraphicTest.TOP_MARGIN,
-				symbolSize * horizCapacity,
-				symbolSize * vertCapacity
-				);
+				this.getWidth() - GraphicTest.LEFT_MARGIN * 2 - GraphicTest.LATERAL_SWING_MARGIN,
+				this.getHeight() - _headerHeight - GraphicTest.TOP_MARGIN * 2 - GraphicTest.BOTTOM_MARGIN - _okButtonHeight);
+		getContentPane().add(unitStackPanel);			
 		JButton closeB = new JButton("OK");
 		closeB.setBounds(
-				(this.getWidth() - GraphicTest.LEFT_MARGIN - GraphicTest.RIGHT_MARGIN - GraphicTest.COLUMN_WIDTH) / 2,
-				this.getHeight() - _okButtonHeight - GraphicTest.BOTTOM_MARGIN,
-				GraphicTest.COLUMN_WIDTH,
+				(this.getWidth() - GraphicTest.COLUMN_WIDTH_NARROW) / 2,
+				this.getHeight() - _okButtonHeight - GraphicTest.BOTTOM_MARGIN - _footerHeight,
+				GraphicTest.COLUMN_WIDTH_NARROW,
 				GraphicTest.ROW_HEIGHT
 				);
-		logger.error("dialog height=" + getHeight() + ", buttonY=" + closeB.getY());
 		closeB.addActionListener(new ActionListener() {
 
 			@Override
@@ -229,15 +235,65 @@ class UnitStackDialog extends JDialog {
 		});
 		add(closeB);
 	}
+
 }
 
 class UnitStackPanel extends JPanel {
 
-	private static final long serialVersionUID = 4469120112654662176L;
+	private static final long serialVersionUID = -617645392072460358L;
 
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
+	private GraphService graphService;
+	private int symbolSize = 0;
+	private UnitStack unitStack;
+
+	public UnitStackPanel(UnitStack unitStack, int symbolSize, Game game){
+		super(new GridLayout(0, 1));
+		graphService = new GraphService(game);
+		graphService.setSymbolSize(symbolSize);
+		this.symbolSize = symbolSize;		
+		this.unitStack = unitStack;
+		for (Unit unit : unitStack){
+			UnitInfoRow row = new UnitInfoRow(unit, this.symbolSize, graphService.getUnitSymbol((Company)(unit)));			
+			add(row);
+		}
 	}
 
+	public int getSymbolSize() {
+		return symbolSize;
+	}
+
+	public void setSymbolSize(int symbolSize) {
+		this.symbolSize = symbolSize;
+	}
+
+	public UnitStack getUnitStack() {
+		return unitStack;
+	}
+
+	public void setUnitStack(UnitStack unitStack) {
+		this.unitStack = unitStack;
+	}
+
+}
+
+class UnitInfoRow extends JPanel {
+	
+	private static final long serialVersionUID = 7349489354503508589L;
+
+	private Unit unit;
+	private int symbolSize;
+	private BufferedImage symbol; 
+	
+	public UnitInfoRow(Unit unit, int symbolSize, BufferedImage symbol){
+		super(new GridBagLayout());
+		GridBagConstraints gridConstraints = new GridBagConstraints();
+		
+		JLabel unitSymbol = new JLabel();
+		unitSymbol.setIcon(new ImageIcon(symbol));
+		
+		add(unitSymbol);
+		Formation division = unit.getParentFormation(FormationLevel.DIVISION);
+		Formation corps = unit.getParentFormation(FormationLevel.CORPS);
+
+	}
 }
