@@ -10,6 +10,7 @@ import org.orion.ss.model.geo.Location;
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.Game;
 import org.orion.ss.model.impl.Position;
+import org.orion.ss.model.impl.UnitStack;
 
 public class GeoService extends Service {
 
@@ -37,16 +38,21 @@ public class GeoService extends Service {
 
 	}
 
-	protected int getStackSizeAt(Location location) {
-		int result = 0;
+	public UnitStack getStackAt(Location location) {
+		UnitStack result = new UnitStack(location);
 		for (Company company : getGame().getAllCompanies()) {
 			if (company.getLocation() != null) {
 				if (company.getLocation().equals(location)) {
-					result++;
+					result.add(company);
 				}
 			}
 		}
 		return result;
+
+	}
+
+	protected int getStackSizeAt(Location location) {
+		return getStackAt(location).size();
 	}
 
 	private boolean canBeDeployedAt(Unit unit, Location location) {
@@ -62,11 +68,11 @@ public class GeoService extends Service {
 		}
 		return result;
 	}
-	
-	public List<Unit> undeployedUnits(Position position){
+
+	public List<Unit> undeployedUnits(Position position) {
 		List<Unit> result = new ArrayList<Unit>();
-		for (Company company : position.getAllCompanies()){
-			if (company.getLocation().equals(new Location(-1, -1))){
+		for (Company company : position.getAllCompanies()) {
+			if (company.getLocation().equals(new Location(-1, -1))) {
 				result.add(company);
 			}
 		}

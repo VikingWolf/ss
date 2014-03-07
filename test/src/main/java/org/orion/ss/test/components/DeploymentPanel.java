@@ -1,24 +1,27 @@
 package org.orion.ss.test.components;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.orion.ss.model.Unit;
 import org.orion.ss.model.geo.Location;
-import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.Game;
+import org.orion.ss.model.impl.UnitStack;
 import org.orion.ss.service.GeoService;
 import org.orion.ss.service.GraphService;
 import org.orion.ss.test.GraphicTest;
-import org.springframework.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 
@@ -69,12 +72,12 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 	}
 
 	protected void mountUnitInfoPanel() {
-		unitInfoPanel = new SmallUnitInfoPanel();
+		unitInfoPanel = new SmallUnitInfoPanel(game);
 		unitInfoPanel.setLayout(null);
 		unitInfoPanel.setBounds(
 				treePanel.getPanel().getX() + treePanel.getPanel().getWidth() + GraphicTest.LEFT_MARGIN,
 				GraphicTest.TOP_MARGIN,
-				260,
+				265,
 				480);
 		add(unitInfoPanel);
 		unitInfoPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Unit Info"));
@@ -90,7 +93,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 	}
 
 	protected void mountEndTurnButton() {
-		addLabel("Undeployed units", 
+		addLabel("Undeployed units",
 				GraphicTest.LEFT_MARGIN,
 				treePanel.getPanel().getY() + treePanel.getPanel().getHeight() + GraphicTest.TOP_MARGIN,
 				GraphicTest.COLUMN_WIDTH,
@@ -150,46 +153,91 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 	}
 
 	@Override
-	public void locationInfo(Location location) {
-		// TODO Auto-generated method stub
-
+	public void locationInfo(Location location, int x, int y) {
+		int symbolSize = 64;
+		int horizCapacity = 6;
+		UnitStackDialog unitStackDialog = new UnitStackDialog(geoService.getStackAt(location), symbolSize, horizCapacity);
+		Point size = unitStackDialog.computeSize();
+		int bX = x + mapPanel.getX() + (int) HEX_SIDE;
+		if (bX + (int) size.getX() > GraphicTest.WINDOW_BOUNDS.getWidth()) {
+			bX = x + mapPanel.getX() - (int) HEX_SIDE - (int) size.getX();
+		}
+		unitStackDialog.setBounds(
+				bX,
+				y + mapPanel.getY(),
+				(int) size.getX(),
+				(int) size.getY());
+		unitStackDialog.mount();
+		unitStackDialog.setVisible(true);
 	}
 }
 
-class SmallUnitInfoPanel extends FastPanel {
+class UnitStackDialog extends JDialog {
 
-	private static final long serialVersionUID = -1792156856265716386L;
+	private static final long serialVersionUID = 5084475594671764480L;
 
-	public SmallUnitInfoPanel() {
+	protected final static Logger logger = LoggerFactory.getLogger(UnitStackDialog.class);
+
+	private final UnitStack stack;
+	private final int symbolSize;
+	private final int horizCapacity;
+	private int vertCapacity = 0;
+	private final static int _okButtonHeight = GraphicTest.ROW_HEIGHT;
+	private final static int _headerHeight = 80;
+
+	public UnitStackDialog(UnitStack stack, int symbolSize, int horizCapacity) {
 		super();
+		this.stack = stack;
+		this.symbolSize = symbolSize;
+		this.horizCapacity = horizCapacity;
+		setTitle("Unit Info at (" + stack.getLocation().getX() + "," + stack.getLocation().getY() + ")");
+		setModal(true);
+		setLayout(null);
 	}
 
-	public void update(Unit unit) {
-		removeAll();
-		if (unit != null) {
-			setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), unit.toString()));
-		} else {
-			setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Unit Info"));
-		}
-		if (unit instanceof Company){
-			buildCompanyInfo((Company)unit);
-		}
+	public Point computeSize() {
+		vertCapacity = stack.size() / horizCapacity;
+		int width = symbolSize * horizCapacity + GraphicTest.LEFT_MARGIN + GraphicTest.RIGHT_MARGIN;
+		int height = GraphicTest.TOP_MARGIN + GraphicTest.BOTTOM_MARGIN + _okButtonHeight + vertCapacity * symbolSize + _headerHeight;
+		logger.error("height=" + height);
+		return new Point(width, height);
 	}
 
-	protected void buildCompanyInfo(Company unit){
-		List<String> labels = new ArrayList<String>();
-		labels.add("Type");
-		labels.add("Mobility");
-		labels.add("Speed");
-		labels.add("Initiative");
-		labels.add("Strength");
-		labels.add("Organization");
-		labels.add("Morale");
-		labels.add("Experience");
-		List<String> values = new ArrayList<String>();
-		values.add(StringUtils.capitalize(unit.getTroopType().getDenomination()));
-		values.add("" + unit.getMobilities());
-		//TODO values
-		//TODO defenses and attacks
+	public void mount() {
+		UnitStackPanel unitStackPanel = new UnitStackPanel();
+		unitStackPanel.setBounds(
+				GraphicTest.LEFT_MARGIN,
+				GraphicTest.TOP_MARGIN,
+				symbolSize * horizCapacity,
+				symbolSize * vertCapacity
+				);
+		JButton closeB = new JButton("OK");
+		closeB.setBounds(
+				(this.getWidth() - GraphicTest.LEFT_MARGIN - GraphicTest.RIGHT_MARGIN - GraphicTest.COLUMN_WIDTH) / 2,
+				this.getHeight() - _okButtonHeight - GraphicTest.BOTTOM_MARGIN,
+				GraphicTest.COLUMN_WIDTH,
+				GraphicTest.ROW_HEIGHT
+				);
+		logger.error("dialog height=" + getHeight() + ", buttonY=" + closeB.getY());
+		closeB.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				setVisible(false);
+			}
+		});
+		add(closeB);
 	}
+}
+
+class UnitStackPanel extends JPanel {
+
+	private static final long serialVersionUID = 4469120112654662176L;
+
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+	}
+
 }

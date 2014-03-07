@@ -372,7 +372,7 @@ public class MapPanel extends JPanel {
 				getToUpdate().updateLocation(computeCoordsForClick(e.getX(), e.getY()));
 			}
 			if (e.getButton() == 3) {
-				getToUpdate().locationInfo(computeCoordsForClick(e.getX(), e.getY()));
+				getToUpdate().locationInfo(computeCoordsForClick(e.getX(), e.getY()), e.getX() - (int) offset.getX(), e.getY() - (int) offset.getY());
 			}
 
 		}
