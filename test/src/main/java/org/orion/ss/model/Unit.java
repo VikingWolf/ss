@@ -12,22 +12,26 @@ public abstract class Unit extends ActivableImpl implements Leveleable, Mobile, 
 
 	private int id;
 
-	private Location location;
-	
 	private Formation parent;
+
+	private boolean detached = false;
 
 	/* abstract methods */
 	public abstract int stackSize();
-	
-	public abstract Formation getParentFormation(FormationLevel level);
-	
+
 	public abstract Country getCountry();
-	
+
 	public abstract Position getPosition();
-	
+
 	public abstract TroopType getTroopType();
 
-	public String getShortName(){
+	@Override
+	public abstract Location getLocation();
+
+	@Override
+	public abstract void setLocation(Location location);
+
+	public String getShortName() {
 		return FormationFormats.shortFormat(this);
 	}
 
@@ -38,19 +42,36 @@ public abstract class Unit extends ActivableImpl implements Leveleable, Mobile, 
 	public String getLongName() {
 		return FormationFormats.longFormat(this);
 	}
-	
-	public String getFullLongName(){
+
+	public String getFullLongName() {
 		return FormationFormats.fullLongFormat(this);
 	}
 
-	/* getters & setters */
-	public Location getLocation() {
-		return location;
+	public Formation getParentFormation(FormationLevel level) {
+		Formation result = null;
+		if (this.getFormationLevel().getOrdinal() < level.getOrdinal()) {
+			if (this.getParent() != null) {
+				if (this.getParent().getFormationLevel() == level)
+					result = this.getParent();
+				else result = this.getParent().getParentFormation(level);
+			}
+		}
+		return result;
 	}
 
-	public void setLocation(Location location) {
-		this.location = location;
+	public boolean isAnyParentOf(Unit unit) {
+		boolean result = false;
+		if (unit.getParent() != null) {
+			if (unit.getParent().equals(this)) {
+				result = true;
+			} else {
+				result = isAnyParentOf(unit.getParent());
+			}
+		}
+		return result;
 	}
+
+	/* getters & setters */
 
 	public int getId() {
 		return id;
@@ -66,6 +87,14 @@ public abstract class Unit extends ActivableImpl implements Leveleable, Mobile, 
 
 	public void setParent(Formation parent) {
 		this.parent = parent;
+	}
+
+	public boolean isDetached() {
+		return detached;
+	}
+
+	public void setDetached(boolean detached) {
+		this.detached = detached;
 	}
 
 }

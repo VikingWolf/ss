@@ -30,7 +30,7 @@ public class Formation extends Unit {
 		airSquadrons = new ArrayList<AirSquadron>();
 		ships = new ArrayList<Ship>();
 		this.level = level;
-		this.troopType = type;
+		troopType = type;
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class Formation extends Unit {
 	protected UnitStack getUnitStackAtLocation(Location location, boolean onlyActivables) {
 		UnitStack result = new UnitStack(location);
 		for (Unit unit : getCompanies()) {
-			if (unit.getLocation().equals(location)) {
+			if ((unit.getLocation()) != null && (unit.getLocation().equals(location))) {
 				if (onlyActivables && unit.isActivable()) {
 					result.add(unit);
 				} else {
@@ -130,16 +130,23 @@ public class Formation extends Unit {
 	public int stackSize() {
 		return this.getCompanyStackAtLocation(false).size();
 	}
-	
-	@Override
-	public Formation getParentFormation(FormationLevel level) {
-		if (this.getFormationLevel().getOrdinal() < level.getOrdinal()) {
-			if (this.getParent() != null) {
-				return this.getParent().getParentFormation(level);
-			} else return null;
-		} else if (this.getFormationLevel().getOrdinal() == level.getOrdinal()) {
-			return this;
-		} else return null;
+
+	public Company getHQCompany() {
+		return companies.get(0);
+	}
+
+	public boolean isAllTogether() {
+		for (Company company : this.getCompanies()) {
+			if (company.getLocation() == null) {
+				return false;
+			} else {
+				if (!company.getLocation().equals(this.getHQCompany().getLocation())) { return false; }
+			}
+		}
+		for (Formation subordinate : this.getSubordinates()) {
+			if (!subordinate.isAllTogether()) { return false; }
+		}
+		return true;
 	}
 
 	/* adders */
@@ -163,18 +170,29 @@ public class Formation extends Unit {
 		ships.add(ship);
 	}
 
+	public List<Company> getTogetherCompanies() {
+		List<Company> result = new ArrayList<Company>();
+		for (Company company : this.getAllCompanies()) {
+			if (company.getLocation() != null && company.getLocation().equals(this.getLocation())) {
+				result.add(company);
+			}
+		}
+		return result;
+	}
+
 	/* getters & setters */
 
 	public List<Formation> getSubordinates() {
 		return subordinates;
 	}
 
+	@Override
 	public TroopType getTroopType() {
 		return troopType;
 	}
 
 	public void setType(TroopType type) {
-		this.troopType = type;
+		troopType = type;
 	}
 
 	public void setSubordinates(List<Formation> subordinates) {
@@ -197,6 +215,16 @@ public class Formation extends Unit {
 	@Override
 	public void setLocation(Location location) {
 		companies.get(0).setLocation(location);
+		for (Company company : companies) {
+			if (company.getLocation() == null || !company.isDetached()) {
+				company.setLocation(location);
+			}
+		}
+		for (Formation subordinate : subordinates) {
+			if (subordinate.getLocation() == null || !subordinate.isDetached()) {
+				subordinate.setLocation(location);
+			}
+		}
 	}
 
 	public List<AirSquadron> getAirSquadrons() {

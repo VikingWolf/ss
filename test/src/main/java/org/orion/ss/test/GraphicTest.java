@@ -21,6 +21,7 @@ import org.orion.ss.test.components.DeploymentPanel;
 import org.orion.ss.test.components.GameLogPanel;
 import org.orion.ss.test.components.ManagementPanel;
 import org.orion.ss.test.components.PlayerPanel;
+import org.orion.ss.test.components.TurnPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,9 +91,9 @@ public class GraphicTest {
 		if (game.getPhase() == GamePhase.MANAGEMENT) {
 			playerPanel = new ManagementPanel(this, game);
 		} else if (game.getPhase() == GamePhase.DEPLOYMENT) {
-
 			playerPanel = new DeploymentPanel(this, game);
 		} else if (game.getPhase() == GamePhase.TURN) {
+			playerPanel = new TurnPanel(this, game);
 		}
 		playerPanel.mount();
 		mainPane.addTab("CurrentPlayer", playerPanel);

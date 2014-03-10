@@ -1,5 +1,6 @@
 package org.orion.ss.test.components;
 
+import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -14,10 +15,15 @@ public class ManagementTreePanel extends PositionTreePanel {
 	}
 
 	@Override
-	public ManagementPanel getParent(){
+	protected JTree createTree() {
+		return new JTree(getTop());
+	}
+
+	@Override
+	public ManagementPanel getParent() {
 		return (ManagementPanel) super.getParent();
 	}
-	
+
 	@Override
 	public void valueChanged(TreeSelectionEvent e) {
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode) getTree().getLastSelectedPathComponent();

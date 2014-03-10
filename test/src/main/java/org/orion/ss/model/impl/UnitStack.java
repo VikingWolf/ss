@@ -34,6 +34,28 @@ public class UnitStack extends ArrayList<Unit> implements Activable, Mobile {
 		return result;
 	}
 
+	public boolean containsAnyElementOf(Unit unit) {
+		boolean result = false;
+		for (Unit candidate : this) {
+			if (unit.equals(candidate)) {
+				result = true;
+				break;
+			} else if (candidate instanceof Formation) {
+				Formation formation = (Formation) candidate;
+				if (formation.getHQCompany().equals(unit)) {
+					result = true;
+					break;
+				}
+			}
+			if (unit.isAnyParentOf(candidate)) {
+				result = true;
+				break;
+			}
+
+		}
+		return result;
+	}
+
 	/* getters and setters */
 	@Override
 	public Location getLocation() {

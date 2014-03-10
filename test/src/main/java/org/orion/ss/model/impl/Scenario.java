@@ -28,8 +28,9 @@ public class Scenario {
 	private List<WeatherForecast> forecast;
 	private GeoMap map;
 
-	public Scenario(int mapRows, int mapColumns) {
+	public Scenario(String name, int mapRows, int mapColumns) {
 		super();
+		this.name = name;
 		map = new GeoMap(mapRows, mapColumns, Terrain.PLAINS, Vegetation.NONE);
 		positions = new ArrayList<Position>();
 	}

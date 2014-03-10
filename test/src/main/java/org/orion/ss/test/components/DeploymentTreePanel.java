@@ -14,6 +14,11 @@ public class DeploymentTreePanel extends PositionTreePanel {
 	}
 
 	@Override
+	protected JTree createTree() {
+		return new DeploymentTree(getTop());
+	}
+
+	@Override
 	public DeploymentPanel getParent() {
 		return (DeploymentPanel) super.getParent();
 	}

@@ -112,7 +112,7 @@ public class GameSample2Players {
 		settings.setTimeMargin(1);
 		settings.setHexSide(1.0f);
 		settings.setStackLimit(12);
-		scenario = new Scenario(6, 11);
+		scenario = new Scenario("sample2p", 6, 11);
 		scenario.setSettings(settings);
 		scenario.addPosition(gerInfReg1);
 		scenario.addPosition(ukInfBg2);
@@ -170,7 +170,7 @@ public class GameSample2Players {
 	}
 
 	protected void configGame() {
-		game = new Game("test", scenario.getSettings());
+		game = new Game("test", scenario.getSettings(), scenario.getName());
 		game.setMap(scenario.getMap());
 	}
 

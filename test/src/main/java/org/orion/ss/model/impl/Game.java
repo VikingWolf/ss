@@ -7,12 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
-import org.orion.ss.model.Unit;
 import org.orion.ss.model.core.GamePhase;
 import org.orion.ss.model.geo.GeoMap;
-import org.orion.ss.model.geo.Location;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Game extends Observable {
+
+	protected Logger logger = LoggerFactory.getLogger(Game.class);
 
 	private Map<Player, Position> positions;
 	private GameSettings settings;
@@ -22,11 +24,13 @@ public class Game extends Observable {
 	private GameLog log;
 	private GamePhase phase = GamePhase.MANAGEMENT;
 	private GeoMap map;
+	private final String scenarioName;
 
-	public Game(String id, GameSettings settings) {
+	public Game(String id, GameSettings settings, String scenarioName) {
 		super();
 		this.id = id;
 		this.settings = settings;
+		this.scenarioName = scenarioName;
 		positions = new HashMap<Player, Position>();
 		log = new GameLog();
 		logGameStart();
@@ -72,29 +76,6 @@ public class Game extends Observable {
 			Position position = getPositionFor(player);
 			this.getLog().addEntry(player.getEmail() + "\t\t" + position.getLongName() + "(" + position.getCountry() + ") =\t\t" + position.getPrestige());
 		}
-	}
-
-	public List<Company> getAllCompanies() {
-		List<Company> result = new ArrayList<Company>();
-		for (Position position : positions.values()) {
-			result.addAll(position.getAllCompanies());
-		}
-		return result;
-	}
-
-	public Map<Location, UnitStack> getAllUnitsLocated() {
-		Map<Location, UnitStack> result = new HashMap<Location, UnitStack>();
-		for (Position position : positions.values()) {
-			for (Unit unit : position.getAllUnits()) {
-				UnitStack stack = new UnitStack(unit.getLocation());
-				if (result.get(unit.getLocation()) != null) {
-					stack = result.get(unit.getLocation());
-				}
-				stack.add(unit);
-				result.put(stack.getLocation(), stack);
-			}
-		}
-		return result;
 	}
 
 	/* adders */
@@ -191,6 +172,10 @@ public class Game extends Observable {
 
 	public void setMap(GeoMap map) {
 		this.map = map;
+	}
+
+	public String getScenarioName() {
+		return scenarioName;
 	}
 
 }

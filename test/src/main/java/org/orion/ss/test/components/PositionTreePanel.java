@@ -29,15 +29,17 @@ public abstract class PositionTreePanel implements TreeSelectionListener {
 		this.position = position;
 		this.parent = parent;
 		top = new DefaultMutableTreeNode(position);
-		tree = new JTree(top);
-		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		tree = createTree();
 		createNodes(top);
+		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		tree.addTreeSelectionListener(this);
 		panel = new JScrollPane(tree);
 		panel.setBounds(x, y, w, h);
 	}
 
-	private void createNodes(DefaultMutableTreeNode top) {
+	protected abstract JTree createTree();
+
+	protected void createNodes(DefaultMutableTreeNode top) {
 		for (Company company : position.getCompanies()) {
 			top.add(new DefaultMutableTreeNode(company));
 		}
@@ -46,7 +48,7 @@ public abstract class PositionTreePanel implements TreeSelectionListener {
 		}
 	}
 
-	private void createNodes(DefaultMutableTreeNode parent, Formation formation) {
+	protected void createNodes(DefaultMutableTreeNode parent, Formation formation) {
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(formation);
 		for (Company company : formation.getCompanies()) {
 			node.add(new DefaultMutableTreeNode(company));

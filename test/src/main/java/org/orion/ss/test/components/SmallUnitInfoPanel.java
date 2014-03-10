@@ -43,6 +43,23 @@ public class SmallUnitInfoPanel extends FastPanel {
 	}
 
 	protected void buildFormationInfo(Formation unit) {
+		List<String> labels = new ArrayList<String>();
+		labels.add("Type");
+		labels.add("Supply Limit");
+		labels.add("Strength");
+		/*
+		 * for (SupplyType supply : SupplyType.values()) { labels.add(supply.getDenomination()); }
+		 */
+		List<String> values = new ArrayList<String>();
+		values.add(unit.getTroopType().getDenomination());
+		values.add(unit.getAllCompanies().size() + " / " + unit.getFormationLevel().getSupplyLimit());
+		values.add(unit.getAbsoluteStrength() + " / " + unit.getMaxStrength());
+		for (int i = 0; i < labels.size(); i++) {
+			addLabel(labels.get(i), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * i,
+					GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+			addNotEditableTextField(values.get(i), GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH, GraphicTest.TOP_MARGIN
+					* 2 + GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH_NARROW, GraphicTest.ROW_HEIGHT);
+		}
 
 	}
 
@@ -77,7 +94,7 @@ public class SmallUnitInfoPanel extends FastPanel {
 			addLabel(labels.get(i), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * i,
 					GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
 			addNotEditableTextField(values.get(i), GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH, GraphicTest.TOP_MARGIN
-					* 2 + GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+					* 2 + GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH_NARROW, GraphicTest.ROW_HEIGHT);
 		}
 	}
 }

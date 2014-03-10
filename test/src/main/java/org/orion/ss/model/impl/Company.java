@@ -9,8 +9,12 @@ import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.core.TroopType;
 import org.orion.ss.model.geo.Location;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Company extends Unit {
+
+	protected final static Logger logger = LoggerFactory.getLogger(Company.class);
 
 	private final static double INITIATIVE_EXPERIENCE_EXPONENT = 0.5d;
 	private final static double INITIATIVE_ORGANIZATION_EXPONENT = 0.5d;
@@ -22,11 +26,11 @@ public class Company extends Unit {
 	private double morale;
 	private Stock supplies;
 	private List<CompanyTrait> traits;
+	private Location location = null;
 
 	private Company() {
 		super();
 		supplies = new Stock();
-		setLocation(new Location());
 		strength = 0.0d;
 		experience = 1.0d;
 		organization = 1.0d;
@@ -80,7 +84,7 @@ public class Company extends Unit {
 
 	@Override
 	public FormationLevel getFormationLevel() {
-		return getModel().getFormationLevel();
+		return FormationLevel.COMPANY;
 	}
 
 	public Stock getMaxSupplies() {
@@ -132,15 +136,12 @@ public class Company extends Unit {
 	}
 
 	@Override
-	public Formation getParentFormation(FormationLevel level) {
-		if (this.getParent() != null)
-			return this.getParent().getParentFormation(level);
-		else return null;
-	}
-	
-	@Override
 	public TroopType getTroopType() {
 		return this.getModel().getType();
+	}
+
+	public boolean isHQ() {
+		return getId() == 0;
 	}
 
 	/* getters & setters */
@@ -206,6 +207,16 @@ public class Company extends Unit {
 
 	public void setMorale(double morale) {
 		this.morale = morale;
+	}
+
+	@Override
+	public Location getLocation() {
+		return location;
+	}
+
+	@Override
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 }

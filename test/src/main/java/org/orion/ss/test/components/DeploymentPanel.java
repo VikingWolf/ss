@@ -2,29 +2,23 @@ package org.orion.ss.test.components;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import org.orion.ss.model.Unit;
-import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.geo.Location;
-import org.orion.ss.model.impl.Company;
-import org.orion.ss.model.impl.Formation;
 import org.orion.ss.model.impl.Game;
 import org.orion.ss.model.impl.UnitStack;
+import org.orion.ss.service.GameService;
 import org.orion.ss.service.GeoService;
 import org.orion.ss.service.GraphService;
 import org.orion.ss.test.GraphicTest;
@@ -37,6 +31,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 
 	private final GeoService geoService;
 	private final GraphService graphService;
+	private final GameService gameService;
 
 	private final static double HEX_SIDE = 48.0d;
 
@@ -53,6 +48,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 		super(parent, game);
 		geoService = new GeoService(game);
 		graphService = new GraphService(game);
+		gameService = new GameService(game);
 		setBounds(GraphicTest.TAB_BOUNDS);
 		setLayout(null);
 		mount();
@@ -64,13 +60,13 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 		addLabel("Deployment, " + game.getCurrentPlayer().getEmail(),
 				GraphicTest.LEFT_MARGIN,
 				GraphicTest.TOP_MARGIN,
-				GraphicTest.COLUMN_WIDTH_XLARGE,
+				GraphicTest.COLUMN_WIDTH_XXLARGE,
 				GraphicTest.ROW_HEIGHT);
 		infoL = new JLabel("Select unit and deploy to the map");
 		infoL.setBounds(
 				GraphicTest.LEFT_MARGIN,
 				GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT,
-				GraphicTest.COLUMN_WIDTH_XLARGE,
+				GraphicTest.COLUMN_WIDTH_XXLARGE,
 				GraphicTest.ROW_HEIGHT);
 		add(infoL);
 		mountTreePanel();
@@ -85,7 +81,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 		unitInfoPanel.setBounds(
 				treePanel.getPanel().getX() + treePanel.getPanel().getWidth() + GraphicTest.LEFT_MARGIN,
 				GraphicTest.TOP_MARGIN,
-				265,
+				225,
 				480);
 		add(unitInfoPanel);
 		unitInfoPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Unit Info"));
@@ -95,7 +91,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 		treePanel = new DeploymentTreePanel(this, game.getCurrentPlayerPosition(),
 				GraphicTest.LEFT_MARGIN,
 				GraphicTest.TOP_MARGIN * 3 + GraphicTest.ROW_HEIGHT * 2,
-				GraphicTest.COLUMN_WIDTH_XLARGE,
+				GraphicTest.COLUMN_WIDTH_XXLARGE,
 				415);
 		add(treePanel.getPanel());
 	}
@@ -121,20 +117,71 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 		endTurnB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				boolean gameEnded = parent.nextPlayer();
-				if (gameEnded) {
-					endTurnB.setEnabled(false);
-					parent.endGame();
+				if (geoService.undeployedUnits(game.getCurrentPlayerPosition()).size() > 0) {
+					showConfirmationDialog();
 				} else {
-					parent.updatePlayerPanel();
+					// next player
 				}
 			}
 		});
 	}
 
+	protected void showConfirmationDialog() {
+		final JDialog dialog = new JDialog();
+		dialog.setTitle("There are undeployed units");
+		dialog.setBounds(100, 100, 400, 200);
+		dialog.setLayout(null);
+		JLabel label1 = new JLabel("There are " + geoService.undeployedUnits(game.getCurrentPlayerPosition()).size() + " undeployed units.");
+		label1.setBounds(
+				GraphicTest.LEFT_MARGIN,
+				GraphicTest.TOP_MARGIN * 3,
+				400,
+				GraphicTest.ROW_HEIGHT
+				);
+		dialog.add(label1);
+		JLabel label2 = new JLabel("Do you really wish to end your deployment?");
+		label2.setBounds(
+				GraphicTest.LEFT_MARGIN,
+				label1.getY() + label1.getHeight() + GraphicTest.TOP_MARGIN,
+				400,
+				GraphicTest.ROW_HEIGHT
+				);
+		dialog.add(label2);
+		JButton endDeploymentB = new JButton("Yes, end deployment and play");
+		endDeploymentB.setBounds(
+				(dialog.getWidth() - GraphicTest.COLUMN_WIDTH_XXLARGE) / 2,
+				label2.getY() + label1.getHeight() + GraphicTest.TOP_MARGIN * 3,
+				GraphicTest.COLUMN_WIDTH_XXLARGE,
+				GraphicTest.ROW_HEIGHT
+				);
+		endDeploymentB.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				gameService.nextPlayer();
+				parent.updatePlayerPanel();
+				dialog.dispose();
+				dialog.setVisible(false);
+			}
+
+		});
+		dialog.add(endDeploymentB);
+		dialog.addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				logger.error("window closing");
+				super.windowClosing(arg0);
+			}
+
+		});
+		dialog.setModal(true);
+		dialog.setVisible(true);
+	}
+
 	protected void mountMapPanel() {
 		mapPanel = new ScrollableMap(game.getMap(), 500, GraphicTest.TOP_MARGIN, 860, 560, HEX_SIDE, geoService.fullMap(), this, graphService);
-		mapPanel.setUnits(game.getAllUnitsLocated());
+		mapPanel.setUnits(geoService.getAllUnitsLocated(mapPanel.getBounds()));
 		add(mapPanel);
 	}
 
@@ -143,13 +190,15 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 		mapPanel.setDeployArea(geoService.getDeployArea(unit));
 		mapPanel.repaint();
 		unitInfoPanel.update(unit);
+		mapPanel.setSelectedUnit(selectedUnit);
+		mapPanel.repaint();
 	}
 
 	@Override
 	public void updateLocation(Location location) {
 		boolean result = geoService.deploy(selectedUnit, location);
 		if (result) {
-			mapPanel.setUnits(game.getAllUnitsLocated());
+			mapPanel.setUnits(geoService.getAllUnitsLocated(mapPanel.getBounds()));
 			infoL.setForeground(Color.BLACK);
 			infoL.setText(selectedUnit.getFullLongName() + " placed at (" + location.getX() + "," + location.getY() + ")");
 			toDeployTF.setText("" + geoService.undeployedUnits(game.getCurrentPlayerPosition()).size());
@@ -164,7 +213,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 	public void locationInfo(Location location, int x, int y) {
 		int symbolSize = 64;
 		UnitStack stack = geoService.getStackAt(location);
-		if (stack.size()>0){
+		if (stack.size() > 0) {
 			UnitStackDialog unitStackDialog = new UnitStackDialog(stack, symbolSize, game);
 			Dimension dimension = unitStackDialog.computeSize();
 			int bX = x + mapPanel.getWidth() + (int) HEX_SIDE;
@@ -188,13 +237,12 @@ class UnitStackDialog extends JDialog {
 
 	protected final static Logger logger = LoggerFactory.getLogger(UnitStackDialog.class);
 
-
-	private UnitStackPanel unitStackCanvas;
+	private final UnitStackPanel unitStackCanvas;
 	private final static int _okButtonHeight = GraphicTest.ROW_HEIGHT;
 	private final static int _headerHeight = 35;
 	private final static int _footerHeight = 40;
-	private final static int width = 400;
-	private final static int maxHeight = 300;
+	private final static int width = 450;
+	private final static int maxHeight = 350;
 
 	public UnitStackDialog(UnitStack stack, int symbolSize, Game game) {
 		super();
@@ -205,7 +253,7 @@ class UnitStackDialog extends JDialog {
 	}
 
 	public Dimension computeSize() {
-		int height = unitStackCanvas.getUnitStack().size() * (GraphicTest.TOP_MARGIN + unitStackCanvas.getSymbolSize()) + GraphicTest.TOP_MARGIN * 2 + GraphicTest.BOTTOM_MARGIN + _okButtonHeight +  _footerHeight;
+		int height = unitStackCanvas.getUnitStack().size() * (GraphicTest.TOP_MARGIN + unitStackCanvas.getSymbolSize()) + GraphicTest.TOP_MARGIN * 2 + GraphicTest.BOTTOM_MARGIN + _okButtonHeight + _footerHeight;
 		return new Dimension(width, Math.min(height, maxHeight));
 	}
 
@@ -213,11 +261,11 @@ class UnitStackDialog extends JDialog {
 		JScrollPane unitStackPanel = new JScrollPane(unitStackCanvas);
 		unitStackPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		unitStackPanel.setBounds(
-				GraphicTest.LEFT_MARGIN, 
+				GraphicTest.LEFT_MARGIN,
 				GraphicTest.TOP_MARGIN,
 				this.getWidth() - GraphicTest.LEFT_MARGIN * 2 - GraphicTest.LATERAL_SWING_MARGIN,
 				this.getHeight() - _headerHeight - GraphicTest.TOP_MARGIN * 2 - GraphicTest.BOTTOM_MARGIN - _okButtonHeight);
-		getContentPane().add(unitStackPanel);			
+		getContentPane().add(unitStackPanel);
 		JButton closeB = new JButton("OK");
 		closeB.setBounds(
 				(this.getWidth() - GraphicTest.COLUMN_WIDTH_NARROW) / 2,
@@ -236,64 +284,4 @@ class UnitStackDialog extends JDialog {
 		add(closeB);
 	}
 
-}
-
-class UnitStackPanel extends JPanel {
-
-	private static final long serialVersionUID = -617645392072460358L;
-
-	private GraphService graphService;
-	private int symbolSize = 0;
-	private UnitStack unitStack;
-
-	public UnitStackPanel(UnitStack unitStack, int symbolSize, Game game){
-		super(new GridLayout(0, 1));
-		graphService = new GraphService(game);
-		graphService.setSymbolSize(symbolSize);
-		this.symbolSize = symbolSize;		
-		this.unitStack = unitStack;
-		for (Unit unit : unitStack){
-			UnitInfoRow row = new UnitInfoRow(unit, this.symbolSize, graphService.getUnitSymbol((Company)(unit)));			
-			add(row);
-		}
-	}
-
-	public int getSymbolSize() {
-		return symbolSize;
-	}
-
-	public void setSymbolSize(int symbolSize) {
-		this.symbolSize = symbolSize;
-	}
-
-	public UnitStack getUnitStack() {
-		return unitStack;
-	}
-
-	public void setUnitStack(UnitStack unitStack) {
-		this.unitStack = unitStack;
-	}
-
-}
-
-class UnitInfoRow extends JPanel {
-	
-	private static final long serialVersionUID = 7349489354503508589L;
-
-	private Unit unit;
-	private int symbolSize;
-	private BufferedImage symbol; 
-	
-	public UnitInfoRow(Unit unit, int symbolSize, BufferedImage symbol){
-		super(new GridBagLayout());
-		GridBagConstraints gridConstraints = new GridBagConstraints();
-		
-		JLabel unitSymbol = new JLabel();
-		unitSymbol.setIcon(new ImageIcon(symbol));
-		
-		add(unitSymbol);
-		Formation division = unit.getParentFormation(FormationLevel.DIVISION);
-		Formation corps = unit.getParentFormation(FormationLevel.CORPS);
-
-	}
 }

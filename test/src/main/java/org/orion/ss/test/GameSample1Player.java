@@ -36,7 +36,7 @@ public class GameSample1Player {
 	private Scenario scenario;
 
 	private final Country uk = new Country("UK", 0.9d, new Color(100, 50, 0));
-	private final Position ukCorpsI = new Position(FormationLevel.CORPS, TroopType.INFANTRY, 1, PositionRole.DEFENDER);
+	private final Position ukCorpsI = new Position(FormationLevel.CORPS, TroopType.INFANTRY, 30, PositionRole.DEFENDER);
 
 	private WeaponModel leeEnfieldMk1;
 	private WeaponModel vickersBerthierLMG;
@@ -106,7 +106,7 @@ public class GameSample1Player {
 		settings.setTimeMargin(1);
 		settings.setHexSide(1.0f);
 		settings.setStackLimit(12);
-		scenario = new Scenario(6, 11);
+		scenario = new Scenario("sample1p", 6, 11);
 		scenario.setSettings(settings);
 		scenario.addPosition(ukCorpsI);
 	}
@@ -162,7 +162,7 @@ public class GameSample1Player {
 
 		Formation ukBn1 = new Formation(FormationLevel.BATTALION, TroopType.INFANTRY, 4);
 		Formation ukInfBg2 = new Formation(FormationLevel.BRIGADE, TroopType.INFANTRY, 2);
-		Formation ukDiv17 = new Formation(FormationLevel.DIVISION, TroopType.INFANTRY, 17);
+		Formation ukDiv17 = new Formation(FormationLevel.DIVISION, TroopType.INFANTRY, 1);
 
 		ukCorpsI.addCompany(corpsHQCompany);
 		ukCorpsI.addSubordinate(ukDiv17);
@@ -180,7 +180,7 @@ public class GameSample1Player {
 	}
 
 	protected void configGame() {
-		game = new Game("test", scenario.getSettings());
+		game = new Game("test", scenario.getSettings(), scenario.getName());
 		game.setMap(scenario.getMap());
 	}
 

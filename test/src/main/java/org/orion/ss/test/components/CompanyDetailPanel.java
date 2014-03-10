@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
 
 import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.impl.Attack;
@@ -81,7 +80,7 @@ public class CompanyDetailPanel extends FastPanel {
 			textfields1.add("" + NumberFormats.DF_2.format(defense.getStrength()));
 		}
 		for (SupplyType stock : company.getMaxSupplies().keySet()) {
-			labels1.add(stock.getDenomination()+" Supply");
+			labels1.add(stock.getDenomination() + " Supply");
 			textfields1.add(NumberFormats.DF_3.format(company.getSupplies().get(stock)) + " / " + NumberFormats.DF_3.format(company.getMaxSupplies().get(stock)));
 		}
 		for (int i = 0; i < labels1.size(); i++) {
@@ -211,24 +210,24 @@ public class CompanyDetailPanel extends FastPanel {
 		});
 		resupplyB = new JButton("Re-supply");
 		resupplyB.setBounds(GraphicTest.LEFT_MARGIN * 3 + GraphicTest.COLUMN_WIDTH_LARGE + GraphicTest.COLUMN_WIDTH_XLARGE + 10, 445 + GraphicTest.ROW_HEIGHT + (int) (GraphicTest.TOP_MARGIN * 1.5d),
-				GraphicTest.COLUMN_WIDTH_LARGE , GraphicTest.ROW_HEIGHT);
+				GraphicTest.COLUMN_WIDTH_LARGE, GraphicTest.ROW_HEIGHT);
 		add(resupplyB);
 		resupplyTF = new JTextField();
 		resupplyTF.setBounds(GraphicTest.LEFT_MARGIN * 3 + GraphicTest.COLUMN_WIDTH_LARGE + GraphicTest.COLUMN_WIDTH_XLARGE + 10, 480 + GraphicTest.ROW_HEIGHT
-				+ (int) (GraphicTest.TOP_MARGIN * 1.5d), GraphicTest.COLUMN_WIDTH_LARGE , GraphicTest.ROW_HEIGHT);
+				+ (int) (GraphicTest.TOP_MARGIN * 1.5d), GraphicTest.COLUMN_WIDTH_LARGE, GraphicTest.ROW_HEIGHT);
 		int resupplyCost = managementService.resupplyCost(company);
 		resupplyTF.setText("" + resupplyCost);
 		add(resupplyTF);
-		resupplyB.addActionListener(new ActionListener(){
+		resupplyB.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				managementService.resupply(company);
-				updateUnitPanel(company);				
+				updateUnitPanel(company);
 			}
-			
+
 		});
-		
+
 		updateReinforcementArea(company, regularCost, eliteCost, resupplyCost);
 	}
 
@@ -251,7 +250,7 @@ public class CompanyDetailPanel extends FastPanel {
 		}
 		eliteReinforceB.setEnabled(company.getStrength() < 1.0d && company.getExperience() > 1.0d && company.getPosition().getPrestige() >= eliteCost.getCost());
 		regularReinforceB.setEnabled(company.getStrength() < 1.0d && company.getPosition().getPrestige() >= regularCost.getCost());
-		resupplyB.setEnabled((managementService.resupplyCost(company)>0 && (company.getPosition().getPrestige()>=managementService.resupplyCost(company))));
+		resupplyB.setEnabled((managementService.resupplyCost(company) > 0 && (company.getPosition().getPrestige() >= managementService.resupplyCost(company))));
 		resupplyTF.setText("" + managementService.resupplyCost(company));
 	}
 

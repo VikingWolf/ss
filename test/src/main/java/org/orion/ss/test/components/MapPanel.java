@@ -19,6 +19,7 @@ import java.util.Map;
 import javax.swing.JPanel;
 
 import org.orion.ss.graph.Hexographer;
+import org.orion.ss.model.Unit;
 import org.orion.ss.model.geo.GeoMap;
 import org.orion.ss.model.geo.Hex;
 import org.orion.ss.model.geo.HexSet;
@@ -26,7 +27,6 @@ import org.orion.ss.model.geo.HexSide;
 import org.orion.ss.model.geo.Location;
 import org.orion.ss.model.geo.River;
 import org.orion.ss.model.geo.Terrain;
-import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.UnitStack;
 import org.orion.ss.service.GraphService;
 import org.slf4j.Logger;
@@ -72,6 +72,7 @@ public class MapPanel extends JPanel {
 	private List<Location> deployArea;
 	private LocationUpdatable toUpdate;
 	private Map<Location, UnitStack> units;
+	private Unit selectedUnit = null;
 
 	private Point offset;
 
@@ -184,7 +185,11 @@ public class MapPanel extends JPanel {
 				if (units.containsKey(coords)) {
 					UnitStack stack = units.get(coords);
 					if (stack.size() > 0) {
-						BufferedImage symbol = graphService.getUnitSymbol((Company) stack.get(stack.size() - 1));
+						if (stack.containsAnyElementOf(selectedUnit)) {
+							g.setColor(Color.RED);
+							g.fillRect((int) o.getX() - graphService.getSymbolSize() / 2 - 3, (int) o.getY() - graphService.getSymbolSize() / 2 - 3, graphService.getSymbolSize() + 6, graphService.getSymbolSize() + 6);
+						}
+						BufferedImage symbol = graphService.getUnitSymbol(stack.get(stack.size() - 1));
 						g.drawImage(symbol, (int) o.getX() - symbol.getWidth() / 2, (int) o.getY() - symbol.getHeight() / 2, symbol.getWidth(), symbol.getHeight(), null);
 					}
 					if (stack.size() > 1) {
@@ -346,8 +351,6 @@ public class MapPanel extends JPanel {
 		return map;
 	}
 
-	/* Event listeners */
-
 	public Map<Location, UnitStack> getPosition() {
 		return units;
 	}
@@ -362,6 +365,16 @@ public class MapPanel extends JPanel {
 
 	public void setToUpdate(LocationUpdatable parent) {
 		toUpdate = parent;
+	}
+
+	/* Event listeners */
+
+	public Unit getSelectedUnit() {
+		return selectedUnit;
+	}
+
+	public void setSelectedUnit(Unit selectedUnit) {
+		this.selectedUnit = selectedUnit;
 	}
 
 	class MapMouseListener extends MouseAdapter {

@@ -69,32 +69,35 @@ class MoraleFormat extends NumberFormat {
 			FieldPosition pos) {
 		StringBuffer result = new StringBuffer();
 		switch ((int) number) {
-			case 9:
+			case 10:
 				result.append("A");
 			break;
-			case 8:
+			case 9:
 				result.append("B+");
 			break;
-			case 7:
+			case 8:
 				result.append("B");
 			break;
-			case 6:
+			case 7:
 				result.append("C+");
 			break;
-			case 5:
+			case 6:
 				result.append("C");
 			break;
-			case 4:
+			case 5:
 				result.append("D+");
 			break;
-			case 3:
+			case 4:
 				result.append("D");
 			break;
-			case 2:
+			case 3:
 				result.append("E+");
 			break;
-			case 1:
+			case 2:
 				result.append("E");
+			break;
+			case 1:
+				result.append("F+");
 			break;
 			case 0:
 				result.append("F");

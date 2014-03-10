@@ -2,6 +2,7 @@ package org.orion.ss.test.components;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Map;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 
+import org.orion.ss.model.Unit;
 import org.orion.ss.model.geo.GeoMap;
 import org.orion.ss.model.geo.HexSet;
 import org.orion.ss.model.geo.Location;
@@ -71,7 +73,16 @@ public class ScrollableMap extends JPanel {
 		mapPanel.setUnits(units);
 	}
 
+	public void setSelectedUnit(Unit unit) {
+		mapPanel.setSelectedUnit(unit);
+	}
+
 	/* getters & setters */
+
+	@Override
+	public Rectangle getBounds() {
+		return new Rectangle((int) mapPanel.getOffset().getX(), (int) mapPanel.getOffset().getY(), mapPanel.horizCapacity(), mapPanel.vertCapacity());
+	}
 
 	/* event listeners */
 

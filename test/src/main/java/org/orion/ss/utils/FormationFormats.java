@@ -15,7 +15,7 @@ import org.springframework.util.StringUtils;
 public class FormationFormats {
 
 	protected final static Logger logger = LoggerFactory.getLogger(FormationFormats.class);
-	
+
 	private final static Map<FormationLevel, NumberFormat> _formats;
 
 	static {
@@ -36,9 +36,14 @@ public class FormationFormats {
 		return formatter.format(unit.getId());
 	}
 
-	public static String shortFormat(Unit unit){
+	public static String shortFormat(Unit unit) {
 		NumberFormat formatter = _formats.get(unit.getFormationLevel());
-		return formatter.format(unit.getId()) + " " + unit.getFormationLevel().getAbbreviation();		
+		return formatter.format(unit.getId()) + " " + unit.getFormationLevel().getAbbreviation();
+	}
+
+	public static String mediumFormat(Unit unit) {
+		NumberFormat formatter = _formats.get(unit.getFormationLevel());
+		return formatter.format(unit.getId()) + " " + unit.getFormationLevel().getDenomination();
 	}
 
 	public static String longFormat(Unit unit) {
@@ -56,13 +61,25 @@ public class FormationFormats {
 				case BATTALION:
 					result = minimalFormat(unit) + ", " + minimalFormat(unit.getParent());
 				break;
+				case REGIMENT:
+					result = shortFormat(unit);
+				break;
+				case BRIGADE:
+					result = shortFormat(unit);
+				break;
+				case DIVISION:
+					result = shortFormat(unit);
+				break;
+				case CORPS:
+					result = mediumFormat(unit);
+				break;
 				default:
 					result = minimalFormat(unit);
 			}
 		}
 		return result;
 	}
-	
+
 	public static String fullLongFormat(Unit unit) {
 		String result = "";
 		if (unit != null) {
@@ -74,18 +91,17 @@ public class FormationFormats {
 					result = longFormat(unit) + ", " + fullLongFormat(unit.getParent());
 				break;
 				case REGIMENT:
-					result = longFormat(unit) + "(" + longFormat(unit.getParent()) +")";
-					break;
+					result = longFormat(unit) + "(" + longFormat(unit.getParent()) + ")";
+				break;
 				case BRIGADE:
-					result = longFormat(unit) + "(" + longFormat(unit.getParent()) +")";
-					break;
+					result = longFormat(unit) + "(" + longFormat(unit.getParent()) + ")";
+				break;
 				default:
 					result = longFormat(unit);
 			}
 		}
 		return result;
 	}
-
 
 }
 
