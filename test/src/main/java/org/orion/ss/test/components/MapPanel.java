@@ -27,6 +27,7 @@ import org.orion.ss.model.geo.HexSide;
 import org.orion.ss.model.geo.Location;
 import org.orion.ss.model.geo.River;
 import org.orion.ss.model.geo.Terrain;
+import org.orion.ss.model.impl.Stock;
 import org.orion.ss.model.impl.UnitStack;
 import org.orion.ss.service.GraphService;
 import org.slf4j.Logger;
@@ -72,6 +73,7 @@ public class MapPanel extends JPanel {
 	private List<Location> deployArea;
 	private LocationUpdatable toUpdate;
 	private Map<Location, UnitStack> units;
+	private Map<Location, Stock> supplies;
 	private Unit selectedUnit = null;
 
 	private Point offset;
@@ -90,6 +92,7 @@ public class MapPanel extends JPanel {
 		toUpdate = parent;
 		this.graphService = graphService;
 		graphService.setSymbolSize((int) (radius * 1.20));
+		supplies = new HashMap<Location, Stock>();
 	}
 
 	public MapPanel(double radius, GeoMap map, LocationUpdatable parent, HexSet displayArea, Map<Location, UnitStack> units, GraphService graphService) {
@@ -184,16 +187,31 @@ public class MapPanel extends JPanel {
 				Location coords = new Location(i + (int) getOffset().getX(), j + (int) getOffset().getY());
 				if (units.containsKey(coords)) {
 					UnitStack stack = units.get(coords);
+					int symbolSize = 0;
 					if (stack.size() > 0) {
-						if (stack.containsAnyElementOf(selectedUnit)) {
-							g.setColor(Color.RED);
-							g.fillRect((int) o.getX() - graphService.getSymbolSize() / 2 - 3, (int) o.getY() - graphService.getSymbolSize() / 2 - 3, graphService.getSymbolSize() + 6, graphService.getSymbolSize() + 6);
+						if (selectedUnit != null) {
+							if (stack.containsAnyElementOf(selectedUnit)) {
+								g.setColor(Color.RED);
+								g.fillRect((int) o.getX() - graphService.getSymbolSize() / 2 - 3, (int) o.getY() - graphService.getSymbolSize() / 2 - 3, graphService.getSymbolSize() + 6, graphService.getSymbolSize() + 6);
+							}
 						}
 						BufferedImage symbol = graphService.getUnitSymbol(stack.get(stack.size() - 1));
+						symbolSize = symbol.getWidth();
 						g.drawImage(symbol, (int) o.getX() - symbol.getWidth() / 2, (int) o.getY() - symbol.getHeight() / 2, symbol.getWidth(), symbol.getHeight(), null);
 					}
 					if (stack.size() > 1) {
 						g.drawString("" + stack.size(), (int) o.getX() - (int) (radius * 0.75), (int) o.getY());
+					}
+					if (supplies.containsKey(coords)) {
+						// draw small stocks
+						BufferedImage symbol = graphService.getSupplySmallSymbol(supplies.get(coords));
+						g.drawImage(symbol, (int) o.getX() + symbolSize / 2, (int) o.getY() - symbol.getHeight() / 2, symbol.getWidth(), symbol.getHeight(), null);
+					}
+				} else {
+					if (supplies.containsKey(coords)) {
+						BufferedImage symbol = graphService.getSupplySymbol(supplies.get(coords));
+						g.drawImage(symbol, (int) o.getX() - symbol.getWidth() / 2, (int) o.getY() - symbol.getHeight() / 2, symbol.getWidth(), symbol.getHeight(), null);
+						// draw stocks
 					}
 				}
 			}
@@ -359,12 +377,24 @@ public class MapPanel extends JPanel {
 		this.units = units;
 	}
 
+	public Map<Location, UnitStack> getUnits() {
+		return units;
+	}
+
 	public LocationUpdatable getToUpdate() {
 		return toUpdate;
 	}
 
 	public void setToUpdate(LocationUpdatable parent) {
 		toUpdate = parent;
+	}
+
+	public Map<Location, Stock> getSupplies() {
+		return supplies;
+	}
+
+	public void setSupplies(Map<Location, Stock> supplies) {
+		this.supplies = supplies;
 	}
 
 	/* Event listeners */

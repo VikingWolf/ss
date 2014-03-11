@@ -206,4 +206,12 @@ public class GameSample1Player {
 		scenario.setForecast(forecast);
 	}
 
+	public Scenario getScenario() {
+		return scenario;
+	}
+
+	public void setScenario(Scenario scenario) {
+		this.scenario = scenario;
+	}
+
 }

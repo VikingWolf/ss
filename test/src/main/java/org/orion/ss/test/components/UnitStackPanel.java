@@ -16,6 +16,7 @@ import org.orion.ss.model.impl.Formation;
 import org.orion.ss.model.impl.Game;
 import org.orion.ss.model.impl.UnitStack;
 import org.orion.ss.service.GraphService;
+import org.orion.ss.service.ServiceFactory;
 import org.orion.ss.utils.NumberFormats;
 
 class UnitStackPanel extends JPanel {
@@ -29,7 +30,7 @@ class UnitStackPanel extends JPanel {
 	public UnitStackPanel(UnitStack unitStack, int symbolSize, Game game) {
 		super(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		graphService = new GraphService(game);
+		graphService = ServiceFactory.getGraphService(game);
 		graphService.setSymbolSize(symbolSize);
 		this.symbolSize = symbolSize;
 		this.unitStack = unitStack;

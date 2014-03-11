@@ -7,6 +7,7 @@ import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.core.TroopType;
 import org.orion.ss.model.core.TroopTypesCompatibility;
+import org.orion.ss.model.geo.Location;
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.CompanyModel;
 import org.orion.ss.model.impl.Formation;
@@ -27,7 +28,7 @@ public class ManagementService extends Service {
 	private final static double REINFORCEMENT_AVAILABILITY_EXPONENT = 0.4d;
 	private final static double FORMATION_LEVEL_COST_EXPONENT = 0.45d;
 
-	public ManagementService(Game game) {
+	protected ManagementService(Game game) {
 		super(game);
 	}
 
@@ -62,15 +63,6 @@ public class ManagementService extends Service {
 				* company.getModel().getMaxStrength()
 				* Math.pow(company.getExperience(), ELITE_REINFORCEMENT_COST_EXPONENT);
 		return new ReinforceCost(toReinforce, (int) cost);
-	}
-
-	public int resupplyCost(Company company) {
-		int cost = 0;
-		for (SupplyType supplyType : company.getMaxSupplies().keySet()) {
-			double amount = company.getMaxSupplies().get(supplyType) - company.getSupplies().get(supplyType);			
-			cost += amount * company.getCountry().getMarket().get(supplyType);
-		}
-		return cost;
 	}
 
 	public int resupplyCost(Formation formation) {
@@ -127,7 +119,23 @@ public class ManagementService extends Service {
 		getGame().getLog().addEntry(company.getFullLongName() + " re-supplied spending " + cost + " prestige.");
 	}
 
-	public int getValue(CompanyModel model) {
+	public int resupplyCost(Company company) {
+		int cost = 0;
+		for (SupplyType supplyType : company.getMaxSupplies().keySet()) {
+			double amount = company.getMaxSupplies().get(supplyType) - company.getSupplies().get(supplyType);
+			cost += amount * company.getCountry().getMarket().get(supplyType);
+		}
+		return cost;
+	}
+
+	public void buySupplies(Stock stock, Position position, Location location) {
+		int cost = stockValue(stock, position);
+		position.decreasePrestige(cost);
+		position.addStock(stock, location);
+		getGame().getLog().addEntry(position.getFullLongName() + " bought " + stock.toString() + " to location " + location.toString() + " spending " + cost + " prestige.");
+	}
+
+	public int getCompanyValue(CompanyModel model) {
 		int value = 0;
 		for (WeaponModel weaponModel : model.getWeaponry().keySet()) {
 			value += weaponModel.getCost() * model.getWeaponry().get(weaponModel);
@@ -135,11 +143,19 @@ public class ManagementService extends Service {
 		return value;
 	}
 
-	public int upgradeCost(Company target, CompanyModel upgrade) {
-		return getValue(upgrade) - getValue(target.getModel());
+	public int stockValue(Stock stock, Position position) {
+		int cost = 0;
+		for (SupplyType supply : stock.keySet()) {
+			cost += stock.get(supply) * position.getCountry().getMarket().get(supply);
+		}
+		return cost;
 	}
 
-	public void upgrade(Company company, CompanyModel upgrade) {
+	public int upgradeCost(Company target, CompanyModel upgrade) {
+		return getCompanyValue(upgrade) - getCompanyValue(target.getModel());
+	}
+
+	public void upgradeCompany(Company company, CompanyModel upgrade) {
 		int cost = this.upgradeCost(company, upgrade);
 		company.getPosition().decreasePrestige(cost);
 		company.setModel(upgrade);
@@ -153,7 +169,7 @@ public class ManagementService extends Service {
 	}
 
 	public void dismiss(Company company) {
-		company.getParent().getCompanies().remove(company);		
+		company.getParent().getCompanies().remove(company);
 		getGame().getLog().addEntry(company.getFullLongName() + " moved to the reserve. ");
 
 	}
@@ -162,24 +178,24 @@ public class ManagementService extends Service {
 		formation.getParent().getSubordinates().remove(formation);
 		getGame().getLog().addEntry(formation.getFullLongName() + " moved to the reserve. ");
 	}
-	
-	public int purchaseCost(Formation formation, CompanyModel companyModel){
+
+	public int purchaseCost(Formation formation, CompanyModel companyModel) {
 		if (companyModel != null) {
 			Company company = new Company(companyModel);
 			company.setParent(formation);
 			ReinforceCost cost = this.regularReinforceCost(company);
 			company.setStrength(1.0d);
 			int suppliesCost = this.resupplyCost(company);
-			return cost.getCost() + suppliesCost;			
+			return cost.getCost() + suppliesCost;
 		} else return 0;
 	}
-	
-	public void purchaseCompany(Formation formation, CompanyModel companyModel){
+
+	public void purchaseCompany(Formation formation, CompanyModel companyModel) {
 		int cost = purchaseCost(formation, companyModel);
 		formation.getPosition().decreasePrestige(cost);
 		int id = 1;
-		for (Company company : formation.getCompanies()){
-			if (company.getId()>= id){
+		for (Company company : formation.getCompanies()) {
+			if (company.getId() >= id) {
 				id = company.getId() + 1;
 			}
 		}
@@ -191,27 +207,27 @@ public class ManagementService extends Service {
 		getGame().getLog().addEntry(company.getFullLongName() + " purchased to " + formation.getFullLongName() + " spending " + cost + " prestige.");
 
 	}
-	
-	public int createFormationCost(Formation parent, CompanyModel hqModel, FormationLevel level){
+
+	public int createFormationCost(Formation parent, CompanyModel hqModel, FormationLevel level) {
 		int cost = purchaseCost(parent, hqModel);
 		double levelModifier = Math.pow(level.getOrdinal(), FORMATION_LEVEL_COST_EXPONENT);
 		cost *= levelModifier;
 		return cost;
 	}
-	
-	public void createFormation(Formation parent, CompanyModel hqModel, FormationLevel level, TroopType troopType){
+
+	public void createFormation(Formation parent, CompanyModel hqModel, FormationLevel level, TroopType troopType) {
 		int cost = createFormationCost(parent, hqModel, level);
 		parent.getPosition().decreasePrestige(cost);
 		int id = 1;
-		if (level.isUniqueId()){
+		if (level.isUniqueId()) {
 			id = parent.getCountry().getLastIdFor(level) + 1;
 		} else {
-			for (Formation subordinate : parent.getSubordinates()){
-				if (subordinate.getId()>= id){
+			for (Formation subordinate : parent.getSubordinates()) {
+				if (subordinate.getId() >= id) {
 					id = subordinate.getId() + 1;
 				}
 			}
-			
+
 		}
 		Formation formation = new Formation(level, troopType, id);
 		Company company = new Company(hqModel, 0, 1.00d, 1.00d, 1.00d);
@@ -221,29 +237,29 @@ public class ManagementService extends Service {
 		parent.addSubordinate(formation);
 		getGame().getLog().addEntry(formation.getFullLongName() + " created " + formation.getFullLongName() + " spending " + cost + " prestige.");
 	}
-	
-	public List<CompanyModel> getCompanyModelsFor(Formation formation){
+
+	public List<CompanyModel> getCompanyModelsFor(Formation formation) {
 		List<CompanyModel> result = new ArrayList<CompanyModel>();
 		List<TroopType> validTroopTypes = getSubordinateTroopTypes(formation);
-		for (CompanyModel model : formation.getCountry().getCompanyModels()){
-			if (validTroopTypes.contains(model.getType())){
+		for (CompanyModel model : formation.getCountry().getCompanyModels()) {
+			if (validTroopTypes.contains(model.getType())) {
 				result.add(model);
 			}
 		}
 		return result;
 	}
-	
-	public List<FormationLevel> getSubordinables(Formation formation){
+
+	public List<FormationLevel> getSubordinables(Formation formation) {
 		List<FormationLevel> subordinables = new ArrayList<FormationLevel>();
-		for (FormationLevel level : FormationLevel.values()){
-			if ((level.getOrdinal()>FormationLevel.COMPANY.getOrdinal()) && (level.getOrdinal() < formation.getFormationLevel().getOrdinal())){
+		for (FormationLevel level : FormationLevel.values()) {
+			if ((level.getOrdinal() > FormationLevel.COMPANY.getOrdinal()) && (level.getOrdinal() < formation.getFormationLevel().getOrdinal())) {
 				subordinables.add(level);
 			}
 		}
 		return subordinables;
 	}
-	
-	public List<TroopType> getSubordinateTroopTypes(Formation formation){
+
+	public List<TroopType> getSubordinateTroopTypes(Formation formation) {
 		return TroopTypesCompatibility.loadCompatibles(formation.getTroopType(), formation.getFormationLevel());
 	}
 

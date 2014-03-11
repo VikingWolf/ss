@@ -21,6 +21,7 @@ import org.orion.ss.model.impl.UnitStack;
 import org.orion.ss.service.GameService;
 import org.orion.ss.service.GeoService;
 import org.orion.ss.service.GraphService;
+import org.orion.ss.service.ServiceFactory;
 import org.orion.ss.test.GraphicTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,11 +45,11 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 
 	private Unit selectedUnit;
 
-	public DeploymentPanel(GraphicTest parent, Game game) {
-		super(parent, game);
-		geoService = new GeoService(game);
-		graphService = new GraphService(game);
-		gameService = new GameService(game);
+	public DeploymentPanel(GraphicTest parent, GameService gameService) {
+		super(parent, gameService);
+		geoService = ServiceFactory.getGeoService(getGame());
+		graphService = ServiceFactory.getGraphService(getGame());
+		this.gameService = gameService;
 		setBounds(GraphicTest.TAB_BOUNDS);
 		setLayout(null);
 		mount();
@@ -57,7 +58,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 	@Override
 	public void mount() {
 		removeAll();
-		addLabel("Deployment, " + game.getCurrentPlayer().getEmail(),
+		addLabel("Deployment, " + getGame().getCurrentPlayer().getEmail(),
 				GraphicTest.LEFT_MARGIN,
 				GraphicTest.TOP_MARGIN,
 				GraphicTest.COLUMN_WIDTH_XXLARGE,
@@ -76,7 +77,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 	}
 
 	protected void mountUnitInfoPanel() {
-		unitInfoPanel = new SmallUnitInfoPanel(game);
+		unitInfoPanel = new SmallUnitInfoPanel(getGame());
 		unitInfoPanel.setLayout(null);
 		unitInfoPanel.setBounds(
 				treePanel.getPanel().getX() + treePanel.getPanel().getWidth() + GraphicTest.LEFT_MARGIN,
@@ -88,7 +89,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 	}
 
 	protected void mountTreePanel() {
-		treePanel = new DeploymentTreePanel(this, game.getCurrentPlayerPosition(),
+		treePanel = new DeploymentTreePanel(this, getGame().getCurrentPlayerPosition(),
 				GraphicTest.LEFT_MARGIN,
 				GraphicTest.TOP_MARGIN * 3 + GraphicTest.ROW_HEIGHT * 2,
 				GraphicTest.COLUMN_WIDTH_XXLARGE,
@@ -104,7 +105,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 				GraphicTest.ROW_HEIGHT);
 		toDeployTF = new JTextField();
 		toDeployTF.setEditable(false);
-		toDeployTF.setText("" + geoService.undeployedUnits(game.getCurrentPlayerPosition()).size());
+		toDeployTF.setText("" + geoService.undeployedUnits(getGame().getCurrentPlayerPosition()).size());
 		toDeployTF.setBounds(
 				GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH,
 				treePanel.getPanel().getY() + treePanel.getPanel().getHeight() + GraphicTest.TOP_MARGIN,
@@ -117,10 +118,11 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 		endTurnB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if (geoService.undeployedUnits(game.getCurrentPlayerPosition()).size() > 0) {
+				if (geoService.undeployedUnits(getGame().getCurrentPlayerPosition()).size() > 0) {
 					showConfirmationDialog();
 				} else {
-					// next player
+					gameService.nextPlayer();
+					parent.updatePlayerPanel();
 				}
 			}
 		});
@@ -131,7 +133,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 		dialog.setTitle("There are undeployed units");
 		dialog.setBounds(100, 100, 400, 200);
 		dialog.setLayout(null);
-		JLabel label1 = new JLabel("There are " + geoService.undeployedUnits(game.getCurrentPlayerPosition()).size() + " undeployed units.");
+		JLabel label1 = new JLabel("There are " + geoService.undeployedUnits(getGame().getCurrentPlayerPosition()).size() + " undeployed units.");
 		label1.setBounds(
 				GraphicTest.LEFT_MARGIN,
 				GraphicTest.TOP_MARGIN * 3,
@@ -180,8 +182,8 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 	}
 
 	protected void mountMapPanel() {
-		mapPanel = new ScrollableMap(game.getMap(), 500, GraphicTest.TOP_MARGIN, 860, 560, HEX_SIDE, geoService.fullMap(), this, graphService);
-		mapPanel.setUnits(geoService.getAllUnitsLocated(mapPanel.getBounds()));
+		mapPanel = new ScrollableMap(getGame().getMap(), 500, GraphicTest.TOP_MARGIN, 860, 560, HEX_SIDE, geoService.fullMap(), this, graphService);
+		mapPanel.setUnits(geoService.getAllUnitsLocatedAt(mapPanel.getBounds()));
 		add(mapPanel);
 	}
 
@@ -198,10 +200,10 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 	public void updateLocation(Location location) {
 		boolean result = geoService.deploy(selectedUnit, location);
 		if (result) {
-			mapPanel.setUnits(geoService.getAllUnitsLocated(mapPanel.getBounds()));
+			mapPanel.setUnits(geoService.getAllUnitsLocatedAt(mapPanel.getBounds()));
 			infoL.setForeground(Color.BLACK);
 			infoL.setText(selectedUnit.getFullLongName() + " placed at (" + location.getX() + "," + location.getY() + ")");
-			toDeployTF.setText("" + geoService.undeployedUnits(game.getCurrentPlayerPosition()).size());
+			toDeployTF.setText("" + geoService.undeployedUnits(getGame().getCurrentPlayerPosition()).size());
 		} else {
 			infoL.setForeground(Color.RED);
 			infoL.setText("This unit cannot be placed here!");
@@ -214,7 +216,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 		int symbolSize = 64;
 		UnitStack stack = geoService.getStackAt(location);
 		if (stack.size() > 0) {
-			UnitStackDialog unitStackDialog = new UnitStackDialog(stack, symbolSize, game);
+			UnitStackDialog unitStackDialog = new UnitStackDialog(stack, symbolSize, getGame());
 			Dimension dimension = unitStackDialog.computeSize();
 			int bX = x + mapPanel.getWidth() + (int) HEX_SIDE;
 			if (bX + (int) dimension.getWidth() > GraphicTest.WINDOW_BOUNDS.getWidth()) {

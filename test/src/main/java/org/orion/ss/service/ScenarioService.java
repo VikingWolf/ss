@@ -15,7 +15,7 @@ public class ScenarioService extends Service {
 	private final static String _scenarioPath = "src\\main\\resources\\scenarios\\";
 	private final static String _flagsPath = "\\flags";
 
-	public ScenarioService(Game game) {
+	protected ScenarioService(Game game) {
 		super(game);
 	}
 

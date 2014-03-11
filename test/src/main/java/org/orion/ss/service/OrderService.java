@@ -12,13 +12,12 @@ import org.orion.ss.orders.Order;
 
 public class OrderService extends Service {
 
-
-	public OrderService(Game game) {
+	protected OrderService(Game game) {
 		super(game);
 	}
-	
-	protected List<Activable> loadActivables(Player player){
-		//TODO
+
+	protected List<Activable> loadActivables(Player player) {
+		// TODO
 		return null;
 	}
 
@@ -29,7 +28,5 @@ public class OrderService extends Service {
 		}
 		return result;
 	}
-
-	
 
 }

@@ -56,6 +56,14 @@ public class UnitStack extends ArrayList<Unit> implements Activable, Mobile {
 		return result;
 	}
 
+	public Unit[] getArray() {
+		Unit[] result = new Unit[this.size()];
+		for (int i = 0; i < this.size(); i++) {
+			result[i] = this.get(i);
+		}
+		return result;
+	}
+
 	/* getters and setters */
 	@Override
 	public Location getLocation() {

@@ -2,10 +2,14 @@ package org.orion.ss.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import org.orion.ss.model.core.GamePhase;
+import org.orion.ss.model.geo.WeatherType;
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.Game;
 import org.orion.ss.model.impl.Player;
+import org.orion.ss.model.impl.Scenario;
 import org.orion.ss.test.Test;
 import org.orion.ss.utils.Maths;
 import org.slf4j.Logger;
@@ -17,18 +21,29 @@ public class GameService extends Service {
 
 	private final static double INITIATIVE_UNITARY_DEVIATION = 0.2d;
 
-	public GameService(Game game) {
+	private Scenario scenario;
+
+	protected GameService(Game game, Scenario scenario) {
 		super(game);
+		this.scenario = scenario;
 	}
 
 	public void endTurn() {
-		// TODO check game end
 		if (!this.gameHasEnded()) {
 			this.getGame().advanceTurn();
 			resetPlayers();
+			if (getGame().getPhase().equals(GamePhase.TURN)) {
+				setWeather();
+			}
 		} else {
 			getGame().getLog().addEntry("The game has ended!");
 		}
+	}
+
+	protected void setWeather() {
+		double random = new Random().nextDouble();
+		WeatherType weather = getScenario().getForecast().get(getGame().getTurn() - 1).resolveWeather(random);
+		getGame().setWeather(weather);
 	}
 
 	public void startGame() {
@@ -58,7 +73,7 @@ public class GameService extends Service {
 		return result;
 	}
 
-	public void computeScore() {		
+	public void computeScore() {
 		getGame().logScore();
 	}
 
@@ -110,6 +125,16 @@ public class GameService extends Service {
 			result = true;
 		}
 		return result;
+	}
+
+	/* getters & setters */
+
+	public Scenario getScenario() {
+		return scenario;
+	}
+
+	public void setScenario(Scenario scenario) {
+		this.scenario = scenario;
 	}
 
 }

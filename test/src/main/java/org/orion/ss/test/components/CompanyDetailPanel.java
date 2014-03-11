@@ -92,7 +92,7 @@ public class CompanyDetailPanel extends FastPanel {
 		/* Second Column */
 		addLabel("Equipment Prestige Value", GraphicTest.LEFT_MARGIN * 2 + GraphicTest.COLUMN_WIDTH + GraphicTest.COLUMN_WIDTH_LARGE,
 				GraphicTest.TOP_MARGIN * 2, GraphicTest.COLUMN_WIDTH_LARGE, GraphicTest.ROW_HEIGHT);
-		addNotEditableTextField(NumberFormats.PRESTIGE.format(managementService.getValue(company.getModel())),
+		addNotEditableTextField(NumberFormats.PRESTIGE.format(managementService.getCompanyValue(company.getModel())),
 				GraphicTest.LEFT_MARGIN * 2 + GraphicTest.COLUMN_WIDTH + GraphicTest.COLUMN_WIDTH_LARGE * 2, GraphicTest.TOP_MARGIN * 2,
 				GraphicTest.COLUMN_WIDTH_NARROW, GraphicTest.ROW_HEIGHT);
 		List<String> labels2 = new ArrayList<String>();
@@ -153,7 +153,7 @@ public class CompanyDetailPanel extends FastPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				CompanyModel model = (CompanyModel) upgradesCB.getSelectedItem();
-				managementService.upgrade(company, model);
+				managementService.upgradeCompany(company, model);
 				updateUnitPanel(company);
 			}
 

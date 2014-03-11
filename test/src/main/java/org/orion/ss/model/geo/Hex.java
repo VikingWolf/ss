@@ -10,6 +10,7 @@ public class Hex {
 	private Terrain terrain;
 	private Vegetation vegetation;
 	private Location coords;
+	private SoilState soilState = SoilState.DRY;
 
 	public Hex() {
 		super();
@@ -50,6 +51,14 @@ public class Hex {
 	public Hex setVegetation(Vegetation vegetation) {
 		this.vegetation = vegetation;
 		return this;
+	}
+
+	public SoilState getSoilState() {
+		return soilState;
+	}
+
+	public void setSoilState(SoilState soilState) {
+		this.soilState = soilState;
 	}
 
 	@Override

@@ -14,7 +14,7 @@ public class Stock extends HashMap<SupplyType, Double> {
 			this.put(supplyType, stock.get(supplyType));
 		}
 	}
-	
+
 	@Override
 	public Double put(SupplyType type, Double amount) {
 		if (this.containsKey(type)) {

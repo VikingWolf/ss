@@ -15,6 +15,7 @@ import org.orion.ss.model.Unit;
 import org.orion.ss.model.geo.GeoMap;
 import org.orion.ss.model.geo.HexSet;
 import org.orion.ss.model.geo.Location;
+import org.orion.ss.model.impl.Stock;
 import org.orion.ss.model.impl.UnitStack;
 import org.orion.ss.service.GraphService;
 import org.slf4j.Logger;
@@ -71,6 +72,10 @@ public class ScrollableMap extends JPanel {
 
 	public void setUnits(Map<Location, UnitStack> units) {
 		mapPanel.setUnits(units);
+	}
+
+	public void setSupplies(Map<Location, Stock> supplies) {
+		mapPanel.setSupplies(supplies);
 	}
 
 	public void setSelectedUnit(Unit unit) {

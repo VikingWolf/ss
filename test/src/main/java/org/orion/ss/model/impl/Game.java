@@ -9,12 +9,15 @@ import java.util.Observable;
 
 import org.orion.ss.model.core.GamePhase;
 import org.orion.ss.model.geo.GeoMap;
+import org.orion.ss.model.geo.WeatherType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Game extends Observable {
 
 	protected Logger logger = LoggerFactory.getLogger(Game.class);
+
+	private final static List<String> _games = new ArrayList<String>();
 
 	private Map<Player, Position> positions;
 	private GameSettings settings;
@@ -25,15 +28,18 @@ public class Game extends Observable {
 	private GamePhase phase = GamePhase.MANAGEMENT;
 	private GeoMap map;
 	private final String scenarioName;
+	private WeatherType weather;
 
 	public Game(String id, GameSettings settings, String scenarioName) {
 		super();
+		assert (!_games.contains(id));
 		this.id = id;
 		this.settings = settings;
 		this.scenarioName = scenarioName;
 		positions = new HashMap<Player, Position>();
 		log = new GameLog();
 		logGameStart();
+		_games.add(id);
 	}
 
 	public void advanceTurn() {
@@ -78,17 +84,17 @@ public class Game extends Observable {
 		}
 	}
 
+	public Date getDate() {
+		long time = this.getSettings().getInitialTime().getTime();
+		time += this.getTurn() * this.getSettings().getTurnDuration() * GameSettings.HOUR_MILLIS;
+		return new Date(time);
+	}
+
 	/* adders */
 
 	public void addPosition(Player player, Position position) {
 		positions.put(player, position);
 		logPosition(player, position);
-	}
-
-	public Date getDate() {
-		long time = this.getSettings().getInitialTime().getTime();
-		time += this.getTurn() * this.getSettings().getTurnDuration() * GameSettings.HOUR_MILLIS;
-		return new Date(time);
 	}
 
 	/* getters & setters */
@@ -176,6 +182,36 @@ public class Game extends Observable {
 
 	public String getScenarioName() {
 		return scenarioName;
+	}
+
+	public WeatherType getWeather() {
+		return weather;
+	}
+
+	public void setWeather(WeatherType weather) {
+		this.weather = weather;
+	}
+
+	/* equals and hashcode */
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		Game other = (Game) obj;
+		if (id == null) {
+			if (other.id != null) return false;
+		} else if (!id.equals(other.id)) return false;
+		return true;
 	}
 
 }

@@ -16,6 +16,7 @@ import javax.swing.JTabbedPane;
 import org.orion.ss.model.core.GamePhase;
 import org.orion.ss.model.impl.Game;
 import org.orion.ss.service.GameService;
+import org.orion.ss.service.ServiceFactory;
 import org.orion.ss.test.components.CurrentPlayerLabel;
 import org.orion.ss.test.components.DeploymentPanel;
 import org.orion.ss.test.components.GameLogPanel;
@@ -50,7 +51,6 @@ public class GraphicTest {
 	public final static int COLUMN_WIDTH_XNARROW = 60;
 	public final static int ROW_HEIGHT = 25;
 
-	private Game game;
 	private JFrame mainFrame;
 
 	private GameService gameService;
@@ -76,24 +76,24 @@ public class GraphicTest {
 	}
 
 	public void endGame() {
-		this.showInfoDialog("The game has ended after " + game.getTurn() + " turns. ");
+		this.showInfoDialog("The game has ended after " + getGame().getTurn() + " turns. ");
 		gameService.computeScore();
 	}
 
 	protected void prepareGame() {
-		game = new GameSample1Player().buildGame();
-		gameService = new GameService(game);
+		GameSample1Player sample = new GameSample1Player();
+		gameService = ServiceFactory.getGameService(sample.buildGame(), sample.getScenario());
 	}
 
 	public void updatePlayerPanel() {
 		mainPane.removeTabAt(1);
-		logger.error("phase=" + game.getPhase());
-		if (game.getPhase() == GamePhase.MANAGEMENT) {
-			playerPanel = new ManagementPanel(this, game);
-		} else if (game.getPhase() == GamePhase.DEPLOYMENT) {
-			playerPanel = new DeploymentPanel(this, game);
-		} else if (game.getPhase() == GamePhase.TURN) {
-			playerPanel = new TurnPanel(this, game);
+		logger.error("phase=" + getGame().getPhase());
+		if (getGame().getPhase() == GamePhase.MANAGEMENT) {
+			playerPanel = new ManagementPanel(this, gameService);
+		} else if (getGame().getPhase() == GamePhase.DEPLOYMENT) {
+			playerPanel = new DeploymentPanel(this, getGameService());
+		} else if (getGame().getPhase() == GamePhase.TURN) {
+			playerPanel = new TurnPanel(this, getGameService());
 		}
 		playerPanel.mount();
 		mainPane.addTab("CurrentPlayer", playerPanel);
@@ -109,9 +109,9 @@ public class GraphicTest {
 		mainFrame.getContentPane().add(mainPane);
 		gameLogPanel = new GameLogPanel();
 		mainPane.addTab("Game Log", gameLogPanel);
-		game.getLog().addObserver(gameLogPanel);
+		getGame().getLog().addObserver(gameLogPanel);
 		currentPlayerLabel = new CurrentPlayerLabel();
-		game.addObserver(currentPlayerLabel);
+		getGame().addObserver(currentPlayerLabel);
 		mainFrame.getContentPane().add(currentPlayerLabel);
 		mainFrame.addWindowListener(new WindowAdapter() {
 			@Override
@@ -161,6 +161,19 @@ public class GraphicTest {
 
 		});
 		dialog.setModal(true);
+	}
+
+	/* getters & setters */
+	public Game getGame() {
+		return gameService.getGame();
+	}
+
+	public GameService getGameService() {
+		return gameService;
+	}
+
+	public void setGameService(GameService gameService) {
+		this.gameService = gameService;
 	}
 
 }

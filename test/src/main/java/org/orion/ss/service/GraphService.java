@@ -13,10 +13,12 @@ import java.util.List;
 import org.orion.ss.model.Unit;
 import org.orion.ss.model.core.CompanyTrait;
 import org.orion.ss.model.core.FormationLevel;
+import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.core.TroopType;
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.Formation;
 import org.orion.ss.model.impl.Game;
+import org.orion.ss.model.impl.Stock;
 import org.orion.ss.utils.NumberFormats;
 
 public class GraphService extends Service {
@@ -76,9 +78,48 @@ public class GraphService extends Service {
 	private Point symbolCenter;
 	private Point symbolUL;
 
-	public GraphService(Game game) {
+	protected GraphService(Game game) {
 		super(game);
 		scenarioService = new ScenarioService(game);
+	}
+
+	public BufferedImage getSupplySymbol(Stock stock) {
+		BufferedImage result = new BufferedImage(getSymbolSize(), getSymbolSize(), BufferedImage.TYPE_4BYTE_ABGR);
+		Graphics2D canvas = (Graphics2D) result.getGraphics();
+		canvas.setColor(Color.BLACK);
+		canvas.fillRect(0, 0, result.getWidth(), result.getHeight());
+		canvas.setColor(Color.WHITE);
+		canvas.fillRect(2, 2, result.getWidth() - 4, result.getHeight() - 4);
+		canvas.setColor(Color.BLACK);
+		canvas.setFont(smallFont);
+		FontMetrics metrics = canvas.getFontMetrics(canvas.getFont());
+		int i = 1;
+		for (SupplyType supply : stock.keySet()) {
+			String name = supply.getDenomination();
+			canvas.drawString(name, smallFont.getSize(), i * (int) (smallFont.getSize() * 1.6));
+			String amount = NumberFormats.DF_2.format(stock.get(supply));
+			canvas.drawString(amount, result.getWidth() - (int) (smallFont.getSize() * 0.5) - metrics.stringWidth(amount), i * (int) (smallFont.getSize() * 1.6));
+			// TODO here
+			i++;
+		}
+		return result;
+	}
+
+	public BufferedImage getSupplySmallSymbol(Stock stock) {
+		BufferedImage result = new BufferedImage(getSymbolSize() / 5, stock.size() * getSymbolSize() / 5, BufferedImage.TYPE_4BYTE_ABGR);
+		Graphics2D canvas = (Graphics2D) result.getGraphics();
+		canvas.setColor(Color.BLACK);
+		canvas.fillRect(0, 0, result.getWidth(), result.getHeight());
+		canvas.setColor(Color.WHITE);
+		canvas.setFont(smallBoldFont);
+		FontMetrics metrics = canvas.getFontMetrics(canvas.getFont());
+		int i = 1;
+		for (SupplyType supply : stock.keySet()) {
+			String code = supply.getDenomination().substring(0, 1).toUpperCase();
+			canvas.drawString(code, (result.getWidth() - metrics.stringWidth(code)) / 2, smallBoldFont.getSize() / 4 + i * stock.size() * result.getHeight() / 5);
+			i++;
+		}
+		return result;
 	}
 
 	public BufferedImage getUnitSymbol(Unit unit) {
@@ -142,7 +183,6 @@ public class GraphService extends Service {
 	}
 
 	private void drawFlag(Unit unit, Graphics2D target) {
-		logger.error("unit=" + unit.getFullLongName() + unit.getParentFormation(FormationLevel.CORPS));
 		if (unit.getParentFormation(FormationLevel.DIVISION) != null) {
 			drawFormationSymbol(unit.getParentFormation(FormationLevel.DIVISION), target);
 		} else if (unit.getParentFormation(FormationLevel.CORPS) != null) {

@@ -14,11 +14,12 @@ import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.Formation;
 import org.orion.ss.model.impl.Game;
 import org.orion.ss.model.impl.Position;
+import org.orion.ss.model.impl.Stock;
 import org.orion.ss.model.impl.UnitStack;
 
 public class GeoService extends Service {
 
-	public GeoService(Game game) {
+	protected GeoService(Game game) {
 		super(game);
 	}
 
@@ -39,7 +40,6 @@ public class GeoService extends Service {
 			}
 		}
 		return result;
-
 	}
 
 	public UnitStack getStackAt(Location location) {
@@ -94,14 +94,32 @@ public class GeoService extends Service {
 		return result;
 	}
 
-	public Map<Location, UnitStack> getAllUnitsLocated(Rectangle bounds) {
+	public Map<Location, UnitStack> getAllUnitsLocatedAt(Rectangle bounds) {
 		Map<Location, UnitStack> result = new HashMap<Location, UnitStack>();
 		for (int i = (int) bounds.getX(); i <= (int) (bounds.getX() + bounds.getWidth()); i++) {
 			for (int j = (int) bounds.getY(); j <= (int) (bounds.getY() + bounds.getHeight()); j++) {
-				result.put(new Location(i, j), this.getStackAt(new Location(i, j)));
+				UnitStack stack = this.getStackAt(new Location(i, j));
+				if (stack.size() > 0)
+					result.put(new Location(i, j), stack);
 			}
 		}
 		return result;
+	}
+
+	public Map<Location, Stock> getStocksLocatedAt(Rectangle bounds, Position position) {
+		Map<Location, Stock> result = new HashMap<Location, Stock>();
+		for (int i = (int) bounds.getX(); i <= (int) (bounds.getX() + bounds.getWidth()); i++) {
+			for (int j = (int) bounds.getY(); j <= (int) (bounds.getY() + bounds.getHeight()); j++) {
+				Stock stock = position.getStockAt(new Location(i, j));
+				if (stock != null)
+					result.put(new Location(i, j), stock);
+			}
+		}
+		return result;
+	}
+
+	public Hex getHexAt(Location coords) {
+		return getGame().getMap().getHexAt(coords);
 	}
 
 }
