@@ -87,7 +87,7 @@ public class SmallUnitInfoPanel extends FastPanel {
 			values.add("" + NumberFormats.DF_2.format(defense.getStrength()));
 		}
 		for (Attack attack : combatService.computeAttacks(unit)) {
-			labels.add(attack.getType().getDenomination() + " attack ");
+			labels.add(attack.getType().getDenomination());
 			values.add("" + NumberFormats.DF_2.format(attack.getStrength()));
 		}
 		for (int i = 0; i < values.size(); i++) {

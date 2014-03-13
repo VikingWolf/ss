@@ -1,12 +1,16 @@
 package org.orion.ss.model.geo;
 
-public class Bridge extends OrientedFeature {
+import org.orion.ss.model.core.BridgeType;
+
+public class Bridge extends MultiLocatedFeature {
 
 	private double state;
+	private final BridgeType bridgeType;
 
-	public Bridge(OrientedLocation location) {
-		super(location);
+	public Bridge(BridgeType bridgeType) {
+		super();
 		state = 1.0d;
+		this.bridgeType = bridgeType;
 	}
 
 	@Override
@@ -22,6 +26,10 @@ public class Bridge extends OrientedFeature {
 
 	public void setState(double state) {
 		this.state = state;
+	}
+
+	public BridgeType getBridgeType() {
+		return bridgeType;
 	}
 
 }

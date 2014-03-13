@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.orion.ss.model.core.BridgeType;
 import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.Mobility;
 import org.orion.ss.model.core.ObjectiveType;
@@ -13,11 +14,13 @@ import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.core.TroopType;
 import org.orion.ss.model.core.WeaponType;
 import org.orion.ss.model.geo.Airfield;
+import org.orion.ss.model.geo.Bridge;
 import org.orion.ss.model.geo.Fortification;
 import org.orion.ss.model.geo.Hex;
 import org.orion.ss.model.geo.HexSide;
 import org.orion.ss.model.geo.Location;
 import org.orion.ss.model.geo.OrientedLocation;
+import org.orion.ss.model.geo.Railway;
 import org.orion.ss.model.geo.River;
 import org.orion.ss.model.geo.Road;
 import org.orion.ss.model.geo.Terrain;
@@ -117,7 +120,7 @@ public class GameSample1Player {
 		settings.setTimeLimit(2);
 		settings.setTimeMargin(1);
 		settings.setHexSide(1.0f);
-		settings.setStackLimit(12);
+		settings.setStackLimitModifier(3.0);
 		scenario = new Scenario("sample1p", 6, 11);
 		scenario.setSettings(settings);
 		scenario.addPosition(ukCorpsI);
@@ -131,33 +134,59 @@ public class GameSample1Player {
 		scenario.getMap().setHexAt(new Location(4, 3), new Hex(Terrain.HILLS, Vegetation.NONE));
 		scenario.getMap().setHexAt(new Location(4, 4), new Hex(Terrain.HILLS, Vegetation.NONE));
 		scenario.getMap().setHexAt(new Location(5, 4), new Hex(Terrain.HILLS, Vegetation.NONE));
+
+		scenario.getMap().setHexAt(new Location(2, 4), new Hex(Terrain.HILLS, Vegetation.FOREST));
+		scenario.getMap().setHexAt(new Location(2, 4), new Hex(Terrain.HILLS, Vegetation.FOREST));
+		scenario.getMap().setHexAt(new Location(3, 4), new Hex(Terrain.HILLS, Vegetation.FOREST));
+		scenario.getMap().setHexAt(new Location(4, 4), new Hex(Terrain.HILLS, Vegetation.FOREST));
+		scenario.getMap().setHexAt(new Location(4, 4), new Hex(Terrain.HILLS, Vegetation.FOREST));
+		scenario.getMap().setHexAt(new Location(5, 5), new Hex(Terrain.HILLS, Vegetation.FOREST));
+		scenario.getMap().setHexAt(new Location(6, 5), new Hex(Terrain.HILLS, Vegetation.FOREST));
+
 		River rhein = new River("Rhein", 2);
 		rhein.addLocation(new OrientedLocation(4, 0, HexSide.NORTHEAST));
 		rhein.addLocation(new OrientedLocation(4, 0, HexSide.SOUTHEAST));
+
 		rhein.addLocation(new OrientedLocation(4, 1, HexSide.NORTHEAST));
 		rhein.addLocation(new OrientedLocation(4, 1, HexSide.SOUTHEAST));
 		rhein.addLocation(new OrientedLocation(4, 1, HexSide.SOUTH));
-		rhein.addLocation(new OrientedLocation(3, 2, HexSide.SOUTHEAST));
+
 		rhein.addLocation(new OrientedLocation(3, 2, HexSide.SOUTHEAST));
 		rhein.addLocation(new OrientedLocation(3, 3, HexSide.NORTHEAST));
 		scenario.getMap().addRiver(rhein);
 
-		scenario.getMap().addRoad(new Road(new OrientedLocation(1, 1, HexSide.SOUTHEAST)));
-		scenario.getMap().addRoad(new Road(new OrientedLocation(2, 1, HexSide.NORTHWEST)));
+		Road road1 = new Road();
+		road1.addLocation(new OrientedLocation(1, 1, HexSide.SOUTHEAST));
+		road1.addLocation(new OrientedLocation(2, 1, HexSide.NORTHWEST));
+		road1.addLocation(new OrientedLocation(2, 1, HexSide.SOUTH));
+		road1.addLocation(new OrientedLocation(2, 2, HexSide.NORTH));
+		road1.addLocation(new OrientedLocation(2, 2, HexSide.SOUTHEAST));
+		road1.addLocation(new OrientedLocation(3, 3, HexSide.NORTHWEST));
+		road1.addLocation(new OrientedLocation(3, 3, HexSide.SOUTHEAST));
+		road1.addLocation(new OrientedLocation(4, 3, HexSide.NORTHWEST));
+		road1.addLocation(new OrientedLocation(4, 3, HexSide.SOUTHEAST));
+		road1.addLocation(new OrientedLocation(5, 4, HexSide.NORTHWEST));
+		road1.addLocation(new OrientedLocation(5, 4, HexSide.NORTHEAST));
+		road1.addLocation(new OrientedLocation(6, 3, HexSide.SOUTHWEST));
+		scenario.getMap().addRoad(road1);
 
-		scenario.getMap().addRoad(new Road(new OrientedLocation(2, 1, HexSide.SOUTH)));
-		scenario.getMap().addRoad(new Road(new OrientedLocation(2, 2, HexSide.NORTH)));
-		scenario.getMap().addRoad(new Road(new OrientedLocation(2, 2, HexSide.SOUTHEAST)));
+		Railway railway1 = new Railway(1);
+		railway1.addLocation(new OrientedLocation(1, 1, HexSide.SOUTHEAST));
+		railway1.addLocation(new OrientedLocation(2, 1, HexSide.NORTHWEST));
+		railway1.addLocation(new OrientedLocation(2, 1, HexSide.SOUTHEAST));
+		railway1.addLocation(new OrientedLocation(3, 2, HexSide.NORTHWEST));
+		railway1.addLocation(new OrientedLocation(3, 2, HexSide.SOUTHEAST));
+		railway1.addLocation(new OrientedLocation(4, 2, HexSide.NORTHWEST));
+		railway1.addLocation(new OrientedLocation(4, 2, HexSide.SOUTHEAST));
+		railway1.addLocation(new OrientedLocation(5, 3, HexSide.NORTHWEST));
+		railway1.addLocation(new OrientedLocation(5, 3, HexSide.SOUTHEAST));
+		railway1.addLocation(new OrientedLocation(6, 3, HexSide.NORTHWEST));
+		scenario.getMap().addRailway(railway1);
 
-		scenario.getMap().addRoad(new Road(new OrientedLocation(3, 3, HexSide.NORTHWEST)));
-		scenario.getMap().addRoad(new Road(new OrientedLocation(3, 3, HexSide.SOUTHEAST)));
-
-		scenario.getMap().addRoad(new Road(new OrientedLocation(4, 3, HexSide.NORTHWEST)));
-		scenario.getMap().addRoad(new Road(new OrientedLocation(4, 3, HexSide.NORTHEAST)));
-
-		scenario.getMap().addRoad(new Road(new OrientedLocation(5, 3, HexSide.SOUTHWEST)));
-		scenario.getMap().addRoad(new Road(new OrientedLocation(5, 3, HexSide.SOUTHEAST)));
-		scenario.getMap().addRoad(new Road(new OrientedLocation(6, 3, HexSide.NORTHWEST)));
+		Bridge bridge1 = new Bridge(BridgeType.STEEL);
+		bridge1.addLocation(new OrientedLocation(3, 2, HexSide.SOUTHEAST));
+		bridge1.addLocation(new OrientedLocation(4, 2, HexSide.NORTHWEST));
+		scenario.getMap().addBridge(bridge1);
 
 		scenario.getMap().addBuilding(new UrbanCenter("Grossheim", 500, 6, new Location(1, 1), uk));
 		scenario.getMap().addBuilding(new UrbanCenter("Wassenburg", 1000, 6, new Location(6, 3), ger));

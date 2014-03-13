@@ -1,15 +1,13 @@
 package org.orion.ss.model.geo;
 
-
 public enum TerrainFeatureType {
-	
+
 	RAILWAY,
-	PONTOON,
 	RIVER,
-	ROAD,
 	BRIDGE,
+	ROAD,
 	MINEFIELD,
 	TRENCH,
 	FORTIFICATION;
-		
+
 }

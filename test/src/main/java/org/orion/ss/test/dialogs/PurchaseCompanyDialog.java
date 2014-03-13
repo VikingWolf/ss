@@ -100,7 +100,7 @@ public class PurchaseCompanyDialog extends JDialog implements UnitDetailsDisplay
 			public void itemStateChanged(ItemEvent arg0) {
 				if (arg0.getStateChange() == ItemEvent.SELECTED) {
 					JComboBox<CompanyModel> source = (JComboBox<CompanyModel>) arg0.getSource();
-					int cost = managementService.getCompanyValue((CompanyModel) source.getSelectedItem());
+					int cost = managementService.purchaseCost(selectedFormation, (CompanyModel) source.getSelectedItem());
 					costTF.setText(NumberFormats.PRESTIGE.format(cost));
 					if (cost > gameService.getGame().getCurrentPlayerPosition().getPrestige()) {
 						buyB.setEnabled(false);
@@ -108,6 +108,7 @@ public class PurchaseCompanyDialog extends JDialog implements UnitDetailsDisplay
 					} else if (!selectedFormation.isExpandable()) {
 						infoTF.setText("That formation is at supply limit, you cannot add more companies");
 					} else {
+						infoTF.setText("");
 						buyB.setEnabled(true);
 					}
 				}

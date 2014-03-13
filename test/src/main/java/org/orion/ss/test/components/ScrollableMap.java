@@ -71,6 +71,39 @@ public class ScrollableMap extends JPanel {
 		mapPanel.setSelectedUnit(unit);
 	}
 
+	public void setRadius(double radius) {
+		mapPanel.setRadius(radius);
+		hbar.setMaximum(10 + Math.max(0, horizontalMax()));
+		vbar.setMaximum(10 + Math.max(0, verticalMax()));
+		mapPanel.repaint();
+	}
+
+	public double getRadius() {
+		return mapPanel.getRadius();
+	}
+
+	/* modes */
+
+	public void setDrawGrid(boolean value) {
+		mapPanel.setDrawGrid(value);
+	}
+
+	public void setDrawNumbers(boolean value) {
+		mapPanel.setDrawNumbers(value);
+	}
+
+	public void setDrawBuildings(boolean value) {
+		mapPanel.setDrawBuildings(value);
+	}
+
+	public void setDrawUnits(boolean value) {
+		mapPanel.setDrawUnits(value);
+	}
+
+	public void setDrawInfrastructures(boolean value) {
+		mapPanel.setDrawInfrastructures(value);
+	}
+
 	/* getters & setters */
 
 	@Override

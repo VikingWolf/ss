@@ -1,6 +1,5 @@
 package org.orion.ss.model.geo;
 
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,17 +14,21 @@ public class GeoMap extends ArrayList<Hex> {
 	private final static long serialVersionUID = -8390150342604230092L;
 	protected final static Logger logger = LoggerFactory.getLogger("GameMap.class");
 
-	private final List<River> rivers;
-	private final List<Road> roads;
 	private final int rows;
 	private final int columns;
+	private final List<River> rivers;
+	private final List<Road> roads;
+	private final List<Railway> railways;
 	private final Map<Location, Building> buildings;
+	private final List<Bridge> bridges;
 
 	public GeoMap(int rows, int columns, Terrain defaultTerrain, Vegetation defaultVegetation) {
 		super();
 		rivers = new ArrayList<River>();
 		roads = new ArrayList<Road>();
+		railways = new ArrayList<Railway>();
 		buildings = new HashMap<Location, Building>();
+		bridges = new ArrayList<Bridge>();
 		this.rows = rows;
 		this.columns = columns;
 		for (int i = 0; i < columns; i++) {
@@ -63,24 +66,6 @@ public class GeoMap extends ArrayList<Hex> {
 		else return null;
 	}
 
-	public void addRoad(Road road) {
-		roads.add(road);
-	}
-
-	public List<Road> getRoadsOf(int x, int y) {
-		List<Road> roads = new ArrayList<Road>();
-		for (Road road : this.roads) {
-			if ((road.getLocation().getX() == x) && (road.getLocation().getY() == y)) {
-				roads.add(road);
-			}
-		}
-		return roads;
-	}
-
-	public List<Road> getRoadsOf(Point loc) {
-		return getRoadsOf((int) loc.getX(), (int) loc.getY());
-	}
-
 	public double getDistance(Hex hex1, Hex hex2) {
 		return getDistance(hex1.getCoords(), hex2.getCoords());
 	}
@@ -114,6 +99,18 @@ public class GeoMap extends ArrayList<Hex> {
 		rivers.add(river);
 	}
 
+	public void addRoad(Road road) {
+		roads.add(road);
+	}
+
+	public void addRailway(Railway railway) {
+		railways.add(railway);
+	}
+
+	public void addBridge(Bridge bridge) {
+		bridges.add(bridge);
+	}
+
 	/* getters & setters */
 
 	public int getColumns() {
@@ -134,6 +131,14 @@ public class GeoMap extends ArrayList<Hex> {
 
 	public List<Road> getRoads() {
 		return roads;
+	}
+
+	public List<Railway> getRailways() {
+		return railways;
+	}
+
+	public List<Bridge> getBridges() {
+		return bridges;
 	}
 
 }

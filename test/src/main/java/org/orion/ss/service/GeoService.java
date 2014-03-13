@@ -9,12 +9,14 @@ import java.util.Map;
 import org.orion.ss.model.Building;
 import org.orion.ss.model.SpotCapable;
 import org.orion.ss.model.Unit;
+import org.orion.ss.model.geo.Bridge;
 import org.orion.ss.model.geo.GeoMap;
 import org.orion.ss.model.geo.Hex;
 import org.orion.ss.model.geo.HexSet;
 import org.orion.ss.model.geo.HexSide;
 import org.orion.ss.model.geo.Location;
-import org.orion.ss.model.geo.OrientedLocation;
+import org.orion.ss.model.geo.MultiLocatedFeature;
+import org.orion.ss.model.geo.Railway;
 import org.orion.ss.model.geo.River;
 import org.orion.ss.model.geo.Road;
 import org.orion.ss.model.impl.Company;
@@ -136,44 +138,57 @@ public class GeoService extends Service {
 	}
 
 	public List<River> getRiversOf(Location location) {
-		List<River> rivers = new ArrayList<River>();
-		for (River river : this.getMap().getRivers()) {
-			for (OrientedLocation candidate : river.getLocations()) {
-				if ((candidate.getX() == location.getX()) && (candidate.getY() == location.getY())) {
-					rivers.add(river);
-				}
-			}
-		}
-		return rivers;
+		return getMultiLocatedFeaturesOf(location, getMap().getRivers());
 	}
 
-	public List<River> getRiversAt(Rectangle bounds) {
-		List<River> result = new ArrayList<River>();
-		for (River river : this.getMap().getRivers()) {
-			if (river.flowsBy(bounds)) {
-				result.add(river);
+	public List<River> getRiversOf(Rectangle rectangle) {
+		return getMultiLocatedFeaturesOf(rectangle, getMap().getRivers());
+	}
+
+	public List<Road> getRoadsOf(Location location) {
+		return getMultiLocatedFeaturesOf(location, getMap().getRoads());
+	}
+
+	public List<Road> getRoadsOf(Rectangle rectangle) {
+		return getMultiLocatedFeaturesOf(rectangle, getMap().getRoads());
+	}
+
+	public List<Railway> getRailwaysOf(Location location) {
+		return getMultiLocatedFeaturesOf(location, getMap().getRailways());
+	}
+
+	public List<Railway> getRailwaysOf(Rectangle rectangle) {
+		return getMultiLocatedFeaturesOf(rectangle, getMap().getRailways());
+	}
+
+	public List<Bridge> getBridgesOf(Location location) {
+		return getMultiLocatedFeaturesOf(location, getMap().getBridges());
+	}
+
+	public List<Bridge> getBridgesOf(Rectangle rectangle) {
+		return getMultiLocatedFeaturesOf(rectangle, getMap().getBridges());
+	}
+
+	protected <T extends MultiLocatedFeature> List<T> getMultiLocatedFeaturesOf(Location location, List<T> list) {
+		List<T> result = new ArrayList<T>();
+		for (T item : list) {
+			if (item.passesBy(location)) {
+				if (!result.contains(item))
+					result.add(item);
 			}
 		}
 		return result;
 	}
 
-	public Map<Location, List<Road>> getRoadsAt(Rectangle bounds) {
-		Map<Location, List<Road>> roads = new HashMap<Location, List<Road>>();
-		for (Road road : this.getMap().getRoads()) {
-			if (road.getLocation().getX() >= bounds.getX()
-					&& road.getLocation().getX() <= bounds.getX() + bounds.getWidth()
-					&& road.getLocation().getY() >= bounds.getY()
-					&& road.getLocation().getY() <= bounds.getY() + bounds.getHeight()) {
-				Location location = new Location(road.getLocation().getX(), road.getLocation().getY());
-				List<Road> list = roads.get(location);
-				if (list == null) {
-					list = new ArrayList<Road>();
-				}
-				list.add(road);
-				roads.put(location, list);
+	protected <T extends MultiLocatedFeature> List<T> getMultiLocatedFeaturesOf(Rectangle rectangle, List<T> list) {
+		List<T> result = new ArrayList<T>();
+		for (T item : list) {
+			if (item.passesBy(rectangle)) {
+				if (!result.contains(item))
+					result.add(item);
 			}
 		}
-		return roads;
+		return result;
 	}
 
 	public Map<Location, Building> getBuildingsAt(Rectangle bounds) {

@@ -180,7 +180,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable, U
 	}
 
 	protected void mountMapPanel() {
-		mapPanel = new ScrollableMap(500, GraphicTest.TOP_MARGIN, 860, 560, HEX_SIDE, getGame(), getGame().getCurrentPlayerPosition(), this, geoService.fullMap());
+		mapPanel = new ScrollableMap(500, GraphicTest.TOP_MARGIN, 860, 620, HEX_SIDE, getGame(), getGame().getCurrentPlayerPosition(), this, geoService.fullMap());
 		add(mapPanel);
 	}
 

@@ -111,7 +111,7 @@ public class GameSample2Players {
 		settings.setTimeLimit(2);
 		settings.setTimeMargin(1);
 		settings.setHexSide(1.0f);
-		settings.setStackLimit(12);
+		settings.setStackLimitModifier(3.0);
 		scenario = new Scenario("sample2p", 6, 11);
 		scenario.setSettings(settings);
 		scenario.addPosition(gerInfReg1);

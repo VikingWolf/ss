@@ -7,27 +7,27 @@ import java.util.List;
 public class GameSettings {
 
 	public final static long HOUR_MILLIS = 1000L * 60L * 60L;
-	
+
 	private int turnDuration; /* in hours */
 	private Date initialTime;
 	private int timeLimit; /* in turns */
 	private int timeMargin; /* in turns */
 	private double hexSide; /* in km */
-	private int stackLimit; /* in companies */	
+	private double stackLimitModifier; /* modifier, companies */
 	private List<Objective> objectives;
-	
-	public GameSettings(){
+
+	public GameSettings() {
 		super();
 		objectives = new ArrayList<Objective>();
 	}
-	
+
 	/* adders */
-	public void addObjective(Objective objective){
+	public void addObjective(Objective objective) {
 		objectives.add(objective);
 	}
-	
+
 	/* getters & setters */
-	
+
 	public int getTurnDuration() {
 		return turnDuration;
 	}
@@ -69,11 +69,15 @@ public class GameSettings {
 	}
 
 	public int getStackLimit() {
-		return stackLimit;
+		return (int) (stackLimitModifier * hexSide + hexSide * 6);
 	}
 
-	public void setStackLimit(int stackLimit) {
-		this.stackLimit = stackLimit;
+	public double getStackLimitModifier() {
+		return stackLimitModifier;
+	}
+
+	public void setStackLimitModifier(double stackLimitModifier) {
+		this.stackLimitModifier = stackLimitModifier;
 	}
 
 	public List<Objective> getObjectives() {
@@ -83,6 +87,5 @@ public class GameSettings {
 	public void setObjectives(List<Objective> objectives) {
 		this.objectives = objectives;
 	}
-
 
 }

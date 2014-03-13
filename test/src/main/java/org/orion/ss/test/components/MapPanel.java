@@ -21,11 +21,13 @@ import javax.swing.JPanel;
 
 import org.orion.ss.model.Building;
 import org.orion.ss.model.Unit;
+import org.orion.ss.model.geo.Bridge;
 import org.orion.ss.model.geo.Hex;
 import org.orion.ss.model.geo.HexSet;
 import org.orion.ss.model.geo.HexSide;
 import org.orion.ss.model.geo.Location;
 import org.orion.ss.model.geo.OrientedLocation;
+import org.orion.ss.model.geo.Railway;
 import org.orion.ss.model.geo.River;
 import org.orion.ss.model.geo.Road;
 import org.orion.ss.model.geo.Terrain;
@@ -46,14 +48,20 @@ public class MapPanel extends JPanel {
 	private static final long serialVersionUID = -1578397214231068502L;
 	private final static Map<Terrain, Color> TERRAIN_COLORS = new HashMap<Terrain, Color>();
 
+	public final static int MIN_RADIUS = 16;
+	public final static int MAX_RADIUS = 128;
+
 	/* colors */
 	private final static Color _backgroundColor = Color.DARK_GRAY;
 	private final static Color _gridColor = Color.BLACK;
 	private final static Color _riversColor = Color.BLUE;
 	private final static Color _deployAreaColor = Color.YELLOW;
-	private final static Color _roadsColor = new Color(51, 25, 0);
+	private final static Color _roadsColor = new Color(115, 60, 0);
+	private final static Color _railwaysColor = Color.black;
+	private final static Color _bridgesColorOuter = Color.BLACK;
 
 	/* strokes */
+	private final static float[] _railwaysDash = { 0.08f, 0.32f };
 	private final static BasicStroke _basicStroke = new BasicStroke(1.0f);
 	private final static BasicStroke _deployStroke = new BasicStroke(4.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND);
 
@@ -68,12 +76,19 @@ public class MapPanel extends JPanel {
 	}
 
 	/* fonts */
-	private static Font _fontSmall;
+	private Font fontSmall;
+
+	/* modes */
+	private boolean drawGrid = true;
+	private boolean drawNumbers = true;
+	private boolean drawBuildings = true;
+	private boolean drawUnits = true;
+	private boolean drawInfrastructures = true;
 
 	private final Hexographer hexographer;
 	private final GeoService geoService;
 
-	private final double radius;
+	private double radius;
 	private HexSet displayArea;
 	private int initialX = 0;
 	private int initialY = 0;
@@ -91,16 +106,14 @@ public class MapPanel extends JPanel {
 	public MapPanel(double radius, Game game, Position observer, LocationUpdatable parent) {
 		super();
 		offset = new Point(0, 0);
-		this.radius = radius;
 		this.observer = observer;
 		hexographer = new Hexographer(radius);
 		geoService = ServiceFactory.getGeoService(game);
 		graphService = ServiceFactory.getGraphService(game);
-		_fontSmall = new Font("Verdana", Font.PLAIN, (int) (radius / 5));
 		this.addMouseListener(new MapMouseListener());
 		deployArea = new ArrayList<Location>();
 		toUpdate = parent;
-		graphService.setSymbolSize((int) (radius * 1.20));
+		setRadius(radius);
 	}
 
 	public MapPanel(double radius, Game game, Position observer, LocationUpdatable parent, HexSet displayArea, Map<Location, UnitStack> units, GraphService graphService) {
@@ -139,38 +152,90 @@ public class MapPanel extends JPanel {
 		g.setColor(_backgroundColor);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		paintTerrain(g);
-		drawRivers(g);
-		drawRoads(g);
 		drawGrid(g);
-		drawBuildings(g);
+		drawRivers(g);
+		if (drawInfrastructures) {
+			drawRoads(g);
+			drawRailways(g);
+			drawBridges(g);
+		}
+		if (drawBuildings) {
+			drawBuildings(g);
+		}
 		drawDeployArea(g);
-		drawUnits(g);
+		if (drawUnits) {
+			drawUnits(g);
+		}
+	}
+
+	private void drawBridges(Graphics2D g) {
+		for (Bridge bridge : geoService.getBridgesOf(getBounds())) {
+			GeneralPath pathOuter = new GeneralPath();
+			GeneralPath pathInner = new GeneralPath();
+			for (int i = 0; i < bridge.getLocations().size(); i++) {
+				OrientedLocation location = bridge.getLocations().get(i);
+				Point o = computeCenter(location.getX() - (int) getOffset().getX(), location.getY() - (int) getOffset().getY());
+				hexographer.addRadius(pathOuter, o, location.getSide(), i, 0.3d);
+				hexographer.addRadius(pathInner, o, location.getSide(), i, 0.25d);
+			}
+			g.setColor(_bridgesColorOuter);
+			g.setStroke(new BasicStroke((int) (radius / 4), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND));
+			g.draw(pathOuter);
+			g.setColor(graphService.getBridgeColor(bridge));
+			g.setStroke(new BasicStroke((int) (radius / 8), BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
+			g.draw(pathInner);
+		}
 	}
 
 	private void drawRivers(Graphics2D g) {
 		g.setColor(_riversColor);
-		for (River river : geoService.getRiversAt(getBounds())) {
-			g.setStroke(new BasicStroke((int) (radius * river.getDeep() / 12), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		for (River river : geoService.getRiversOf(getBounds())) {
 			GeneralPath path = new GeneralPath();
 			for (OrientedLocation location : river.getLocations()) {
 				Point o = computeCenter(location.getX() - (int) getOffset().getX(), location.getY() - (int) getOffset().getY());
 				hexographer.addSide(path, o, location.getSide());
-				g.draw(path);
 			}
+			g.setStroke(new BasicStroke((int) (radius * river.getDeep() / 12), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+			g.draw(path);
 		}
 	}
 
 	private void drawRoads(Graphics2D g) {
 		g.setColor(_roadsColor);
-		for (Road road : geoService.getRoadsAt(getBounds())) {
-			g.setStroke(new BasicStroke((int) (radius * river.getDeep() / 12), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		for (Road road : geoService.getRoadsOf(getBounds())) {
 			GeneralPath path = new GeneralPath();
-			for (OrientedLocation location : road.getLocations()) {
+			for (int i = 0; i < road.getLocations().size(); i++) {
+				OrientedLocation location = road.getLocations().get(i);
 				Point o = computeCenter(location.getX() - (int) getOffset().getX(), location.getY() - (int) getOffset().getY());
-				hexographer.addSide(path, o, location.getSide());
-				g.draw(path);
+				hexographer.addRadius(path, o, location.getSide(), i);
 			}
+			g.setStroke(new BasicStroke((int) (radius / 6), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+			g.draw(path);
 		}
+	}
+
+	private void drawRailways(Graphics2D g) {
+		g.setColor(_railwaysColor);
+		for (Railway railway : geoService.getRailwaysOf(getBounds())) {
+			GeneralPath path = new GeneralPath();
+			for (int i = 0; i < railway.getLocations().size(); i++) {
+				OrientedLocation location = railway.getLocations().get(i);
+				Point o = computeCenter(location.getX() - (int) getOffset().getX(), location.getY() - (int) getOffset().getY());
+				hexographer.addRadius(path, o, location.getSide(), i);
+			}
+			g.setStroke(new BasicStroke((int) (radius / 12), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+			g.draw(path);
+			g.setStroke(new BasicStroke((float) (radius / 4), BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 1.0f, adjustDashToHexSize(), 0.5f));
+			g.draw(path);
+		}
+	}
+
+	private float[] adjustDashToHexSize() {
+		float[] result = new float[_railwaysDash.length];
+		for (int i = 0; i < _railwaysDash.length; i++) {
+			result[i] = (float) (_railwaysDash[i] * radius);
+		}
+		return result;
 	}
 
 	private void drawDeployArea(Graphics2D g) {
@@ -209,7 +274,7 @@ public class MapPanel extends JPanel {
 
 	private void drawUnits(Graphics2D g) {
 		g.setColor(Color.BLACK);
-		g.setFont(_fontSmall);
+		g.setFont(fontSmall);
 		Map<Location, UnitStack> units = geoService.getAllUnitsLocatedAt(getBounds());
 		Map<Location, Stock> supplies = geoService.getStocksLocatedAt(getBounds(), geoService.getGame().getCurrentPlayerPosition());
 		for (int i = -1; i < horizCapacity() + 1; i++) {
@@ -281,20 +346,23 @@ public class MapPanel extends JPanel {
 				Location coords = new Location(i + (int) getOffset().getX(), j + (int) getOffset().getY());
 				Hex hex = geoService.getMap().getHexAt(coords);
 				String hexNumber = formatHexNumber(hex);
-				g.setFont(_fontSmall);
+				g.setFont(fontSmall);
 				if (hex != null) {
 					String vegetation = hex.getVegetation().toString();
 					g.drawString(vegetation, (int) o.getX() - textWidth(g, vegetation) / 2, (int) o.getY() - (int) (radius * 0.5));
-					g.drawString(hexNumber, (int) o.getX() - textWidth(g, hexNumber) / 2, (int) o.getY() - (int) (radius * 0.7));
+					if (drawNumbers)
+						g.drawString(hexNumber, (int) o.getX() - textWidth(g, hexNumber) / 2, (int) o.getY() - (int) (radius * 0.7));
 					if (!visible.contains(hex)) {
 						Color color = new Color(0, 0, 0, 150);
 						g.setColor(color);
 						g.fillPolygon(hexographer.getHex(o));
 					}
-					g.setColor(Color.BLACK);
-					g.drawPolygon(hexographer.getSide(o, HexSide.SOUTH));
-					g.drawPolygon(hexographer.getSide(o, HexSide.NORTHWEST));
-					g.drawPolygon(hexographer.getSide(o, HexSide.SOUTHWEST));
+					if (drawGrid) {
+						g.setColor(Color.BLACK);
+						g.drawPolygon(hexographer.getSide(o, HexSide.SOUTH));
+						g.drawPolygon(hexographer.getSide(o, HexSide.NORTHWEST));
+						g.drawPolygon(hexographer.getSide(o, HexSide.SOUTHWEST));
+					}
 				}
 			}
 		}
@@ -419,7 +487,60 @@ public class MapPanel extends JPanel {
 		return geoService.getMap().getColumns();
 	}
 
+	public double getRadius() {
+		return radius;
+	}
+
+	public void setRadius(double radius) {
+		graphService.setSymbolSize((int) (radius * 1.20));
+		hexographer.setRadius(radius);
+		this.radius = radius;
+		fontSmall = new Font("Verdana", Font.PLAIN, (int) (radius / 5));
+		if (displayArea != null)
+			computeBounds();
+	}
+
 	/* Event listeners */
+
+	public boolean isDrawGrid() {
+		return drawGrid;
+	}
+
+	public void setDrawGrid(boolean drawGrid) {
+		this.drawGrid = drawGrid;
+	}
+
+	public boolean isDrawNumbers() {
+		return drawNumbers;
+	}
+
+	public void setDrawNumbers(boolean drawNumbers) {
+		this.drawNumbers = drawNumbers;
+	}
+
+	public boolean isDrawBuildings() {
+		return drawBuildings;
+	}
+
+	public void setDrawBuildings(boolean drawBuildings) {
+		this.drawBuildings = drawBuildings;
+	}
+
+	public boolean isDrawUnits() {
+		return drawUnits;
+	}
+
+	public void setDrawUnits(boolean drawUnits) {
+		this.drawUnits = drawUnits;
+	}
+
+	public boolean isDrawInfrastructures() {
+		return drawInfrastructures;
+	}
+
+	public void setDrawInfrastructures(boolean drawInfrastructures) {
+		this.drawInfrastructures = drawInfrastructures;
+	}
 
 	public Unit getSelectedUnit() {
 		return selectedUnit;

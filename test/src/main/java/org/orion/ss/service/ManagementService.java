@@ -192,6 +192,7 @@ public class ManagementService extends Service {
 
 	public Company purchaseCompany(Formation formation, CompanyModel companyModel) {
 		int cost = purchaseCost(formation, companyModel);
+		logger.error("cost=" + cost);
 		formation.getPosition().decreasePrestige(cost);
 		int id = 1;
 		for (Company company : formation.getCompanies()) {

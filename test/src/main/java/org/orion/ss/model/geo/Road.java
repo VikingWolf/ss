@@ -1,9 +1,9 @@
 package org.orion.ss.model.geo;
 
-public class Road extends OrientedFeature {
+public class Road extends MultiLocatedFeature {
 
-	public Road(OrientedLocation location) {
-		super(location);
+	public Road() {
+		super();
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package org.orion.ss.service;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -7,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Polygon;
+import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ import org.orion.ss.model.core.ObjectiveType;
 import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.core.TroopType;
 import org.orion.ss.model.geo.Airfield;
+import org.orion.ss.model.geo.Bridge;
 import org.orion.ss.model.geo.Fortification;
 import org.orion.ss.model.geo.UrbanCenter;
 import org.orion.ss.model.impl.Company;
@@ -64,6 +67,28 @@ public class GraphService extends Service {
 		super(game);
 		scenarioService = ServiceFactory.getScenarioService(game);
 		gameService = ServiceFactory.getGameService(game);
+	}
+
+	public Color getBridgeColor(Bridge bridge) {
+		Color result = null;
+		switch (bridge.getBridgeType()) {
+			case STONE:
+				result = Color.LIGHT_GRAY;
+			break;
+			case STEEL:
+				result = Color.WHITE;
+			break;
+			case WOOD:
+				result = new Color(100, 75, 0);
+			break;
+			case POONTOON:
+				result = Color.RED;
+			break;
+			default:
+			break;
+
+		}
+		return result;
 	}
 
 	public BufferedImage getBuildingSymbol(Building building, Position position) {
@@ -338,11 +363,7 @@ public class GraphService extends Service {
 	}
 
 	private void drawSupplyLimit(Formation formation, Graphics2D canvas) {
-		canvas.setFont(smallBoldFont);
-		canvas.setColor(Color.BLACK);
-		String str = formation.getAllCompanies().size() + " / " + formation.getFormationLevel().getSupplyLimit();
-		int textWidth = textWidth(canvas, str);
-		canvas.drawString(str, getSize(1.00) - textWidth, getSize(0.16));
+		//TODO supply range?
 	}
 
 	private void drawExperience(Company company, Graphics2D canvas) {
@@ -362,17 +383,21 @@ public class GraphService extends Service {
 		symbolUL = new Point(iX, iY);
 		symbolCenter = new Point((iX + fX) / 2, (iY + fY) / 2);
 
-		canvas.drawLine(iX, iY, fX, iY);
-		canvas.drawLine(fX, iY, fX, fY);
-		canvas.drawLine(fX, fY, iX, fY);
-		canvas.drawLine(iX, fY, iX, iY);
+		canvas.setStroke(new BasicStroke(symbolSize / 25, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_BEVEL));
+		GeneralPath path = new GeneralPath();
+		path.moveTo(iX, fY);
+		path.lineTo(iX, iY);
+		path.lineTo(fX, iY);
+		path.lineTo(fX, fY);
+		path.lineTo(iX, fY);
 		switch (type) {
 			case CAVALRY:
-				canvas.drawLine(iX, fY, fX, iY);
+				path.lineTo(fX, iY);
 			break;
 			case INFANTRY:
-				canvas.drawLine(iX, fY, fX, iY);
-				canvas.drawLine(iX, iY, fX, fY);
+				path.lineTo(fX, iY);
+				path.lineTo(iX, iY);
+				path.lineTo(fX, fY);
 			break;
 			case ARTILLERY:
 				canvas.fillOval((int) symbolCenter.getX() - getSize(0.1), (int) symbolCenter.getY() - getSize(0.1), getSize(0.2), getSize(0.2));
@@ -380,6 +405,7 @@ public class GraphService extends Service {
 			default:
 			break;
 		}
+		canvas.draw(path);
 	}
 
 	private void drawCompanyTraitsSymbols(Company company, Graphics2D canvas, Point symbolCenter) {
@@ -401,8 +427,7 @@ public class GraphService extends Service {
 	}
 
 	private void computeSizes() {
-		smallFont = new Font("Arial", Font.PLAIN, symbolSize / 6);
-		smallBoldFont = new Font("Arial", Font.BOLD, symbolSize / 6);
+		smallFont = new Font("Arial Narrow", Font.BOLD, (int) (Math.pow(symbolSize, 0.58)));
 		boldFont = new Font("Verdana", Font.BOLD, symbolSize / 6);
 		xpFont = new Font("Courier", Font.BOLD, symbolSize / 6);
 	}

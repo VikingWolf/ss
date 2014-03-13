@@ -3,7 +3,6 @@ package org.orion.ss.test.components;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListSelectionModel;
@@ -21,13 +20,13 @@ import org.orion.ss.model.geo.Airfield;
 import org.orion.ss.model.geo.Fortification;
 import org.orion.ss.model.geo.Hex;
 import org.orion.ss.model.geo.Location;
-import org.orion.ss.model.geo.River;
 import org.orion.ss.model.geo.UrbanCenter;
 import org.orion.ss.model.impl.Stock;
 import org.orion.ss.model.impl.UnitStack;
 import org.orion.ss.service.GameService;
 import org.orion.ss.service.GeoService;
 import org.orion.ss.service.ServiceFactory;
+import org.orion.ss.service.TextService;
 import org.orion.ss.test.GraphicTest;
 import org.orion.ss.test.dialogs.BuySupplyDialog;
 import org.orion.ss.test.dialogs.PurchaseCompanyDialog;
@@ -44,6 +43,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	private int actionMode = MODE_INFO;
 
 	private final GeoService geoService;
+	private final TextService textService;
 
 	/* GUI components */
 	private FastPanel hexInfoP = new FastPanel();
@@ -54,12 +54,14 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	private JTextField instructionsTF;
 	private ScrollableMap mapPanel;
 	private JTextField prestigeTF;
+	private MapOptionsPanel mapOptionsPanel;
 
 	private final static double HEX_SIDE = 48.0d;
 
 	public TurnPanel(GraphicTest parent, GameService gameService) {
 		super(parent, gameService);
 		geoService = ServiceFactory.getGeoService(getGame());
+		textService = ServiceFactory.getTextService(getGame());
 	}
 
 	@Override
@@ -72,7 +74,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 				GraphicTest.LEFT_MARGIN * 2 + GraphicTest.COLUMN_WIDTH + GraphicTest.COLUMN_WIDTH_NARROW,
 				GraphicTest.TOP_MARGIN,
 				GraphicTest.COLUMN_WIDTH + GraphicTest.COLUMN_WIDTH_NARROW + GraphicTest.LEFT_MARGIN * 2,
-				200);
+				240);
 		hexInfoP.setLayout(null);
 		add(hexInfoP);
 		unitInfoP = new SmallUnitInfoPanel(getGame());
@@ -81,15 +83,22 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 				hexInfoP.getX(),
 				hexInfoP.getY() + hexInfoP.getHeight(),
 				GraphicTest.COLUMN_WIDTH + GraphicTest.COLUMN_WIDTH_NARROW + GraphicTest.LEFT_MARGIN * 2,
-				300);
+				340);
 		add(unitInfoP);
 		mountStackList();
 		mountMapPanel();
 		instructionsTF = new JTextField();
 		instructionsTF.setEditable(false);
 		instructionsTF.setForeground(Color.RED);
-		instructionsTF.setBounds(GraphicTest.LEFT_MARGIN, 540, 380, GraphicTest.ROW_HEIGHT);
+		instructionsTF.setBounds(GraphicTest.LEFT_MARGIN, 600, 380, GraphicTest.ROW_HEIGHT);
 		add(instructionsTF);
+		mapOptionsPanel = new MapOptionsPanel(mapPanel);
+		mapOptionsPanel.setBounds(
+				GraphicTest.LEFT_MARGIN,
+				unitStackList.getY() + unitStackList.getHeight(),
+				GraphicTest.COLUMN_WIDTH_XLARGE,
+				140);
+		add(mapOptionsPanel);
 	}
 
 	protected void mountStackList() {
@@ -171,15 +180,39 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 				GraphicTest.COLUMN_WIDTH_NARROW,
 				GraphicTest.ROW_HEIGHT);
 		int y = 3;
-		List<River> rivers = geoService.getRiversOf(hex.getCoords());
-		if (rivers.size() > 0) {
-			String sides = "";
-			// TODO river sides
-			// sides = sides.substring(0, sides.length() - 2);
-			hexInfoP.addLabel("River at " + sides,
+		String riverSides = textService.getStringSides(geoService.getRiversOf(hex.getCoords()), hex.getCoords());
+		if (riverSides.length() > 0) {
+			hexInfoP.addLabel("River at " + riverSides,
 					GraphicTest.LEFT_MARGIN,
 					GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * y,
-					GraphicTest.COLUMN_WIDTH,
+					GraphicTest.COLUMN_WIDTH_XXLARGE,
+					GraphicTest.ROW_HEIGHT);
+			y++;
+		}
+		String roadSides = textService.getStringSides(geoService.getRoadsOf(hex.getCoords()), hex.getCoords());
+		if (roadSides.length() > 0) {
+			hexInfoP.addLabel("Road at " + roadSides,
+					GraphicTest.LEFT_MARGIN,
+					GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * y,
+					GraphicTest.COLUMN_WIDTH_XXLARGE,
+					GraphicTest.ROW_HEIGHT);
+			y++;
+		}
+		String railwaySides = textService.getStringSides(geoService.getRailwaysOf(hex.getCoords()), hex.getCoords());
+		if (railwaySides.length() > 0) {
+			hexInfoP.addLabel("Railway at " + railwaySides,
+					GraphicTest.LEFT_MARGIN,
+					GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * y,
+					GraphicTest.COLUMN_WIDTH_XXLARGE,
+					GraphicTest.ROW_HEIGHT);
+			y++;
+		}
+		String bridgeSides = textService.getStringSides(geoService.getBridgesOf(hex.getCoords()), hex.getCoords());
+		if (bridgeSides.length() > 0) {
+			hexInfoP.addLabel("Bridge at " + bridgeSides,
+					GraphicTest.LEFT_MARGIN,
+					GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * y,
+					GraphicTest.COLUMN_WIDTH_XXLARGE,
 					GraphicTest.ROW_HEIGHT);
 			y++;
 		}
@@ -242,7 +275,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	}
 
 	protected void mountMapPanel() {
-		mapPanel = new ScrollableMap(460, GraphicTest.TOP_MARGIN, 860, 560, HEX_SIDE, getGame(), getGame().getCurrentPlayerPosition(), this, geoService.fullMap());
+		mapPanel = new ScrollableMap(460, GraphicTest.TOP_MARGIN, 860, 620, HEX_SIDE, getGame(), getGame().getCurrentPlayerPosition(), this, geoService.fullMap());
 		add(mapPanel);
 	}
 

@@ -36,7 +36,7 @@ public class GraphicTest {
 	/* GUI constants */
 	public final static Point DEFAULT_DIALOG_LOCATION = new Point(200, 150);
 	public final static Rectangle WINDOW_BOUNDS = new Rectangle(0, 0, 1370, 700);
-	public final static Rectangle TAB_BOUNDS = new Rectangle(0, 0, 1370, 600);
+	public final static Rectangle TAB_BOUNDS = new Rectangle(0, 0, 1370, 700);
 	public final static Rectangle INFO_DIALOG_BOUNDS = new Rectangle(100, 100, 400, 250);
 	public final static int LOG_TEXT_AREA_HEIGHT = 300;
 	public final static int LEFT_MARGIN = 10;
@@ -52,6 +52,7 @@ public class GraphicTest {
 	public final static int COLUMN_WIDTH_NARROW = 80;
 	public final static int COLUMN_WIDTH_XNARROW = 60;
 	public final static int ROW_HEIGHT = 25;
+	public final static int COLUMN_WIDTH_XXNARROW = 30;
 
 	private JFrame mainFrame;
 

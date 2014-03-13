@@ -1,14 +1,12 @@
 package org.orion.ss.model.geo;
 
-public class Railway extends OrientedFeature {
+public class Railway extends MultiLocatedFeature {
 
 	private int gauge;
-	private double state;
 
-	public Railway(OrientedLocation location, int gauge) {
-		super(location);
+	public Railway(int gauge) {
+		super();
 		this.gauge = gauge;
-		state = 1.0d;
 	}
 
 	@Override
@@ -24,14 +22,6 @@ public class Railway extends OrientedFeature {
 
 	public void setGauge(int gauge) {
 		this.gauge = gauge;
-	}
-
-	public double getState() {
-		return state;
-	}
-
-	public void setState(double state) {
-		this.state = state;
 	}
 
 }
