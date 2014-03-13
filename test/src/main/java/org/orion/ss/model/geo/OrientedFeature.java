@@ -1,27 +1,22 @@
 package org.orion.ss.model.geo;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
-
 public abstract class OrientedFeature extends TerrainFeature {
 
-	private HexSidedPoint loc;
-	
-	public HexSidedPoint getLoc() {
-		return loc;
+	private OrientedLocation location;
+
+	public OrientedFeature(OrientedLocation location) {
+		super();
+		this.location = location;
 	}
 
-	public void setLoc(HexSidedPoint loc) {
-		this.loc = loc;
+	/* getters & setters */
+
+	public OrientedLocation getLocation() {
+		return location;
 	}
-	
-	public List<HexSidedPoint> getLocs(){
-		List<HexSidedPoint> locs = new ArrayList<HexSidedPoint>();
-		locs.add(loc);
-		locs.add(loc.getComplementary());
-		return locs;		
+
+	public void setLocaction(OrientedLocation location) {
+		this.location = location;
 	}
 
 }

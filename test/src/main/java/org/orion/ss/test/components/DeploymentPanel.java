@@ -20,18 +20,17 @@ import org.orion.ss.model.impl.Game;
 import org.orion.ss.model.impl.UnitStack;
 import org.orion.ss.service.GameService;
 import org.orion.ss.service.GeoService;
-import org.orion.ss.service.GraphService;
 import org.orion.ss.service.ServiceFactory;
 import org.orion.ss.test.GraphicTest;
+import org.orion.ss.test.components.tree.DeploymentTreePanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
+public class DeploymentPanel extends PlayerPanel implements LocationUpdatable, UnitDetailsDisplayer {
 
 	private static final long serialVersionUID = 8107876468158803580L;
 
 	private final GeoService geoService;
-	private final GraphService graphService;
 	private final GameService gameService;
 
 	private final static double HEX_SIDE = 48.0d;
@@ -48,7 +47,6 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 	public DeploymentPanel(GraphicTest parent, GameService gameService) {
 		super(parent, gameService);
 		geoService = ServiceFactory.getGeoService(getGame());
-		graphService = ServiceFactory.getGraphService(getGame());
 		this.gameService = gameService;
 		setBounds(GraphicTest.TAB_BOUNDS);
 		setLayout(null);
@@ -182,12 +180,12 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 	}
 
 	protected void mountMapPanel() {
-		mapPanel = new ScrollableMap(getGame().getMap(), 500, GraphicTest.TOP_MARGIN, 860, 560, HEX_SIDE, geoService.fullMap(), this, graphService);
-		mapPanel.setUnits(geoService.getAllUnitsLocatedAt(mapPanel.getBounds()));
+		mapPanel = new ScrollableMap(500, GraphicTest.TOP_MARGIN, 860, 560, HEX_SIDE, getGame(), getGame().getCurrentPlayerPosition(), this, geoService.fullMap());
 		add(mapPanel);
 	}
 
-	public void updateMap(Unit unit) {
+	@Override
+	public void updateUnitDetails(Unit unit) {
 		selectedUnit = unit;
 		mapPanel.setDeployArea(geoService.getDeployArea(unit));
 		mapPanel.repaint();
@@ -200,7 +198,6 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable {
 	public void updateLocation(Location location) {
 		boolean result = geoService.deploy(selectedUnit, location);
 		if (result) {
-			mapPanel.setUnits(geoService.getAllUnitsLocatedAt(mapPanel.getBounds()));
 			infoL.setForeground(Color.BLACK);
 			infoL.setText(selectedUnit.getFullLongName() + " placed at (" + location.getX() + "," + location.getY() + ")");
 			toDeployTF.setText("" + geoService.undeployedUnits(getGame().getCurrentPlayerPosition()).size());

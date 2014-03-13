@@ -1,10 +1,45 @@
 package org.orion.ss.model.geo;
 
+import org.orion.ss.model.Building;
+import org.orion.ss.model.impl.Country;
 
-public class UrbanCenter {
+public class UrbanCenter extends Building {
 
-	private Location location;
 	private String name;
-	private short value;
+	private int value;
+	private int pop;
+
+	public UrbanCenter(String name, int value, int pop, Location location, Country controller) {
+		super(location, controller);
+		this.name = name;
+		this.value = value;
+		this.pop = pop;
+	}
+
+	/* getters & setters */
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
+	}
+
+	public int getPop() {
+		return pop;
+	}
+
+	public void setPop(int pop) {
+		this.pop = pop;
+	}
 
 }

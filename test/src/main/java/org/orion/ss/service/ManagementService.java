@@ -190,7 +190,7 @@ public class ManagementService extends Service {
 		} else return 0;
 	}
 
-	public void purchaseCompany(Formation formation, CompanyModel companyModel) {
+	public Company purchaseCompany(Formation formation, CompanyModel companyModel) {
 		int cost = purchaseCost(formation, companyModel);
 		formation.getPosition().decreasePrestige(cost);
 		int id = 1;
@@ -205,7 +205,7 @@ public class ManagementService extends Service {
 		company.resupply();
 		formation.addCompany(company);
 		getGame().getLog().addEntry(company.getFullLongName() + " purchased to " + formation.getFullLongName() + " spending " + cost + " prestige.");
-
+		return company;
 	}
 
 	public int createFormationCost(Formation parent, CompanyModel hqModel, FormationLevel level) {

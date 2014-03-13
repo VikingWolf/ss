@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -18,18 +19,24 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 
-import org.orion.ss.graph.Hexographer;
+import org.orion.ss.model.Building;
 import org.orion.ss.model.Unit;
-import org.orion.ss.model.geo.GeoMap;
 import org.orion.ss.model.geo.Hex;
 import org.orion.ss.model.geo.HexSet;
 import org.orion.ss.model.geo.HexSide;
 import org.orion.ss.model.geo.Location;
+import org.orion.ss.model.geo.OrientedLocation;
 import org.orion.ss.model.geo.River;
+import org.orion.ss.model.geo.Road;
 import org.orion.ss.model.geo.Terrain;
+import org.orion.ss.model.impl.Game;
+import org.orion.ss.model.impl.Position;
 import org.orion.ss.model.impl.Stock;
 import org.orion.ss.model.impl.UnitStack;
+import org.orion.ss.service.GeoService;
 import org.orion.ss.service.GraphService;
+import org.orion.ss.service.Hexographer;
+import org.orion.ss.service.ServiceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +51,7 @@ public class MapPanel extends JPanel {
 	private final static Color _gridColor = Color.BLACK;
 	private final static Color _riversColor = Color.BLUE;
 	private final static Color _deployAreaColor = Color.YELLOW;
+	private final static Color _roadsColor = new Color(51, 25, 0);
 
 	/* strokes */
 	private final static BasicStroke _basicStroke = new BasicStroke(1.0f);
@@ -62,9 +70,10 @@ public class MapPanel extends JPanel {
 	/* fonts */
 	private static Font _fontSmall;
 
-	private final double radius;
 	private final Hexographer hexographer;
-	private final GeoMap map;
+	private final GeoService geoService;
+
+	private final double radius;
 	private HexSet displayArea;
 	private int initialX = 0;
 	private int initialY = 0;
@@ -72,32 +81,30 @@ public class MapPanel extends JPanel {
 	private int finalY = 0;
 	private List<Location> deployArea;
 	private LocationUpdatable toUpdate;
-	private Map<Location, UnitStack> units;
-	private Map<Location, Stock> supplies;
 	private Unit selectedUnit = null;
+	private final Position observer;
 
 	private Point offset;
 
 	private final GraphService graphService;
 
-	public MapPanel(double radius, GeoMap map, LocationUpdatable parent, GraphService graphService) {
+	public MapPanel(double radius, Game game, Position observer, LocationUpdatable parent) {
 		super();
 		offset = new Point(0, 0);
 		this.radius = radius;
+		this.observer = observer;
 		hexographer = new Hexographer(radius);
-		this.map = map;
+		geoService = ServiceFactory.getGeoService(game);
+		graphService = ServiceFactory.getGraphService(game);
 		_fontSmall = new Font("Verdana", Font.PLAIN, (int) (radius / 5));
 		this.addMouseListener(new MapMouseListener());
 		deployArea = new ArrayList<Location>();
 		toUpdate = parent;
-		this.graphService = graphService;
 		graphService.setSymbolSize((int) (radius * 1.20));
-		supplies = new HashMap<Location, Stock>();
 	}
 
-	public MapPanel(double radius, GeoMap map, LocationUpdatable parent, HexSet displayArea, Map<Location, UnitStack> units, GraphService graphService) {
-		this(radius, map, parent, graphService);
-		setUnits(units);
+	public MapPanel(double radius, Game game, Position observer, LocationUpdatable parent, HexSet displayArea, Map<Location, UnitStack> units, GraphService graphService) {
+		this(radius, game, observer, parent);
 		setDisplayArea(displayArea);
 	}
 
@@ -122,8 +129,8 @@ public class MapPanel extends JPanel {
 		}
 		if (initialX > 0) initialX--;
 		if (initialY > 0) initialY--;
-		if (finalX < map.getColumns()) finalX++;
-		if (finalY < map.getRows()) finalY++;
+		if (finalX < geoService.getMap().getColumns()) finalX++;
+		if (finalY < geoService.getMap().getRows()) finalY++;
 	}
 
 	@Override
@@ -135,20 +142,33 @@ public class MapPanel extends JPanel {
 		drawRivers(g);
 		drawRoads(g);
 		drawGrid(g);
+		drawBuildings(g);
 		drawDeployArea(g);
 		drawUnits(g);
 	}
 
 	private void drawRivers(Graphics2D g) {
 		g.setColor(_riversColor);
-		for (int i = -1; i < horizCapacity() + 1; i++) {
-			for (int j = -1; j < vertCapacity() + 1; j++) {
-				Point o = computeCenter(i, j);
-				List<River> rivers = map.getRiversOf(i + (int) getOffset().getX(), j + (int) getOffset().getY());
-				for (River river : rivers) {
-					g.setStroke(new BasicStroke(3.0f * river.getDeep(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
-					g.drawPolygon(hexographer.getSide(o, river.getLoc().getSide()));
-				}
+		for (River river : geoService.getRiversAt(getBounds())) {
+			g.setStroke(new BasicStroke((int) (radius * river.getDeep() / 12), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+			GeneralPath path = new GeneralPath();
+			for (OrientedLocation location : river.getLocations()) {
+				Point o = computeCenter(location.getX() - (int) getOffset().getX(), location.getY() - (int) getOffset().getY());
+				hexographer.addSide(path, o, location.getSide());
+				g.draw(path);
+			}
+		}
+	}
+
+	private void drawRoads(Graphics2D g) {
+		g.setColor(_roadsColor);
+		for (Road road : geoService.getRoadsAt(getBounds())) {
+			g.setStroke(new BasicStroke((int) (radius * river.getDeep() / 12), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+			GeneralPath path = new GeneralPath();
+			for (OrientedLocation location : road.getLocations()) {
+				Point o = computeCenter(location.getX() - (int) getOffset().getX(), location.getY() - (int) getOffset().getY());
+				hexographer.addSide(path, o, location.getSide());
+				g.draw(path);
 			}
 		}
 	}
@@ -161,7 +181,6 @@ public class MapPanel extends JPanel {
 				Location coords = new Location(i + (int) getOffset().getX(), j + (int) getOffset().getY());
 				List<Location> list = this.getDeployArea();
 				if (list.contains(coords)) {
-					// g.drawString("Deploy", (int) o.getX() - textWidth(g, "Supply") / 2, (int) o.getY() - (int) (radius * 0.3));
 					for (HexSide side : HexSide.values()) {
 						Location target = side.getAdjacent(coords);
 						if (!list.contains(target)) {
@@ -174,13 +193,25 @@ public class MapPanel extends JPanel {
 		}
 	}
 
-	private void drawRoads(Graphics2D g) {
-		// TODO implementar
+	private void drawBuildings(Graphics2D g) {
+		Map<Location, Building> buildings = geoService.getBuildingsAt(getBounds());
+		for (int i = -1; i < horizCapacity() + 1; i++) {
+			for (int j = -1; j < vertCapacity() + 1; j++) {
+				Point o = computeCenter(i, j);
+				Location coords = new Location(i + (int) getOffset().getX(), j + (int) getOffset().getY());
+				if (buildings.containsKey(coords)) {
+					BufferedImage symbol = graphService.getBuildingSymbol(buildings.get(coords), observer);
+					g.drawImage(symbol, (int) o.getX() - symbol.getWidth() / 2, (int) o.getY() - symbol.getHeight() / 2, symbol.getWidth(), symbol.getHeight(), null);
+				}
+			}
+		}
 	}
 
 	private void drawUnits(Graphics2D g) {
 		g.setColor(Color.BLACK);
 		g.setFont(_fontSmall);
+		Map<Location, UnitStack> units = geoService.getAllUnitsLocatedAt(getBounds());
+		Map<Location, Stock> supplies = geoService.getStocksLocatedAt(getBounds(), geoService.getGame().getCurrentPlayerPosition());
 		for (int i = -1; i < horizCapacity() + 1; i++) {
 			for (int j = -1; j < vertCapacity() + 1; j++) {
 				Point o = computeCenter(i, j);
@@ -222,7 +253,7 @@ public class MapPanel extends JPanel {
 		for (int i = -1; i < horizCapacity() + 1; i++) {
 			for (int j = -1; j < vertCapacity() + 1; j++) {
 				Point o = computeCenter(i, j);
-				Hex hex = map.getHexAt(i + (int) getOffset().getX(), j + (int) getOffset().getY());
+				Hex hex = geoService.getMap().getHexAt(i + (int) getOffset().getX(), j + (int) getOffset().getY());
 				boolean displayed = true;
 				if (displayArea != null) {
 					displayed = false;
@@ -240,6 +271,7 @@ public class MapPanel extends JPanel {
 	}
 
 	private void drawGrid(Graphics2D g) {
+		HexSet visible = geoService.getVisibleArea(observer, this.getBounds());
 		g.setColor(_gridColor);
 		g.setStroke(_basicStroke);
 		for (int i = -1; i < horizCapacity() + 1; i++) {
@@ -247,13 +279,19 @@ public class MapPanel extends JPanel {
 				Point o = computeCenter(i, j);
 				/* info */
 				Location coords = new Location(i + (int) getOffset().getX(), j + (int) getOffset().getY());
-				Hex hex = map.getHexAt(coords);
+				Hex hex = geoService.getMap().getHexAt(coords);
 				String hexNumber = formatHexNumber(hex);
 				g.setFont(_fontSmall);
 				if (hex != null) {
 					String vegetation = hex.getVegetation().toString();
 					g.drawString(vegetation, (int) o.getX() - textWidth(g, vegetation) / 2, (int) o.getY() - (int) (radius * 0.5));
 					g.drawString(hexNumber, (int) o.getX() - textWidth(g, hexNumber) / 2, (int) o.getY() - (int) (radius * 0.7));
+					if (!visible.contains(hex)) {
+						Color color = new Color(0, 0, 0, 150);
+						g.setColor(color);
+						g.fillPolygon(hexographer.getHex(o));
+					}
+					g.setColor(Color.BLACK);
 					g.drawPolygon(hexographer.getSide(o, HexSide.SOUTH));
 					g.drawPolygon(hexographer.getSide(o, HexSide.NORTHWEST));
 					g.drawPolygon(hexographer.getSide(o, HexSide.SOUTHWEST));
@@ -365,22 +403,6 @@ public class MapPanel extends JPanel {
 		return finalX - initialX;
 	}
 
-	public GeoMap getMap() {
-		return map;
-	}
-
-	public Map<Location, UnitStack> getPosition() {
-		return units;
-	}
-
-	public void setUnits(Map<Location, UnitStack> units) {
-		this.units = units;
-	}
-
-	public Map<Location, UnitStack> getUnits() {
-		return units;
-	}
-
 	public LocationUpdatable getToUpdate() {
 		return toUpdate;
 	}
@@ -389,12 +411,12 @@ public class MapPanel extends JPanel {
 		toUpdate = parent;
 	}
 
-	public Map<Location, Stock> getSupplies() {
-		return supplies;
+	public int getMapRows() {
+		return geoService.getMap().getRows();
 	}
 
-	public void setSupplies(Map<Location, Stock> supplies) {
-		this.supplies = supplies;
+	public int getMapColumns() {
+		return geoService.getMap().getColumns();
 	}
 
 	/* Event listeners */

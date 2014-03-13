@@ -180,6 +180,17 @@ public class Formation extends Unit {
 		return result;
 	}
 
+	@Override
+	public double getSpotCapacity() {
+		double max = Double.NEGATIVE_INFINITY;
+		for (Company company : getCompanyStackAtLocation(false)) {
+			if (company.getSpotCapacity() > max) {
+				max = company.getSpotCapacity();
+			}
+		}
+		return max;
+	}
+
 	/* getters & setters */
 
 	public List<Formation> getSubordinates() {

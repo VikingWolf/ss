@@ -1,5 +1,6 @@
 package org.orion.ss.test;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,6 +34,7 @@ public class GraphicTest {
 	private final static String VERSION = "0.1";
 
 	/* GUI constants */
+	public final static Point DEFAULT_DIALOG_LOCATION = new Point(200, 150);
 	public final static Rectangle WINDOW_BOUNDS = new Rectangle(0, 0, 1370, 700);
 	public final static Rectangle TAB_BOUNDS = new Rectangle(0, 0, 1370, 600);
 	public final static Rectangle INFO_DIALOG_BOUNDS = new Rectangle(100, 100, 400, 250);

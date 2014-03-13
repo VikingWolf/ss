@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import org.orion.ss.model.Activable;
 import org.orion.ss.model.Mobile;
+import org.orion.ss.model.SpotCapable;
 import org.orion.ss.model.Unit;
 import org.orion.ss.model.geo.Location;
+import org.orion.ss.service.GeoService;
 
-public class UnitStack extends ArrayList<Unit> implements Activable, Mobile {
+public class UnitStack extends ArrayList<Unit> implements Activable, Mobile, SpotCapable {
 
 	private static final long serialVersionUID = -4815492861835612058L;
 
@@ -54,6 +56,18 @@ public class UnitStack extends ArrayList<Unit> implements Activable, Mobile {
 
 		}
 		return result;
+	}
+
+	@Override
+	public double getSpotCapacity() {
+		double max = Double.NEGATIVE_INFINITY;
+		for (Unit unit : this) {
+			double spot = unit.getSpotCapacity();
+			if (spot > max) {
+				max = spot;
+			}
+		}
+		return Math.min(GeoService.MAX_SPOTTING, max);
 	}
 
 	public Unit[] getArray() {

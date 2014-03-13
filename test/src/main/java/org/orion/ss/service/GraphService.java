@@ -6,68 +6,50 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.orion.ss.model.Building;
 import org.orion.ss.model.Unit;
 import org.orion.ss.model.core.CompanyTrait;
 import org.orion.ss.model.core.FormationLevel;
+import org.orion.ss.model.core.ObjectiveType;
 import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.core.TroopType;
+import org.orion.ss.model.geo.Airfield;
+import org.orion.ss.model.geo.Fortification;
+import org.orion.ss.model.geo.UrbanCenter;
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.Formation;
 import org.orion.ss.model.impl.Game;
+import org.orion.ss.model.impl.Position;
 import org.orion.ss.model.impl.Stock;
 import org.orion.ss.utils.NumberFormats;
 
 public class GraphService extends Service {
 
-	private final static List<Color> _CorpsColors = new ArrayList<Color>();
+	private final static List<Color> _corpsColors = new ArrayList<Color>();
+
+	private final static int FORTIFICATION_HIGH = 5;
 
 	static {
-		_CorpsColors.add(Color.CYAN);
-		_CorpsColors.add(Color.RED);
-		_CorpsColors.add(Color.GREEN);
-		_CorpsColors.add(Color.BLUE);
-		_CorpsColors.add(Color.LIGHT_GRAY);
-		_CorpsColors.add(Color.YELLOW);
-		_CorpsColors.add(Color.WHITE);
-		_CorpsColors.add(Color.ORANGE);
-		_CorpsColors.add(Color.BLACK);
-		_CorpsColors.add(Color.DARK_GRAY);
-		_CorpsColors.add(Color.MAGENTA);
-		_CorpsColors.add(Color.PINK);
-		_CorpsColors.add(Color.GRAY);
-		_CorpsColors.add(new Color(150, 0, 0));
-		_CorpsColors.add(new Color(0, 150, 0));
-		_CorpsColors.add(new Color(0, 0, 150));
-		_CorpsColors.add(new Color(150, 0, 150));
-		_CorpsColors.add(new Color(0, 150, 150));
-		_CorpsColors.add(new Color(150, 0, 0));
-		// TODO mas colores
-		_CorpsColors.add(Color.CYAN);
-		_CorpsColors.add(Color.RED);
-		_CorpsColors.add(Color.GREEN);
-		_CorpsColors.add(Color.BLUE);
-		_CorpsColors.add(Color.LIGHT_GRAY);
-		_CorpsColors.add(Color.YELLOW);
-		_CorpsColors.add(Color.WHITE);
-		_CorpsColors.add(Color.ORANGE);
-		_CorpsColors.add(Color.BLACK);
-		_CorpsColors.add(Color.DARK_GRAY);
-		_CorpsColors.add(Color.MAGENTA);
-		_CorpsColors.add(Color.PINK);
-		_CorpsColors.add(Color.GRAY);
-		_CorpsColors.add(new Color(150, 0, 0));
-		_CorpsColors.add(new Color(0, 150, 0));
-		_CorpsColors.add(new Color(0, 0, 150));
-		_CorpsColors.add(new Color(150, 0, 150));
-		_CorpsColors.add(new Color(0, 150, 150));
-		_CorpsColors.add(new Color(150, 0, 0));
+		int[] rgbValues = { 0, 75, 165, 255 };
+		int darkTreshold = rgbValues[1];
+		for (int red : rgbValues) {
+			for (int green : rgbValues) {
+				for (int blue : rgbValues) {
+					if (red > darkTreshold || green > darkTreshold || blue > darkTreshold) {
+						_corpsColors.add(new Color(red, green, blue));
+					}
+				}
+			}
+		}
 	}
 
 	private final ScenarioService scenarioService;
+	private final GameService gameService;
 
 	private int symbolSize;
 	private Font smallFont;
@@ -80,7 +62,91 @@ public class GraphService extends Service {
 
 	protected GraphService(Game game) {
 		super(game);
-		scenarioService = new ScenarioService(game);
+		scenarioService = ServiceFactory.getScenarioService(game);
+		gameService = ServiceFactory.getGameService(game);
+	}
+
+	public BufferedImage getBuildingSymbol(Building building, Position position) {
+		double heightRatio = 1.4d;
+		double widthRatio = 1.3d;
+		BufferedImage result = new BufferedImage((int) (getSymbolSize() * widthRatio), (int) (getSymbolSize() * heightRatio), BufferedImage.TYPE_4BYTE_ABGR);
+		Graphics2D canvas = (Graphics2D) result.getGraphics();
+		if (building instanceof UrbanCenter) {
+			UrbanCenter center = (UrbanCenter) building;
+			drawUrbanCenterSymbol(center, canvas, position, widthRatio, heightRatio);
+		} else if (building instanceof Airfield) {
+			Airfield airfield = (Airfield) building;
+			drawAirfieldSymbol(airfield, canvas, position, widthRatio, heightRatio);
+		} else if (building instanceof Fortification) {
+			Fortification fortification = (Fortification) building;
+			drawFortificationSymbol(fortification, canvas, position, widthRatio);
+		}
+
+		return result;
+	}
+
+	protected void drawFortificationSymbol(Fortification fortification, Graphics2D canvas, Position position, double widthRatio) {
+		double size = 0.60;
+		double x = 0.20 + widthRatio / 2 - 0.5;
+		double y = 0.40;
+		double border = 0.10;
+		canvas.setColor(Color.BLACK);
+		canvas.fillRect(getSize(x) - getSize(border), getSize(y) - getSize(border), getSize(size) + 2 * getSize(border), getSize(size) + 2 * getSize(border));
+		drawCountryFlag(fortification, canvas, position, size, x, y);
+		drawFortificationStrength(fortification.getStrength(), canvas, size + 2 * border, x - border, y - border);
+
+	}
+
+	protected void drawFortificationStrength(int strength, Graphics2D canvas, double dSize, double dX, double dY) {
+		int fortSize = getSize(0.2d);
+		canvas.setColor(Color.BLACK);
+		canvas.fillRect(getSize(dX) - fortSize / 2, getSize(dY) - fortSize / 2, fortSize, fortSize);
+		canvas.fillRect(getSize(dX) + getSize(dSize) - fortSize / 2, getSize(dY) - fortSize / 2, fortSize, fortSize);
+		canvas.fillRect(getSize(dX) - fortSize / 2, getSize(dY) + getSize(dSize) - fortSize / 2, fortSize, fortSize);
+		canvas.fillRect(getSize(dX) + getSize(dSize) - fortSize / 2, getSize(dY) + getSize(dSize) - fortSize / 2, fortSize, fortSize);
+		if (strength >= FORTIFICATION_HIGH) {
+			Polygon triangle = new Polygon();
+			triangle.addPoint(getSize(dX) + getSize(dSize) / 2 - fortSize / 2, getSize(dY));
+			triangle.addPoint(getSize(dX) + getSize(dSize) / 2, getSize(dY) - fortSize);
+			triangle.addPoint(getSize(dX) + getSize(dSize) / 2 + fortSize / 2, getSize(dY));
+			canvas.fillPolygon(triangle);
+			triangle = new Polygon();
+			triangle.addPoint(getSize(dX) + getSize(dSize) / 2 - fortSize / 2, getSize(dY) + getSize(dSize));
+			triangle.addPoint(getSize(dX) + getSize(dSize) / 2, getSize(dY) + getSize(dSize) + fortSize);
+			triangle.addPoint(getSize(dX) + getSize(dSize) / 2 + fortSize / 2, getSize(dY) + getSize(dSize));
+			canvas.fillPolygon(triangle);
+			triangle = new Polygon();
+			triangle.addPoint(getSize(dX), getSize(dY) + getSize(dSize) / 2 - fortSize / 2);
+			triangle.addPoint(getSize(dX) - fortSize, getSize(dY) + getSize(dSize) / 2);
+			triangle.addPoint(getSize(dX), getSize(dY) + getSize(dSize) / 2 + fortSize / 2);
+			canvas.fillPolygon(triangle);
+			triangle = new Polygon();
+			triangle.addPoint(getSize(dX) + getSize(dSize), getSize(dY) + getSize(dSize) / 2 - fortSize / 2);
+			triangle.addPoint(getSize(dX) + getSize(dSize) + fortSize, getSize(dY) + getSize(dSize) / 2);
+			triangle.addPoint(getSize(dX) + getSize(dSize), getSize(dY) + getSize(dSize) / 2 + fortSize / 2);
+			canvas.fillPolygon(triangle);
+		}
+	}
+
+	protected void drawAirfieldSymbol(Airfield airfield, Graphics2D canvas, Position position, double widthRatio, double heightRatio) {
+		drawCountryFlag(airfield, canvas, position, 0.60, 0.20 + widthRatio / 2 - 0.5, 0.25);
+		BufferedImage flag = scenarioService.getAirfieldSymbol();
+		int symbolSize = getSize(0.45);
+		int x = getSize(widthRatio) / 2 - symbolSize / 2;
+		int y = (int) (getSize(0.68) * heightRatio);
+		canvas.drawImage(flag.getScaledInstance(symbolSize, symbolSize, Image.SCALE_SMOOTH), x, y, new Color(0, 0, 0, 0), null);
+	}
+
+	protected void drawUrbanCenterSymbol(UrbanCenter center, Graphics2D canvas, Position position, double widthRatio, double heightRatio) {
+		canvas.setFont(smallFont);
+		drawCountryFlag(center, canvas, position, 0.70, 0.15 + widthRatio / 2 - 0.5, 0.35);
+		FontMetrics metrics = canvas.getFontMetrics(canvas.getFont());
+		int x = getSize(1, widthRatio) / 2 - metrics.stringWidth(center.getName()) / 2;
+		int y = (int) (getSize(1) * heightRatio) - smallFont.getSize() / 3;
+		canvas.setColor(Color.BLACK);
+		canvas.fillRect(x - 3, y - smallFont.getSize(), metrics.stringWidth(center.getName()) + 6, smallFont.getSize() + 4);
+		canvas.setColor(Color.WHITE);
+		canvas.drawString(center.getName(), x, y);
 	}
 
 	public BufferedImage getSupplySymbol(Stock stock) {
@@ -99,7 +165,6 @@ public class GraphService extends Service {
 			canvas.drawString(name, smallFont.getSize(), i * (int) (smallFont.getSize() * 1.6));
 			String amount = NumberFormats.DF_2.format(stock.get(supply));
 			canvas.drawString(amount, result.getWidth() - (int) (smallFont.getSize() * 0.5) - metrics.stringWidth(amount), i * (int) (smallFont.getSize() * 1.6));
-			// TODO here
 			i++;
 		}
 		return result;
@@ -116,7 +181,9 @@ public class GraphService extends Service {
 		int i = 1;
 		for (SupplyType supply : stock.keySet()) {
 			String code = supply.getDenomination().substring(0, 1).toUpperCase();
-			canvas.drawString(code, (result.getWidth() - metrics.stringWidth(code)) / 2, smallBoldFont.getSize() / 4 + i * stock.size() * result.getHeight() / 5);
+			canvas.drawString(code,
+					(result.getWidth() - metrics.stringWidth(code)) / 2,
+					i * result.getHeight() / (2 * stock.size()) + smallBoldFont.getSize() * i / 2);
 			i++;
 		}
 		return result;
@@ -164,112 +231,130 @@ public class GraphService extends Service {
 		return result;
 	}
 
-	private void drawUnitName(Unit unit, Graphics2D target) {
-		target.setFont(smallFont);
-		int textWidth = textWidth(target, unit.getFullShortName());
-		target.setColor(Color.BLACK);
-		target.drawString(unit.getFullShortName(), getSize(0.5d) - textWidth / 2, getSize(0.93d));
+	private void drawUnitName(Unit unit, Graphics2D canvas) {
+		canvas.setFont(smallFont);
+		int textWidth = textWidth(canvas, unit.getFullShortName());
+		canvas.setColor(Color.BLACK);
+		canvas.drawString(unit.getFullShortName(), getSize(0.5d) - textWidth / 2, getSize(0.93d));
 	}
 
-	private void drawCorpsStrip(Unit unit, Graphics2D target) {
+	private void drawCorpsStrip(Unit unit, Graphics2D canvas) {
 		Formation corps = unit.getParentFormation(FormationLevel.CORPS);
 		if (unit.getFormationLevel() == FormationLevel.CORPS) {
 			corps = (Formation) unit;
 		}
 		if (corps != null) {
-			target.setColor(_CorpsColors.get(corps.getId()));
-			target.fillRect(getSize(0.05), getSize(0.80), getSize(0.90), getSize(0.15));
+			canvas.setColor(_corpsColors.get(corps.getId()));
+			canvas.fillRect(getSize(0.05), getSize(0.80), getSize(0.90), getSize(0.15));
 		}
 	}
 
-	private void drawFlag(Unit unit, Graphics2D target) {
+	private void drawFlag(Unit unit, Graphics2D canvas) {
 		if (unit.getParentFormation(FormationLevel.DIVISION) != null) {
-			drawFormationSymbol(unit.getParentFormation(FormationLevel.DIVISION), target);
+			drawFormationSymbol(unit.getParentFormation(FormationLevel.DIVISION), canvas);
 		} else if (unit.getParentFormation(FormationLevel.CORPS) != null) {
-			drawFormationSymbol(unit.getParentFormation(FormationLevel.CORPS), target);
+			drawFormationSymbol(unit.getParentFormation(FormationLevel.CORPS), canvas);
 		} else {
-			drawCountryFlag(unit, target);
+			drawCountryFlag(unit, canvas);
 		}
 	}
 
-	private void drawFormationSymbol(Unit unit, Graphics2D target) {
+	private void drawFormationSymbol(Unit unit, Graphics2D canvas) {
 		int size = getSize(0.28);
 		int x = getSize(0.025);
 		int y = getSize(0.025);
-		target.fillRect(x, y, size, size);
+		canvas.fillRect(x, y, size, size);
 		BufferedImage flag = scenarioService.getFormationFlag((Formation) unit);
-		target.drawImage(flag.getScaledInstance(size, size, Image.SCALE_SMOOTH), x, y, new Color(0, 0, 0), null);
+		canvas.drawImage(flag.getScaledInstance(size, size, Image.SCALE_SMOOTH), x, y, new Color(0, 0, 0), null);
 	}
 
-	private void drawCountryFlag(Unit unit, Graphics2D target) {
+	private void drawCountryFlag(Building building, Graphics2D canvas, Position position, double dSize, double dX, double dY) {
+		int size = getSize(dSize);
+		int x = getSize(dX);
+		int y = getSize(dY);
+		int border = getSize(0.05);
+		ObjectiveType objectiveType = gameService.getObjectiveType(building.getLocation(), position);
+		if (objectiveType == null) {
+			canvas.setColor(Color.WHITE);
+		} else if (objectiveType == ObjectiveType.MAIN) {
+			canvas.setColor(Color.YELLOW);
+		} else {
+			canvas.setColor(Color.GREEN);
+		}
+		canvas.fillRect(x - border, y - border, size + 2 * border, size + 2 * border);
+		BufferedImage flag = scenarioService.getCountryFlag(building.getController());
+		canvas.drawImage(flag.getScaledInstance(size, size, Image.SCALE_SMOOTH), x, y, new Color(0, 0, 0), null);
+	}
+
+	private void drawCountryFlag(Unit unit, Graphics2D canvas) {
 		int size = getSize(0.28);
 		int x = getSize(0.025);
 		int y = getSize(0.025);
-		target.fillRect(x, y, size, size);
+		canvas.fillRect(x, y, size, size);
 		BufferedImage flag = scenarioService.getCountryFlag(unit.getCountry());
-		target.drawImage(flag.getScaledInstance(size, size, Image.SCALE_SMOOTH), x, y, new Color(0, 0, 0), null);
+		canvas.drawImage(flag.getScaledInstance(size, size, Image.SCALE_SMOOTH), x, y, new Color(0, 0, 0), null);
 	}
 
-	private void drawFormationStrength(Formation unit, Graphics2D target) {
-		target.setColor(Color.BLACK);
-		target.fillRect(getSize(0.04), getSize(0.45), getSize(0.22), getSize(0.21));
-		target.setColor(Color.WHITE);
-		target.setFont(boldFont);
+	private void drawFormationStrength(Formation unit, Graphics2D canvas) {
+		canvas.setColor(Color.BLACK);
+		canvas.fillRect(getSize(0.04), getSize(0.45), getSize(0.22), getSize(0.21));
+		canvas.setColor(Color.WHITE);
+		canvas.setFont(boldFont);
 		String size = "" + unit.getTogetherCompanies().size();
-		int textWidth = textWidth(target, size);
-		target.drawString(size, getSize(0.16) - textWidth / 2, getSize(0.64) - 2);
+		int textWidth = textWidth(canvas, size);
+		canvas.drawString(size, getSize(0.16) - textWidth / 2, getSize(0.64) - 2);
 
 	}
 
-	private void drawStrengthLevel(Company unit, Graphics2D target) {
+	private void drawStrengthLevel(Company unit, Graphics2D canvas) {
 		double inX = 0.05;
 		double width = 0.15;
 		if (unit.getStrength() > 0) {
-			target.setColor(Color.RED);
-			target.fillRect(getSize(inX), getSize(0.65), getSize(width), getSize(0.1));
+			canvas.setColor(Color.RED);
+			canvas.fillRect(getSize(inX), getSize(0.65), getSize(width), getSize(0.1));
 		}
 		if (unit.getStrength() > 0.25) {
-			target.setColor(new Color(255, 69, 0));
-			target.fillRect(getSize(inX), getSize(0.55), getSize(width), getSize(0.1));
+			canvas.setColor(new Color(255, 69, 0));
+			canvas.fillRect(getSize(inX), getSize(0.55), getSize(width), getSize(0.1));
 		}
 		if (unit.getStrength() > 0.50) {
-			target.setColor(Color.YELLOW);
-			target.fillRect(getSize(inX), getSize(0.45), getSize(width), getSize(0.1));
+			canvas.setColor(Color.YELLOW);
+			canvas.fillRect(getSize(inX), getSize(0.45), getSize(width), getSize(0.1));
 		}
 		if (unit.getStrength() > 0.75) {
-			target.setColor(Color.GREEN);
-			target.fillRect(getSize(inX), getSize(0.35), getSize(width), getSize(0.1));
+			canvas.setColor(Color.GREEN);
+			canvas.fillRect(getSize(inX), getSize(0.35), getSize(width), getSize(0.1));
 		}
-		target.setColor(Color.BLACK);
-		target.drawRect(getSize(inX), getSize(0.35), getSize(width), getSize(0.4));
+		canvas.setColor(Color.BLACK);
+		canvas.drawRect(getSize(inX), getSize(0.35), getSize(width), getSize(0.4));
 	}
 
-	private void drawFormationLevel(Unit unit, Graphics2D target) {
-		target.setFont(smallBoldFont);
-		target.setColor(Color.BLACK);
+	private void drawFormationLevel(Unit unit, Graphics2D canvas) {
+		canvas.setFont(smallBoldFont);
+		canvas.setColor(Color.BLACK);
 		String level = unit.getFormationLevel().getCode();
-		int textWidth = textWidth(target, level);
-		target.drawString(level, (int) symbolCenter.getX() - textWidth / 2, (int) symbolUL.getY() - 2);
+		int textWidth = textWidth(canvas, level);
+		canvas.drawString(level, (int) symbolCenter.getX() - textWidth / 2, (int) symbolUL.getY() - 2);
 	}
 
-	private void drawSupplyLimit(Formation formation, Graphics2D target) {
-		target.setFont(smallBoldFont);
-		target.setColor(Color.BLACK);
+	private void drawSupplyLimit(Formation formation, Graphics2D canvas) {
+		canvas.setFont(smallBoldFont);
+		canvas.setColor(Color.BLACK);
 		String str = formation.getAllCompanies().size() + " / " + formation.getFormationLevel().getSupplyLimit();
-		int textWidth = textWidth(target, str);
-		target.drawString(str, getSize(1.00) - textWidth, getSize(0.16));
+		int textWidth = textWidth(canvas, str);
+		canvas.drawString(str, getSize(1.00) - textWidth, getSize(0.16));
 	}
 
-	private void drawExperience(Company company, Graphics2D target) {
-		target.setFont(xpFont);
-		target.setColor(Color.BLACK);
+	private void drawExperience(Company company, Graphics2D canvas) {
+		canvas.setFont(xpFont);
+		canvas.setColor(Color.BLACK);
 		String str = NumberFormats.SHORT_XP.format(company.getExperience());
-		int textWidth = textWidth(target, str);
-		target.drawString(str, getSize(1.00) - textWidth, getSize(0.16));
+		int textWidth = textWidth(canvas, str);
+		canvas.drawString(str, getSize(1.00) - textWidth, getSize(0.16));
 	}
 
-	private void drawTroopTypeSymbol(TroopType type, Graphics2D target) {
-		target.setColor(Color.BLACK);
+	private void drawTroopTypeSymbol(TroopType type, Graphics2D canvas) {
+		canvas.setColor(Color.BLACK);
 		int iX = getSize(0.30d);
 		int iY = getSize(0.35d);
 		int fX = iX + getSize(0.6d);
@@ -277,34 +362,34 @@ public class GraphService extends Service {
 		symbolUL = new Point(iX, iY);
 		symbolCenter = new Point((iX + fX) / 2, (iY + fY) / 2);
 
-		target.drawLine(iX, iY, fX, iY);
-		target.drawLine(fX, iY, fX, fY);
-		target.drawLine(fX, fY, iX, fY);
-		target.drawLine(iX, fY, iX, iY);
+		canvas.drawLine(iX, iY, fX, iY);
+		canvas.drawLine(fX, iY, fX, fY);
+		canvas.drawLine(fX, fY, iX, fY);
+		canvas.drawLine(iX, fY, iX, iY);
 		switch (type) {
 			case CAVALRY:
-				target.drawLine(iX, fY, fX, iY);
+				canvas.drawLine(iX, fY, fX, iY);
 			break;
 			case INFANTRY:
-				target.drawLine(iX, fY, fX, iY);
-				target.drawLine(iX, iY, fX, fY);
+				canvas.drawLine(iX, fY, fX, iY);
+				canvas.drawLine(iX, iY, fX, fY);
 			break;
 			case ARTILLERY:
-				target.fillOval((int) symbolCenter.getX() - getSize(0.1), (int) symbolCenter.getY() - getSize(0.1), getSize(0.2), getSize(0.2));
+				canvas.fillOval((int) symbolCenter.getX() - getSize(0.1), (int) symbolCenter.getY() - getSize(0.1), getSize(0.2), getSize(0.2));
 			break;
 			default:
 			break;
 		}
 	}
 
-	private void drawCompanyTraitsSymbols(Company company, Graphics2D target, Point symbolCenter) {
-		target.setFont(boldFont);
+	private void drawCompanyTraitsSymbols(Company company, Graphics2D canvas, Point symbolCenter) {
+		canvas.setFont(boldFont);
 		if (company.getTraits().contains(CompanyTrait.HQ)) {
-			int textWidth = textWidth(target, "HQ");
-			target.setColor(Color.WHITE);
-			target.drawString("HQ", (int) symbolCenter.getX() - textWidth / 2, (int) symbolCenter.getY() + boldFont.getSize() / 2);
+			int textWidth = textWidth(canvas, "HQ");
+			canvas.setColor(Color.WHITE);
+			canvas.drawString("HQ", (int) symbolCenter.getX() - textWidth / 2, (int) symbolCenter.getY() + boldFont.getSize() / 2);
 		}
-		target.setFont(smallFont);
+		canvas.setFont(smallFont);
 	}
 
 	private Graphics2D mountCanvas(BufferedImage target, Unit unit) {
@@ -324,6 +409,10 @@ public class GraphService extends Service {
 
 	private int getSize(double ratio) {
 		return (int) (Math.ceil(ratio * getSymbolSize()));
+	}
+
+	private int getSize(double ratio, double widthRatio) {
+		return (int) (Math.ceil(ratio * getSymbolSize() * widthRatio));
 	}
 
 	private int textWidth(Graphics2D graphics, String text) {

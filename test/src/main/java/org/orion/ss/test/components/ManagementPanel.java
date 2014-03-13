@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import org.orion.ss.model.Unit;
 import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.core.TroopType;
@@ -25,6 +26,7 @@ import org.orion.ss.service.GameService;
 import org.orion.ss.service.ManagementService;
 import org.orion.ss.service.ServiceFactory;
 import org.orion.ss.test.GraphicTest;
+import org.orion.ss.test.components.tree.ManagementTreePanel;
 import org.orion.ss.utils.NumberFormats;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -186,7 +188,7 @@ public class ManagementPanel extends PlayerPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				managementService.purchaseCompany(formation, (CompanyModel) purchaseUnitModelCB.getSelectedItem());
-				updateDetails(formation);
+				updateUnitDetails(formation);
 				updatePrestigeTF();
 				updateTree();
 			}
@@ -248,7 +250,7 @@ public class ManagementPanel extends PlayerPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				managementService.createFormation(formation, (CompanyModel) formationUnitModelCB.getSelectedItem(), (FormationLevel) createFormationLevelCB.getSelectedItem(), (TroopType) createTroopTypeCB.getSelectedItem());
-				updateDetails(formation);
+				updateUnitDetails(formation);
 				updatePrestigeTF();
 				updateTree();
 			}
@@ -337,7 +339,9 @@ public class ManagementPanel extends PlayerPanel {
 		updateSupplyCostPanel();
 	}
 
-	public void updateDetails(final Formation formation) {
+	@Override
+	public void updateUnitDetails(final Unit unit) {
+		Formation formation = (Formation) unit;
 		mountFormationPanel();
 		formationDetailPanel.update(formation);
 		updateReinforceInfoPanel();

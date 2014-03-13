@@ -2,9 +2,15 @@ package org.orion.ss.model.geo;
 
 public class Railway extends OrientedFeature {
 
-	private short gauge;
+	private int gauge;
 	private double state;
-	
+
+	public Railway(OrientedLocation location, int gauge) {
+		super(location);
+		this.gauge = gauge;
+		state = 1.0d;
+	}
+
 	@Override
 	public TerrainFeatureType getType() {
 		return TerrainFeatureType.RAILWAY;
@@ -12,11 +18,11 @@ public class Railway extends OrientedFeature {
 
 	/* getters & setters */
 
-	public short getGauge() {
+	public int getGauge() {
 		return gauge;
 	}
 
-	public void setGauge(short gauge) {
+	public void setGauge(int gauge) {
 		this.gauge = gauge;
 	}
 
@@ -27,5 +33,5 @@ public class Railway extends OrientedFeature {
 	public void setState(double state) {
 		this.state = state;
 	}
-		
+
 }

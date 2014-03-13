@@ -6,7 +6,7 @@ import org.orion.ss.test.GraphicTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class PlayerPanel extends FastPanel {
+public abstract class PlayerPanel extends FastPanel implements UnitDetailsDisplayer {
 
 	private static final long serialVersionUID = -590500321758963247L;
 

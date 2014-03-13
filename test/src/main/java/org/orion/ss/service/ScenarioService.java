@@ -19,12 +19,15 @@ public class ScenarioService extends Service {
 		super(game);
 	}
 
+	public BufferedImage getAirfieldSymbol() {
+		return loadImage(new File(_scenarioPath + getGame().getScenarioName() + "\\airfield.png"));
+	}
+
 	public BufferedImage getCountryFlag(Country country) {
 		return loadImage(new File(_scenarioPath + getGame().getScenarioName() + _flagsPath + "\\" + country.getName().toLowerCase() + ".png"));
 	}
 
 	public BufferedImage getFormationFlag(Formation formation) {
-		logger.error(_scenarioPath + getGame().getScenarioName() + _flagsPath + "\\" + formation.getFormationLevel().getDenomination().toLowerCase() + "_" + formation.getId() + ".png");
 		return loadImage(new File(_scenarioPath + getGame().getScenarioName() + _flagsPath + "\\" + formation.getFormationLevel().getDenomination().toLowerCase() + "_" + formation.getId() + ".png"));
 	}
 

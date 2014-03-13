@@ -15,14 +15,15 @@ public class TroopTypesCompatibility {
 
 	static {
 		_map.add(TroopType.INFANTRY, FormationLevel.BATTALION, TroopType.INFANTRY);
-		_map.add(TroopType.INFANTRY, FormationLevel.BATTALION, TroopType.ARTILLERY);		
+		_map.add(TroopType.INFANTRY, FormationLevel.BATTALION, TroopType.ARTILLERY);
 		_map.add(TroopType.INFANTRY, FormationLevel.REGIMENT, TroopType.INFANTRY);
-		_map.add(TroopType.INFANTRY, FormationLevel.REGIMENT, TroopType.ARTILLERY);		
+		_map.add(TroopType.INFANTRY, FormationLevel.REGIMENT, TroopType.ARTILLERY);
 		_map.add(TroopType.INFANTRY, FormationLevel.BRIGADE, TroopType.INFANTRY);
-		_map.add(TroopType.INFANTRY, FormationLevel.BRIGADE, TroopType.ARTILLERY);		
+		_map.add(TroopType.INFANTRY, FormationLevel.BRIGADE, TroopType.ARTILLERY);
 		_map.add(TroopType.INFANTRY, FormationLevel.DIVISION, TroopType.INFANTRY);
 		_map.add(TroopType.INFANTRY, FormationLevel.DIVISION, TroopType.ARTILLERY);
 		_map.add(TroopType.INFANTRY, FormationLevel.CORPS, TroopType.INFANTRY);
+		_map.add(TroopType.INFANTRY, FormationLevel.CORPS, TroopType.ARTILLERY);
 		_map.add(TroopType.INFANTRY, FormationLevel.ARMY, TroopType.INFANTRY);
 		_map.add(TroopType.INFANTRY, FormationLevel.ARMY, TroopType.CAVALRY);
 		_map.add(TroopType.INFANTRY, FormationLevel.ARMY_GROUP, TroopType.INFANTRY);
@@ -34,8 +35,8 @@ public class TroopTypesCompatibility {
 		_map.add(TroopType.CAVALRY, FormationLevel.BRIGADE, TroopType.CAVALRY);
 		_map.add(TroopType.CAVALRY, FormationLevel.BRIGADE, TroopType.ARTILLERY);
 		_map.add(TroopType.CAVALRY, FormationLevel.DIVISION, TroopType.CAVALRY);
-		_map.add(TroopType.CAVALRY, FormationLevel.DIVISION, TroopType.ARTILLERY);		
-		_map.add(TroopType.CAVALRY, FormationLevel.CORPS, TroopType.CAVALRY);		
+		_map.add(TroopType.CAVALRY, FormationLevel.DIVISION, TroopType.ARTILLERY);
+		_map.add(TroopType.CAVALRY, FormationLevel.CORPS, TroopType.CAVALRY);
 		_map.add(TroopType.CAVALRY, FormationLevel.ARMY, TroopType.INFANTRY);
 		_map.add(TroopType.CAVALRY, FormationLevel.ARMY, TroopType.CAVALRY);
 		_map.add(TroopType.CAVALRY, FormationLevel.ARMY_GROUP, TroopType.INFANTRY);

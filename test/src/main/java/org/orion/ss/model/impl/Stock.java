@@ -20,7 +20,9 @@ public class Stock extends HashMap<SupplyType, Double> {
 		if (this.containsKey(type)) {
 			amount += this.get(type);
 		}
-		super.put(type, amount);
+		if (amount > 0) {
+			super.put(type, amount);
+		}
 		return amount;
 	}
 

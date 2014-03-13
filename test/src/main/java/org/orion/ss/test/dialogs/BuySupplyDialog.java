@@ -13,8 +13,8 @@ import javax.swing.JTextField;
 
 import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.geo.Location;
-import org.orion.ss.model.impl.Game;
 import org.orion.ss.model.impl.Stock;
+import org.orion.ss.service.GameService;
 import org.orion.ss.service.ManagementService;
 import org.orion.ss.service.ServiceFactory;
 import org.orion.ss.test.GraphicTest;
@@ -30,7 +30,7 @@ public class BuySupplyDialog extends JDialog {
 	private static final long serialVersionUID = -3709849519497626262L;
 	protected final static Logger logger = LoggerFactory.getLogger(BuySupplyDialog.class);
 
-	private Game game;
+	private final GameService gameService;
 	private final ManagementService managementService;
 
 	private final SupplyDisplayer parent;
@@ -38,13 +38,13 @@ public class BuySupplyDialog extends JDialog {
 	private JTextField[] supplyBuyTFs;
 	private JButton buyB;
 
-	public BuySupplyDialog(SupplyDisplayer parent, Game game, Location location) {
+	public BuySupplyDialog(SupplyDisplayer parent, GameService gameService, Location location) {
 		super();
 		this.parent = parent;
-		this.game = game;
-		managementService = ServiceFactory.getManagementService(game);
+		this.gameService = gameService;
+		managementService = ServiceFactory.getManagementService(gameService.getGame());
 		setTitle("Buy supplies to place at " + location);
-		setBounds(100, 100, 400, 300);
+		setBounds((int) GraphicTest.DEFAULT_DIALOG_LOCATION.getX(), (int) GraphicTest.DEFAULT_DIALOG_LOCATION.getY(), 400, 300);
 		setModal(true);
 		setLayout(null);
 		addWindowListener(new WindowAdapter() {
@@ -74,7 +74,7 @@ public class BuySupplyDialog extends JDialog {
 		int i = 1;
 		for (SupplyType supply : SupplyType.values()) {
 			panel.addLabel(supply.getDenomination(), GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN + GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
-			panel.addNotEditableTextField("" + game.getCurrentPlayerPosition().getCountry().getMarket().get(supply), GraphicTest.LEFT_MARGIN * 2 + GraphicTest.COLUMN_WIDTH, GraphicTest.TOP_MARGIN + GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
+			panel.addNotEditableTextField("" + gameService.getGame().getCurrentPlayerPosition().getCountry().getMarket().get(supply), GraphicTest.LEFT_MARGIN * 2 + GraphicTest.COLUMN_WIDTH, GraphicTest.TOP_MARGIN + GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
 			supplyBuyTFs[i - 1] = new JTextField();
 			supplyBuyTFs[i - 1].setText("0");
 			supplyBuyTFs[i - 1].setBounds(GraphicTest.LEFT_MARGIN * 3 + GraphicTest.COLUMN_WIDTH * 2, GraphicTest.TOP_MARGIN + GraphicTest.ROW_HEIGHT * i, GraphicTest.COLUMN_WIDTH_NARROW, GraphicTest.ROW_HEIGHT);
@@ -86,7 +86,6 @@ public class BuySupplyDialog extends JDialog {
 
 				@Override
 				public void focusLost(FocusEvent arg0) {
-					// TODO Auto-generated method stub
 					JTextField source = (JTextField) arg0.getSource();
 					DoubleValidator validator = new DoubleValidator();
 					validator.setMode(DoubleValidator.MODE_POSITIVE);
@@ -95,9 +94,14 @@ public class BuySupplyDialog extends JDialog {
 						for (int i = 0; i < supplyBuyTFs.length; i++) {
 							stock.put(SupplyType.values()[i], Double.parseDouble(supplyBuyTFs[i].getText()));
 						}
-						int supplyCost = managementService.stockValue(stock, getGame().getCurrentPlayerPosition());
+						int supplyCost = managementService.stockValue(stock, gameService.getGame().getCurrentPlayerPosition());
 						totalCostTF.setText(NumberFormats.PRESTIGE.format(supplyCost));
-						buyB.setEnabled(true);
+						if (supplyCost <= gameService.getGame().getCurrentPlayerPosition().getPrestige()) {
+							buyB.setEnabled(true);
+						} else {
+							buyB.setEnabled(false);
+							totalCostTF.setText("You do not have enough prestige to buy the supplies.");
+						}
 					} else {
 						buyB.setEnabled(false);
 						totalCostTF.setText(validator.getMessage());
@@ -112,7 +116,6 @@ public class BuySupplyDialog extends JDialog {
 		totalCostTF.setEditable(false);
 		totalCostTF.setBounds(GraphicTest.LEFT_MARGIN * 2 + GraphicTest.COLUMN_WIDTH, GraphicTest.TOP_MARGIN + GraphicTest.ROW_HEIGHT * (i + 1), GraphicTest.COLUMN_WIDTH_XLARGE, GraphicTest.ROW_HEIGHT);
 		panel.add(totalCostTF);
-		// TODO button
 		buyB = new JButton("Buy and place");
 		buyB.setBounds((panel.getWidth() - GraphicTest.COLUMN_WIDTH_LARGE) / 2, GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * (i + 3), GraphicTest.COLUMN_WIDTH_LARGE, GraphicTest.ROW_HEIGHT);
 		buyB.setEnabled(false);
@@ -120,13 +123,12 @@ public class BuySupplyDialog extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				Stock stock = new Stock();
 				for (int i = 0; i < supplyBuyTFs.length; i++) {
 					stock.put(SupplyType.values()[i], Double.parseDouble(supplyBuyTFs[i].getText()));
 				}
-				managementService.buySupplies(stock, getGame().getCurrentPlayerPosition(), location);
-				parent.updateSuppliesDisplay();
+				managementService.buySupplies(stock, gameService.getGame().getCurrentPlayerPosition(), location);
+				parent.updateSuppliesDisplay(stock, location);
 				dispose();
 				setVisible(false);
 			}
@@ -134,16 +136,6 @@ public class BuySupplyDialog extends JDialog {
 		});
 		panel.add(buyB);
 		add(panel);
-	}
-
-	/* getters & setters */
-
-	public Game getGame() {
-		return game;
-	}
-
-	public void setGame(Game game) {
-		this.game = game;
 	}
 
 }

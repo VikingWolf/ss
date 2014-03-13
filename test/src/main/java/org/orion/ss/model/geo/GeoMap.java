@@ -2,8 +2,11 @@ package org.orion.ss.model.geo;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.orion.ss.model.Building;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,11 +19,13 @@ public class GeoMap extends ArrayList<Hex> {
 	private final List<Road> roads;
 	private final int rows;
 	private final int columns;
+	private final Map<Location, Building> buildings;
 
 	public GeoMap(int rows, int columns, Terrain defaultTerrain, Vegetation defaultVegetation) {
 		super();
 		rivers = new ArrayList<River>();
 		roads = new ArrayList<Road>();
+		buildings = new HashMap<Location, Building>();
 		this.rows = rows;
 		this.columns = columns;
 		for (int i = 0; i < columns; i++) {
@@ -58,26 +63,6 @@ public class GeoMap extends ArrayList<Hex> {
 		else return null;
 	}
 
-	public List<River> getRiversOf(int x, int y) {
-		List<River> rivers = new ArrayList<River>();
-		for (River river : this.rivers) {
-			for (HexSidedPoint loc : river.getLocs()) {
-				if ((loc.getX() == x) && (loc.getY() == y)) {
-					rivers.add(river);
-				}
-			}
-		}
-		return rivers;
-	}
-
-	public List<River> getRiversOf(Point loc) {
-		return getRiversOf((int) loc.getX(), (int) loc.getY());
-	}
-
-	public void addRiver(River river) {
-		rivers.add(river);
-	}
-
 	public void addRoad(Road road) {
 		roads.add(road);
 	}
@@ -85,10 +70,8 @@ public class GeoMap extends ArrayList<Hex> {
 	public List<Road> getRoadsOf(int x, int y) {
 		List<Road> roads = new ArrayList<Road>();
 		for (Road road : this.roads) {
-			for (HexSidedPoint loc : road.getLocs()) {
-				if ((loc.getX() == x) && (loc.getY() == y)) {
-					roads.add(road);
-				}
+			if ((road.getLocation().getX() == x) && (road.getLocation().getY() == y)) {
+				roads.add(road);
 			}
 		}
 		return roads;
@@ -96,21 +79,6 @@ public class GeoMap extends ArrayList<Hex> {
 
 	public List<Road> getRoadsOf(Point loc) {
 		return getRoadsOf((int) loc.getX(), (int) loc.getY());
-	}
-
-	private boolean isInsideMap(Hex loc) {
-		if (loc.getCoords() != null) {
-			return isInsideMap(loc.getCoords());
-		} else return false;
-	}
-
-	public boolean isInsideMap(Location loc) {
-		if ((loc.getX() < 0) ||
-				(loc.getY() < 0) ||
-				(loc.getX() >= rows) ||
-				(loc.getY() >= columns))
-			return false;
-		else return true;
 	}
 
 	public double getDistance(Hex hex1, Hex hex2) {
@@ -122,38 +90,28 @@ public class GeoMap extends ArrayList<Hex> {
 				+ Math.pow(point1.getY() - point2.getY(), 2), 0.5);
 	}
 
-	public List<Hex> getArea(Hex loc, int radius) {
-		List<Hex> initial = new ArrayList<Hex>();
-		initial.add(loc);
-		List<Hex> result = new ArrayList<Hex>();
-		recursiveGetArea(result, new ArrayList<Hex>(), initial, 0, radius);
-		return result;
+	public boolean isInsideMap(Hex loc) {
+		if (loc.getCoords() != null) {
+			return isInsideMap(loc.getCoords());
+		} else return false;
 	}
 
-	private void recursiveGetArea(List<Hex> result, List<Hex> checked, List<Hex> unchecked, int stage, int radius) {
-		/* clear unchecked of last stage, do here to avoid concurrent modification */
-		for (Hex node : checked) {
-			unchecked.remove(node);
-		}
-		List<Hex> toAdd = new ArrayList<Hex>();
-		for (Hex node : unchecked) {
-			if (!checked.contains(node)) {
-				if (isInsideMap(node)) {
-					if (!result.contains(node)) {
-						result.add(node);
-					}
-					for (HexSide side : HexSide.values()) {
-						Hex adjacent = this.getHexAt(side.getAdjacent(node.getCoords()));
-						toAdd.add(adjacent);
-					}
-				}
-				checked.add(node);
-			}
-		}
-		if (stage < radius) {
-			unchecked.addAll(toAdd);
-			recursiveGetArea(result, checked, unchecked, stage + 1, radius);
-		}
+	public boolean isInsideMap(Location loc) {
+		if ((loc.getX() <= 0) ||
+				(loc.getY() <= 0) ||
+				(loc.getX() >= getRows()) ||
+				(loc.getY() >= getColumns()))
+			return false;
+		else return true;
+	}
+
+	/* adders */
+	public void addBuilding(Building building) {
+		buildings.put(building.getLocation(), building);
+	}
+
+	public void addRiver(River river) {
+		rivers.add(river);
 	}
 
 	/* getters & setters */
@@ -164,6 +122,18 @@ public class GeoMap extends ArrayList<Hex> {
 
 	public int getRows() {
 		return rows;
+	}
+
+	public Map<Location, Building> getBuildings() {
+		return buildings;
+	}
+
+	public List<River> getRivers() {
+		return rivers;
+	}
+
+	public List<Road> getRoads() {
+		return roads;
 	}
 
 }

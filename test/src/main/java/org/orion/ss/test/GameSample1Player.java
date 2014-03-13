@@ -7,13 +7,21 @@ import java.util.List;
 
 import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.Mobility;
+import org.orion.ss.model.core.ObjectiveType;
 import org.orion.ss.model.core.PositionRole;
 import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.core.TroopType;
 import org.orion.ss.model.core.WeaponType;
+import org.orion.ss.model.geo.Airfield;
+import org.orion.ss.model.geo.Fortification;
 import org.orion.ss.model.geo.Hex;
+import org.orion.ss.model.geo.HexSide;
 import org.orion.ss.model.geo.Location;
+import org.orion.ss.model.geo.OrientedLocation;
+import org.orion.ss.model.geo.River;
+import org.orion.ss.model.geo.Road;
 import org.orion.ss.model.geo.Terrain;
+import org.orion.ss.model.geo.UrbanCenter;
 import org.orion.ss.model.geo.Vegetation;
 import org.orion.ss.model.geo.WeatherForecast;
 import org.orion.ss.model.geo.WeatherType;
@@ -24,6 +32,7 @@ import org.orion.ss.model.impl.Formation;
 import org.orion.ss.model.impl.Game;
 import org.orion.ss.model.impl.GameSettings;
 import org.orion.ss.model.impl.Market;
+import org.orion.ss.model.impl.Objective;
 import org.orion.ss.model.impl.Player;
 import org.orion.ss.model.impl.Position;
 import org.orion.ss.model.impl.Scenario;
@@ -36,10 +45,12 @@ public class GameSample1Player {
 	private Scenario scenario;
 
 	private final Country uk = new Country("UK", 0.9d, new Color(100, 50, 0));
-	private final Position ukCorpsI = new Position(FormationLevel.CORPS, TroopType.INFANTRY, 30, PositionRole.DEFENDER);
+	private final Country ger = new Country("GER", 1.0d, Color.LIGHT_GRAY);
+	private final Position ukCorpsI = new Position(FormationLevel.CORPS, TroopType.INFANTRY, 30, PositionRole.ATTACKER);
 
 	private WeaponModel leeEnfieldMk1;
 	private WeaponModel vickersBerthierLMG;
+	private WeaponModel qf25pdr;
 
 	private CompanyModel ukRifleCompanyModel39;
 	private CompanyModel ukRifleCompanyModel40;
@@ -66,8 +77,9 @@ public class GameSample1Player {
 	}
 
 	protected void buildWeaponModels() {
-		leeEnfieldMk1 = new WeaponModel("Lee-Enfield Mk 1", WeaponType.SMALL_ARM, 12, 0.853, 0.457, 0.000012d, 1, 6);
-		vickersBerthierLMG = new WeaponModel("VB LMG", WeaponType.SMALL_ARM, 180, 0.745, 0.457, 0.000012d, 1, 11);
+		leeEnfieldMk1 = new WeaponModel("Lee-Enfield Mk 1", WeaponType.SMALL_ARM, 12, 0.853, 0.457, 0.000012d, 1, 12);
+		vickersBerthierLMG = new WeaponModel("VB LMG", WeaponType.SMALL_ARM, 180, 0.745, 0.457, 0.000012d, 1, 22);
+		qf25pdr = new WeaponModel("QF 25-pdr", WeaponType.FIELD_GUN, 7, 0.532, 12.253, 0.0115, 6, 1500);
 	}
 
 	protected void buildCompanyModels() {
@@ -90,7 +102,7 @@ public class GameSample1Player {
 
 		ukArtilleryBatteryModel39 = new CompanyModel("Artillery Battery 39", TroopType.ARTILLERY, Mobility.FOOT, 4.5d, 3, 90, uk);
 		ukArtilleryBatteryModel39.addWeaponry(leeEnfieldMk1, 40);
-		// TODO weaponry
+		ukArtilleryBatteryModel39.addWeaponry(qf25pdr, 4);
 		Stock ukArtilleryBattery39Stock = new Stock();
 		ukArtilleryBattery39Stock.put(SupplyType.AMMO, 0.05);
 		ukArtilleryBatteryModel39.setMaxSupplies(ukArtilleryBattery39Stock);
@@ -109,6 +121,9 @@ public class GameSample1Player {
 		scenario = new Scenario("sample1p", 6, 11);
 		scenario.setSettings(settings);
 		scenario.addPosition(ukCorpsI);
+		scenario.addObjective(new Objective(ObjectiveType.DEFENDER, new Location(1, 1)));
+		scenario.addObjective(new Objective(ObjectiveType.MAIN, new Location(6, 3)));
+		scenario.addObjective(new Objective(ObjectiveType.SECONDARY, new Location(8, 4)));
 	}
 
 	protected void buildMap() {
@@ -116,6 +131,39 @@ public class GameSample1Player {
 		scenario.getMap().setHexAt(new Location(4, 3), new Hex(Terrain.HILLS, Vegetation.NONE));
 		scenario.getMap().setHexAt(new Location(4, 4), new Hex(Terrain.HILLS, Vegetation.NONE));
 		scenario.getMap().setHexAt(new Location(5, 4), new Hex(Terrain.HILLS, Vegetation.NONE));
+		River rhein = new River("Rhein", 2);
+		rhein.addLocation(new OrientedLocation(4, 0, HexSide.NORTHEAST));
+		rhein.addLocation(new OrientedLocation(4, 0, HexSide.SOUTHEAST));
+		rhein.addLocation(new OrientedLocation(4, 1, HexSide.NORTHEAST));
+		rhein.addLocation(new OrientedLocation(4, 1, HexSide.SOUTHEAST));
+		rhein.addLocation(new OrientedLocation(4, 1, HexSide.SOUTH));
+		rhein.addLocation(new OrientedLocation(3, 2, HexSide.SOUTHEAST));
+		rhein.addLocation(new OrientedLocation(3, 2, HexSide.SOUTHEAST));
+		rhein.addLocation(new OrientedLocation(3, 3, HexSide.NORTHEAST));
+		scenario.getMap().addRiver(rhein);
+
+		scenario.getMap().addRoad(new Road(new OrientedLocation(1, 1, HexSide.SOUTHEAST)));
+		scenario.getMap().addRoad(new Road(new OrientedLocation(2, 1, HexSide.NORTHWEST)));
+
+		scenario.getMap().addRoad(new Road(new OrientedLocation(2, 1, HexSide.SOUTH)));
+		scenario.getMap().addRoad(new Road(new OrientedLocation(2, 2, HexSide.NORTH)));
+		scenario.getMap().addRoad(new Road(new OrientedLocation(2, 2, HexSide.SOUTHEAST)));
+
+		scenario.getMap().addRoad(new Road(new OrientedLocation(3, 3, HexSide.NORTHWEST)));
+		scenario.getMap().addRoad(new Road(new OrientedLocation(3, 3, HexSide.SOUTHEAST)));
+
+		scenario.getMap().addRoad(new Road(new OrientedLocation(4, 3, HexSide.NORTHWEST)));
+		scenario.getMap().addRoad(new Road(new OrientedLocation(4, 3, HexSide.NORTHEAST)));
+
+		scenario.getMap().addRoad(new Road(new OrientedLocation(5, 3, HexSide.SOUTHWEST)));
+		scenario.getMap().addRoad(new Road(new OrientedLocation(5, 3, HexSide.SOUTHEAST)));
+		scenario.getMap().addRoad(new Road(new OrientedLocation(6, 3, HexSide.NORTHWEST)));
+
+		scenario.getMap().addBuilding(new UrbanCenter("Grossheim", 500, 6, new Location(1, 1), uk));
+		scenario.getMap().addBuilding(new UrbanCenter("Wassenburg", 1000, 6, new Location(6, 3), ger));
+		scenario.getMap().addBuilding(new UrbanCenter("Tarbek", 500, 6, new Location(8, 4), ger));
+		scenario.getMap().addBuilding(new Airfield(6, new Location(7, 2), ger));
+		scenario.getMap().addBuilding(new Fortification(2, new Location(1, 2), uk));
 	}
 
 	protected void buildUKPosition() {

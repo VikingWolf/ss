@@ -3,6 +3,7 @@ package org.orion.ss.test.components;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListSelectionModel;
@@ -13,29 +14,36 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.orion.ss.model.Building;
 import org.orion.ss.model.Unit;
+import org.orion.ss.model.core.ObjectiveType;
+import org.orion.ss.model.geo.Airfield;
+import org.orion.ss.model.geo.Fortification;
 import org.orion.ss.model.geo.Hex;
 import org.orion.ss.model.geo.Location;
+import org.orion.ss.model.geo.River;
+import org.orion.ss.model.geo.UrbanCenter;
+import org.orion.ss.model.impl.Stock;
 import org.orion.ss.model.impl.UnitStack;
 import org.orion.ss.service.GameService;
 import org.orion.ss.service.GeoService;
-import org.orion.ss.service.GraphService;
 import org.orion.ss.service.ServiceFactory;
 import org.orion.ss.test.GraphicTest;
 import org.orion.ss.test.dialogs.BuySupplyDialog;
+import org.orion.ss.test.dialogs.PurchaseCompanyDialog;
 import org.orion.ss.utils.NumberFormats;
 
-public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyDisplayer {
+public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyDisplayer, UnitDisplayer {
 
 	private static final long serialVersionUID = 6444803414199994917L;
 
 	private final static int MODE_INFO = 1;
 	private final static int MODE_DEPLOY_SUPPLIES = 2;
+	private final static int MODE_DEPLOY_COMPANY = 3;
 
 	private int actionMode = MODE_INFO;
 
 	private final GeoService geoService;
-	private final GraphService graphService;
 
 	/* GUI components */
 	private FastPanel hexInfoP = new FastPanel();
@@ -45,13 +53,13 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	private JScrollPane pane;
 	private JTextField instructionsTF;
 	private ScrollableMap mapPanel;
+	private JTextField prestigeTF;
 
 	private final static double HEX_SIDE = 48.0d;
 
 	public TurnPanel(GraphicTest parent, GameService gameService) {
 		super(parent, gameService);
 		geoService = ServiceFactory.getGeoService(getGame());
-		graphService = ServiceFactory.getGraphService(getGame());
 	}
 
 	@Override
@@ -162,11 +170,79 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 				GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * 2,
 				GraphicTest.COLUMN_WIDTH_NARROW,
 				GraphicTest.ROW_HEIGHT);
+		int y = 3;
+		List<River> rivers = geoService.getRiversOf(hex.getCoords());
+		if (rivers.size() > 0) {
+			String sides = "";
+			// TODO river sides
+			// sides = sides.substring(0, sides.length() - 2);
+			hexInfoP.addLabel("River at " + sides,
+					GraphicTest.LEFT_MARGIN,
+					GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * y,
+					GraphicTest.COLUMN_WIDTH,
+					GraphicTest.ROW_HEIGHT);
+			y++;
+		}
+		Building building = geoService.getBuildingAt(hex.getCoords());
+		if (building != null) {
+			if (building instanceof UrbanCenter) {
+				UrbanCenter center = (UrbanCenter) building;
+				hexInfoP.addLabel(center.getName(),
+						GraphicTest.LEFT_MARGIN,
+						GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * y,
+						GraphicTest.COLUMN_WIDTH,
+						GraphicTest.ROW_HEIGHT);
+				hexInfoP.addNotEditableTextField(NumberFormats.PRESTIGE.format(center.getValue()) + " prestige",
+						GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH,
+						GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * y,
+						GraphicTest.COLUMN_WIDTH_NARROW,
+						GraphicTest.ROW_HEIGHT);
+				y++;
+			} else if (building instanceof Airfield) {
+				Airfield airfield = (Airfield) building;
+				hexInfoP.addLabel("Airfield",
+						GraphicTest.LEFT_MARGIN,
+						GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * y,
+						GraphicTest.COLUMN_WIDTH,
+						GraphicTest.ROW_HEIGHT);
+				if (airfield.getController().equals(getGame().getCurrentPlayerPosition().getCountry())) {
+					hexInfoP.addNotEditableTextField("Cap = " + airfield.getCapacity(),
+							GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH,
+							GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * y,
+							GraphicTest.COLUMN_WIDTH_NARROW,
+							GraphicTest.ROW_HEIGHT);
+				}
+				y++;
+			} else if (building instanceof Fortification) {
+				Fortification fortification = (Fortification) building;
+				hexInfoP.addLabel("Fortifications",
+						GraphicTest.LEFT_MARGIN,
+						GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * y,
+						GraphicTest.COLUMN_WIDTH,
+						GraphicTest.ROW_HEIGHT);
+				if (fortification.getController().equals(getGame().getCurrentPlayerPosition().getCountry())) {
+					hexInfoP.addNotEditableTextField("strength = " + fortification.getStrength(),
+							GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH,
+							GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * y,
+							GraphicTest.COLUMN_WIDTH_NARROW,
+							GraphicTest.ROW_HEIGHT);
+				}
+				y++;
+			}
+			ObjectiveType type = gameService.getObjectiveType(building.getLocation(), getGame().getCurrentPlayerPosition());
+			if (type != null) {
+				hexInfoP.addLabel(type.getDenomination() + " objective",
+						GraphicTest.LEFT_MARGIN * 3,
+						GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * y,
+						GraphicTest.COLUMN_WIDTH,
+						GraphicTest.ROW_HEIGHT);
+				y++;
+			}
+		}
 	}
 
 	protected void mountMapPanel() {
-		mapPanel = new ScrollableMap(getGame().getMap(), 460, GraphicTest.TOP_MARGIN, 860, 560, HEX_SIDE, geoService.fullMap(), this, graphService);
-		mapPanel.setUnits(geoService.getAllUnitsLocatedAt(mapPanel.getBounds()));
+		mapPanel = new ScrollableMap(460, GraphicTest.TOP_MARGIN, 860, 560, HEX_SIDE, getGame(), getGame().getCurrentPlayerPosition(), this, geoService.fullMap());
 		add(mapPanel);
 	}
 
@@ -211,7 +287,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 				GraphicTest.TOP_MARGIN + GraphicTest.ROW_HEIGHT * 4,
 				GraphicTest.COLUMN_WIDTH_XLARGE,
 				GraphicTest.ROW_HEIGHT);
-		JTextField prestigeTF = new JTextField();
+		prestigeTF = new JTextField();
 		prestigeTF.setText(NumberFormats.PRESTIGE.format(getGame().getCurrentPlayerPosition().getPrestige()));
 		prestigeTF.setEditable(false);
 		prestigeTF.setBounds(
@@ -234,23 +310,36 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 				mapPanel.setDeployArea(gameService.getGame().getCurrentPlayerPosition().getDeployArea());
 				mapPanel.repaint();
 				actionMode = MODE_DEPLOY_SUPPLIES;
-				// TODO Auto-generated method stub
-
 			}
 
 		});
 		add(buySuppliesB);
-		JButton purchaseB = new JButton("Purchase Companies");
+		JButton purchaseB = new JButton("Purchase Company");
 		purchaseB.setBounds(
 				GraphicTest.LEFT_MARGIN,
 				GraphicTest.TOP_MARGIN * 3 + GraphicTest.ROW_HEIGHT * 6,
 				GraphicTest.COLUMN_WIDTH_XLARGE,
 				GraphicTest.ROW_HEIGHT);
+		purchaseB.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				instructionsTF.setText("Select a hex to deploy the company...");
+				mapPanel.setDeployArea(gameService.getGame().getCurrentPlayerPosition().getDeployArea());
+				mapPanel.repaint();
+				actionMode = MODE_DEPLOY_COMPANY;
+			}
+
+		});
 		add(purchaseB);
 	}
 
 	protected void showBuySuppliesDialog(Location location) {
-		new BuySupplyDialog(this, this.getGame(), location);
+		new BuySupplyDialog(this, gameService, location);
+	}
+
+	protected void showBuyCompanyDialog(Location location) {
+		new PurchaseCompanyDialog(this, gameService, location);
 	}
 
 	/* state updates */
@@ -262,6 +351,8 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 			this.updateUnitInfo(null);
 		} else if (actionMode == MODE_DEPLOY_SUPPLIES) {
 			showBuySuppliesDialog(location);
+		} else if (actionMode == MODE_DEPLOY_COMPANY) {
+			showBuyCompanyDialog(location);
 		}
 	}
 
@@ -272,9 +363,24 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	}
 
 	@Override
-	public void updateSuppliesDisplay() {
-		instructionsTF.setText("Supplies placed.");
-		mapPanel.setSupplies(geoService.getStocksLocatedAt(mapPanel.getBounds(), getGame().getCurrentPlayerPosition()));
+	public void updateSuppliesDisplay(Stock stock, Location location) {
+		instructionsTF.setText("Supplies " + stock.toString() + " placed at " + location.toString());
+		prestigeTF.setText(NumberFormats.PRESTIGE.format(getGame().getCurrentPlayerPosition().getPrestige()));
 		mapPanel.repaint();
+		actionMode = MODE_INFO;
+	}
+
+	@Override
+	public void updateUnitsDisplay(Location location) {
+		instructionsTF.setText("Company placed at " + location);
+		prestigeTF.setText(NumberFormats.PRESTIGE.format(getGame().getCurrentPlayerPosition().getPrestige()));
+		mapPanel.repaint();
+		actionMode = MODE_INFO;
+	}
+
+	@Override
+	public void updateUnitDetails(Unit unit) {
+		// TODO Auto-generated method stub
+
 	}
 }

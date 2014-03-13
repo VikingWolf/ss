@@ -5,10 +5,15 @@ import java.util.List;
 import java.util.Random;
 
 import org.orion.ss.model.core.GamePhase;
+import org.orion.ss.model.core.ObjectiveType;
+import org.orion.ss.model.core.PositionRole;
+import org.orion.ss.model.geo.Location;
 import org.orion.ss.model.geo.WeatherType;
 import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.Game;
+import org.orion.ss.model.impl.Objective;
 import org.orion.ss.model.impl.Player;
+import org.orion.ss.model.impl.Position;
 import org.orion.ss.model.impl.Scenario;
 import org.orion.ss.test.Test;
 import org.orion.ss.utils.Maths;
@@ -123,6 +128,27 @@ public class GameService extends Service {
 		if ((getGame().getTurn() >= getGame().getSettings().getTimeLimit() + getGame().getSettings().getTimeMargin())
 				&& (this.getSuitablePlayers().isEmpty())) {
 			result = true;
+		}
+		return result;
+	}
+
+	public ObjectiveType getObjectiveType(Location location, Position position) {
+		ObjectiveType result = null;
+		for (Objective objective : this.getScenario().getObjectives()) {
+			if (objective.getLocation().equals(location)) {
+				if (objective.getType() == ObjectiveType.MAIN) {
+					result = objective.getType();
+				} else if (objective.getType() == ObjectiveType.DEFENDER) {
+					if (position.getRole() == PositionRole.DEFENDER) {
+						result = objective.getType();
+					}
+				} else if (objective.getType() == ObjectiveType.SECONDARY) {
+					if (position.getRole() == PositionRole.ATTACKER) {
+						result = objective.getType();
+					}
+				}
+				break;
+			}
 		}
 		return result;
 	}

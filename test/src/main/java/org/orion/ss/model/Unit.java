@@ -8,7 +8,7 @@ import org.orion.ss.model.impl.Formation;
 import org.orion.ss.model.impl.Position;
 import org.orion.ss.utils.FormationFormats;
 
-public abstract class Unit extends ActivableImpl implements Leveleable, Mobile, Activable {
+public abstract class Unit extends ActivableImpl implements Leveleable, Mobile, Activable, SpotCapable {
 
 	private int id;
 

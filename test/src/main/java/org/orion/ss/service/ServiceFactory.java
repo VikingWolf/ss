@@ -12,6 +12,10 @@ public class ServiceFactory {
 
 	protected final static Map<Game, List<Service>> services = new HashMap<Game, List<Service>>();
 
+	public static GameService getGameService(Game game) {
+		return findService(GameService.class, game);
+	}
+
 	public static GameService getGameService(Game game, Scenario scenario) {
 		GameService result = findService(GameService.class, game);
 		if (result == null) {
@@ -52,6 +56,15 @@ public class ServiceFactory {
 		GraphService result = findService(GraphService.class, game);
 		if (result == null) {
 			result = new GraphService(game);
+			addService(result);
+		}
+		return result;
+	}
+
+	public static ScenarioService getScenarioService(Game game) {
+		ScenarioService result = findService(ScenarioService.class, game);
+		if (result == null) {
+			result = new ScenarioService(game);
 			addService(result);
 		}
 		return result;

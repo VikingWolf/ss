@@ -9,6 +9,7 @@ import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.core.TroopType;
 import org.orion.ss.model.geo.Location;
+import org.orion.ss.service.GeoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -142,6 +143,12 @@ public class Company extends Unit {
 
 	public boolean isHQ() {
 		return getId() == 0;
+	}
+
+	@Override
+	public double getSpotCapacity() {
+		// TODO Auto-generated method stub
+		return GeoService.BASE_SPOTTING;
 	}
 
 	/* getters & setters */
