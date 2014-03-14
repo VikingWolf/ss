@@ -209,6 +209,12 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable, U
 	}
 
 	@Override
+	public void refreshLocation() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public void locationInfo(Location location, int x, int y) {
 		int symbolSize = 64;
 		UnitStack stack = geoService.getStackAt(location);
@@ -228,6 +234,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable, U
 			unitStackDialog.setVisible(true);
 		}
 	}
+
 }
 
 class UnitStackDialog extends JDialog {

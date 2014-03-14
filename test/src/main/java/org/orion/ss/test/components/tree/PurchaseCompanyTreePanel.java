@@ -8,12 +8,12 @@ import org.orion.ss.model.Unit;
 import org.orion.ss.model.impl.Position;
 import org.orion.ss.test.components.UnitDetailsDisplayer;
 
-public class PurchaseCompanyTreePanel extends PositionTreePanel {
+public class PurchaseCompanyTreePanel extends FormationTreePanel {
 
 	private final UnitDetailsDisplayer parent;
 
 	public PurchaseCompanyTreePanel(UnitDetailsDisplayer parent, Position position, int x, int y, int w, int h) {
-		super(position, x, y, w, h, PositionTreePanel.MODE_EXCLUDE_COMPANIES);
+		super(position, x, y, w, h, FormationTreePanel.MODE_EXCLUDE_COMPANIES);
 		this.parent = parent;
 	}
 

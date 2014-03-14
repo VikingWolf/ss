@@ -25,6 +25,8 @@ public abstract class Unit extends ActivableImpl implements Leveleable, Mobile, 
 
 	public abstract TroopType getTroopType();
 
+	public abstract boolean isDetachable();
+
 	@Override
 	public abstract Location getLocation();
 

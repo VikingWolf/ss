@@ -9,7 +9,7 @@ import org.orion.ss.model.impl.Formation;
 import org.orion.ss.model.impl.Position;
 import org.orion.ss.test.components.UnitDetailsDisplayer;
 
-public class ManagementTreePanel extends PositionTreePanel {
+public class ManagementTreePanel extends FormationTreePanel {
 
 	private final UnitDetailsDisplayer parent;
 

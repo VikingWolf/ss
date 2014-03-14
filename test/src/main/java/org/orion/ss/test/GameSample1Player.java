@@ -237,11 +237,17 @@ public class GameSample1Player {
 		ukArtilleryBattery39Stock_1.put(SupplyType.AMMO, 2.00d);
 		ukArtilleryBattery39_1.setSupplies(ukArtilleryBattery39Stock_1);
 
+		Company ukRifleCompany39_5 = new Company(ukRifleCompanyModel39, 1, 1.8d, 0.8d, 0.3d);
+		Stock ukRifleCompany39Stock_6 = new Stock();
+		ukRifleCompany39Stock_6.put(SupplyType.AMMO, 0.10d);
+		ukRifleCompany39_5.setSupplies(ukRifleCompany39Stock_6);
+
 		Formation ukBn1 = new Formation(FormationLevel.BATTALION, TroopType.INFANTRY, 4);
 		Formation ukInfBg2 = new Formation(FormationLevel.BRIGADE, TroopType.INFANTRY, 2);
 		Formation ukDiv17 = new Formation(FormationLevel.DIVISION, TroopType.INFANTRY, 1);
 
 		ukCorpsI.addCompany(corpsHQCompany);
+		ukCorpsI.addCompany(ukRifleCompany39_5);
 		ukCorpsI.addSubordinate(ukDiv17);
 
 		ukDiv17.addCompany(divisionHQCompany);

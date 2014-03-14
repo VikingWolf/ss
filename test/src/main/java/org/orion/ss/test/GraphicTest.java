@@ -49,6 +49,7 @@ public class GraphicTest {
 	public final static int COLUMN_WIDTH_XLARGE = 200;
 	public final static int COLUMN_WIDTH_XXLARGE = 240;
 	public final static int COLUMN_WIDTH_XXXLARGE = 280;
+	public final static int COLUMN_WIDTH_XXXXLARGE = 340;
 	public final static int COLUMN_WIDTH_NARROW = 80;
 	public final static int COLUMN_WIDTH_XNARROW = 60;
 	public final static int ROW_HEIGHT = 25;

@@ -69,6 +69,7 @@ public class ScrollableMap extends JPanel {
 
 	public void setSelectedUnit(Unit unit) {
 		mapPanel.setSelectedUnit(unit);
+		mapPanel.repaint();
 	}
 
 	public void setRadius(double radius) {

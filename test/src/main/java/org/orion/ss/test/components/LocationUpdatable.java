@@ -6,6 +6,8 @@ public interface LocationUpdatable {
 
 	public void updateLocation(Location location);
 
+	public void refreshLocation();
+
 	public void locationInfo(Location location, int x, int y);
 
 }

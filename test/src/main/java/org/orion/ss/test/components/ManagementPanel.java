@@ -341,13 +341,18 @@ public class ManagementPanel extends PlayerPanel {
 
 	@Override
 	public void updateUnitDetails(final Unit unit) {
-		Formation formation = (Formation) unit;
-		mountFormationPanel();
-		formationDetailPanel.update(formation);
-		updateReinforceInfoPanel();
-		updateSupplyCostPanel();
-		updatePurchasePanel(formation);
-		updateCreatePanel(formation);
+		if (unit instanceof Formation) {
+			Formation formation = (Formation) unit;
+			mountFormationPanel();
+			formationDetailPanel.update(formation);
+			updateReinforceInfoPanel();
+			updateSupplyCostPanel();
+			updatePurchasePanel(formation);
+			updateCreatePanel(formation);
+		} else if (unit instanceof Company) {
+			Company company = (Company) unit;
+			updateDetails(company);
+		}
 	}
 
 	public void updateUpgradeUnitPanel(final Company company, final CompanyModel upgradeModel) {

@@ -71,18 +71,16 @@ public class GeoService extends Service {
 	}
 
 	private void addFormationToStackAtLocation(Formation formation, Location location, UnitStack stack) {
-		if (formation.getLocation() != null && formation.getLocation().equals(location)) {
+		if (formation.getLocation() != null && formation.getLocation().equals(location) && formation.isDetached()) {
 			stack.add(formation);
-		} else {
 			for (Company company : formation.getCompanies()) {
-				if ((company.getLocation() != null) && (company.getLocation().equals(location)))
+				if (company.getLocation() != null && company.getLocation().equals(location) && company.isDetached())
 					stack.add(company);
 			}
 			for (Formation subordinate : formation.getSubordinates()) {
 				addFormationToStackAtLocation(subordinate, location, stack);
 			}
 		}
-
 	}
 
 	protected int getStackSizeAt(Location location) {

@@ -149,7 +149,16 @@ public class Formation extends Unit {
 		return true;
 	}
 
+	public boolean canBeSplit() {
+		return getCompanyStackAtLocation(false).size() > 1;
+	}
+
 	/* adders */
+
+	@Override
+	public boolean isDetachable() {
+		return getParent() != null && !isDetached();
+	}
 
 	public void addCompany(Company company) {
 		companies.add(company);
@@ -192,6 +201,11 @@ public class Formation extends Unit {
 	}
 
 	/* getters & setters */
+
+	@Override
+	public boolean isDetached() {
+		return super.isDetached() || getParent() == null;
+	}
 
 	public List<Formation> getSubordinates() {
 		return subordinates;

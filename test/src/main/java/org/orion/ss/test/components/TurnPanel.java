@@ -30,6 +30,7 @@ import org.orion.ss.service.TextService;
 import org.orion.ss.test.GraphicTest;
 import org.orion.ss.test.dialogs.BuySupplyDialog;
 import org.orion.ss.test.dialogs.PurchaseCompanyDialog;
+import org.orion.ss.test.dialogs.UnitOrdersDialog;
 import org.orion.ss.utils.NumberFormats;
 
 public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyDisplayer, UnitDisplayer {
@@ -55,6 +56,9 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	private ScrollableMap mapPanel;
 	private JTextField prestigeTF;
 	private MapOptionsPanel mapOptionsPanel;
+	private JButton ordersB;
+
+	private Location currentLocation = null;
 
 	private final static double HEX_SIDE = 48.0d;
 
@@ -90,7 +94,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 		instructionsTF = new JTextField();
 		instructionsTF.setEditable(false);
 		instructionsTF.setForeground(Color.RED);
-		instructionsTF.setBounds(GraphicTest.LEFT_MARGIN, 600, 380, GraphicTest.ROW_HEIGHT);
+		instructionsTF.setBounds(GraphicTest.LEFT_MARGIN, 600, 1200, GraphicTest.ROW_HEIGHT);
 		add(instructionsTF);
 		mapOptionsPanel = new MapOptionsPanel(mapPanel);
 		mapOptionsPanel.setBounds(
@@ -114,7 +118,8 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 				if (!arg0.getValueIsAdjusting()) {
 					Unit unit = list.getSelectedValue();
 					updateUnitInfo(unit);
-
+					ordersB.setEnabled(true);
+					mapPanel.setSelectedUnit(unit);
 				}
 			}
 
@@ -136,7 +141,6 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 
 	protected void updateStackList(UnitStack stack) {
 		if (stack.size() > 0) {
-			logger.error("stack size=" + stack.size());
 			unitStackList.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Units at " + stack.getLocation().toString()));
 			list.setListData(stack.getArray());
 			list.repaint();
@@ -275,7 +279,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	}
 
 	protected void mountMapPanel() {
-		mapPanel = new ScrollableMap(460, GraphicTest.TOP_MARGIN, 860, 620, HEX_SIDE, getGame(), getGame().getCurrentPlayerPosition(), this, geoService.fullMap());
+		mapPanel = new ScrollableMap(460, GraphicTest.TOP_MARGIN, 860, 580, HEX_SIDE, getGame(), getGame().getCurrentPlayerPosition(), this, geoService.fullMap());
 		add(mapPanel);
 	}
 
@@ -365,6 +369,26 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 
 		});
 		add(purchaseB);
+		ordersB = new JButton("Orders");
+		ordersB.setEnabled(false);
+		ordersB.setBounds(
+				GraphicTest.LEFT_MARGIN,
+				GraphicTest.TOP_MARGIN * 4 + GraphicTest.ROW_HEIGHT * 7,
+				GraphicTest.COLUMN_WIDTH_XLARGE,
+				GraphicTest.ROW_HEIGHT);
+		ordersB.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				showOrdersDialog(list.getSelectedValue());
+			}
+
+		});
+		add(ordersB);
+	}
+
+	protected void showOrdersDialog(Unit unit) {
+		new UnitOrdersDialog(gameService, unit, instructionsTF, this);
 	}
 
 	protected void showBuySuppliesDialog(Location location) {
@@ -378,14 +402,20 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	/* state updates */
 	@Override
 	public void updateLocation(Location location) {
+		setCurrentLocation(location);
+		refreshLocation();
+	}
+
+	@Override
+	public void refreshLocation() {
 		if (actionMode == MODE_INFO) {
-			this.updateHexInfoPanel(geoService.getHexAt(location));
-			this.updateStackList(geoService.getStackAt(location));
+			this.updateHexInfoPanel(geoService.getHexAt(getCurrentLocation()));
+			this.updateStackList(geoService.getStackAt(getCurrentLocation()));
 			this.updateUnitInfo(null);
 		} else if (actionMode == MODE_DEPLOY_SUPPLIES) {
-			showBuySuppliesDialog(location);
+			showBuySuppliesDialog(getCurrentLocation());
 		} else if (actionMode == MODE_DEPLOY_COMPANY) {
-			showBuyCompanyDialog(location);
+			showBuyCompanyDialog(getCurrentLocation());
 		}
 	}
 
@@ -416,4 +446,13 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 		// TODO Auto-generated method stub
 
 	}
+
+	public Location getCurrentLocation() {
+		return currentLocation;
+	}
+
+	public void setCurrentLocation(Location currentLocation) {
+		this.currentLocation = currentLocation;
+	}
+
 }

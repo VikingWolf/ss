@@ -151,6 +151,10 @@ public class Company extends Unit {
 		return GeoService.BASE_SPOTTING;
 	}
 
+	public boolean isDetachable() {
+		return !this.isHQ() && !this.isDetached();
+	}
+
 	/* getters & setters */
 	@Override
 	public void setId(int id) {

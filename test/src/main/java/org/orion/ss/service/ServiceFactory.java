@@ -79,6 +79,15 @@ public class ServiceFactory {
 		return result;
 	}
 
+	public static OrderService getOrderService(Game game) {
+		OrderService result = findService(OrderService.class, game);
+		if (result == null) {
+			result = new OrderService(game);
+			addService(result);
+		}
+		return result;
+	}
+
 	@SuppressWarnings("unchecked")
 	private static <T extends Service> T findService(Class<T> clazz, Game game) {
 		T result = null;
