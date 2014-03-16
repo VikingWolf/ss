@@ -3,6 +3,7 @@ package org.orion.ss.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.orion.ss.model.MovementSupplier;
 import org.orion.ss.model.Unit;
 import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.TroopType;
@@ -10,7 +11,7 @@ import org.orion.ss.model.geo.Location;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Formation extends Unit {
+public class Formation extends Unit implements MovementSupplier {
 
 	protected final static Logger logger = LoggerFactory.getLogger(Formation.class);
 
@@ -198,6 +199,12 @@ public class Formation extends Unit {
 			}
 		}
 		return max;
+	}
+
+	@Override
+	public double getSpupplyRange() {
+		// TODO supply range, function of movement capacity of hq
+		return 2.0d;
 	}
 
 	/* getters & setters */

@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -103,7 +104,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable, U
 				GraphicTest.ROW_HEIGHT);
 		toDeployTF = new JTextField();
 		toDeployTF.setEditable(false);
-		toDeployTF.setText("" + geoService.undeployedUnits(getGame().getCurrentPlayerPosition()).size());
+		toDeployTF.setText("" + gameService.undeployedUnits(getGame().getCurrentPlayerPosition()).size());
 		toDeployTF.setBounds(
 				GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH,
 				treePanel.getPanel().getY() + treePanel.getPanel().getHeight() + GraphicTest.TOP_MARGIN,
@@ -116,7 +117,10 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable, U
 		endTurnB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if (geoService.undeployedUnits(getGame().getCurrentPlayerPosition()).size() > 0) {
+				List<String> deploymentErrors = gameService.canEndDeployment(getGame().getCurrentPlayerPosition());
+				if (deploymentErrors.size() > 0) {
+					showCannotEndDialog(deploymentErrors);
+				} else if (gameService.undeployedUnits(getGame().getCurrentPlayerPosition()).size() > 0) {
 					showConfirmationDialog();
 				} else {
 					gameService.nextPlayer();
@@ -126,12 +130,56 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable, U
 		});
 	}
 
+	protected void showCannotEndDialog(List<String> errors) {
+		final JDialog dialog = new JDialog();
+		dialog.setTitle("Undeployment incomplete");
+		dialog.setBounds((int) GraphicTest.DEFAULT_DIALOG_LOCATION.getX(), (int) GraphicTest.DEFAULT_DIALOG_LOCATION.getY(), 400, 200);
+		dialog.setLayout(null);
+		dialog.addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				logger.error("window closing");
+				super.windowClosing(arg0);
+			}
+
+		});
+		int y = 0;
+		for (String error : errors) {
+			JLabel label = new JLabel();
+			label.setText(error);
+			label.setBounds(
+					GraphicTest.LEFT_MARGIN,
+					GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT * y,
+					GraphicTest.COLUMN_WIDTH_XXXXLARGE,
+					GraphicTest.ROW_HEIGHT
+					);
+			dialog.add(label);
+			y++;
+		}
+		JButton okB = new JButton("OK");
+		okB.setBounds((dialog.getWidth() - GraphicTest.COLUMN_WIDTH_LARGE) / 2, 120, GraphicTest.COLUMN_WIDTH_LARGE, GraphicTest.ROW_HEIGHT);
+		dialog.add(okB);
+		okB.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				dialog.dispose();
+				dialog.setVisible(false);
+			}
+
+		});
+		dialog.setModal(true);
+		dialog.setVisible(true);
+
+	}
+
 	protected void showConfirmationDialog() {
 		final JDialog dialog = new JDialog();
 		dialog.setTitle("There are undeployed units");
 		dialog.setBounds(100, 100, 400, 200);
 		dialog.setLayout(null);
-		JLabel label1 = new JLabel("There are " + geoService.undeployedUnits(getGame().getCurrentPlayerPosition()).size() + " undeployed units.");
+		JLabel label1 = new JLabel("There are " + gameService.undeployedUnits(getGame().getCurrentPlayerPosition()).size() + " undeployed units.");
 		label1.setBounds(
 				GraphicTest.LEFT_MARGIN,
 				GraphicTest.TOP_MARGIN * 3,
@@ -181,13 +229,15 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable, U
 
 	protected void mountMapPanel() {
 		mapPanel = new ScrollableMap(500, GraphicTest.TOP_MARGIN, 860, 620, HEX_SIDE, getGame(), getGame().getCurrentPlayerPosition(), this, geoService.fullMap());
+		mapPanel.setDrawSupplyArea(false);
 		add(mapPanel);
 	}
 
 	@Override
 	public void updateUnitDetails(Unit unit) {
 		selectedUnit = unit;
-		mapPanel.setDeployArea(geoService.getDeployArea(unit));
+		mapPanel.setDrawDeployArea(true);
+		mapPanel.setSelectedUnit(unit);
 		mapPanel.repaint();
 		unitInfoPanel.update(unit);
 		mapPanel.setSelectedUnit(selectedUnit);
@@ -200,7 +250,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable, U
 		if (result) {
 			infoL.setForeground(Color.BLACK);
 			infoL.setText(selectedUnit.getFullLongName() + " placed at (" + location.getX() + "," + location.getY() + ")");
-			toDeployTF.setText("" + geoService.undeployedUnits(getGame().getCurrentPlayerPosition()).size());
+			toDeployTF.setText("" + gameService.undeployedUnits(getGame().getCurrentPlayerPosition()).size());
 		} else {
 			infoL.setForeground(Color.RED);
 			infoL.setText("This unit cannot be placed here!");
@@ -217,7 +267,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable, U
 	@Override
 	public void locationInfo(Location location, int x, int y) {
 		int symbolSize = 64;
-		UnitStack stack = geoService.getStackAt(location);
+		UnitStack stack = geoService.getStackAt(getGame().getCurrentPlayerPosition(), location);
 		if (stack.size() > 0) {
 			UnitStackDialog unitStackDialog = new UnitStackDialog(stack, symbolSize, getGame());
 			Dimension dimension = unitStackDialog.computeSize();

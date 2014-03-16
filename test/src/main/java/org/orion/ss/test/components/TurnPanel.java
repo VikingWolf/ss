@@ -57,6 +57,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	private JTextField prestigeTF;
 	private MapOptionsPanel mapOptionsPanel;
 	private JButton ordersB;
+	private JButton endTurnB;
 
 	private Location currentLocation = null;
 
@@ -94,8 +95,30 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 		instructionsTF = new JTextField();
 		instructionsTF.setEditable(false);
 		instructionsTF.setForeground(Color.RED);
-		instructionsTF.setBounds(GraphicTest.LEFT_MARGIN, 600, 1200, GraphicTest.ROW_HEIGHT);
+		instructionsTF.setBounds(GraphicTest.LEFT_MARGIN, 600, 1100, GraphicTest.ROW_HEIGHT);
 		add(instructionsTF);
+		endTurnB = new JButton("End Turn");
+		endTurnB.setBounds(
+				instructionsTF.getX() + instructionsTF.getWidth() + GraphicTest.LEFT_MARGIN,
+				600,
+				GraphicTest.COLUMN_WIDTH_XLARGE,
+				GraphicTest.ROW_HEIGHT);
+		endTurnB.setForeground(Color.RED);
+		add(endTurnB);
+		if (gameService.gameHasEnded())
+			endTurnB.setEnabled(false);
+		endTurnB.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if (!gameService.gameHasEnded()) {
+					gameService.nextPlayer();
+					parent.updatePlayerPanel();
+				}
+			}
+
+		});
+
 		mapOptionsPanel = new MapOptionsPanel(mapPanel);
 		mapOptionsPanel.setBounds(
 				GraphicTest.LEFT_MARGIN,
@@ -344,8 +367,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				instructionsTF.setText("Select a hex to deploy the supplies...");
-				mapPanel.setDeployArea(gameService.getGame().getCurrentPlayerPosition().getDeployArea());
-				mapPanel.repaint();
+				mapPanel.setSelectedUnit(getGame().getCurrentPlayerPosition());
 				actionMode = MODE_DEPLOY_SUPPLIES;
 			}
 
@@ -362,8 +384,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				instructionsTF.setText("Select a hex to deploy the company...");
-				mapPanel.setDeployArea(gameService.getGame().getCurrentPlayerPosition().getDeployArea());
-				mapPanel.repaint();
+				mapPanel.setSelectedUnit(getGame().getCurrentPlayerPosition());
 				actionMode = MODE_DEPLOY_COMPANY;
 			}
 
@@ -410,7 +431,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	public void refreshLocation() {
 		if (actionMode == MODE_INFO) {
 			this.updateHexInfoPanel(geoService.getHexAt(getCurrentLocation()));
-			this.updateStackList(geoService.getStackAt(getCurrentLocation()));
+			this.updateStackList(geoService.getStackAt(getGame().getCurrentPlayerPosition(), getCurrentLocation()));
 			this.updateUnitInfo(null);
 		} else if (actionMode == MODE_DEPLOY_SUPPLIES) {
 			showBuySuppliesDialog(getCurrentLocation());
@@ -429,7 +450,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	public void updateSuppliesDisplay(Stock stock, Location location) {
 		instructionsTF.setText("Supplies " + stock.toString() + " placed at " + location.toString());
 		prestigeTF.setText(NumberFormats.PRESTIGE.format(getGame().getCurrentPlayerPosition().getPrestige()));
-		mapPanel.repaint();
+		mapPanel.setDrawDeployArea(false);
 		actionMode = MODE_INFO;
 	}
 
@@ -437,7 +458,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	public void updateUnitsDisplay(Location location) {
 		instructionsTF.setText("Company placed at " + location);
 		prestigeTF.setText(NumberFormats.PRESTIGE.format(getGame().getCurrentPlayerPosition().getPrestige()));
-		mapPanel.repaint();
+		mapPanel.setDrawDeployArea(false);
 		actionMode = MODE_INFO;
 	}
 

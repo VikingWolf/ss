@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import org.orion.ss.model.Unit;
@@ -37,6 +38,7 @@ public class UnitOrdersDialog extends JDialog implements OrderExecutor {
 	private final OrderPanelFactory orderPanelFactory;
 	private OrderPanel<?, ?> orderP;
 	private final JTextField resultTF;
+	private JLabel timeL;
 
 	private FastPanel panel;
 	private JButton executeB;
@@ -92,9 +94,18 @@ public class UnitOrdersDialog extends JDialog implements OrderExecutor {
 				GraphicTest.COLUMN_WIDTH_XXLARGE,
 				GraphicTest.ROW_HEIGHT);
 		panel.add(ordersCB);
+
+		timeL = new JLabel();
+		timeL.setText("Time=");
+		timeL.setBounds(
+				ordersCB.getX() + ordersCB.getWidth() + GraphicTest.LEFT_MARGIN,
+				GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT,
+				GraphicTest.COLUMN_WIDTH,
+				GraphicTest.ROW_HEIGHT);
+		panel.add(timeL);
 		executeB = new JButton("Execute");
 		executeB.setBounds(
-				ordersCB.getX() + ordersCB.getWidth() + GraphicTest.LEFT_MARGIN,
+				timeL.getX() + timeL.getWidth() + GraphicTest.LEFT_MARGIN,
 				GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT,
 				GraphicTest.COLUMN_WIDTH_LARGE,
 				GraphicTest.ROW_HEIGHT);
@@ -153,6 +164,7 @@ public class UnitOrdersDialog extends JDialog implements OrderExecutor {
 
 	public void setOrder(Order order) {
 		this.order = order;
+		timeL.setText("Time=" + order.getOrderTime().getDenomination());
 	}
 
 	public JTextField getResultTF() {

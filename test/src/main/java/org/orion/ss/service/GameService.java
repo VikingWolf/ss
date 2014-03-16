@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.orion.ss.model.Unit;
 import org.orion.ss.model.core.GamePhase;
 import org.orion.ss.model.core.ObjectiveType;
 import org.orion.ss.model.core.PositionRole;
@@ -148,6 +149,33 @@ public class GameService extends Service {
 					}
 				}
 				break;
+			}
+		}
+		return result;
+	}
+
+	public List<String> canEndDeployment(Position position) {
+		List<String> result = new ArrayList<String>();
+		if (position.getLocation() == null) {
+			result.add(position.getFullLongName() + " must be deployed before ending.");
+		}
+		for (Company company : position.getAllCompanies()) {
+			if (company.getLocation() != null) {
+				if (company.getParent().getLocation() == null) {
+					String message = company.getParent().getFullLongName() + " must be deployed before ending.";
+					if (!result.contains(message))
+						result.add(message);
+				}
+			}
+		}
+		return result;
+	}
+
+	public List<Unit> undeployedUnits(Position position) {
+		List<Unit> result = new ArrayList<Unit>();
+		for (Company company : position.getAllCompanies()) {
+			if (company.getLocation() == null) {
+				result.add(company);
 			}
 		}
 		return result;

@@ -206,7 +206,6 @@ public class ManagementPanel extends PlayerPanel {
 	}
 
 	protected void updateCreatePanel(final Formation formation) {
-		logger.error("updating create panel");
 		createPanel.addLabel("Prestige cost", GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 4 + GraphicTest.ROW_HEIGHT * 2, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
 		createPanel.addLabel("Troop Type", GraphicTest.LEFT_MARGIN, GraphicTest.TOP_MARGIN * 5 + GraphicTest.ROW_HEIGHT * 3, GraphicTest.COLUMN_WIDTH, GraphicTest.ROW_HEIGHT);
 		createFormationLevelCB = new JComboBox<FormationLevel>(managementService.getSubordinables(formation).toArray(new FormationLevel[] {}));

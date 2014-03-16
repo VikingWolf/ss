@@ -60,7 +60,7 @@ public class GeoMap extends ArrayList<Hex> {
 
 	public Hex getHexAt(Location location) {
 		Hex candidate = new Hex();
-		candidate.setCoords(location);
+		candidate.setCoords(new Location(location.getX(), location.getY()));
 		if (this.contains(candidate))
 			return this.get(this.indexOf(candidate));
 		else return null;

@@ -18,7 +18,7 @@ public class MapOptionsPanel extends FastPanel {
 
 	private final ScrollableMap parent;
 
-	final JCheckBox gridCB = new JCheckBox();
+	final JCheckBox supplyCB = new JCheckBox();
 	final JCheckBox numberCB = new JCheckBox();
 	final JCheckBox buildingsCB = new JCheckBox();
 	final JCheckBox unitsCB = new JCheckBox();
@@ -74,14 +74,14 @@ public class MapOptionsPanel extends FastPanel {
 		});
 		add(zoomMinus);
 		CheckBoxesListener listener = new CheckBoxesListener();
-		gridCB.setBounds(GraphicTest.LEFT_MARGIN, zoomMinus.getY() + zoomMinus.getHeight(), GraphicTest.COLUMN_WIDTH_XXNARROW, GraphicTest.ROW_HEIGHT);
-		gridCB.addActionListener(listener);
-		gridCB.setActionCommand("grid");
-		gridCB.setSelected(true);
-		add(gridCB);
-		addLabel("Grid", GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH_XXNARROW, zoomMinus.getY() + zoomMinus.getHeight(), GraphicTest.COLUMN_WIDTH_XNARROW, GraphicTest.ROW_HEIGHT);
-		numberCB.setBounds(GraphicTest.LEFT_MARGIN, gridCB.getY() + gridCB.getHeight(), GraphicTest.COLUMN_WIDTH_XXNARROW, GraphicTest.ROW_HEIGHT);
-		addLabel("Numbers", GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH_XXNARROW, gridCB.getY() + gridCB.getHeight(), GraphicTest.COLUMN_WIDTH_NARROW, GraphicTest.ROW_HEIGHT);
+		supplyCB.setBounds(GraphicTest.LEFT_MARGIN, zoomMinus.getY() + zoomMinus.getHeight(), GraphicTest.COLUMN_WIDTH_XXNARROW, GraphicTest.ROW_HEIGHT);
+		supplyCB.addActionListener(listener);
+		supplyCB.setActionCommand("supplies");
+		supplyCB.setSelected(true);
+		add(supplyCB);
+		addLabel("Supplies", GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH_XXNARROW, zoomMinus.getY() + zoomMinus.getHeight(), GraphicTest.COLUMN_WIDTH_XNARROW, GraphicTest.ROW_HEIGHT);
+		numberCB.setBounds(GraphicTest.LEFT_MARGIN, supplyCB.getY() + supplyCB.getHeight(), GraphicTest.COLUMN_WIDTH_XXNARROW, GraphicTest.ROW_HEIGHT);
+		addLabel("Numbers", GraphicTest.LEFT_MARGIN + GraphicTest.COLUMN_WIDTH_XXNARROW, supplyCB.getY() + supplyCB.getHeight(), GraphicTest.COLUMN_WIDTH_NARROW, GraphicTest.ROW_HEIGHT);
 		numberCB.addActionListener(listener);
 		numberCB.setActionCommand("numbers");
 		numberCB.setSelected(true);
@@ -106,13 +106,12 @@ public class MapOptionsPanel extends FastPanel {
 		addLabel("Infra", buildingsCB.getX() + buildingsCB.getWidth(), zoomMinus.getY() + zoomMinus.getHeight() + GraphicTest.ROW_HEIGHT * 2, GraphicTest.COLUMN_WIDTH_XNARROW, GraphicTest.ROW_HEIGHT);
 	}
 
-	//TODO listeners
 	class CheckBoxesListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getActionCommand().equals("grid")) {
-				parent.setDrawGrid(gridCB.isSelected());
+			if (e.getActionCommand().equals("supplies")) {
+				parent.setDrawSupplyArea(supplyCB.isSelected());
 			} else if (e.getActionCommand().equals("numbers")) {
 				parent.setDrawNumbers(numberCB.isSelected());
 			} else if (e.getActionCommand().equals("buildings")) {

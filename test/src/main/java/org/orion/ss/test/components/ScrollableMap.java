@@ -5,14 +5,12 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
-import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 
 import org.orion.ss.model.Unit;
 import org.orion.ss.model.geo.HexSet;
-import org.orion.ss.model.geo.Location;
 import org.orion.ss.model.impl.Game;
 import org.orion.ss.model.impl.Position;
 import org.slf4j.Logger;
@@ -63,10 +61,6 @@ public class ScrollableMap extends JPanel {
 		return Math.min(max, mapPanel.getColumns());
 	}
 
-	public void setDeployArea(List<Location> deployArea) {
-		mapPanel.setDeployArea(deployArea);
-	}
-
 	public void setSelectedUnit(Unit unit) {
 		mapPanel.setSelectedUnit(unit);
 		mapPanel.repaint();
@@ -85,8 +79,12 @@ public class ScrollableMap extends JPanel {
 
 	/* modes */
 
-	public void setDrawGrid(boolean value) {
-		mapPanel.setDrawGrid(value);
+	public void setDrawSupplyArea(boolean value) {
+		mapPanel.setDrawSupplyArea(value);
+	}
+
+	public void setDrawDeployArea(boolean value) {
+		mapPanel.setDrawDeployArea(value);
 	}
 
 	public void setDrawNumbers(boolean value) {

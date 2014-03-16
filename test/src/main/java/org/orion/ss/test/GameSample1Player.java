@@ -49,24 +49,32 @@ public class GameSample1Player {
 
 	private final Country uk = new Country("UK", 0.9d, new Color(100, 50, 0));
 	private final Country ger = new Country("GER", 1.0d, Color.LIGHT_GRAY);
+
 	private final Position ukCorpsI = new Position(FormationLevel.CORPS, TroopType.INFANTRY, 30, PositionRole.ATTACKER);
+	private final Position gerCorpsII = new Position(FormationLevel.CORPS, TroopType.INFANTRY, 4, PositionRole.DEFENDER);
 
 	private WeaponModel leeEnfieldMk1;
 	private WeaponModel vickersBerthierLMG;
 	private WeaponModel qf25pdr;
 
+	private WeaponModel mauser98k;
+
 	private CompanyModel ukRifleCompanyModel39;
 	private CompanyModel ukRifleCompanyModel40;
 	private CompanyModel ukArtilleryBatteryModel39;
 
+	private CompanyModel gerGrenadierCompanyModel39;
+
 	public Game buildGame() {
 		buildCountries();
 		buildWeaponModels();
-		buildCompanyModels();
+		buildUKCompanyModels();
+		buildGERCompanyModels();
 		configScenario();
 		buildMap();
 		mountForecast();
 		buildUKPosition();
+		buildGERPosition();
 		configGame();
 		mountCamps();
 		return game;
@@ -77,15 +85,30 @@ public class GameSample1Player {
 		ukMarket.put(SupplyType.AMMO, 800);
 		ukMarket.put(SupplyType.FUEL, 950);
 		uk.setMarket(ukMarket);
+		Market gerMarket = new Market();
+		gerMarket.put(SupplyType.AMMO, 750);
+		gerMarket.put(SupplyType.FUEL, 1100);
+		ger.setMarket(gerMarket);
 	}
 
 	protected void buildWeaponModels() {
 		leeEnfieldMk1 = new WeaponModel("Lee-Enfield Mk 1", WeaponType.SMALL_ARM, 12, 0.853, 0.457, 0.000012d, 1, 12);
 		vickersBerthierLMG = new WeaponModel("VB LMG", WeaponType.SMALL_ARM, 180, 0.745, 0.457, 0.000012d, 1, 22);
 		qf25pdr = new WeaponModel("QF 25-pdr", WeaponType.FIELD_GUN, 7, 0.532, 12.253, 0.0115, 6, 1500);
+
+		mauser98k = new WeaponModel("Mauser 98k", WeaponType.SMALL_ARM, 12, 0.86, 0.5d, 0.000012d, 1, 5);
 	}
 
-	protected void buildCompanyModels() {
+	protected void buildGERCompanyModels() {
+		gerGrenadierCompanyModel39 = new CompanyModel("Grenadier Kompanie 39", TroopType.INFANTRY, Mobility.FOOT, 4.5d, 4, 105, uk);
+		gerGrenadierCompanyModel39.addWeaponry(mauser98k, 105);
+		Stock gerGrenadierCompanyMax39Stock = new Stock();
+		gerGrenadierCompanyMax39Stock.put(SupplyType.AMMO, 0.005);
+		gerGrenadierCompanyModel39.setMaxSupplies(gerGrenadierCompanyMax39Stock);
+		ger.addCompanyModel(gerGrenadierCompanyModel39);
+	}
+
+	protected void buildUKCompanyModels() {
 		ukRifleCompanyModel39 = new CompanyModel("Rifle Company 39", TroopType.INFANTRY, Mobility.FOOT, 4.5d, 3, 135, uk);
 		ukRifleCompanyModel39.addWeaponry(leeEnfieldMk1, 135);
 		Stock ukRifleCompany39MaxStock = new Stock();
@@ -146,11 +169,9 @@ public class GameSample1Player {
 		River rhein = new River("Rhein", 2);
 		rhein.addLocation(new OrientedLocation(4, 0, HexSide.NORTHEAST));
 		rhein.addLocation(new OrientedLocation(4, 0, HexSide.SOUTHEAST));
-
 		rhein.addLocation(new OrientedLocation(4, 1, HexSide.NORTHEAST));
 		rhein.addLocation(new OrientedLocation(4, 1, HexSide.SOUTHEAST));
 		rhein.addLocation(new OrientedLocation(4, 1, HexSide.SOUTH));
-
 		rhein.addLocation(new OrientedLocation(3, 2, HexSide.SOUTHEAST));
 		rhein.addLocation(new OrientedLocation(3, 3, HexSide.NORTHEAST));
 		scenario.getMap().addRiver(rhein);
@@ -193,6 +214,35 @@ public class GameSample1Player {
 		scenario.getMap().addBuilding(new UrbanCenter("Tarbek", 500, 6, new Location(8, 4), ger));
 		scenario.getMap().addBuilding(new Airfield(6, new Location(7, 2), ger));
 		scenario.getMap().addBuilding(new Fortification(2, new Location(1, 2), uk));
+	}
+
+	protected void buildGERPosition() {
+		gerCorpsII.setPrestige(11000);
+		gerCorpsII.setCountry(ger);
+
+		scenario.addDeployPoint(new Location(6, 3), gerCorpsII);
+		scenario.addDeployPoint(new Location(6, 4), gerCorpsII);
+		scenario.addDeployPoint(new Location(7, 3), gerCorpsII);
+		scenario.addDeployPoint(new Location(7, 2), gerCorpsII);
+		scenario.addDeployPoint(new Location(7, 4), gerCorpsII);
+		scenario.addDeployPoint(new Location(7, 5), gerCorpsII);
+		scenario.addDeployPoint(new Location(8, 4), gerCorpsII);
+
+		scenario.addSupplySource(new Location(6, 3), gerCorpsII);
+		scenario.addSupplySource(new Location(7, 3), gerCorpsII);
+		scenario.addSupplySource(new Location(7, 2), gerCorpsII);
+		scenario.addSupplySource(new Location(7, 4), gerCorpsII);
+		scenario.addSupplySource(new Location(7, 5), gerCorpsII);
+		scenario.addSupplySource(new Location(8, 4), gerCorpsII);
+		scenario.addSupplySource(new Location(8, 5), gerCorpsII);
+
+		Company corpsHQCompany = new Company(gerGrenadierCompanyModel39, 0, 4.0d, 0.8d, 0.9d);
+		Stock gerStock1 = new Stock();
+		gerStock1.put(SupplyType.AMMO, 0.5d);
+		corpsHQCompany.setSupplies(gerStock1);
+
+		gerCorpsII.addCompany(corpsHQCompany);
+
 	}
 
 	protected void buildUKPosition() {
@@ -270,6 +320,9 @@ public class GameSample1Player {
 	protected void mountCamps() {
 		Player ukPlayer = new Player("uk@player");
 		game.addPosition(ukPlayer, ukCorpsI);
+
+		Player gerPlayer = new Player("ger@player");
+		game.addPosition(gerPlayer, gerCorpsII);
 	}
 
 	protected void mountForecast() {

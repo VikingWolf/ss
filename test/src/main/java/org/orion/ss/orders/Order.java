@@ -8,6 +8,10 @@ public abstract class Order {
 
 	public abstract OrderTime getOrderTime();
 
+	public static String getDescription() {
+		return "Generic Order";
+	}
+
 	@Override
 	public String toString() {
 		return getDenomination();

@@ -1,6 +1,7 @@
 package org.orion.ss.model.geo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HexSet extends ArrayList<Hex> {
 
@@ -12,6 +13,14 @@ public class HexSet extends ArrayList<Hex> {
 				this.add(hex);
 			}
 		}
+	}
+
+	public List<Location> getLocations() {
+		List<Location> result = new ArrayList<Location>();
+		for (Hex hex : this) {
+			result.add(hex.getCoords());
+		}
+		return result;
 	}
 
 }

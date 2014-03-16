@@ -1,6 +1,8 @@
 package org.orion.ss.model.geo;
 
-public class Railway extends MultiLocatedFeature {
+import org.orion.ss.model.RadiusSupplier;
+
+public class Railway extends MultiLocatedFeature implements RadiusSupplier {
 
 	private int gauge;
 
@@ -22,6 +24,11 @@ public class Railway extends MultiLocatedFeature {
 
 	public void setGauge(int gauge) {
 		this.gauge = gauge;
+	}
+
+	@Override
+	public int getSpupplyRadius() {
+		return 1;
 	}
 
 }

@@ -4,7 +4,7 @@ import org.orion.ss.model.geo.Location;
 import org.orion.ss.model.impl.Country;
 import org.orion.ss.service.GeoService;
 
-public abstract class Building implements Localizable, SpotCapable {
+public abstract class Building implements Located, SpotCapable {
 
 	private Country controller;
 	private Location location;

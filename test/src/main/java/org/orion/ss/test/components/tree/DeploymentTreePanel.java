@@ -13,7 +13,7 @@ public class DeploymentTreePanel extends FormationTreePanel {
 	private final UnitDetailsDisplayer parent;
 
 	public DeploymentTreePanel(UnitDetailsDisplayer parent, Position position, int x, int y, int w, int h) {
-		super(position, x, y, w, h);
+		super(position, x, y, w, h, FormationTreePanel.MODE_EXCLUDE_NOT_DETACHABLE);
 		this.parent = parent;
 	}
 

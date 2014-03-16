@@ -17,6 +17,7 @@ public abstract class FormationTreePanel implements TreeSelectionListener {
 
 	public final static int MODE_INCLUDE_ALL = 1;
 	public final static int MODE_EXCLUDE_COMPANIES = 2;
+	public final static int MODE_EXCLUDE_NOT_DETACHABLE = 3;
 
 	private final Formation formation;
 	private final JTree tree;
@@ -49,7 +50,13 @@ public abstract class FormationTreePanel implements TreeSelectionListener {
 	protected void createNodes(DefaultMutableTreeNode top) {
 		if (mode != MODE_EXCLUDE_COMPANIES) {
 			for (Company company : formation.getCompanies()) {
-				top.add(new DefaultMutableTreeNode(company));
+				if (mode == MODE_EXCLUDE_NOT_DETACHABLE) {
+					if (company.isDetachable()) {
+						top.add(new DefaultMutableTreeNode(company));
+					}
+				} else {
+					top.add(new DefaultMutableTreeNode(company));
+				}
 			}
 		}
 		for (Formation subordinate : formation.getSubordinates()) {
@@ -61,7 +68,13 @@ public abstract class FormationTreePanel implements TreeSelectionListener {
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(formation);
 		if (mode != MODE_EXCLUDE_COMPANIES) {
 			for (Company company : formation.getCompanies()) {
-				node.add(new DefaultMutableTreeNode(company));
+				if (mode == MODE_EXCLUDE_NOT_DETACHABLE) {
+					if (company.isDetachable()) {
+						node.add(new DefaultMutableTreeNode(company));
+					}
+				} else {
+					node.add(new DefaultMutableTreeNode(company));
+				}
 			}
 		}
 		for (Formation subordinate : formation.getSubordinates()) {

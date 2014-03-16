@@ -28,7 +28,7 @@ public class ScenarioService extends Service {
 	}
 
 	public BufferedImage getFormationFlag(Formation formation) {
-		return loadImage(new File(_scenarioPath + getGame().getScenarioName() + _flagsPath + "\\" + formation.getFormationLevel().getDenomination().toLowerCase() + "_" + formation.getId() + ".png"));
+		return loadImage(new File(_scenarioPath + getGame().getScenarioName() + _flagsPath + "\\" + formation.getCountry().getName().toLowerCase() + "\\" + formation.getFormationLevel().getDenomination().toLowerCase() + "_" + formation.getId() + ".png"));
 	}
 
 	private BufferedImage loadImage(File source) {

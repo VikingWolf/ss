@@ -4,7 +4,9 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class MultiLocatedFeature extends TerrainFeature {
+import org.orion.ss.model.MultiLocated;
+
+public abstract class MultiLocatedFeature extends TerrainFeature implements MultiLocated {
 
 	private List<OrientedLocation> locations;
 
@@ -49,6 +51,7 @@ public abstract class MultiLocatedFeature extends TerrainFeature {
 		this.locations = locations;
 	}
 
+	@Override
 	public List<OrientedLocation> getLocations() {
 		return locations;
 	}
