@@ -16,6 +16,10 @@ public abstract class Unit extends ActivableImpl implements Leveleable, Mobile, 
 
 	private boolean detached = false;
 
+	private boolean autoSupply = true;
+
+	private boolean garrison = false;
+
 	/* abstract methods */
 	public abstract int stackSize();
 
@@ -97,6 +101,22 @@ public abstract class Unit extends ActivableImpl implements Leveleable, Mobile, 
 
 	public void setDetached(boolean detached) {
 		this.detached = detached;
+	}
+
+	public boolean isAutoSupply() {
+		return autoSupply;
+	}
+
+	public void setAutoSupply(boolean autoSupply) {
+		this.autoSupply = autoSupply;
+	}
+
+	public boolean isGarrison() {
+		return garrison;
+	}
+
+	public void setGarrison(boolean garrison) {
+		this.garrison = garrison;
 	}
 
 }

@@ -213,7 +213,7 @@ public class GameSample1Player {
 		scenario.getMap().addBuilding(new UrbanCenter("Wassenburg", 1000, 6, new Location(6, 3), ger));
 		scenario.getMap().addBuilding(new UrbanCenter("Tarbek", 500, 6, new Location(8, 4), ger));
 		scenario.getMap().addBuilding(new Airfield(6, new Location(7, 2), ger));
-		scenario.getMap().addBuilding(new Fortification(2, new Location(1, 2), uk));
+		scenario.getMap().addBuilding(new Fortification(2, 3, new Location(1, 2), uk));
 	}
 
 	protected void buildGERPosition() {

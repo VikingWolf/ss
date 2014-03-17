@@ -235,13 +235,12 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable, U
 
 	@Override
 	public void updateUnitDetails(Unit unit) {
-		selectedUnit = unit;
-		mapPanel.setDrawDeployArea(true);
+		mapPanel.setDeployArea(geoService.getDeployArea(unit));
 		mapPanel.setSelectedUnit(unit);
 		mapPanel.repaint();
 		unitInfoPanel.update(unit);
-		mapPanel.setSelectedUnit(selectedUnit);
 		mapPanel.repaint();
+		selectedUnit = unit;
 	}
 
 	@Override

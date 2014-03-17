@@ -82,7 +82,6 @@ public class MapPanel extends JPanel {
 
 	/* modes */
 	private boolean drawSupplyArea = true;
-	private boolean drawDeployArea = false;
 	private boolean drawNumbers = true;
 	private boolean drawBuildings = true;
 	private boolean drawUnits = true;
@@ -100,6 +99,8 @@ public class MapPanel extends JPanel {
 	private LocationUpdatable toUpdate;
 	private Unit selectedUnit = null;
 	private final Position observer;
+
+	private List<Location> deployArea;
 
 	private Point offset;
 
@@ -166,9 +167,8 @@ public class MapPanel extends JPanel {
 		if (drawSupplyArea) {
 			drawSupplyArea(g);
 		}
-		if (drawDeployArea) {
+		if (deployArea != null)
 			drawDeployArea(g);
-		}
 		if (drawUnits) {
 			drawUnits(g);
 		}
@@ -246,15 +246,14 @@ public class MapPanel extends JPanel {
 
 	private void drawDeployArea(Graphics2D g) {
 		g.setColor(_deployAreaColor);
-		List<Location> list = geoService.getDeployArea(getSelectedUnit());
 		for (int i = -1; i < horizCapacity() + 1; i++) {
 			for (int j = -1; j < vertCapacity() + 1; j++) {
 				Point o = computeCenter(i, j);
 				Location coords = new Location(i + (int) getOffset().getX(), j + (int) getOffset().getY());
-				if (list.contains(coords)) {
+				if (deployArea.contains(coords)) {
 					for (HexSide side : HexSide.values()) {
 						Location target = side.getAdjacent(coords);
-						if (!list.contains(target)) {
+						if (!deployArea.contains(target)) {
 							g.setStroke(_deployStroke);
 							g.drawPolygon(hexographer.getSide(o, side));
 						}
@@ -271,7 +270,6 @@ public class MapPanel extends JPanel {
 			for (int j = -1; j < vertCapacity() + 1; j++) {
 				Point o = computeCenter(i, j);
 				Location coords = new Location(i + (int) getOffset().getX(), j + (int) getOffset().getY());
-				//TODO supply area
 				if (list.contains(coords)) {
 					for (HexSide side : HexSide.values()) {
 						Location target = side.getAdjacent(coords);
@@ -467,6 +465,14 @@ public class MapPanel extends JPanel {
 		return new Point((int) offset.getX() + initialX, (int) offset.getY() + initialY);
 	}
 
+	public List<Location> getDeployArea() {
+		return deployArea;
+	}
+
+	public void setDeployArea(List<Location> deployArea) {
+		this.deployArea = deployArea;
+	}
+
 	public void setOffset(Point offset) {
 		this.offset = offset;
 	}
@@ -525,10 +531,6 @@ public class MapPanel extends JPanel {
 
 	public void setDrawSupplyArea(boolean drawSupplyArea) {
 		this.drawSupplyArea = drawSupplyArea;
-	}
-
-	public void setDrawDeployArea(boolean drawDeployArea) {
-		this.drawDeployArea = drawDeployArea;
 	}
 
 	public boolean isDrawNumbers() {

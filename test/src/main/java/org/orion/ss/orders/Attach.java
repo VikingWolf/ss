@@ -2,14 +2,14 @@ package org.orion.ss.orders;
 
 import org.orion.ss.model.Unit;
 import org.orion.ss.model.core.OrderTime;
+import org.orion.ss.model.impl.Game;
 
-public class Attach extends Order {
+public class Attach extends Order<Unit> {
 
-	private Unit toAttach;
+	public final static Class<Unit> EXECUTOR_CLASS = Unit.class;
 
-	public Attach(Unit toAttach) {
-		super();
-		this.toAttach = toAttach;
+	public Attach(Unit executor, Game game) {
+		super(executor, game);
 	}
 
 	public static String getDescription() {
@@ -19,7 +19,6 @@ public class Attach extends Order {
 	@Override
 	public String getDenomination() {
 		return "Attach";
-
 	}
 
 	@Override
@@ -27,12 +26,15 @@ public class Attach extends Order {
 		return OrderTime.NONE;
 	}
 
-	public Unit getToAttach() {
-		return toAttach;
+	@Override
+	public boolean checkRequirements() {
+		return getExecutor().isDetached() && getExecutor().getParent() != null && getExecutor().getParent().getLocation().equals(getExecutor().getLocation());
 	}
 
-	public void setToAttach(Unit toAttach) {
-		this.toAttach = toAttach;
+	@Override
+	public String execute() {
+		getExecutor().setDetached(false);
+		return getExecutor().getFullLongName() + " has been attached to " + getExecutor().getParent().getFullLongName();
 	}
 
 }

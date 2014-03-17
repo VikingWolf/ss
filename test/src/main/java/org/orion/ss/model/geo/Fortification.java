@@ -1,30 +1,32 @@
 package org.orion.ss.model.geo;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.orion.ss.model.Activable;
 import org.orion.ss.model.Building;
-import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.Country;
 
 public class Fortification extends Building implements Activable {
 
 	private int strength;
-	private double state;
-	private Map<Company, Integer> garrison;
+	private final int size;
+	private double status;
 
-	public Fortification(int strength, Location location, Country controller) {
+	public Fortification(int strength, int size, Location location, Country controller) {
 		super(location, controller);
 		this.strength = strength;
-		state = 1.00d;
-		garrison = new HashMap<Company, Integer>();
+		this.size = size;
+		status = 1.00d;
+
 	}
 
 	@Override
 	public boolean isActivable() {
 		// TODO
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Fortification";
 	}
 
 	/* getters & setters */
@@ -37,20 +39,16 @@ public class Fortification extends Building implements Activable {
 		this.strength = strength;
 	}
 
-	public double getState() {
-		return state;
+	public double getStatus() {
+		return status;
 	}
 
-	public void setState(double state) {
-		this.state = state;
+	public void setStatus(double status) {
+		this.status = status;
 	}
 
-	public Map<Company, Integer> getGarrison() {
-		return garrison;
-	}
-
-	public void setGarrison(Map<Company, Integer> garrison) {
-		this.garrison = garrison;
+	public int getSize() {
+		return size;
 	}
 
 }

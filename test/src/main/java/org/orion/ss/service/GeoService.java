@@ -16,6 +16,7 @@ import org.orion.ss.model.Unit;
 import org.orion.ss.model.ZOCProjecter;
 import org.orion.ss.model.core.PositionRole;
 import org.orion.ss.model.geo.Bridge;
+import org.orion.ss.model.geo.Fortification;
 import org.orion.ss.model.geo.GeoMap;
 import org.orion.ss.model.geo.Hex;
 import org.orion.ss.model.geo.HexSet;
@@ -92,9 +93,31 @@ public class GeoService extends Service {
 		return result;
 	}
 
+	public List<Location> getDeployArea(Position position, int size) {
+		List<Location> result = new ArrayList<Location>();
+		for (Location candidate : position.getDeployArea()) {
+			int stackSize = getStackSizeAt(position, candidate);
+			if (getGame().getSettings().getStackLimit() >= stackSize + size) {
+				result.add(candidate);
+			}
+		}
+		return result;
+	}
+
 	public UnitStack getStackAt(Position position, Location location) {
 		UnitStack result = new UnitStack(location);
 		addFormationToStackAtLocation(position, location, result);
+		return result;
+
+	}
+
+	public UnitStack getStackAt(Country country, Location location) {
+		UnitStack result = new UnitStack(location);
+		for (Position position : getGame().getPositions().values()) {
+			if (position.getCountry().equals(country)) {
+				addFormationToStackAtLocation(position, location, result);
+			}
+		}
 		return result;
 
 	}
@@ -155,6 +178,16 @@ public class GeoService extends Service {
 				if (stock != null)
 					result.put(new Location(i, j), stock);
 			}
+		}
+		return result;
+	}
+
+	public Map<Location, Stock> getStocksLocatedAt(List<Location> area, Position position) {
+		Map<Location, Stock> result = new HashMap<Location, Stock>();
+		for (Location location : area) {
+			Stock stock = position.getStockAt(location);
+			if (stock != null)
+				result.put(location, stock);
 		}
 		return result;
 	}
@@ -400,4 +433,46 @@ public class GeoService extends Service {
 		}
 	}
 
+	public Stock getNearestSupplySource(Unit unit) {
+		Stock result = null;
+		List<Location> supplyArea = this.getSupplyArea(unit.getPosition());
+		//TODO ojo con las areas no conexas
+		if (supplyArea.contains(unit.getLocation())) {
+			Map<Location, Stock> candidates = this.getStocksLocatedAt(supplyArea, unit.getPosition());
+			double minDistance = Double.MAX_VALUE;
+			for (Location stockLocation : candidates.keySet()) {
+				double distance = getDistance(unit.getLocation(), stockLocation);
+				if (distance < minDistance) {
+					distance = minDistance;
+					result = candidates.get(stockLocation);
+				}
+			}
+			//TODO find the nearest supply source
+		}
+		return result;
+	}
+
+	private double getDistance(Location first, Location second) {
+		return Math.pow(Math.pow(first.getX() - second.getX(), 2) + Math.pow(first.getY() - second.getY(), 2), 0.5d);
+	}
+
+	public boolean canGarrison(Unit unit) {
+		boolean result = false;
+		Building building = this.getBuildingAt(unit.getLocation());
+		if (building instanceof Fortification && ((Fortification) building).getController().equals(unit.getCountry())) {
+			Fortification fortification = (Fortification) building;
+			if (fortification.getSize() >= unit.stackSize() + garrisonAt(fortification).size()) {
+				result = true;
+			}
+		}
+		return result;
+	}
+
+	private UnitStack garrisonAt(Fortification fortification) {
+		UnitStack stack = new UnitStack(fortification.getLocation());
+		for (Unit unit : this.getStackAt(fortification.getController(), fortification.getLocation())) {
+			if (unit.isGarrison()) stack.add(unit);
+		}
+		return stack;
+	}
 }

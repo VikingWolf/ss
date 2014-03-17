@@ -45,7 +45,7 @@ public class UnitOrdersDialog extends JDialog implements OrderExecutor {
 	private final LocationUpdatable locationUpdatable;
 
 	private final Unit unit;
-	private Order order = null;
+	private Order<?> order = null;
 
 	public UnitOrdersDialog(GameService gameService, Unit unit, JTextField resultTF, LocationUpdatable locationUpdatable) {
 		super();
@@ -88,7 +88,7 @@ public class UnitOrdersDialog extends JDialog implements OrderExecutor {
 				GraphicTest.COLUMN_WIDTH_XXXLARGE,
 				GraphicTest.ROW_HEIGHT
 				);
-		final JComboBox<Order> ordersCB = new JComboBox<Order>(orderService.buildOrders(unit).toArray(new Order[] {}));
+		final JComboBox<Order<?>> ordersCB = new JComboBox<Order<?>>(orderService.buildOrders(unit).toArray(new Order<?>[] {}));
 		ordersCB.setBounds(GraphicTest.LEFT_MARGIN,
 				GraphicTest.TOP_MARGIN * 2 + GraphicTest.ROW_HEIGHT,
 				GraphicTest.COLUMN_WIDTH_XXLARGE,
@@ -117,7 +117,7 @@ public class UnitOrdersDialog extends JDialog implements OrderExecutor {
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 				if (arg0.getStateChange() == ItemEvent.SELECTED) {
-					setOrder((Order) ordersCB.getSelectedItem());
+					setOrder((Order<?>) ordersCB.getSelectedItem());
 					mountOrderPanel();
 				}
 			}
@@ -131,11 +131,10 @@ public class UnitOrdersDialog extends JDialog implements OrderExecutor {
 				locationUpdatable.refreshLocation();
 				dispose();
 				setVisible(false);
-				// TODO Auto-generated method stub				
 			}
 
 		});
-		setOrder((Order) ordersCB.getSelectedItem());
+		setOrder((Order<?>) ordersCB.getSelectedItem());
 		mountOrderPanel();
 	}
 
@@ -158,11 +157,11 @@ public class UnitOrdersDialog extends JDialog implements OrderExecutor {
 		executeB.setEnabled(canExecute);
 	}
 
-	public Order getOrder() {
+	public Order<?> getOrder() {
 		return order;
 	}
 
-	public void setOrder(Order order) {
+	public void setOrder(Order<?> order) {
 		this.order = order;
 		timeL.setText("Time=" + order.getOrderTime().getDenomination());
 	}

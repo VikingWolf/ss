@@ -3,6 +3,8 @@ package org.orion.ss.test.components;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListSelectionModel;
@@ -13,8 +15,10 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.orion.ss.model.Activable;
 import org.orion.ss.model.Building;
 import org.orion.ss.model.Unit;
+import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.ObjectiveType;
 import org.orion.ss.model.geo.Airfield;
 import org.orion.ss.model.geo.Fortification;
@@ -25,6 +29,7 @@ import org.orion.ss.model.impl.Stock;
 import org.orion.ss.model.impl.UnitStack;
 import org.orion.ss.service.GameService;
 import org.orion.ss.service.GeoService;
+import org.orion.ss.service.OrderService;
 import org.orion.ss.service.ServiceFactory;
 import org.orion.ss.service.TextService;
 import org.orion.ss.test.GraphicTest;
@@ -45,12 +50,13 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 
 	private final GeoService geoService;
 	private final TextService textService;
+	private final OrderService orderService;
 
 	/* GUI components */
 	private FastPanel hexInfoP = new FastPanel();
 	private SmallUnitInfoPanel unitInfoP;
 	private FastPanel unitStackList = new FastPanel();
-	private final JList<Unit> list = new JList<Unit>();
+	private final JList<Activable> list = new JList<Activable>();
 	private JScrollPane pane;
 	private JTextField instructionsTF;
 	private ScrollableMap mapPanel;
@@ -67,6 +73,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 		super(parent, gameService);
 		geoService = ServiceFactory.getGeoService(getGame());
 		textService = ServiceFactory.getTextService(getGame());
+		orderService = ServiceFactory.getOrderService(getGame());
 	}
 
 	@Override
@@ -139,10 +146,15 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
 				if (!arg0.getValueIsAdjusting()) {
-					Unit unit = list.getSelectedValue();
-					updateUnitInfo(unit);
-					ordersB.setEnabled(true);
-					mapPanel.setSelectedUnit(unit);
+					Activable activable = list.getSelectedValue();
+					if (activable instanceof Unit) {
+						Unit unit = (Unit) activable;
+						if (orderService.buildOrders(unit).size() > 0)
+							ordersB.setEnabled(true);
+						mapPanel.setSelectedUnit(unit);
+
+					}
+					updateUnitInfo(activable);
 				}
 			}
 
@@ -153,19 +165,26 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 		unitStackList.add(pane);
 	}
 
-	protected void updateUnitInfo(Unit unit) {
-		if (unit == null) {
+	protected void updateUnitInfo(Activable activable) {
+		if (activable == null) {
 			unitInfoP.setVisible(false);
 		} else {
-			unitInfoP.update(unit);
+			unitInfoP.update(activable);
 			unitInfoP.setVisible(true);
 		}
 	}
 
-	protected void updateStackList(UnitStack stack) {
-		if (stack.size() > 0) {
+	protected void updateStackList(Building building, UnitStack stack) {
+		List<Activable> data = new ArrayList<Activable>();
+		for (Activable activable : stack) {
+			data.add(activable);
+		}
+		if (building instanceof Activable) {
+			data.add((Activable) building);
+		}
+		if (data.size() > 0) {
 			unitStackList.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Units at " + stack.getLocation().toString()));
-			list.setListData(stack.getArray());
+			list.setListData(data.toArray(new Activable[] {}));
 			list.repaint();
 			pane.setVisible(true);
 		} else {
@@ -367,7 +386,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				instructionsTF.setText("Select a hex to deploy the supplies...");
-				mapPanel.setSelectedUnit(getGame().getCurrentPlayerPosition());
+				mapPanel.setDeployArea(getGame().getCurrentPlayerPosition().getDeployArea());
 				actionMode = MODE_DEPLOY_SUPPLIES;
 			}
 
@@ -384,7 +403,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				instructionsTF.setText("Select a hex to deploy the company...");
-				mapPanel.setSelectedUnit(getGame().getCurrentPlayerPosition());
+				mapPanel.setDeployArea(geoService.getDeployArea(getGame().getCurrentPlayerPosition(), FormationLevel.COMPANY.getSupplyLimit()));
 				actionMode = MODE_DEPLOY_COMPANY;
 			}
 
@@ -401,7 +420,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				showOrdersDialog(list.getSelectedValue());
+				showOrdersDialog((Unit) list.getSelectedValue());
 			}
 
 		});
@@ -431,13 +450,17 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	public void refreshLocation() {
 		if (actionMode == MODE_INFO) {
 			this.updateHexInfoPanel(geoService.getHexAt(getCurrentLocation()));
-			this.updateStackList(geoService.getStackAt(getGame().getCurrentPlayerPosition(), getCurrentLocation()));
+			this.updateStackList(geoService.getBuildingAt(getCurrentLocation()), geoService.getStackAt(getGame().getCurrentPlayerPosition(), getCurrentLocation()));
 			this.updateUnitInfo(null);
 		} else if (actionMode == MODE_DEPLOY_SUPPLIES) {
 			showBuySuppliesDialog(getCurrentLocation());
 		} else if (actionMode == MODE_DEPLOY_COMPANY) {
 			showBuyCompanyDialog(getCurrentLocation());
 		}
+		if (list.getSelectedValue() != null && orderService.buildOrders(list.getSelectedValue()).size() > 0)
+			ordersB.setEnabled(true);
+		else ordersB.setEnabled(false);
+		mapPanel.repaint();
 	}
 
 	@Override
@@ -450,7 +473,8 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	public void updateSuppliesDisplay(Stock stock, Location location) {
 		instructionsTF.setText("Supplies " + stock.toString() + " placed at " + location.toString());
 		prestigeTF.setText(NumberFormats.PRESTIGE.format(getGame().getCurrentPlayerPosition().getPrestige()));
-		mapPanel.setDrawDeployArea(false);
+		mapPanel.setDeployArea(null);
+		refreshLocation();
 		actionMode = MODE_INFO;
 	}
 
@@ -458,7 +482,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	public void updateUnitsDisplay(Location location) {
 		instructionsTF.setText("Company placed at " + location);
 		prestigeTF.setText(NumberFormats.PRESTIGE.format(getGame().getCurrentPlayerPosition().getPrestige()));
-		mapPanel.setDrawDeployArea(false);
+		mapPanel.setDeployArea(null);
 		actionMode = MODE_INFO;
 	}
 

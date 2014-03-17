@@ -17,7 +17,7 @@ public class CombatService extends Service {
 
 	private final static double WEAPON_AMOUNT_MODIFIER_EXPONENT = 0.5d;
 
-	public CombatService(Game game) {
+	protected CombatService(Game game) {
 		super(game);
 	}
 

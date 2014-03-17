@@ -3,9 +3,12 @@ package org.orion.ss.test.order;
 import java.awt.Rectangle;
 
 import org.orion.ss.model.Activable;
+import org.orion.ss.model.Unit;
 import org.orion.ss.model.impl.Formation;
 import org.orion.ss.orders.Attach;
+import org.orion.ss.orders.AutoSupply;
 import org.orion.ss.orders.Detach;
+import org.orion.ss.orders.Garrison;
 import org.orion.ss.orders.Move;
 import org.orion.ss.orders.Order;
 import org.slf4j.Logger;
@@ -33,9 +36,16 @@ public class OrderPanelFactory {
 
 	public OrderPanel<?, ?> getOrderPanel(Order order) {
 		OrderPanel<?, ?> result = null;
-		if (order instanceof Detach) result = new DetachOrderPanel((Detach) order, bounds, (Formation) target, getDialog());
-		if (order instanceof Attach) result = new AttachOrderPanel((Attach) order, bounds, (Formation) target, getDialog());
-		if (order instanceof Move) result = new MoveOrderPanel((Move) order, bounds, target, getDialog());
+		if (order instanceof Detach)
+			result = new DetachOrderPanel((Detach) order, bounds, (Formation) target, getDialog());
+		else if (order instanceof Attach)
+			result = new AttachOrderPanel((Attach) order, bounds, (Unit) target, getDialog());
+		else if (order instanceof Move)
+			result = new MoveOrderPanel((Move) order, bounds, target, getDialog());
+		else if (order instanceof AutoSupply)
+			result = new AutoSupplyOrderPanel((AutoSupply) order, bounds, (Unit) target, getDialog());
+		else if (order instanceof Garrison)
+			result = new GarrisonOrderPanel((Garrison) order, bounds, (Unit) target, getDialog());
 		return result;
 	}
 
