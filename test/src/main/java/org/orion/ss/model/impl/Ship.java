@@ -14,11 +14,12 @@ public class Ship extends ActivableImpl implements Mobile {
 	private Stock supplies;
 	private Formation parent;
 	private Location location;
+	private double spentMovement;
 
 	@Override
 	public MobilitySet getMobilities() {
 		MobilitySet result = new MobilitySet();
-		result.add(this.getModel().getMobility());
+		result.put(this.getModel().getMobility(), getModel().getSpeed());
 		return result;
 	}
 
@@ -87,6 +88,15 @@ public class Ship extends ActivableImpl implements Mobile {
 	@Override
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+
+	@Override
+	public double getSpentMovement() {
+		return spentMovement;
+	}
+
+	public void setSpentMovement(double spentMovement) {
+		this.spentMovement = spentMovement;
 	}
 
 }

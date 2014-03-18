@@ -11,7 +11,9 @@ import org.orion.ss.orders.Attach;
 import org.orion.ss.orders.AutoSupply;
 import org.orion.ss.orders.Detach;
 import org.orion.ss.orders.Garrison;
+import org.orion.ss.orders.Move;
 import org.orion.ss.orders.Order;
+import org.orion.ss.orders.Ungarrison;
 
 public class OrderService extends Service {
 
@@ -25,6 +27,8 @@ public class OrderService extends Service {
 		if (Detach.EXECUTOR_CLASS.isAssignableFrom(activable.getClass())) addOrder(result, new Detach((Formation) activable, getGame()));
 		if (AutoSupply.EXECUTOR_CLASS.isAssignableFrom(activable.getClass())) addOrder(result, new AutoSupply((Unit) activable, getGame()));
 		if (Garrison.EXECUTOR_CLASS.isAssignableFrom(activable.getClass())) addOrder(result, new Garrison((Unit) activable, getGame()));
+		if (Ungarrison.EXECUTOR_CLASS.isAssignableFrom(activable.getClass())) addOrder(result, new Ungarrison((Unit) activable, getGame()));
+		if (Move.EXECUTOR_CLASS.isAssignableFrom(activable.getClass())) addOrder(result, new Move((Unit) activable, getGame()));
 		return result;
 	}
 

@@ -68,7 +68,7 @@ public class Company extends Unit {
 	@Override
 	public MobilitySet getMobilities() {
 		MobilitySet result = new MobilitySet();
-		result.add(this.getModel().getMobility());
+		result.put(this.getModel().getMobility(), this.getModel().getSpeed());
 		return result;
 	}
 
@@ -151,6 +151,7 @@ public class Company extends Unit {
 		return GeoService.BASE_SPOTTING;
 	}
 
+	@Override
 	public boolean isDetachable() {
 		return !this.isHQ() && !this.isDetached();
 	}

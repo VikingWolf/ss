@@ -106,6 +106,11 @@ public class ScrollableMap extends JPanel {
 		mapPanel.setDrawInfrastructures(value);
 	}
 
+	public void setMoveArea(List<Location> moveArea) {
+		mapPanel.setMoveArea(moveArea);
+		mapPanel.repaint();
+	}
+
 	/* getters & setters */
 
 	@Override

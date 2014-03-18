@@ -17,6 +17,7 @@ import javax.swing.event.ListSelectionListener;
 
 import org.orion.ss.model.Activable;
 import org.orion.ss.model.Building;
+import org.orion.ss.model.Mobile;
 import org.orion.ss.model.Unit;
 import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.ObjectiveType;
@@ -45,6 +46,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	private final static int MODE_INFO = 1;
 	private final static int MODE_DEPLOY_SUPPLIES = 2;
 	private final static int MODE_DEPLOY_COMPANY = 3;
+	private final static int MODE_MOVE_UNIT = 4;
 
 	private int actionMode = MODE_INFO;
 
@@ -147,12 +149,16 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 			public void valueChanged(ListSelectionEvent arg0) {
 				if (!arg0.getValueIsAdjusting()) {
 					Activable activable = list.getSelectedValue();
+					logger.error("activable=" + activable);
 					if (activable instanceof Unit) {
 						Unit unit = (Unit) activable;
-						if (orderService.buildOrders(unit).size() > 0)
+						if (orderService.buildOrders(unit).size() > 0) {
 							ordersB.setEnabled(true);
-						mapPanel.setSelectedUnit(unit);
-
+							mapPanel.setSelectedUnit(unit);
+						} else
+						ordersB.setEnabled(false);
+					} else {
+						ordersB.setEnabled(false);
 					}
 					updateUnitInfo(activable);
 				}
@@ -484,6 +490,13 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 		prestigeTF.setText(NumberFormats.PRESTIGE.format(getGame().getCurrentPlayerPosition().getPrestige()));
 		mapPanel.setDeployArea(null);
 		actionMode = MODE_INFO;
+	}
+
+	public void setMoveMode(Mobile mobile) {
+		logger.error("move mode");
+		actionMode = MODE_MOVE_UNIT;
+		mapPanel.setMoveArea(geoService.getMoveArea(mobile).getLocations());
+		//TODO here
 	}
 
 	@Override

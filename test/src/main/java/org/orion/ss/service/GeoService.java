@@ -8,12 +8,14 @@ import java.util.Map;
 
 import org.orion.ss.model.Building;
 import org.orion.ss.model.Located;
+import org.orion.ss.model.Mobile;
 import org.orion.ss.model.MovementSupplier;
 import org.orion.ss.model.MultiLocated;
 import org.orion.ss.model.RadiusSupplier;
 import org.orion.ss.model.SpotCapable;
 import org.orion.ss.model.Unit;
 import org.orion.ss.model.ZOCProjecter;
+import org.orion.ss.model.core.Mobility;
 import org.orion.ss.model.core.PositionRole;
 import org.orion.ss.model.geo.Bridge;
 import org.orion.ss.model.geo.Fortification;
@@ -57,7 +59,6 @@ public class GeoService extends Service {
 		return result;
 	}
 
-	//TODO here zoc
 	public HexSet getFullZOC(PositionRole role) {
 		HexSet result = new HexSet();
 		List<Country> countries = new ArrayList<Country>();
@@ -71,7 +72,7 @@ public class GeoService extends Service {
 		for (Country country : countries) {
 			for (Building building : this.getBuildingsOf(country)) {
 				if (building instanceof ZOCProjecter) {
-					result.add(getZOC((ZOCProjecter) building));
+					result.addAll(getZOC((ZOCProjecter) building));
 				}
 			}
 		}
@@ -308,11 +309,11 @@ public class GeoService extends Service {
 		HexSet result = new HexSet();
 		for (Building building : this.getBuildingsAt(expandViewVisibilityBounds(bounds)).values()) {
 			if (building.getController().equals(position.getCountry())) {
-				result.add(getVisibleArea(building));
+				result.addAll(getVisibleArea(building));
 			}
 		}
 		for (UnitStack stack : this.getAllUnitsLocatedAt(position, expandViewVisibilityBounds(bounds)).values()) {
-			result.add(getVisibleArea(stack));
+			result.addAll(getVisibleArea(stack));
 		}
 		return result;
 	}
@@ -332,10 +333,10 @@ public class GeoService extends Service {
 			}
 		}
 		for (MovementSupplier supplier : suppliers) {
-			result.add(this.getSupplyArea(supplier));
+			result.addAll(this.getSupplyArea(supplier));
 		}
 		for (Railway railway : this.getRailwaysOf(result)) {
-			result.add(this.getSupplyArea(railway));
+			result.addAll(this.getSupplyArea(railway));
 		}
 		//TODO railways enlazados con otros railways		
 		HexSet zocNegation = getFullZOC(PositionRole.enemy(position.getRole()));
@@ -348,16 +349,60 @@ public class GeoService extends Service {
 	}
 
 	protected double computeSpotCost(Hex hex) {
-		//TODO en funcion del terreno y vegetacion
+		//TODO en funcion del terreno, vegetacion, hexside
 		return 1.0d;
 	}
 
-	protected double computeMovementCost(Hex hex) {
-		//TODO en funcion del terreno y vegetacion
+	protected double computeMovementCost(Hex hex, Mobility mobility) {
+		//TODO en funcion del terreno, vegetacion, hexside
 		return 1.0d;
 	}
 
-	public HexSet getSupplyArea(RadiusSupplier supplier) {
+	public HexSet getMoveArea(Mobile mobile) {
+		/* movement is exclusive, a stack cannot move to a location if any of his units cannot move */
+		HexSet[] result = new HexSet[mobile.getMobilities().size()];
+		int index = 0;
+		for (Mobility mobility : mobile.getMobilities().keySet()) {
+			double speed = mobile.getMobilities().get(mobility);
+			result[index] = new HexSet();
+			//TODO move capacity depends on spent time and turn duration
+			recursiveAreaByMovement(this.getHexAt(mobile.getLocation()), result[index], speed, mobility);
+			index++;
+		}
+		return crossHexSets(result);
+	}
+
+	private HexSet crossHexSets(HexSet[] hexSets) {
+		HexSet result = mergeHexSets(hexSets);
+		if (hexSets.length > 1) {
+			for (HexSet hexSet : hexSets) {
+				result.addAll(hexSet);
+			}
+		}
+		return result;
+	}
+
+	private HexSet mergeHexSets(HexSet[] hexSets) {
+		HexSet result = new HexSet();
+		for (HexSet hexSet : hexSets) {
+			result.addAll(hexSet);
+		}
+		return result;
+	}
+
+	private void recursiveAreaByMovement(Hex hex, HexSet result, double capacity, Mobility mobility) {
+		if (hex != null) {
+			if (computeMovementCost(hex, mobility) <= capacity) {
+				result.add(hex);
+				for (HexSide side : HexSide.values()) {
+					Hex adjacent = this.getHexAt(side.getAdjacent(hex.getCoords()));
+					recursiveAreaByMovement(adjacent, result, capacity - computeMovementCost(hex, mobility), mobility);
+				}
+			}
+		}
+	}
+
+	private HexSet getSupplyArea(RadiusSupplier supplier) {
 		HexSet result = new HexSet();
 		if (supplier instanceof Located) {
 			recursiveAreaByRadius(this.getHexAt(((Located) supplier).getLocation()), result, supplier.getSpupplyRadius());
@@ -369,14 +414,11 @@ public class GeoService extends Service {
 		return result;
 	}
 
-	public HexSet getSupplyArea(MovementSupplier supplier) {
+	private HexSet getSupplyArea(MovementSupplier supplier) {
+		/* supply area is additive, if any unit of the stack can supply and hex, the hex is in supply */
 		HexSet result = new HexSet();
-		if (supplier instanceof Located) {
-			recursiveAreaByMovement(this.getHexAt(((Located) supplier).getLocation()), result, supplier.getSpupplyRange());
-		} else if (supplier instanceof MultiLocated) {
-			for (OrientedLocation location : ((MultiLocated) supplier).getLocations()) {
-				recursiveAreaByMovement(this.getHexAt(location), result, supplier.getSpupplyRange());
-			}
+		for (Mobility mobility : supplier.getMobilities().keySet()) {
+			recursiveAreaByMovement(this.getHexAt(((Located) supplier).getLocation()), result, supplier.getSpupplyRange(), mobility);
 		}
 		return result;
 	}
@@ -409,21 +451,9 @@ public class GeoService extends Service {
 		}
 	}
 
-	private void recursiveAreaByMovement(Hex hex, HexSet result, double capacity) {
-		if (hex != null) {
-			if (computeMovementCost(hex) <= capacity) {
-				result.add(hex);
-				for (HexSide side : HexSide.values()) {
-					Hex adjacent = this.getHexAt(side.getAdjacent(hex.getCoords()));
-					recursiveAreaByMovement(adjacent, result, capacity - computeMovementCost(hex));
-				}
-			}
-		}
-	}
-
 	private void recursiveAreaByRadius(Hex hex, HexSet result, int radius) {
 		if (hex != null) {
-			if (computeMovementCost(hex) <= radius) {
+			if (radius > 0) {
 				result.add(hex);
 				for (HexSide side : HexSide.values()) {
 					Hex adjacent = this.getHexAt(side.getAdjacent(hex.getCoords()));
@@ -447,7 +477,6 @@ public class GeoService extends Service {
 					result = candidates.get(stockLocation);
 				}
 			}
-			//TODO find the nearest supply source
 		}
 		return result;
 	}

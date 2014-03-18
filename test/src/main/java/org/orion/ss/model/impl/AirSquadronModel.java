@@ -12,6 +12,7 @@ public class AirSquadronModel extends CombatUnitModel {
 	private String code;
 	private AirSquadronType type;
 	private List<AirSquadronModel> upgrades;
+	private double speed;
 
 	public AirSquadronModel(Country country) {
 		super(country);
@@ -51,6 +52,14 @@ public class AirSquadronModel extends CombatUnitModel {
 
 	public void setUpgrades(List<AirSquadronModel> upgrades) {
 		this.upgrades = upgrades;
+	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 
 }

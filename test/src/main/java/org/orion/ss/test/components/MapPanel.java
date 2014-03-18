@@ -57,6 +57,7 @@ public class MapPanel extends JPanel {
 	private final static Color _riversColor = Color.BLUE;
 	private final static Color _deployAreaColor = Color.YELLOW;
 	private final static Color _supplyAreaColor = Color.RED;
+	private final static Color _moveAreaColor = Color.YELLOW;
 	private final static Color _roadsColor = new Color(115, 60, 0);
 	private final static Color _railwaysColor = Color.black;
 	private final static Color _bridgesColorOuter = Color.BLACK;
@@ -101,6 +102,7 @@ public class MapPanel extends JPanel {
 	private final Position observer;
 
 	private List<Location> deployArea;
+	private List<Location> moveArea;
 
 	private Point offset;
 
@@ -168,7 +170,10 @@ public class MapPanel extends JPanel {
 			drawSupplyArea(g);
 		}
 		if (deployArea != null)
-			drawDeployArea(g);
+			drawArea(g, _deployAreaColor, deployArea);
+		if (moveArea != null) {
+			drawArea(g, _moveAreaColor, moveArea);
+		}
 		if (drawUnits) {
 			drawUnits(g);
 		}
@@ -244,16 +249,16 @@ public class MapPanel extends JPanel {
 		return result;
 	}
 
-	private void drawDeployArea(Graphics2D g) {
-		g.setColor(_deployAreaColor);
+	private void drawArea(Graphics2D g, Color color, List<Location> area) {
+		g.setColor(color);
 		for (int i = -1; i < horizCapacity() + 1; i++) {
 			for (int j = -1; j < vertCapacity() + 1; j++) {
 				Point o = computeCenter(i, j);
 				Location coords = new Location(i + (int) getOffset().getX(), j + (int) getOffset().getY());
-				if (deployArea.contains(coords)) {
+				if (area.contains(coords)) {
 					for (HexSide side : HexSide.values()) {
 						Location target = side.getAdjacent(coords);
-						if (!deployArea.contains(target)) {
+						if (!area.contains(target)) {
 							g.setStroke(_deployStroke);
 							g.drawPolygon(hexographer.getSide(o, side));
 						}
@@ -571,6 +576,10 @@ public class MapPanel extends JPanel {
 
 	public void setSelectedUnit(Unit selectedUnit) {
 		this.selectedUnit = selectedUnit;
+	}
+
+	public void setMoveArea(List<Location> moveArea) {
+		this.moveArea = moveArea;
 	}
 
 	public Rectangle getMapBounds() {

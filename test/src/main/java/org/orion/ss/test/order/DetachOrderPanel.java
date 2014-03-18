@@ -13,6 +13,7 @@ import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.Formation;
 import org.orion.ss.orders.Detach;
 import org.orion.ss.test.GraphicTest;
+import org.orion.ss.test.dialogs.UnitOrdersDialog;
 
 public class DetachOrderPanel extends OrderPanel<Formation, Detach> {
 
@@ -20,7 +21,7 @@ public class DetachOrderPanel extends OrderPanel<Formation, Detach> {
 
 	private Map<Unit, JCheckBox> checkBoxes;
 
-	public DetachOrderPanel(Detach order, Rectangle bounds, Formation target, OrderExecutor dialog) {
+	public DetachOrderPanel(Detach order, Rectangle bounds, Formation target, UnitOrdersDialog dialog) {
 		super(order, bounds, target, dialog);
 	}
 
@@ -79,7 +80,6 @@ public class DetachOrderPanel extends OrderPanel<Formation, Detach> {
 				y++;
 			}
 		}
-		//TODO mount;
 	}
 
 	class CheckBoxListener implements ActionListener {

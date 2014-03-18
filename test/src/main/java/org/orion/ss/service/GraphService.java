@@ -25,6 +25,7 @@ import org.orion.ss.model.geo.Bridge;
 import org.orion.ss.model.geo.Fortification;
 import org.orion.ss.model.geo.UrbanCenter;
 import org.orion.ss.model.impl.Company;
+import org.orion.ss.model.impl.CompanyModel;
 import org.orion.ss.model.impl.Formation;
 import org.orion.ss.model.impl.Game;
 import org.orion.ss.model.impl.Position;
@@ -245,6 +246,7 @@ public class GraphService extends Service {
 	public BufferedImage getUnitSymbol(Company unit) {
 		BufferedImage result = new BufferedImage(getSymbolSize(), getSymbolSize(), BufferedImage.TYPE_4BYTE_ABGR);
 		Graphics2D canvas = mountCanvas(result, unit);
+		// test, figurative symbols = drawCompanyModelSymbol(unit.getModel(), canvas);
 		drawTroopTypeSymbol(unit.getModel().getType(), canvas);
 		drawCompanyTraitsSymbols(unit, canvas, symbolCenter);
 		drawFormationLevel(unit, canvas);
@@ -372,6 +374,17 @@ public class GraphService extends Service {
 		String str = NumberFormats.SHORT_XP.format(company.getExperience());
 		int textWidth = textWidth(canvas, str);
 		canvas.drawString(str, getSize(1.00) - textWidth, getSize(0.16));
+	}
+
+	//TODO test
+	private void drawCompanyModelSymbol(CompanyModel model, Graphics2D canvas) {
+		int iX = getSize(0.30d);
+		int iY = getSize(0.10d);
+		int fX = iX + getSize(0.6d);
+		int fY = iY + getSize(0.6d);
+		BufferedImage figure = scenarioService.getCompanyModelFigure(model);
+		scenarioService.getCompanyModelFigure(model);
+		canvas.drawImage(figure.getScaledInstance(fX - iX, fY - iY, Image.SCALE_SMOOTH), iX, iY, null);
 	}
 
 	private void drawTroopTypeSymbol(TroopType type, Graphics2D canvas) {

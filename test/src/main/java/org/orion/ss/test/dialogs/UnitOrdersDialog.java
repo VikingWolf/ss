@@ -20,14 +20,13 @@ import org.orion.ss.service.OrderService;
 import org.orion.ss.service.ServiceFactory;
 import org.orion.ss.test.GraphicTest;
 import org.orion.ss.test.components.FastPanel;
-import org.orion.ss.test.components.LocationUpdatable;
-import org.orion.ss.test.order.OrderExecutor;
+import org.orion.ss.test.components.TurnPanel;
 import org.orion.ss.test.order.OrderPanel;
 import org.orion.ss.test.order.OrderPanelFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UnitOrdersDialog extends JDialog implements OrderExecutor {
+public class UnitOrdersDialog extends JDialog {
 
 	private static final long serialVersionUID = -3709849519497626262L;
 	protected final static Logger logger = LoggerFactory.getLogger(UnitOrdersDialog.class);
@@ -42,17 +41,17 @@ public class UnitOrdersDialog extends JDialog implements OrderExecutor {
 
 	private FastPanel panel;
 	private JButton executeB;
-	private final LocationUpdatable locationUpdatable;
+	private final TurnPanel turnPanel;
 
 	private final Unit unit;
 	private Order<?> order = null;
 
-	public UnitOrdersDialog(GameService gameService, Unit unit, JTextField resultTF, LocationUpdatable locationUpdatable) {
+	public UnitOrdersDialog(GameService gameService, Unit unit, JTextField resultTF, TurnPanel turnPanel) {
 		super();
 		this.gameService = gameService;
 		this.unit = unit;
 		this.resultTF = resultTF;
-		this.locationUpdatable = locationUpdatable;
+		this.turnPanel = turnPanel;
 		orderService = ServiceFactory.getOrderService(this.gameService.getGame());
 		orderPanelFactory = new OrderPanelFactory(unit, this);
 		setTitle("Orders for unit " + unit.getFullLongName());
@@ -128,7 +127,7 @@ public class UnitOrdersDialog extends JDialog implements OrderExecutor {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				getResultTF().setText(orderService.execute(getOrder()));
-				locationUpdatable.refreshLocation();
+				turnPanel.refreshLocation();
 				dispose();
 				setVisible(false);
 			}
@@ -152,7 +151,6 @@ public class UnitOrdersDialog extends JDialog implements OrderExecutor {
 
 	/* getters & setters */
 
-	@Override
 	public void updateExecution(boolean canExecute) {
 		executeB.setEnabled(canExecute);
 	}
@@ -168,6 +166,10 @@ public class UnitOrdersDialog extends JDialog implements OrderExecutor {
 
 	public JTextField getResultTF() {
 		return resultTF;
+	}
+
+	public TurnPanel getTurnPanel() {
+		return turnPanel;
 	}
 
 }

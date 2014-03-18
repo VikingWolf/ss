@@ -6,4 +6,6 @@ public interface Mobile extends Activable, Located {
 
 	public MobilitySet getMobilities();
 
+	public double getSpentMovement();
+
 }

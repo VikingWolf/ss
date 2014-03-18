@@ -9,6 +9,7 @@ public class ShipModel extends CombatUnitModel {
 
 	private String code;
 	private ShipType type;
+	private double speed;
 
 	public ShipModel(Country country) {
 		super(country);
@@ -40,6 +41,14 @@ public class ShipModel extends CombatUnitModel {
 
 	public void setType(ShipType type) {
 		this.type = type;
+	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 
 }

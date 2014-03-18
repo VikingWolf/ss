@@ -20,6 +20,8 @@ public abstract class Unit extends ActivableImpl implements Leveleable, Mobile, 
 
 	private boolean garrison = false;
 
+	private double spentMovement = 0.0d;
+
 	/* abstract methods */
 	public abstract int stackSize();
 
@@ -77,6 +79,10 @@ public abstract class Unit extends ActivableImpl implements Leveleable, Mobile, 
 		return result;
 	}
 
+	public void increaseSpentMovement(double movement) {
+		spentMovement += movement;
+	}
+
 	/* getters & setters */
 
 	public int getId() {
@@ -117,6 +123,14 @@ public abstract class Unit extends ActivableImpl implements Leveleable, Mobile, 
 
 	public void setGarrison(boolean garrison) {
 		this.garrison = garrison;
+	}
+
+	public double getSpentMovement() {
+		return spentMovement;
+	}
+
+	public void setSpentMovement(double spentMovement) {
+		this.spentMovement = spentMovement;
 	}
 
 }

@@ -18,8 +18,14 @@ public class AirSquadron extends ActivableImpl implements Mobile {
 	@Override
 	public MobilitySet getMobilities() {
 		MobilitySet result = new MobilitySet();
-		result.add(this.getModel().getMobility());
+		result.put(this.getModel().getMobility(), this.getModel().getSpeed());
 		return result;
+	}
+
+	@Override
+	public double getSpentMovement() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	/* getters & setters */

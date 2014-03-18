@@ -1,18 +1,30 @@
 package org.orion.ss.model.geo;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class HexSet extends ArrayList<Hex> {
 
 	private static final long serialVersionUID = -9177460073813774087L;
 
-	public void add(HexSet hexset) {
-		for (Hex hex : hexset) {
-			if (!this.contains(hex)) {
-				this.add(hex);
-			}
+	@Override
+	public boolean add(Hex hex) {
+		boolean result = false;
+		if (!this.contains(hex)) {
+			super.add(hex);
+			result = true;
 		}
+		return result;
+	}
+
+	@Override
+	public boolean addAll(Collection<? extends Hex> hexSet) {
+		boolean result = false;
+		for (Hex hex : hexSet) {
+			result = this.add(hex);
+		}
+		return result;
 	}
 
 	public List<Location> getLocations() {
