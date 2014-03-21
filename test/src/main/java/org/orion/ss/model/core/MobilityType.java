@@ -1,6 +1,6 @@
 package org.orion.ss.model.core;
 
-public enum Mobility {
+public enum MobilityType {
 
 	/* 					denomination */
 	FOOT(				"foot"),
@@ -13,7 +13,7 @@ public enum Mobility {
 	
 	private String denomination;
 	
-	private Mobility(String denomination){
+	private MobilityType(String denomination){
 		this.denomination = denomination;
 	}
 

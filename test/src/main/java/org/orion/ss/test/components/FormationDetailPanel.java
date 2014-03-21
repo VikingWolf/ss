@@ -87,7 +87,7 @@ public class FormationDetailPanel extends FastPanel {
 			values1.add(company.getModel().getType().getDenomination());
 			values1.add("" + company.getAbsoluteStrength() + "/" + company.getModel().getMaxStrength());
 			ReinforceCost regularCost = managementService.regularReinforceCost(company);
-			values1.add(NumberFormats.PERCENT.format(regularCost.getStrength()) + " for " + NumberFormats.PRESTIGE.format(regularCost.getCost()));
+			values1.add(NumberFormats.PERCENT_2.format(regularCost.getStrength()) + " for " + NumberFormats.PRESTIGE.format(regularCost.getCost()));
 			JButton reinforceB = new CompanyButton("Reinforce", company);
 			ReinforceCost reinforceCost = managementService.regularReinforceCost(company);
 			reinforceB.setEnabled(reinforceCost.getCost() > 0 && company.getPosition().getPrestige() >= reinforceCost.getCost());

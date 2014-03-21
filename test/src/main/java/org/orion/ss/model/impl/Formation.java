@@ -38,7 +38,7 @@ public class Formation extends Unit implements MovementSupplier {
 	public MobilitySet getMobilities() {
 		MobilitySet result = new MobilitySet();
 		for (Company company : this.getCompanyStackAtLocation(false)) {
-			result.putAll(company.getMobilities());
+			result.addAll(company.getMobilities());
 		}
 		return result;
 	}
@@ -202,8 +202,8 @@ public class Formation extends Unit implements MovementSupplier {
 	}
 
 	@Override
-	public double getSupplyRange() {
-		return this.getHQCompany().getModel().getSpeed();
+	public Mobility getSupplyMobility() {
+		return this.getHQCompany().getModel().getMobility();
 	}
 
 	/* getters & setters */

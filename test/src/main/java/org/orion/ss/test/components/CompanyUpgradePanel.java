@@ -47,11 +47,11 @@ public class CompanyUpgradePanel extends FastPanel {
 		List<String> textfields1 = new ArrayList<String>();
 		textfields1.add(company.getModel().getType().getDenomination());
 		textfields1.add(company.getModel().getCode());
-		textfields1.add(company.getModel().getMobility().getDenomination());
-		textfields1.add(NumberFormats.DF_2.format(company.getModel().getSpeed()) + " km/h");
+		textfields1.add(company.getModel().getMobility().getType().getDenomination());
+		textfields1.add(NumberFormats.DF_2.format(company.getModel().getMobility().getSpeed()) + " km/h");
 		textfields1.add(NumberFormats.DF_2.format(company.computeInitiative()));
 		textfields1.add((int) (company.getStrength() * company.getModel().getMaxStrength()) + "/ " + company.getModel().getMaxStrength());
-		textfields1.add(NumberFormats.PERCENT.format(company.getOrganization()));
+		textfields1.add(NumberFormats.PERCENT_2.format(company.getOrganization()));
 		textfields1.add(NumberFormats.MORALE.format(company.getMorale()));
 		textfields1.add(NumberFormats.XP.format(company.getExperience()));
 		for (Defense defense : combatService.computeDefenses(company)) {

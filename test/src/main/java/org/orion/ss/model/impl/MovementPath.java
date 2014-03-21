@@ -6,6 +6,7 @@ import java.util.Stack;
 
 import org.orion.ss.model.Mobile;
 import org.orion.ss.model.geo.Location;
+import org.orion.ss.model.impl.MovementPath.LocationNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +43,6 @@ public class MovementPath extends Stack<LocationNode> {
 	public double getTotalCost() {
 		double cost = 0.0d;
 		for (LocationNode node : this) {
-			logger.error("location=" + node.getLocation() + ", cost=" + cost);
 			cost += node.getCost();
 		}
 		return cost;
@@ -56,32 +56,32 @@ public class MovementPath extends Stack<LocationNode> {
 		return result;
 	}
 
-}
+	class LocationNode {
+		private Location location;
+		private double cost;
 
-class LocationNode {
-	private Location location;
-	private double cost;
+		protected LocationNode(Location location, double cost) {
+			super();
+			this.location = location;
+			this.cost = cost;
+		}
 
-	protected LocationNode(Location location, double cost) {
-		super();
-		this.location = location;
-		this.cost = cost;
-	}
+		public Location getLocation() {
+			return location;
+		}
 
-	public Location getLocation() {
-		return location;
-	}
+		public void setLocation(Location location) {
+			this.location = location;
+		}
 
-	public void setLocation(Location location) {
-		this.location = location;
-	}
+		public double getCost() {
+			return cost;
+		}
 
-	public double getCost() {
-		return cost;
-	}
+		public void setCost(double cost) {
+			this.cost = cost;
+		}
 
-	public void setCost(double cost) {
-		this.cost = cost;
 	}
 
 }

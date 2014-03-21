@@ -97,13 +97,13 @@ public class ManagementService extends Service {
 		company.getPosition().decreasePrestige(cost.getCost());
 		company.increaseStrength(cost.getStrength());
 		company.setExperience(avgXp);
-		getGame().getLog().addEntry(company.getFullLongName() + " reinforced " + NumberFormats.PERCENT.format(cost.getStrength()) + " strength with regular replacements spending " + cost.getCost() + " prestige.");
+		getGame().getLog().addEntry(company.getFullLongName() + " reinforced " + NumberFormats.PERCENT_2.format(cost.getStrength()) + " strength with regular replacements spending " + cost.getCost() + " prestige.");
 	}
 
 	public void eliteReinforce(Company company, ReinforceCost cost) {
 		company.getPosition().decreasePrestige(cost.getCost());
 		company.increaseStrength(cost.getStrength());
-		getGame().getLog().addEntry(company.getFullLongName() + " reinforced " + NumberFormats.PERCENT.format(cost.getStrength()) + " strength with elite replacements spending " + cost.getCost() + " prestige.");
+		getGame().getLog().addEntry(company.getFullLongName() + " reinforced " + NumberFormats.PERCENT_2.format(cost.getStrength()) + " strength with elite replacements spending " + cost.getCost() + " prestige.");
 	}
 
 	public void resupply(Formation formation) {

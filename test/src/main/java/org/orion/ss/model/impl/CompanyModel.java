@@ -6,27 +6,25 @@ import java.util.List;
 import org.orion.ss.model.CombatUnitModel;
 import org.orion.ss.model.Upgradable;
 import org.orion.ss.model.core.CompanyTrait;
-import org.orion.ss.model.core.TroopType;
 import org.orion.ss.model.core.FormationLevel;
-import org.orion.ss.model.core.Mobility;
+import org.orion.ss.model.core.MobilityType;
+import org.orion.ss.model.core.TroopType;
 
 public class CompanyModel extends CombatUnitModel implements Upgradable {
 
 	private String code;
 	private TroopType type;
 	private Mobility mobility;
-	private double speed;
 	private List<CompanyTrait> traits;
 	private List<CompanyModel> upgrades;
 	private int initiative;
 	private int maxStrength;
 
-	public CompanyModel(String code, TroopType type, Mobility mobility, double speed, int initiative, int maxStrength, Country country) {
+	public CompanyModel(String code, TroopType type, MobilityType mobilityType, double speed, int initiative, int maxStrength, Country country) {
 		super(country);
 		this.code = code;
 		this.type = type;
-		this.mobility = mobility;
-		this.speed = speed;
+		mobility = new Mobility(mobilityType, speed);
 		this.initiative = initiative;
 		this.maxStrength = maxStrength;
 		traits = new ArrayList<CompanyTrait>();
@@ -89,14 +87,6 @@ public class CompanyModel extends CombatUnitModel implements Upgradable {
 
 	public void setMobility(Mobility mobility) {
 		this.mobility = mobility;
-	}
-
-	public double getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(double speed) {
-		this.speed = speed;
 	}
 
 	public int getInitiative() {

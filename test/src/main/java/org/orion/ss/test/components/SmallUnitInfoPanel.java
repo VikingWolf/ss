@@ -60,7 +60,7 @@ public class SmallUnitInfoPanel extends FastPanel {
 		List<String> values = new ArrayList<String>();
 		values.add("" + fortification.getSize());
 		values.add("" + fortification.getStrength());
-		values.add(NumberFormats.PERCENT.format(fortification.getStatus()));
+		values.add(NumberFormats.PERCENT_2.format(fortification.getStatus()));
 		int i = 0;
 		for (i = 0; i < labels.size(); i++) {
 			addLabel(labels.get(i),
@@ -128,10 +128,10 @@ public class SmallUnitInfoPanel extends FastPanel {
 		List<String> values = new ArrayList<String>();
 		values.add(StringUtils.capitalize(unit.getTroopType().getDenomination()));
 		values.add("" + unit.isAutoSupply());
-		values.add(unit.getModel().getMobility().getDenomination() + " " + NumberFormats.DF_2.format(unit.getModel().getSpeed()) + " km/h");
+		values.add(unit.getModel().getMobility().getType().getDenomination() + " " + NumberFormats.DF_2.format(unit.getModel().getMobility().getSpeed()) + " km/h");
 		values.add(NumberFormats.DF_2.format(unit.computeInitiative()));
 		values.add((int) (unit.getStrength() * unit.getModel().getMaxStrength()) + " / " + unit.getModel().getMaxStrength());
-		values.add(NumberFormats.PERCENT.format(unit.getOrganization()));
+		values.add(NumberFormats.PERCENT_2.format(unit.getOrganization()));
 		values.add(NumberFormats.MORALE.format(unit.getMorale()));
 		values.add(NumberFormats.XP.format(unit.getExperience()));
 		for (Defense defense : combatService.computeDefenses(unit)) {

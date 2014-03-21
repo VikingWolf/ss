@@ -106,11 +106,6 @@ public class ScrollableMap extends JPanel {
 		mapPanel.setDrawInfrastructures(value);
 	}
 
-	public void setMoveArea(List<Location> moveArea) {
-		mapPanel.setMoveArea(moveArea);
-		mapPanel.repaint();
-	}
-
 	public void setMode(int mode) {
 		mapPanel.setMode(mode);
 	}

@@ -1,11 +1,11 @@
 package org.orion.ss.model;
 
 import org.orion.ss.model.core.FormationLevel;
-import org.orion.ss.model.core.Mobility;
 import org.orion.ss.model.impl.Country;
+import org.orion.ss.model.impl.Mobility;
 import org.orion.ss.model.impl.Stock;
 
-public abstract class UnitModel implements Leveleable{
+public abstract class UnitModel implements Leveleable {
 
 	private Stock consumption;
 	private Stock maxSupplies;
@@ -13,6 +13,7 @@ public abstract class UnitModel implements Leveleable{
 
 	public abstract Mobility getMobility();
 
+	@Override
 	public abstract FormationLevel getFormationLevel();
 
 	public UnitModel(Country country) {

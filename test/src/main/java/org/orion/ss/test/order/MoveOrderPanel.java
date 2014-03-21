@@ -18,7 +18,8 @@ public class MoveOrderPanel extends OrderPanel<Mobile, Move> {
 
 	private JButton tracePathB;
 
-	private int lastRow = 1;
+	private int lastRow = 0;
+	private int lastCol = 0;
 
 	public MoveOrderPanel(Move order, Rectangle bounds, Mobile target, UnitOrdersDialog dialog) {
 		super(order, bounds, target, dialog);
@@ -54,12 +55,18 @@ public class MoveOrderPanel extends OrderPanel<Mobile, Move> {
 	}
 
 	public void addLocation(Location location) {
+		this.getDialog().updateExecution(true);
 		getOrder().addToMovementPath(location);
 		addLabel(location.toString(),
-				GraphicTest.LEFT_MARGIN,
+				GraphicTest.LEFT_MARGIN + lastCol * GraphicTest.COLUMN_WIDTH_LARGE,
 				GraphicTest.TOP_MARGIN + tracePathB.getY() + tracePathB.getHeight() + lastRow * GraphicTest.ROW_HEIGHT,
 				GraphicTest.COLUMN_WIDTH_XLARGE,
 				GraphicTest.ROW_HEIGHT);
-		lastRow++;
+		if (lastRow > 6) {
+			lastRow = 0;
+			lastCol++;
+		} else {
+			lastRow++;
+		}
 	}
 }

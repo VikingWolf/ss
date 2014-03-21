@@ -203,6 +203,10 @@ public class Game extends Observable {
 		this.weather = weather;
 	}
 
+	public double getTurnDuration() {
+		return settings.getTurnDuration();
+	}
+
 	/* equals and hashcode */
 
 	@Override

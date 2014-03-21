@@ -68,7 +68,7 @@ public class Company extends Unit {
 	@Override
 	public MobilitySet getMobilities() {
 		MobilitySet result = new MobilitySet();
-		result.put(this.getModel().getMobility(), this.getModel().getSpeed());
+		result.add(this.getModel().getMobility());
 		return result;
 	}
 

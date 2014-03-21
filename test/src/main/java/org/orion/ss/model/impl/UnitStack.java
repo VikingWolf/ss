@@ -30,7 +30,7 @@ public class UnitStack extends ArrayList<Unit> implements Activable, Mobile, Spo
 	public MobilitySet getMobilities() {
 		MobilitySet result = new MobilitySet();
 		for (Unit unit : this) {
-			result.putAll(unit.getMobilities());
+			result.addAll(unit.getMobilities());
 		}
 		return result;
 	}

@@ -42,6 +42,7 @@ import org.orion.ss.service.MovementService;
 import org.orion.ss.service.ServiceFactory;
 import org.orion.ss.service.SupplyService;
 import org.orion.ss.service.UnitService;
+import org.orion.ss.utils.NumberFormats;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,9 +72,11 @@ public class MapPanel extends JPanel {
 
 	/* strokes */
 	private final static float[] _railwaysDash = { 0.08f, 0.32f };
+	private final static float[] _movePathDash = { 0.12f, 0.24f };
 	private final static BasicStroke _basicStroke = new BasicStroke(1.0f);
 	private final static BasicStroke _deployStroke = new BasicStroke(4.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND);
 	private final static BasicStroke _supplyStroke = new BasicStroke(4.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND);
+	private final static BasicStroke _movePathStroke = new BasicStroke(4.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND);
 
 	static {
 		TERRAIN_COLORS.put(Terrain.DESERT, new Color(180, 115, 55));
@@ -112,7 +115,6 @@ public class MapPanel extends JPanel {
 	private Unit selectedUnit = null;
 	private final Position observer;
 	private List<Location> deployArea;
-	private List<Location> moveArea;
 	private Point offset;
 	private int mode;
 
@@ -183,9 +185,10 @@ public class MapPanel extends JPanel {
 		}
 		if (deployArea != null)
 			drawArea(g, _deployAreaColor, deployArea);
+		/*
 		if (moveArea != null) {
 			drawArea(g, _moveAreaColor, moveArea);
-		}
+		} */
 		if (drawUnits) {
 			drawUnits(g);
 		}
@@ -210,7 +213,7 @@ public class MapPanel extends JPanel {
 			g.fillArc((int) o.getX() - (int) (radius / 3), (int) o.getY() - (int) (radius / 4), (int) (radius / 1.5), (int) (radius / 2), 0, 360);
 			g.setColor(Color.WHITE);
 			//TODO here 
-			String text = "" + movementService.computePathMovementCost(location);
+			String text = "" + NumberFormats.PERCENT.format(movementService.computePathMovementCost(location) / movementService.getGame().getTurnDuration());
 			g.drawString(text, (int) o.getX() - textWidth(g, text) / 2, (int) o.getY() + g.getFont().getSize() / 2);
 		}
 	}
@@ -227,7 +230,7 @@ public class MapPanel extends JPanel {
 			}
 		}
 		g.setColor(Color.RED);
-		g.setStroke(new BasicStroke((int) (radius / 8), BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
+		g.setStroke(new BasicStroke((float) (radius / 6), BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 1.0f, adjustDashToHexSize(_movePathDash), 0.5f));
 		g.draw(path);
 		//TODO here
 	}
@@ -289,15 +292,15 @@ public class MapPanel extends JPanel {
 			}
 			g.setStroke(new BasicStroke((int) (radius / 12), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 			g.draw(path);
-			g.setStroke(new BasicStroke((float) (radius / 4), BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 1.0f, adjustDashToHexSize(), 0.5f));
+			g.setStroke(new BasicStroke((float) (radius / 4), BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 1.0f, adjustDashToHexSize(_railwaysDash), 0.5f));
 			g.draw(path);
 		}
 	}
 
-	private float[] adjustDashToHexSize() {
-		float[] result = new float[_railwaysDash.length];
-		for (int i = 0; i < _railwaysDash.length; i++) {
-			result[i] = (float) (_railwaysDash[i] * radius);
+	private float[] adjustDashToHexSize(float[] input) {
+		float[] result = new float[input.length];
+		for (int i = 0; i < input.length; i++) {
+			result[i] = (float) (input[i] * radius);
 		}
 		return result;
 	}
@@ -627,10 +630,6 @@ public class MapPanel extends JPanel {
 
 	public void setSelectedUnit(Unit selectedUnit) {
 		this.selectedUnit = selectedUnit;
-	}
-
-	public void setMoveArea(List<Location> moveArea) {
-		this.moveArea = moveArea;
 	}
 
 	public Rectangle getMapBounds() {

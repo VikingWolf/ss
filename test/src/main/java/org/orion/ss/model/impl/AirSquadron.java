@@ -18,7 +18,7 @@ public class AirSquadron extends ActivableImpl implements Mobile {
 	@Override
 	public MobilitySet getMobilities() {
 		MobilitySet result = new MobilitySet();
-		result.put(this.getModel().getMobility(), this.getModel().getSpeed());
+		result.add(this.getModel().getMobility());
 		return result;
 	}
 

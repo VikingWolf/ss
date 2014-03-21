@@ -19,7 +19,7 @@ public class Ship extends ActivableImpl implements Mobile {
 	@Override
 	public MobilitySet getMobilities() {
 		MobilitySet result = new MobilitySet();
-		result.put(this.getModel().getMobility(), getModel().getSpeed());
+		result.add(this.getModel().getMobility());
 		return result;
 	}
 

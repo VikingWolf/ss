@@ -9,7 +9,8 @@ public class NumberFormats {
 
 	public final static NumberFormat DF_2 = new DecimalFormat("#0.0#");
 	public final static NumberFormat DF_3 = new DecimalFormat("#0.0##");
-	public final static NumberFormat PERCENT = new DecimalFormat("0.##%");
+	public final static NumberFormat PERCENT_2 = new DecimalFormat("0.##%");
+	public final static NumberFormat PERCENT = new DecimalFormat("0%");
 	public final static NumberFormat XP = new XpFormat();
 	public final static NumberFormat SHORT_XP = new ShortXpFormat();
 	public final static NumberFormat MORALE = new MoraleFormat();

@@ -5,11 +5,8 @@ import java.util.List;
 
 import org.orion.ss.model.Mobile;
 import org.orion.ss.model.core.OrderTime;
-import org.orion.ss.model.geo.HexSet;
 import org.orion.ss.model.geo.Location;
 import org.orion.ss.model.impl.Game;
-import org.orion.ss.service.MovementService;
-import org.orion.ss.service.ServiceFactory;
 
 public class Move extends Order<Mobile> {
 
@@ -38,11 +35,8 @@ public class Move extends Order<Mobile> {
 
 	@Override
 	public boolean checkRequirements() {
-		MovementService movementService = ServiceFactory.getMovementService(getGame());
-		HexSet area = movementService.getMoveArea(null, getExecutor());
-		if (area.size() > 0)
-			return true;
-		else return false;
+		//TODO refinar
+		return getExecutor().getSpentMovement() < 1.0;
 	}
 
 	@Override

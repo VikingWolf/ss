@@ -2,7 +2,7 @@ package org.orion.ss.model.impl;
 
 import org.orion.ss.model.CombatUnitModel;
 import org.orion.ss.model.core.FormationLevel;
-import org.orion.ss.model.core.Mobility;
+import org.orion.ss.model.core.MobilityType;
 import org.orion.ss.model.core.ShipType;
 
 public class ShipModel extends CombatUnitModel {
@@ -17,7 +17,7 @@ public class ShipModel extends CombatUnitModel {
 
 	@Override
 	public Mobility getMobility() {
-		return Mobility.SEA;
+		return new Mobility(MobilityType.SEA, speed);
 	}
 
 	@Override

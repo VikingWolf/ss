@@ -82,11 +82,11 @@ class UnitStackPanel extends JPanel {
 		if (unit instanceof Company) {
 			Company company = (Company) unit;
 			JTextField strengthTF = new JTextField();
-			strengthTF.setText(NumberFormats.PERCENT.format(company.getStrength()));
+			strengthTF.setText(NumberFormats.PERCENT_2.format(company.getStrength()));
 			strengthTF.setEditable(false);
 			panel.add(strengthTF);
 			JTextField organizationTF = new JTextField();
-			organizationTF.setText(NumberFormats.PERCENT.format(company.getOrganization()));
+			organizationTF.setText(NumberFormats.PERCENT_2.format(company.getOrganization()));
 			organizationTF.setEditable(false);
 			panel.add(organizationTF);
 			JTextField moraleTF = new JTextField();

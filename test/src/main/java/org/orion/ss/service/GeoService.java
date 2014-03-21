@@ -207,4 +207,9 @@ public class GeoService extends Service {
 		else return null;
 	}
 
+	protected Hex getHexAt(Hex hex, HexSide side) {
+		Location adjacent = side.getAdjacent(hex.getCoords());
+		return getHexAt(adjacent);
+	}
+
 }

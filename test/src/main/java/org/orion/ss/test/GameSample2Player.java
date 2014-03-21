@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.orion.ss.model.core.BridgeType;
 import org.orion.ss.model.core.FormationLevel;
-import org.orion.ss.model.core.Mobility;
+import org.orion.ss.model.core.MobilityType;
 import org.orion.ss.model.core.ObjectiveType;
 import org.orion.ss.model.core.PositionRole;
 import org.orion.ss.model.core.SupplyType;
@@ -100,7 +100,7 @@ public class GameSample2Player {
 	}
 
 	protected void buildGERCompanyModels() {
-		gerGrenadierCompanyModel39 = new CompanyModel("Grenadier Kompanie 39", TroopType.INFANTRY, Mobility.FOOT, 4.5d, 4, 105, uk);
+		gerGrenadierCompanyModel39 = new CompanyModel("Grenadier Kompanie 39", TroopType.INFANTRY, MobilityType.FOOT, 4.5d, 4, 105, uk);
 		gerGrenadierCompanyModel39.addWeaponry(mauser98k, 105);
 		Stock gerGrenadierCompanyMax39Stock = new Stock();
 		gerGrenadierCompanyMax39Stock.put(SupplyType.AMMO, 0.005);
@@ -109,14 +109,14 @@ public class GameSample2Player {
 	}
 
 	protected void buildUKCompanyModels() {
-		ukRifleCompanyModel39 = new CompanyModel("Rifle Company 39", TroopType.INFANTRY, Mobility.FOOT, 4.5d, 3, 135, uk);
+		ukRifleCompanyModel39 = new CompanyModel("Rifle Company 39", TroopType.INFANTRY, MobilityType.FOOT, 4.5d, 3, 135, uk);
 		ukRifleCompanyModel39.addWeaponry(leeEnfieldMk1, 135);
 		Stock ukRifleCompany39MaxStock = new Stock();
 		ukRifleCompany39MaxStock.put(SupplyType.AMMO, 0.005);
 		ukRifleCompanyModel39.setMaxSupplies(ukRifleCompany39MaxStock);
 		uk.addCompanyModel(ukRifleCompanyModel39);
 
-		ukRifleCompanyModel40 = new CompanyModel("Rifle Company 40", TroopType.INFANTRY, Mobility.FOOT, 4.5d, 3, 135, uk);
+		ukRifleCompanyModel40 = new CompanyModel("Rifle Company 40", TroopType.INFANTRY, MobilityType.FOOT, 4.5d, 3, 135, uk);
 		ukRifleCompanyModel40.addWeaponry(leeEnfieldMk1, 135);
 		ukRifleCompanyModel40.addWeaponry(vickersBerthierLMG, 10);
 
@@ -126,7 +126,7 @@ public class GameSample2Player {
 		ukRifleCompanyModel39.addUpgrade(ukRifleCompanyModel40);
 		uk.addCompanyModel(ukRifleCompanyModel40);
 
-		ukArtilleryBatteryModel39 = new CompanyModel("Artillery Battery 39", TroopType.ARTILLERY, Mobility.FOOT, 4.5d, 3, 90, uk);
+		ukArtilleryBatteryModel39 = new CompanyModel("Artillery Battery 39", TroopType.ARTILLERY, MobilityType.FOOT, 4.5d, 3, 90, uk);
 		ukArtilleryBatteryModel39.addWeaponry(leeEnfieldMk1, 40);
 		ukArtilleryBatteryModel39.addWeaponry(qf25pdr, 4);
 		Stock ukArtilleryBattery39Stock = new Stock();

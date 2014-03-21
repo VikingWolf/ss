@@ -458,6 +458,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 		getInstructionsTF().setText("Trace the movement path by clicking adjacent hexes. Right click to end.");
 		getMapPanel().setMode(MapPanel.MODE_MOVEMENT);
 		movementService.resetMovementPath(mobile);
+		mapPanel.repaint();
 	}
 
 	@Override
@@ -482,9 +483,9 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 				unitOrdersDialog.addInfo(getCurrentLocation());
 				movementService.addToMovementPath(getCurrentLocation());
 			} else if (modifiers[0] == MouseEvent.BUTTON3) {
-				logger.error("move button3");
-				unitOrdersDialog.setVisible(true);
 				mapPanel.setMode(MapPanel.MODE_TURN);
+				actionMode = MODE_INFO;
+				unitOrdersDialog.setVisible(true);
 			}
 		}
 		if (list.getSelectedValue() != null && orderService.buildOrders(list.getSelectedValue()).size() > 0)

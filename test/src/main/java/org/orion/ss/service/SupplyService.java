@@ -10,13 +10,14 @@ import org.orion.ss.model.Building;
 import org.orion.ss.model.Located;
 import org.orion.ss.model.MovementSupplier;
 import org.orion.ss.model.Unit;
-import org.orion.ss.model.core.Mobility;
 import org.orion.ss.model.core.PositionRole;
 import org.orion.ss.model.geo.Hex;
 import org.orion.ss.model.geo.HexSet;
+import org.orion.ss.model.geo.HexSide;
 import org.orion.ss.model.geo.Location;
 import org.orion.ss.model.geo.Railway;
 import org.orion.ss.model.impl.Game;
+import org.orion.ss.model.impl.Mobility;
 import org.orion.ss.model.impl.Position;
 import org.orion.ss.model.impl.Stock;
 
@@ -86,9 +87,13 @@ public class SupplyService extends Service {
 	private HexSet getSupplyArea(MovementSupplier supplier) {
 		/* supply area is additive, if any unit of the stack can supply and hex, the hex is in supply */
 		HexSet result = new HexSet();
-		for (Mobility mobility : supplier.getMobilities().keySet()) {
+		for (Mobility mobility : supplier.getMobilities()) {
 			Hex hex = geoService.getHexAt(((Located) supplier).getLocation());
-			movementService.recursiveAreaByMovement(hex, hex, result, supplier.getSupplyRange(), mobility);
+			HexClosedList closedList = new HexClosedList();
+			for (HexSide side : HexSide.values()) {
+				movementService.recursiveAreaByMovement(supplier.getLocation(), hex, side, closedList, result, getGame().getTurnDuration(), mobility);
+			}
+
 		}
 		return result;
 	}
