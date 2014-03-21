@@ -35,4 +35,22 @@ public class HexSet extends ArrayList<Hex> {
 		return result;
 	}
 
+	public static HexSet intersect(HexSet[] hexSets) {
+		HexSet result = HexSet.merge(hexSets);
+		if (hexSets.length > 1) {
+			for (HexSet hexSet : hexSets) {
+				result.addAll(hexSet);
+			}
+		}
+		return result;
+	}
+
+	public static HexSet merge(HexSet[] hexSets) {
+		HexSet result = new HexSet();
+		for (HexSet hexSet : hexSets) {
+			result.addAll(hexSet);
+		}
+		return result;
+	}
+
 }

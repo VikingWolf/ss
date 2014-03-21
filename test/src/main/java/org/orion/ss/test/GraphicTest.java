@@ -85,7 +85,7 @@ public class GraphicTest {
 	}
 
 	protected void prepareGame() {
-		GameSample1Player sample = new GameSample1Player();
+		GameSample2Player sample = new GameSample2Player();
 		gameService = ServiceFactory.getGameService(sample.buildGame(), sample.getScenario());
 	}
 

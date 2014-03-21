@@ -22,6 +22,7 @@ import org.orion.ss.model.impl.UnitStack;
 import org.orion.ss.service.GameService;
 import org.orion.ss.service.GeoService;
 import org.orion.ss.service.ServiceFactory;
+import org.orion.ss.service.UnitService;
 import org.orion.ss.test.GraphicTest;
 import org.orion.ss.test.components.tree.DeploymentTreePanel;
 import org.slf4j.Logger;
@@ -33,6 +34,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable, U
 
 	private final GeoService geoService;
 	private final GameService gameService;
+	private final UnitService unitService;
 
 	private final static double HEX_SIDE = 48.0d;
 
@@ -48,6 +50,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable, U
 	public DeploymentPanel(GraphicTest parent, GameService gameService) {
 		super(parent, gameService);
 		geoService = ServiceFactory.getGeoService(getGame());
+		unitService = ServiceFactory.getUnitService(getGame());
 		this.gameService = gameService;
 		setBounds(GraphicTest.TAB_BOUNDS);
 		setLayout(null);
@@ -228,14 +231,14 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable, U
 	}
 
 	protected void mountMapPanel() {
-		mapPanel = new ScrollableMap(500, GraphicTest.TOP_MARGIN, 860, 620, HEX_SIDE, getGame(), getGame().getCurrentPlayerPosition(), this, geoService.fullMap());
+		mapPanel = new ScrollableMap(500, GraphicTest.TOP_MARGIN, 860, 620, HEX_SIDE, getGame(), getGame().getCurrentPlayerPosition(), this, geoService.fullMap(), MapPanel.MODE_DEPLOYMENT);
 		mapPanel.setDrawSupplyArea(false);
 		add(mapPanel);
 	}
 
 	@Override
 	public void updateUnitDetails(Unit unit) {
-		mapPanel.setDeployArea(geoService.getDeployArea(unit));
+		mapPanel.setDeployArea(unitService.getDeployArea(unit));
 		mapPanel.setSelectedUnit(unit);
 		mapPanel.repaint();
 		unitInfoPanel.update(unit);
@@ -244,8 +247,8 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable, U
 	}
 
 	@Override
-	public void updateLocation(Location location) {
-		boolean result = geoService.deploy(selectedUnit, location);
+	public void updateLocation(Location location, int... modifiers) {
+		boolean result = unitService.deploy(selectedUnit, location);
 		if (result) {
 			infoL.setForeground(Color.BLACK);
 			infoL.setText(selectedUnit.getFullLongName() + " placed at (" + location.getX() + "," + location.getY() + ")");
@@ -258,7 +261,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable, U
 	}
 
 	@Override
-	public void refreshLocation() {
+	public void refreshLocation(int... modifiers) {
 		// TODO Auto-generated method stub
 
 	}
@@ -266,7 +269,7 @@ public class DeploymentPanel extends PlayerPanel implements LocationUpdatable, U
 	@Override
 	public void locationInfo(Location location, int x, int y) {
 		int symbolSize = 64;
-		UnitStack stack = geoService.getStackAt(getGame().getCurrentPlayerPosition(), location);
+		UnitStack stack = unitService.getStackAt(getGame().getCurrentPlayerPosition(), location);
 		if (stack.size() > 0) {
 			UnitStackDialog unitStackDialog = new UnitStackDialog(stack, symbolSize, getGame());
 			Dimension dimension = unitStackDialog.computeSize();

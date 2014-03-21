@@ -7,7 +7,6 @@ import org.orion.ss.model.Mobile;
 import org.orion.ss.model.SpotCapable;
 import org.orion.ss.model.Unit;
 import org.orion.ss.model.geo.Location;
-import org.orion.ss.service.GeoService;
 
 public class UnitStack extends ArrayList<Unit> implements Activable, Mobile, SpotCapable {
 
@@ -67,7 +66,7 @@ public class UnitStack extends ArrayList<Unit> implements Activable, Mobile, Spo
 				max = spot;
 			}
 		}
-		return Math.min(GeoService.MAX_SPOTTING, max);
+		return max;
 	}
 
 	public Unit[] getArray() {

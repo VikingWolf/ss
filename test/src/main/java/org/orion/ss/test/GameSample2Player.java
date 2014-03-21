@@ -42,7 +42,7 @@ import org.orion.ss.model.impl.Scenario;
 import org.orion.ss.model.impl.Stock;
 import org.orion.ss.model.impl.WeaponModel;
 
-public class GameSample1Player {
+public class GameSample2Player {
 
 	private Game game;
 	private Scenario scenario;
@@ -142,7 +142,7 @@ public class GameSample1Player {
 		settings.setInitialTime(new Date());
 		settings.setTimeLimit(2);
 		settings.setTimeMargin(1);
-		settings.setHexSide(1.0f);
+		settings.setHexSide(2.5f);
 		settings.setStackLimitModifier(3.0);
 		scenario = new Scenario("sample1p", 6, 11);
 		scenario.setSettings(settings);
@@ -228,13 +228,9 @@ public class GameSample1Player {
 		scenario.addDeployPoint(new Location(7, 5), gerCorpsII);
 		scenario.addDeployPoint(new Location(8, 4), gerCorpsII);
 
-		scenario.addSupplySource(new Location(6, 3), gerCorpsII);
-		scenario.addSupplySource(new Location(7, 3), gerCorpsII);
-		scenario.addSupplySource(new Location(7, 2), gerCorpsII);
-		scenario.addSupplySource(new Location(7, 4), gerCorpsII);
 		scenario.addSupplySource(new Location(7, 5), gerCorpsII);
-		scenario.addSupplySource(new Location(8, 4), gerCorpsII);
 		scenario.addSupplySource(new Location(8, 5), gerCorpsII);
+		scenario.addSupplySource(new Location(9, 5), gerCorpsII);
 
 		Company corpsHQCompany = new Company(gerGrenadierCompanyModel39, 0, 4.0d, 0.8d, 0.9d);
 		Stock gerStock1 = new Stock();
@@ -248,7 +244,10 @@ public class GameSample1Player {
 	protected void buildUKPosition() {
 		ukCorpsI.setPrestige(9500);
 		ukCorpsI.setCountry(uk);
-		scenario.addSupplySource(new Location(10, 0), ukCorpsI);
+		scenario.addSupplySource(new Location(0, 0), ukCorpsI);
+		scenario.addSupplySource(new Location(1, 0), ukCorpsI);
+		scenario.addSupplySource(new Location(0, 1), ukCorpsI);
+
 		scenario.addDeployPoint(new Location(0, 0), ukCorpsI);
 		scenario.addDeployPoint(new Location(1, 0), ukCorpsI);
 		scenario.addDeployPoint(new Location(1, 1), ukCorpsI);

@@ -38,11 +38,18 @@ import org.orion.ss.model.impl.UnitStack;
 import org.orion.ss.service.GeoService;
 import org.orion.ss.service.GraphService;
 import org.orion.ss.service.Hexographer;
+import org.orion.ss.service.MovementService;
 import org.orion.ss.service.ServiceFactory;
+import org.orion.ss.service.SupplyService;
+import org.orion.ss.service.UnitService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MapPanel extends JPanel {
+
+	public final static int MODE_DEPLOYMENT = 1;
+	public final static int MODE_TURN = 2;
+	public final static int MODE_MOVEMENT = 3;
 
 	protected static final Logger logger = LoggerFactory.getLogger(MapPanel.class);
 	private static final long serialVersionUID = -1578397214231068502L;
@@ -90,6 +97,10 @@ public class MapPanel extends JPanel {
 
 	private final Hexographer hexographer;
 	private final GeoService geoService;
+	private final GraphService graphService;
+	private final UnitService unitService;
+	private final MovementService movementService;
+	private final SupplyService supplyService;
 
 	private double radius;
 	private HexSet displayArea;
@@ -100,28 +111,29 @@ public class MapPanel extends JPanel {
 	private LocationUpdatable toUpdate;
 	private Unit selectedUnit = null;
 	private final Position observer;
-
 	private List<Location> deployArea;
 	private List<Location> moveArea;
-
 	private Point offset;
+	private int mode;
 
-	private final GraphService graphService;
-
-	public MapPanel(double radius, Game game, Position observer, LocationUpdatable parent) {
+	public MapPanel(double radius, Game game, Position observer, LocationUpdatable parent, int mode) {
 		super();
 		offset = new Point(0, 0);
 		this.observer = observer;
 		hexographer = new Hexographer(radius);
 		geoService = ServiceFactory.getGeoService(game);
 		graphService = ServiceFactory.getGraphService(game);
+		unitService = ServiceFactory.getUnitService(game);
+		movementService = ServiceFactory.getMovementService(game);
+		supplyService = ServiceFactory.getSupplyService(game);
 		this.addMouseListener(new MapMouseListener());
 		toUpdate = parent;
+		this.mode = mode;
 		setRadius(radius);
 	}
 
-	public MapPanel(double radius, Game game, Position observer, LocationUpdatable parent, HexSet displayArea, Map<Location, UnitStack> units, GraphService graphService) {
-		this(radius, game, observer, parent);
+	public MapPanel(double radius, Game game, Position observer, LocationUpdatable parent, HexSet displayArea, Map<Location, UnitStack> units, GraphService graphService, int mode) {
+		this(radius, game, observer, parent, mode);
 		setDisplayArea(displayArea);
 	}
 
@@ -177,6 +189,47 @@ public class MapPanel extends JPanel {
 		if (drawUnits) {
 			drawUnits(g);
 		}
+
+		if (mode == MODE_MOVEMENT) {
+			drawMoveOptions(g);
+			drawMovementPath(g);
+		}
+
+	}
+
+	private void drawMoveOptions(Graphics2D g) {
+		//TODO here
+
+		g.setFont(fontSmall);
+		for (Location location : movementService.getMoveOptions()) {
+			Point o = computeCenter(location.getX() - (int) getOffset().getX(), location.getY() - (int) getOffset().getY());
+			Color color = new Color(255, 255, 0, 90);
+			g.setColor(color);
+			g.fillPolygon(hexographer.getHex(o));
+			g.setColor(Color.BLACK);
+			g.fillArc((int) o.getX() - (int) (radius / 3), (int) o.getY() - (int) (radius / 4), (int) (radius / 1.5), (int) (radius / 2), 0, 360);
+			g.setColor(Color.WHITE);
+			//TODO here 
+			String text = "" + movementService.computePathMovementCost(location);
+			g.drawString(text, (int) o.getX() - textWidth(g, text) / 2, (int) o.getY() + g.getFont().getSize() / 2);
+		}
+	}
+
+	private void drawMovementPath(Graphics2D g) {
+		GeneralPath path = new GeneralPath();
+		for (int i = 0; i < movementService.getMovementPath().size(); i++) {
+			Location location = movementService.getMovementPath().get(i);
+			Point o = computeCenter(location.getX() - (int) getOffset().getX(), location.getY() - (int) getOffset().getY());
+			if (i == 0) {
+				path.moveTo(o.getX(), o.getY());
+			} else {
+				path.lineTo(o.getX(), o.getY());
+			}
+		}
+		g.setColor(Color.RED);
+		g.setStroke(new BasicStroke((int) (radius / 8), BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
+		g.draw(path);
+		//TODO here
 	}
 
 	private void drawBridges(Graphics2D g) {
@@ -270,7 +323,7 @@ public class MapPanel extends JPanel {
 
 	private void drawSupplyArea(Graphics2D g) {
 		g.setColor(_supplyAreaColor);
-		List<Location> list = geoService.getSupplyArea(observer);
+		List<Location> list = supplyService.getSupplyArea(observer);
 		for (int i = -1; i < horizCapacity() + 1; i++) {
 			for (int j = -1; j < vertCapacity() + 1; j++) {
 				Point o = computeCenter(i, j);
@@ -305,8 +358,8 @@ public class MapPanel extends JPanel {
 	private void drawUnits(Graphics2D g) {
 		g.setColor(Color.BLACK);
 		g.setFont(fontSmall);
-		Map<Location, UnitStack> units = geoService.getAllUnitsLocatedAt(observer, getMapBounds());
-		Map<Location, Stock> supplies = geoService.getStocksLocatedAt(getMapBounds(), geoService.getGame().getCurrentPlayerPosition());
+		Map<Location, UnitStack> units = unitService.getAllUnitsLocatedAt(observer, getMapBounds());
+		Map<Location, Stock> supplies = supplyService.getStocksLocatedAt(getMapBounds(), geoService.getGame().getCurrentPlayerPosition());
 		for (int i = -1; i < horizCapacity() + 1; i++) {
 			for (int j = -1; j < vertCapacity() + 1; j++) {
 				Point o = computeCenter(i, j);
@@ -366,7 +419,7 @@ public class MapPanel extends JPanel {
 	}
 
 	private void drawGrid(Graphics2D g) {
-		HexSet visible = geoService.getVisibleArea(observer, this.getMapBounds());
+		HexSet visible = unitService.getVisibleArea(observer, this.getMapBounds());
 		g.setColor(_gridColor);
 		g.setStroke(_basicStroke);
 		for (int i = -1; i < horizCapacity() + 1; i++) {
@@ -528,8 +581,6 @@ public class MapPanel extends JPanel {
 			computeBounds();
 	}
 
-	/* Event listeners */
-
 	public boolean isDrawSupplyArea() {
 		return drawSupplyArea;
 	}
@@ -587,17 +638,32 @@ public class MapPanel extends JPanel {
 		return result;
 	}
 
+	public int getMode() {
+		return mode;
+	}
+
+	public void setMode(int mode) {
+		this.mode = mode;
+	}
+
+	/* Event listeners */
+
 	class MapMouseListener extends MouseAdapter {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if (e.getButton() == 1) {
-				getToUpdate().updateLocation(computeCoordsForClick(e.getX(), e.getY()));
+			if (mode == MODE_DEPLOYMENT) {
+				if (e.getButton() == 1) {
+					getToUpdate().updateLocation(computeCoordsForClick(e.getX(), e.getY()));
+				}
+				if (e.getButton() == 3) {
+					getToUpdate().locationInfo(computeCoordsForClick(e.getX(), e.getY()), e.getX() - (int) offset.getX(), e.getY() - (int) offset.getY());
+				}
+			} else if (mode == MODE_TURN) {
+				getToUpdate().updateLocation(computeCoordsForClick(e.getX(), e.getY()), e.getButton());
+			} else if (mode == MODE_MOVEMENT) {
+				getToUpdate().updateLocation(computeCoordsForClick(e.getX(), e.getY()), e.getButton());
 			}
-			if (e.getButton() == 3) {
-				getToUpdate().locationInfo(computeCoordsForClick(e.getX(), e.getY()), e.getX() - (int) offset.getX(), e.getY() - (int) offset.getY());
-			}
-
 		}
 	}
 }

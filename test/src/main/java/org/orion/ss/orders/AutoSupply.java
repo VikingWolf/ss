@@ -3,8 +3,8 @@ package org.orion.ss.orders;
 import org.orion.ss.model.Unit;
 import org.orion.ss.model.core.OrderTime;
 import org.orion.ss.model.impl.Game;
-import org.orion.ss.service.GeoService;
 import org.orion.ss.service.ServiceFactory;
+import org.orion.ss.service.SupplyService;
 
 public class AutoSupply extends Order<Unit> {
 
@@ -30,8 +30,8 @@ public class AutoSupply extends Order<Unit> {
 
 	@Override
 	public boolean checkRequirements() {
-		GeoService geoService = ServiceFactory.getGeoService(getGame());
-		return geoService.getNearestSupplySource(getExecutor()) != null;
+		SupplyService supplyService = ServiceFactory.getSupplyService(getGame());
+		return supplyService.getNearestSupplySource(getExecutor()) != null;
 	}
 
 	@Override

@@ -2,9 +2,12 @@ package org.orion.ss.model.geo;
 
 import org.orion.ss.model.Activable;
 import org.orion.ss.model.Building;
+import org.orion.ss.model.ZOCProjecter;
 import org.orion.ss.model.impl.Country;
 
-public class Fortification extends Building implements Activable {
+public class Fortification extends Building implements Activable, ZOCProjecter {
+
+	private final static int DEFAULT_URBAN_ZOC_RADIUS = 8;
 
 	private int strength;
 	private final int size;
@@ -27,6 +30,11 @@ public class Fortification extends Building implements Activable {
 	@Override
 	public String toString() {
 		return "Fortification";
+	}
+
+	@Override
+	public int getZOCRadius() {
+		return DEFAULT_URBAN_ZOC_RADIUS;
 	}
 
 	/* getters & setters */

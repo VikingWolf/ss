@@ -19,9 +19,9 @@ import org.orion.ss.model.impl.Company;
 import org.orion.ss.model.impl.CompanyModel;
 import org.orion.ss.model.impl.Formation;
 import org.orion.ss.service.GameService;
-import org.orion.ss.service.GeoService;
 import org.orion.ss.service.ManagementService;
 import org.orion.ss.service.ServiceFactory;
+import org.orion.ss.service.UnitService;
 import org.orion.ss.test.GraphicTest;
 import org.orion.ss.test.components.FastPanel;
 import org.orion.ss.test.components.UnitDetailsDisplayer;
@@ -38,7 +38,7 @@ public class PurchaseCompanyDialog extends JDialog implements UnitDetailsDisplay
 
 	private final GameService gameService;
 	private final ManagementService managementService;
-	private final GeoService geoService;
+	private final UnitService unitService;
 
 	private final UnitDisplayer parent;
 
@@ -55,7 +55,7 @@ public class PurchaseCompanyDialog extends JDialog implements UnitDetailsDisplay
 		this.parent = parent;
 		this.gameService = gameService;
 		managementService = ServiceFactory.getManagementService(gameService.getGame());
-		geoService = ServiceFactory.getGeoService(gameService.getGame());
+		unitService = ServiceFactory.getUnitService(gameService.getGame());
 		setTitle("Buy company to place at " + location);
 		setBounds((int) GraphicTest.DEFAULT_DIALOG_LOCATION.getX(), (int) GraphicTest.DEFAULT_DIALOG_LOCATION.getY(), 540, 340);
 		setModal(true);
@@ -163,7 +163,7 @@ public class PurchaseCompanyDialog extends JDialog implements UnitDetailsDisplay
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Company company = managementService.purchaseCompany(selectedFormation, (CompanyModel) modelsCB.getSelectedItem());
-				geoService.deploy(company, location);
+				unitService.deploy(company, location);
 				parent.updateUnitsDisplay(location);
 				dispose();
 				setVisible(false);

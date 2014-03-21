@@ -17,6 +17,7 @@ import org.orion.ss.model.impl.Game;
 import org.orion.ss.service.CombatService;
 import org.orion.ss.service.GeoService;
 import org.orion.ss.service.ServiceFactory;
+import org.orion.ss.service.UnitService;
 import org.orion.ss.test.GraphicTest;
 import org.orion.ss.utils.NumberFormats;
 import org.springframework.util.StringUtils;
@@ -27,11 +28,13 @@ public class SmallUnitInfoPanel extends FastPanel {
 
 	private final CombatService combatService;
 	private final GeoService geoService;
+	private final UnitService unitService;
 
 	public SmallUnitInfoPanel(Game game) {
 		super();
 		combatService = ServiceFactory.getCombatService(game);
 		geoService = ServiceFactory.getGeoService(game);
+		unitService = ServiceFactory.getUnitService(game);
 	}
 
 	public void update(Activable unit) {
@@ -79,7 +82,7 @@ public class SmallUnitInfoPanel extends FastPanel {
 				GraphicTest.ROW_HEIGHT);
 		/* garrison */
 		i++;
-		for (Unit unit : geoService.getStackAt(geoService.getGame().getCurrentPlayerPosition(), fortification.getLocation())) {
+		for (Unit unit : unitService.getStackAt(geoService.getGame().getCurrentPlayerPosition(), fortification.getLocation())) {
 			if (unit.isGarrison()) {
 				addNotEditableTextField(unit.getFullShortName(),
 						GraphicTest.LEFT_MARGIN,

@@ -11,9 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 import org.orion.ss.model.Unit;
+import org.orion.ss.model.geo.Location;
 import org.orion.ss.orders.Order;
 import org.orion.ss.service.GameService;
 import org.orion.ss.service.OrderService;
@@ -21,6 +21,7 @@ import org.orion.ss.service.ServiceFactory;
 import org.orion.ss.test.GraphicTest;
 import org.orion.ss.test.components.FastPanel;
 import org.orion.ss.test.components.TurnPanel;
+import org.orion.ss.test.order.MoveOrderPanel;
 import org.orion.ss.test.order.OrderPanel;
 import org.orion.ss.test.order.OrderPanelFactory;
 import org.slf4j.Logger;
@@ -36,7 +37,6 @@ public class UnitOrdersDialog extends JDialog {
 
 	private final OrderPanelFactory orderPanelFactory;
 	private OrderPanel<?, ?> orderP;
-	private final JTextField resultTF;
 	private JLabel timeL;
 
 	private FastPanel panel;
@@ -46,11 +46,10 @@ public class UnitOrdersDialog extends JDialog {
 	private final Unit unit;
 	private Order<?> order = null;
 
-	public UnitOrdersDialog(GameService gameService, Unit unit, JTextField resultTF, TurnPanel turnPanel) {
+	public UnitOrdersDialog(GameService gameService, Unit unit, TurnPanel turnPanel) {
 		super();
 		this.gameService = gameService;
 		this.unit = unit;
-		this.resultTF = resultTF;
 		this.turnPanel = turnPanel;
 		orderService = ServiceFactory.getOrderService(this.gameService.getGame());
 		orderPanelFactory = new OrderPanelFactory(unit, this);
@@ -75,6 +74,12 @@ public class UnitOrdersDialog extends JDialog {
 		});
 		mount();
 		setVisible(true);
+	}
+
+	public void addInfo(Object info) {
+		if (orderP instanceof MoveOrderPanel && info instanceof Location) {
+			((MoveOrderPanel) orderP).addLocation((Location) info);
+		}
 	}
 
 	protected void mount() {
@@ -126,7 +131,7 @@ public class UnitOrdersDialog extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				getResultTF().setText(orderService.execute(getOrder()));
+				getTurnPanel().getInstructionsTF().setText(orderService.execute(getOrder()));
 				turnPanel.refreshLocation();
 				dispose();
 				setVisible(false);
@@ -162,10 +167,6 @@ public class UnitOrdersDialog extends JDialog {
 	public void setOrder(Order<?> order) {
 		this.order = order;
 		timeL.setText("Time=" + order.getOrderTime().getDenomination());
-	}
-
-	public JTextField getResultTF() {
-		return resultTF;
 	}
 
 	public TurnPanel getTurnPanel() {

@@ -1,21 +1,25 @@
 package org.orion.ss.orders;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.orion.ss.model.Mobile;
 import org.orion.ss.model.core.OrderTime;
 import org.orion.ss.model.geo.HexSet;
+import org.orion.ss.model.geo.Location;
 import org.orion.ss.model.impl.Game;
-import org.orion.ss.service.GeoService;
+import org.orion.ss.service.MovementService;
 import org.orion.ss.service.ServiceFactory;
 
 public class Move extends Order<Mobile> {
 
 	public final static Class<Mobile> EXECUTOR_CLASS = Mobile.class;
 
-	private final GeoService geoService;
+	private final List<Location> movementPath;
 
 	public Move(Mobile executor, Game game) {
 		super(executor, game);
-		geoService = ServiceFactory.getGeoService(game);
+		movementPath = new ArrayList<Location>();
 	}
 
 	public static String getDescription() {
@@ -34,8 +38,8 @@ public class Move extends Order<Mobile> {
 
 	@Override
 	public boolean checkRequirements() {
-		HexSet area = geoService.getMoveArea(getExecutor());
-		logger.error("executor=" + this.getExecutor() + ", area=" + area.size());
+		MovementService movementService = ServiceFactory.getMovementService(getGame());
+		HexSet area = movementService.getMoveArea(null, getExecutor());
 		if (area.size() > 0)
 			return true;
 		else return false;
@@ -45,6 +49,16 @@ public class Move extends Order<Mobile> {
 	public String execute() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/* getters & setters */
+
+	public void addToMovementPath(Location location) {
+		movementPath.add(location);
+	}
+
+	public List<Location> getMovementPath() {
+		return movementPath;
 	}
 
 }

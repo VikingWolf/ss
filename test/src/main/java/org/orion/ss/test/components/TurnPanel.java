@@ -3,6 +3,7 @@ package org.orion.ss.test.components;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +31,11 @@ import org.orion.ss.model.impl.Stock;
 import org.orion.ss.model.impl.UnitStack;
 import org.orion.ss.service.GameService;
 import org.orion.ss.service.GeoService;
+import org.orion.ss.service.MovementService;
 import org.orion.ss.service.OrderService;
 import org.orion.ss.service.ServiceFactory;
 import org.orion.ss.service.TextService;
+import org.orion.ss.service.UnitService;
 import org.orion.ss.test.GraphicTest;
 import org.orion.ss.test.dialogs.BuySupplyDialog;
 import org.orion.ss.test.dialogs.PurchaseCompanyDialog;
@@ -53,6 +56,8 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	private final GeoService geoService;
 	private final TextService textService;
 	private final OrderService orderService;
+	private final UnitService unitService;
+	private final MovementService movementService;
 
 	/* GUI components */
 	private FastPanel hexInfoP = new FastPanel();
@@ -66,6 +71,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	private MapOptionsPanel mapOptionsPanel;
 	private JButton ordersB;
 	private JButton endTurnB;
+	private UnitOrdersDialog unitOrdersDialog;
 
 	private Location currentLocation = null;
 
@@ -76,6 +82,8 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 		geoService = ServiceFactory.getGeoService(getGame());
 		textService = ServiceFactory.getTextService(getGame());
 		orderService = ServiceFactory.getOrderService(getGame());
+		unitService = ServiceFactory.getUnitService(getGame());
+		movementService = ServiceFactory.getMovementService(getGame());
 	}
 
 	@Override
@@ -149,7 +157,6 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 			public void valueChanged(ListSelectionEvent arg0) {
 				if (!arg0.getValueIsAdjusting()) {
 					Activable activable = list.getSelectedValue();
-					logger.error("activable=" + activable);
 					if (activable instanceof Unit) {
 						Unit unit = (Unit) activable;
 						if (orderService.buildOrders(unit).size() > 0) {
@@ -327,7 +334,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	}
 
 	protected void mountMapPanel() {
-		mapPanel = new ScrollableMap(460, GraphicTest.TOP_MARGIN, 860, 580, HEX_SIDE, getGame(), getGame().getCurrentPlayerPosition(), this, geoService.fullMap());
+		mapPanel = new ScrollableMap(460, GraphicTest.TOP_MARGIN, 860, 580, HEX_SIDE, getGame(), getGame().getCurrentPlayerPosition(), this, geoService.fullMap(), MapPanel.MODE_TURN);
 		add(mapPanel);
 	}
 
@@ -409,7 +416,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				instructionsTF.setText("Select a hex to deploy the company...");
-				mapPanel.setDeployArea(geoService.getDeployArea(getGame().getCurrentPlayerPosition(), FormationLevel.COMPANY.getSupplyLimit()));
+				mapPanel.setDeployArea(unitService.getDeployArea(getGame().getCurrentPlayerPosition(), FormationLevel.COMPANY.getSupplyLimit()));
 				actionMode = MODE_DEPLOY_COMPANY;
 			}
 
@@ -434,7 +441,7 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	}
 
 	protected void showOrdersDialog(Unit unit) {
-		new UnitOrdersDialog(gameService, unit, instructionsTF, this);
+		unitOrdersDialog = new UnitOrdersDialog(gameService, unit, this);
 	}
 
 	protected void showBuySuppliesDialog(Location location) {
@@ -446,22 +453,39 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	}
 
 	/* state updates */
-	@Override
-	public void updateLocation(Location location) {
-		setCurrentLocation(location);
-		refreshLocation();
+	public void startMoveMode(Mobile mobile) {
+		actionMode = MODE_MOVE_UNIT;
+		getInstructionsTF().setText("Trace the movement path by clicking adjacent hexes. Right click to end.");
+		getMapPanel().setMode(MapPanel.MODE_MOVEMENT);
+		movementService.resetMovementPath(mobile);
 	}
 
 	@Override
-	public void refreshLocation() {
+	public void updateLocation(Location location, int... modifiers) {
+		setCurrentLocation(location);
+		refreshLocation(modifiers);
+	}
+
+	@Override
+	public void refreshLocation(int... modifiers) {
 		if (actionMode == MODE_INFO) {
 			this.updateHexInfoPanel(geoService.getHexAt(getCurrentLocation()));
-			this.updateStackList(geoService.getBuildingAt(getCurrentLocation()), geoService.getStackAt(getGame().getCurrentPlayerPosition(), getCurrentLocation()));
+			this.updateStackList(geoService.getBuildingAt(getCurrentLocation()), unitService.getStackAt(getGame().getCurrentPlayerPosition(), getCurrentLocation()));
 			this.updateUnitInfo(null);
 		} else if (actionMode == MODE_DEPLOY_SUPPLIES) {
 			showBuySuppliesDialog(getCurrentLocation());
 		} else if (actionMode == MODE_DEPLOY_COMPANY) {
 			showBuyCompanyDialog(getCurrentLocation());
+		} else if (actionMode == MODE_MOVE_UNIT) {
+			if (modifiers[0] == MouseEvent.BUTTON1) {
+				//TODO move unit
+				unitOrdersDialog.addInfo(getCurrentLocation());
+				movementService.addToMovementPath(getCurrentLocation());
+			} else if (modifiers[0] == MouseEvent.BUTTON3) {
+				logger.error("move button3");
+				unitOrdersDialog.setVisible(true);
+				mapPanel.setMode(MapPanel.MODE_TURN);
+			}
 		}
 		if (list.getSelectedValue() != null && orderService.buildOrders(list.getSelectedValue()).size() > 0)
 			ordersB.setEnabled(true);
@@ -472,7 +496,6 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 	@Override
 	public void locationInfo(Location location, int x, int y) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -492,13 +515,6 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 		actionMode = MODE_INFO;
 	}
 
-	public void setMoveMode(Mobile mobile) {
-		logger.error("move mode");
-		actionMode = MODE_MOVE_UNIT;
-		mapPanel.setMoveArea(geoService.getMoveArea(mobile).getLocations());
-		//TODO here
-	}
-
 	@Override
 	public void updateUnitDetails(Unit unit) {
 		// TODO Auto-generated method stub
@@ -511,6 +527,24 @@ public class TurnPanel extends PlayerPanel implements LocationUpdatable, SupplyD
 
 	public void setCurrentLocation(Location currentLocation) {
 		this.currentLocation = currentLocation;
+	}
+
+	/* getters & setters */
+
+	public JTextField getInstructionsTF() {
+		return instructionsTF;
+	}
+
+	public void setInstructionsTF(JTextField instructionsTF) {
+		this.instructionsTF = instructionsTF;
+	}
+
+	public ScrollableMap getMapPanel() {
+		return mapPanel;
+	}
+
+	public void setMapPanel(ScrollableMap mapPanel) {
+		this.mapPanel = mapPanel;
 	}
 
 }

@@ -202,9 +202,8 @@ public class Formation extends Unit implements MovementSupplier {
 	}
 
 	@Override
-	public double getSpupplyRange() {
-		// TODO supply range, function of movement capacity of hq
-		return 2.0d;
+	public double getSupplyRange() {
+		return this.getHQCompany().getModel().getSpeed();
 	}
 
 	/* getters & setters */

@@ -17,6 +17,9 @@ public class Game extends Observable {
 
 	protected Logger logger = LoggerFactory.getLogger(Game.class);
 
+	/* para evitar que las unidades que están fuera de la porción de mapa visible pierdan su visibilidad dentro de el */
+	private final static double MAX_SPOTTING = 10.0d;
+
 	private final static List<String> _games = new ArrayList<String>();
 
 	private Map<Player, Position> positions;
@@ -88,6 +91,14 @@ public class Game extends Observable {
 		long time = this.getSettings().getInitialTime().getTime();
 		time += this.getTurn() * this.getSettings().getTurnDuration() * GameSettings.HOUR_MILLIS;
 		return new Date(time);
+	}
+
+	public int getMaxSpotting() {
+		return (int) Math.floor(MAX_SPOTTING / this.getSettings().getHexSide());
+	}
+
+	public double getHexDistance() {
+		return getSettings().getHexSide() * 1.5d;
 	}
 
 	/* adders */

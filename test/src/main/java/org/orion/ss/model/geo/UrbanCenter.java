@@ -1,14 +1,12 @@
 package org.orion.ss.model.geo;
 
 import org.orion.ss.model.Building;
-import org.orion.ss.model.RadiusSupplier;
 import org.orion.ss.model.ZOCProjecter;
 import org.orion.ss.model.impl.Country;
 
-public class UrbanCenter extends Building implements RadiusSupplier, ZOCProjecter {
+public class UrbanCenter extends Building implements ZOCProjecter {
 
-	private final static int DEFAULT_URBAN_SUPPLY_RADIUS = 2;
-	private final static int DEFAULT_URBAN_ZOC_RADIUS = 2;
+	private final static int DEFAULT_URBAN_ZOC_RADIUS = 8;
 
 	private String name;
 	private int value;
@@ -45,11 +43,6 @@ public class UrbanCenter extends Building implements RadiusSupplier, ZOCProjecte
 
 	public void setPop(int pop) {
 		this.pop = pop;
-	}
-
-	@Override
-	public int getSpupplyRadius() {
-		return DEFAULT_URBAN_SUPPLY_RADIUS;
 	}
 
 	@Override

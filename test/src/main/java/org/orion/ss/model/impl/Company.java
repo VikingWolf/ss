@@ -9,7 +9,6 @@ import org.orion.ss.model.core.FormationLevel;
 import org.orion.ss.model.core.SupplyType;
 import org.orion.ss.model.core.TroopType;
 import org.orion.ss.model.geo.Location;
-import org.orion.ss.service.GeoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +16,7 @@ public class Company extends Unit {
 
 	protected final static Logger logger = LoggerFactory.getLogger(Company.class);
 
+	private final static double COMPANY_BASE_SPOTTING = 7.5d;
 	private final static double INITIATIVE_EXPERIENCE_EXPONENT = 0.5d;
 	private final static double INITIATIVE_ORGANIZATION_EXPONENT = 0.5d;
 
@@ -147,8 +147,7 @@ public class Company extends Unit {
 
 	@Override
 	public double getSpotCapacity() {
-		// TODO Auto-generated method stub
-		return GeoService.BASE_SPOTTING;
+		return COMPANY_BASE_SPOTTING;
 	}
 
 	@Override

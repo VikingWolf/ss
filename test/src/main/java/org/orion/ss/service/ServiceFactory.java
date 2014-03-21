@@ -34,6 +34,24 @@ public class ServiceFactory {
 		return result;
 	}
 
+	public static MovementService getMovementService(Game game) {
+		MovementService result = findService(MovementService.class, game);
+		if (result == null) {
+			result = new MovementService(game);
+			addService(result);
+		}
+		return result;
+	}
+
+	public static SupplyService getSupplyService(Game game) {
+		SupplyService result = findService(SupplyService.class, game);
+		if (result == null) {
+			result = new SupplyService(game);
+			addService(result);
+		}
+		return result;
+	}
+
 	public static ManagementService getManagementService(Game game) {
 		ManagementService result = findService(ManagementService.class, game);
 		if (result == null) {
@@ -83,6 +101,15 @@ public class ServiceFactory {
 		OrderService result = findService(OrderService.class, game);
 		if (result == null) {
 			result = new OrderService(game);
+			addService(result);
+		}
+		return result;
+	}
+
+	public static UnitService getUnitService(Game game) {
+		UnitService result = findService(UnitService.class, game);
+		if (result == null) {
+			result = new UnitService(game);
 			addService(result);
 		}
 		return result;

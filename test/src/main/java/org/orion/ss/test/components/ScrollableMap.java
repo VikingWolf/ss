@@ -30,14 +30,14 @@ public class ScrollableMap extends JPanel {
 	private final int width;
 	private final int height;
 
-	public ScrollableMap(int x, int y, int w, int h, double size, Game game, Position observer, LocationUpdatable updatable, HexSet displayArea) {
+	public ScrollableMap(int x, int y, int w, int h, double size, Game game, Position observer, LocationUpdatable updatable, HexSet displayArea, int mode) {
 		super();
 		width = w;
 		height = h;
 		this.setLayout(null);
 		this.setBounds(x, y, w, h);
 		this.setBackground(Color.BLACK);
-		mapPanel = new MapPanel(size, game, observer, updatable);
+		mapPanel = new MapPanel(size, game, observer, updatable, mode);
 		mapPanel.setBounds(0, 0, width - _barThickness, height - _barThickness);
 		mapPanel.setDisplayArea(displayArea);
 		add(mapPanel);
@@ -63,6 +63,8 @@ public class ScrollableMap extends JPanel {
 		return Math.min(max, mapPanel.getColumns());
 	}
 
+	/* getters & setters */
+
 	public void setSelectedUnit(Unit unit) {
 		mapPanel.setSelectedUnit(unit);
 		mapPanel.repaint();
@@ -78,8 +80,6 @@ public class ScrollableMap extends JPanel {
 	public double getRadius() {
 		return mapPanel.getRadius();
 	}
-
-	/* modes */
 
 	public void setDrawSupplyArea(boolean value) {
 		mapPanel.setDrawSupplyArea(value);
@@ -111,7 +111,9 @@ public class ScrollableMap extends JPanel {
 		mapPanel.repaint();
 	}
 
-	/* getters & setters */
+	public void setMode(int mode) {
+		mapPanel.setMode(mode);
+	}
 
 	@Override
 	public Rectangle getBounds() {
